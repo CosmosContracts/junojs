@@ -15,7 +15,7 @@ import {
 /** GenesisState defines the staking module's genesis state. */
 export interface GenesisState {
 	/** params defines all the parameters of related to deposit. */
-	params: Params
+	params: Params | undefined
 	/**
 	 * last_total_power tracks the total amounts of bonded tokens recorded during
 	 * the previous end block.
@@ -44,7 +44,7 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the staking module's genesis state. */
 export interface GenesisStateAmino {
 	/** params defines all the parameters of related to deposit. */
-	params: ParamsAmino
+	params: ParamsAmino | undefined
 	/**
 	 * last_total_power tracks the total amounts of bonded tokens recorded during
 	 * the previous end block.
@@ -128,7 +128,7 @@ export const GenesisState = {
 		for (const v of message.redelegations) {
 			Redelegation.encode(v!, writer.uint32(58).fork()).ldelim()
 		}
-		if (message.exported !== undefined) {
+		if (message.exported === true) {
 			writer.uint32(64).bool(message.exported)
 		}
 		return writer
@@ -281,10 +281,10 @@ function createBaseLastValidatorPower(): LastValidatorPower {
 export const LastValidatorPower = {
 	typeUrl: "/cosmos.staking.v1beta1.LastValidatorPower",
 	encode(message: LastValidatorPower, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.address !== undefined) {
+		if (message.address && message.address !== "") {
 			writer.uint32(10).string(message.address)
 		}
-		if (message.power !== undefined) {
+		if (message.power && message.power !== BigInt(0)) {
 			writer.uint32(16).int64(message.power)
 		}
 		return writer

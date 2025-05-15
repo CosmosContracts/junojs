@@ -7,12 +7,12 @@ import type { SignMode } from "../signing/v1beta1/signing"
 /** Tx is the standard type used for broadcasting transactions. */
 export interface Tx {
 	/** body is the processable content of the transaction */
-	body?: TxBody
+	body?: TxBody | undefined
 	/**
 	 * auth_info is the authorization related content of the transaction,
 	 * specifically signers, signer modes and fee
 	 */
-	authInfo?: AuthInfo
+	authInfo?: AuthInfo | undefined
 	/**
 	 * signatures is a list of signatures that matches the length and order of
 	 * AuthInfo's signer_infos to allow connecting signature meta information like
@@ -27,12 +27,12 @@ export interface TxProtoMsg {
 /** Tx is the standard type used for broadcasting transactions. */
 export interface TxAmino {
 	/** body is the processable content of the transaction */
-	body?: TxBodyAmino
+	body?: TxBodyAmino | undefined
 	/**
 	 * auth_info is the authorization related content of the transaction,
 	 * specifically signers, signer modes and fee
 	 */
-	auth_info?: AuthInfoAmino
+	auth_info?: AuthInfoAmino | undefined
 	/**
 	 * signatures is a list of signatures that matches the length and order of
 	 * AuthInfo's signer_infos to allow connecting signature meta information like
@@ -165,7 +165,7 @@ export interface SignDocDirectAux {
 	 */
 	bodyBytes: Uint8Array
 	/** public_key is the public key of the signing account. */
-	publicKey?: Any
+	publicKey?: Any | undefined
 	/**
 	 * chain_id is the identifier of the chain this transaction targets.
 	 * It prevents signed transactions from being used on another chain by an
@@ -178,7 +178,7 @@ export interface SignDocDirectAux {
 	sequence: bigint
 	/** tips have been depreacted and should not be used */
 	/** @deprecated */
-	tip?: Tip
+	tip?: Tip | undefined
 }
 export interface SignDocDirectAuxProtoMsg {
 	typeUrl: "/cosmos.tx.v1beta1.SignDocDirectAux"
@@ -197,7 +197,7 @@ export interface SignDocDirectAuxAmino {
 	 */
 	body_bytes?: string
 	/** public_key is the public key of the signing account. */
-	public_key?: AnyAmino
+	public_key?: AnyAmino | undefined
 	/**
 	 * chain_id is the identifier of the chain this transaction targets.
 	 * It prevents signed transactions from being used on another chain by an
@@ -210,7 +210,7 @@ export interface SignDocDirectAuxAmino {
 	sequence?: string
 	/** tips have been depreacted and should not be used */
 	/** @deprecated */
-	tip?: TipAmino
+	tip?: TipAmino | undefined
 }
 export interface SignDocDirectAuxAminoMsg {
 	type: "cosmos-sdk/SignDocDirectAux"
@@ -314,7 +314,7 @@ export interface AuthInfo {
 	 * based on the cost of evaluating the body and doing signature verification
 	 * of the signers. This can be estimated via simulation.
 	 */
-	fee?: Fee
+	fee?: Fee | undefined
 	/**
 	 * Tip is the optional tip used for transactions fees paid in another denom.
 	 *
@@ -324,7 +324,7 @@ export interface AuthInfo {
 	 * Since: cosmos-sdk 0.46
 	 */
 	/** @deprecated */
-	tip?: Tip
+	tip?: Tip | undefined
 }
 export interface AuthInfoProtoMsg {
 	typeUrl: "/cosmos.tx.v1beta1.AuthInfo"
@@ -348,7 +348,7 @@ export interface AuthInfoAmino {
 	 * based on the cost of evaluating the body and doing signature verification
 	 * of the signers. This can be estimated via simulation.
 	 */
-	fee?: FeeAmino
+	fee?: FeeAmino | undefined
 	/**
 	 * Tip is the optional tip used for transactions fees paid in another denom.
 	 *
@@ -358,7 +358,7 @@ export interface AuthInfoAmino {
 	 * Since: cosmos-sdk 0.46
 	 */
 	/** @deprecated */
-	tip?: TipAmino
+	tip?: TipAmino | undefined
 }
 export interface AuthInfoAminoMsg {
 	type: "cosmos-sdk/AuthInfo"
@@ -374,12 +374,12 @@ export interface SignerInfo {
 	 * that already exist in state. If unset, the verifier can use the required \
 	 * signer address for this position and lookup the public key.
 	 */
-	publicKey?: Any
+	publicKey?: Any | undefined
 	/**
 	 * mode_info describes the signing mode of the signer and is a nested
 	 * structure to support nested multisig pubkey's
 	 */
-	modeInfo?: ModeInfo
+	modeInfo?: ModeInfo | undefined
 	/**
 	 * sequence is the sequence of the account, which describes the
 	 * number of committed transactions signed by a given address. It is used to
@@ -401,12 +401,12 @@ export interface SignerInfoAmino {
 	 * that already exist in state. If unset, the verifier can use the required \
 	 * signer address for this position and lookup the public key.
 	 */
-	public_key?: AnyAmino
+	public_key?: AnyAmino | undefined
 	/**
 	 * mode_info describes the signing mode of the signer and is a nested
 	 * structure to support nested multisig pubkey's
 	 */
-	mode_info?: ModeInfoAmino
+	mode_info?: ModeInfoAmino | undefined
 	/**
 	 * sequence is the sequence of the account, which describes the
 	 * number of committed transactions signed by a given address. It is used to
@@ -421,9 +421,9 @@ export interface SignerInfoAminoMsg {
 /** ModeInfo describes the signing mode of a single or nested multisig signer. */
 export interface ModeInfo {
 	/** single represents a single signer */
-	single?: ModeInfo_Single
+	single?: ModeInfo_Single | undefined
 	/** multi represents a nested multisig signer */
-	multi?: ModeInfo_Multi
+	multi?: ModeInfo_Multi | undefined
 }
 export interface ModeInfoProtoMsg {
 	typeUrl: "/cosmos.tx.v1beta1.ModeInfo"
@@ -432,9 +432,9 @@ export interface ModeInfoProtoMsg {
 /** ModeInfo describes the signing mode of a single or nested multisig signer. */
 export interface ModeInfoAmino {
 	/** single represents a single signer */
-	single?: ModeInfo_SingleAmino
+	single?: ModeInfo_SingleAmino | undefined
 	/** multi represents a nested multisig signer */
-	multi?: ModeInfo_MultiAmino
+	multi?: ModeInfo_MultiAmino | undefined
 }
 export interface ModeInfoAminoMsg {
 	type: "cosmos-sdk/ModeInfo"
@@ -469,7 +469,7 @@ export interface ModeInfo_SingleAminoMsg {
 /** Multi is the mode info for a multisig public key */
 export interface ModeInfo_Multi {
 	/** bitarray specifies which keys within the multisig are signing */
-	bitarray?: CompactBitArray
+	bitarray?: CompactBitArray | undefined
 	/**
 	 * mode_infos is the corresponding modes of the signers of the multisig
 	 * which could include nested multisig public keys
@@ -483,7 +483,7 @@ export interface ModeInfo_MultiProtoMsg {
 /** Multi is the mode info for a multisig public key */
 export interface ModeInfo_MultiAmino {
 	/** bitarray specifies which keys within the multisig are signing */
-	bitarray?: CompactBitArrayAmino
+	bitarray?: CompactBitArrayAmino | undefined
 	/**
 	 * mode_infos is the corresponding modes of the signers of the multisig
 	 * which could include nested multisig public keys
@@ -606,7 +606,7 @@ export interface AuxSignerData {
 	 * signs. Note: we use the same sign doc even if we're signing with
 	 * LEGACY_AMINO_JSON.
 	 */
-	signDoc?: SignDocDirectAux
+	signDoc?: SignDocDirectAux | undefined
 	/** mode is the signing mode of the single signer. */
 	mode: SignMode
 	/** sig is the signature of the sign doc. */
@@ -636,7 +636,7 @@ export interface AuxSignerDataAmino {
 	 * signs. Note: we use the same sign doc even if we're signing with
 	 * LEGACY_AMINO_JSON.
 	 */
-	sign_doc?: SignDocDirectAuxAmino
+	sign_doc?: SignDocDirectAuxAmino | undefined
 	/** mode is the signing mode of the single signer. */
 	mode?: SignMode
 	/** sig is the signature of the sign doc. */
@@ -861,10 +861,10 @@ export const SignDoc = {
 		if (message.authInfoBytes.length !== 0) {
 			writer.uint32(18).bytes(message.authInfoBytes)
 		}
-		if (message.chainId !== undefined) {
+		if (message.chainId && message.chainId !== "") {
 			writer.uint32(26).string(message.chainId)
 		}
-		if (message.accountNumber !== undefined) {
+		if (message.accountNumber && message.accountNumber !== BigInt(0)) {
 			writer.uint32(32).uint64(message.accountNumber)
 		}
 		return writer
@@ -974,13 +974,13 @@ export const SignDocDirectAux = {
 		if (message.publicKey !== undefined) {
 			Any.encode(message.publicKey, writer.uint32(18).fork()).ldelim()
 		}
-		if (message.chainId !== undefined) {
+		if (message.chainId && message.chainId !== "") {
 			writer.uint32(26).string(message.chainId)
 		}
-		if (message.accountNumber !== undefined) {
+		if (message.accountNumber && message.accountNumber !== BigInt(0)) {
 			writer.uint32(32).uint64(message.accountNumber)
 		}
-		if (message.sequence !== undefined) {
+		if (message.sequence && message.sequence !== BigInt(0)) {
 			writer.uint32(40).uint64(message.sequence)
 		}
 		if (message.tip !== undefined) {
@@ -1110,10 +1110,10 @@ export const TxBody = {
 		for (const v of message.messages) {
 			Any.encode(v!, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.memo !== undefined) {
+		if (message.memo && message.memo !== "") {
 			writer.uint32(18).string(message.memo)
 		}
-		if (message.timeoutHeight !== undefined) {
+		if (message.timeoutHeight && message.timeoutHeight !== BigInt(0)) {
 			writer.uint32(24).uint64(message.timeoutHeight)
 		}
 		for (const v of message.extensionOptions) {
@@ -1341,7 +1341,7 @@ export const SignerInfo = {
 		if (message.modeInfo !== undefined) {
 			ModeInfo.encode(message.modeInfo, writer.uint32(18).fork()).ldelim()
 		}
-		if (message.sequence !== undefined) {
+		if (message.sequence && message.sequence !== BigInt(0)) {
 			writer.uint32(24).uint64(message.sequence)
 		}
 		return writer
@@ -1683,13 +1683,13 @@ export const Fee = {
 		for (const v of message.amount) {
 			Coin.encode(v!, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.gasLimit !== undefined) {
+		if (message.gasLimit && message.gasLimit !== BigInt(0)) {
 			writer.uint32(16).uint64(message.gasLimit)
 		}
-		if (message.payer !== undefined) {
+		if (message.payer && message.payer !== "") {
 			writer.uint32(26).string(message.payer)
 		}
-		if (message.granter !== undefined) {
+		if (message.granter && message.granter !== "") {
 			writer.uint32(34).string(message.granter)
 		}
 		return writer
@@ -1791,7 +1791,7 @@ export const Tip = {
 		for (const v of message.amount) {
 			Coin.encode(v!, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.tipper !== undefined) {
+		if (message.tipper && message.tipper !== "") {
 			writer.uint32(18).string(message.tipper)
 		}
 		return writer
@@ -1873,7 +1873,7 @@ function createBaseAuxSignerData(): AuxSignerData {
 export const AuxSignerData = {
 	typeUrl: "/cosmos.tx.v1beta1.AuxSignerData",
 	encode(message: AuxSignerData, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.address !== undefined) {
+		if (message.address && message.address !== "") {
 			writer.uint32(10).string(message.address)
 		}
 		if (message.signDoc !== undefined) {

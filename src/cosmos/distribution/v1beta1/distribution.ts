@@ -360,16 +360,16 @@ function createBaseParams(): Params {
 export const Params = {
 	typeUrl: "/cosmos.distribution.v1beta1.Params",
 	encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.communityTax !== undefined) {
+		if (message.communityTax && message.communityTax !== "") {
 			writer.uint32(10).string(Decimal.fromUserInput(message.communityTax, 18).atomics)
 		}
-		if (message.baseProposerReward !== undefined) {
+		if (message.baseProposerReward && message.baseProposerReward !== "") {
 			writer.uint32(18).string(Decimal.fromUserInput(message.baseProposerReward, 18).atomics)
 		}
-		if (message.bonusProposerReward !== undefined) {
+		if (message.bonusProposerReward && message.bonusProposerReward !== "") {
 			writer.uint32(26).string(Decimal.fromUserInput(message.bonusProposerReward, 18).atomics)
 		}
-		if (message.withdrawAddrEnabled !== undefined) {
+		if (message.withdrawAddrEnabled === true) {
 			writer.uint32(32).bool(message.withdrawAddrEnabled)
 		}
 		return writer
@@ -470,7 +470,7 @@ export const ValidatorHistoricalRewards = {
 		for (const v of message.cumulativeRewardRatio) {
 			DecCoin.encode(v!, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.referenceCount !== undefined) {
+		if (message.referenceCount && message.referenceCount !== 0) {
 			writer.uint32(16).uint32(message.referenceCount)
 		}
 		return writer
@@ -560,7 +560,7 @@ export const ValidatorCurrentRewards = {
 		for (const v of message.rewards) {
 			DecCoin.encode(v!, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.period !== undefined) {
+		if (message.period && message.period !== BigInt(0)) {
 			writer.uint32(16).uint64(message.period)
 		}
 		return writer
@@ -794,10 +794,10 @@ export const ValidatorSlashEvent = {
 		message: ValidatorSlashEvent,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.validatorPeriod !== undefined) {
+		if (message.validatorPeriod && message.validatorPeriod !== BigInt(0)) {
 			writer.uint32(8).uint64(message.validatorPeriod)
 		}
-		if (message.fraction !== undefined) {
+		if (message.fraction && message.fraction !== "") {
 			writer.uint32(18).string(Decimal.fromUserInput(message.fraction, 18).atomics)
 		}
 		return writer
@@ -1036,13 +1036,13 @@ export const CommunityPoolSpendProposal = {
 		message: CommunityPoolSpendProposal,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.title !== undefined) {
+		if (message.title && message.title !== "") {
 			writer.uint32(10).string(message.title)
 		}
-		if (message.description !== undefined) {
+		if (message.description && message.description !== "") {
 			writer.uint32(18).string(message.description)
 		}
-		if (message.recipient !== undefined) {
+		if (message.recipient && message.recipient !== "") {
 			writer.uint32(26).string(message.recipient)
 		}
 		for (const v of message.amount) {
@@ -1145,13 +1145,13 @@ export const DelegatorStartingInfo = {
 		message: DelegatorStartingInfo,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.previousPeriod !== undefined) {
+		if (message.previousPeriod && message.previousPeriod !== BigInt(0)) {
 			writer.uint32(8).uint64(message.previousPeriod)
 		}
-		if (message.stake !== undefined) {
+		if (message.stake && message.stake !== "") {
 			writer.uint32(18).string(Decimal.fromUserInput(message.stake, 18).atomics)
 		}
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(24).uint64(message.height)
 		}
 		return writer
@@ -1247,7 +1247,7 @@ export const DelegationDelegatorReward = {
 		message: DelegationDelegatorReward,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.validatorAddress !== undefined) {
+		if (message.validatorAddress && message.validatorAddress !== "") {
 			writer.uint32(10).string(message.validatorAddress)
 		}
 		for (const v of message.reward) {
@@ -1337,19 +1337,19 @@ export const CommunityPoolSpendProposalWithDeposit = {
 		message: CommunityPoolSpendProposalWithDeposit,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.title !== undefined) {
+		if (message.title && message.title !== "") {
 			writer.uint32(10).string(message.title)
 		}
-		if (message.description !== undefined) {
+		if (message.description && message.description !== "") {
 			writer.uint32(18).string(message.description)
 		}
-		if (message.recipient !== undefined) {
+		if (message.recipient && message.recipient !== "") {
 			writer.uint32(26).string(message.recipient)
 		}
-		if (message.amount !== undefined) {
+		if (message.amount && message.amount !== "") {
 			writer.uint32(34).string(message.amount)
 		}
-		if (message.deposit !== undefined) {
+		if (message.deposit && message.deposit !== "") {
 			writer.uint32(42).string(message.deposit)
 		}
 		return writer

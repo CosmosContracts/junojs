@@ -23,7 +23,7 @@ import {
  */
 export interface QueryAccountsRequest {
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 }
 export interface QueryAccountsRequestProtoMsg {
 	typeUrl: "/cosmos.auth.v1beta1.QueryAccountsRequest"
@@ -36,7 +36,7 @@ export interface QueryAccountsRequestProtoMsg {
  */
 export interface QueryAccountsRequestAmino {
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 }
 export interface QueryAccountsRequestAminoMsg {
 	type: "cosmos-sdk/QueryAccountsRequest"
@@ -51,7 +51,7 @@ export interface QueryAccountsResponse {
 	/** accounts are the existing accounts */
 	accounts: (BaseAccount | Any)[] | Any[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 }
 export interface QueryAccountsResponseProtoMsg {
 	typeUrl: "/cosmos.auth.v1beta1.QueryAccountsResponse"
@@ -69,7 +69,7 @@ export interface QueryAccountsResponseAmino {
 	/** accounts are the existing accounts */
 	accounts?: AnyAmino[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 }
 export interface QueryAccountsResponseAminoMsg {
 	type: "cosmos-sdk/QueryAccountsResponse"
@@ -111,7 +111,7 @@ export type QueryAccountResponseEncoded = Omit<QueryAccountResponse, "account"> 
 /** QueryAccountResponse is the response type for the Query/Account RPC method. */
 export interface QueryAccountResponseAmino {
 	/** account defines the account of the corresponding address. */
-	account?: AnyAmino
+	account?: AnyAmino | undefined
 }
 export interface QueryAccountResponseAminoMsg {
 	type: "cosmos-sdk/QueryAccountResponse"
@@ -132,7 +132,7 @@ export interface QueryParamsRequestAminoMsg {
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponse {
 	/** params defines the parameters of the module. */
-	params: Params
+	params: Params | undefined
 }
 export interface QueryParamsResponseProtoMsg {
 	typeUrl: "/cosmos.auth.v1beta1.QueryParamsResponse"
@@ -141,7 +141,7 @@ export interface QueryParamsResponseProtoMsg {
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponseAmino {
 	/** params defines the parameters of the module. */
-	params?: ParamsAmino
+	params?: ParamsAmino | undefined
 }
 export interface QueryParamsResponseAminoMsg {
 	type: "cosmos-sdk/QueryParamsResponse"
@@ -226,7 +226,7 @@ export type QueryModuleAccountByNameResponseEncoded = Omit<
 }
 /** QueryModuleAccountByNameResponse is the response type for the Query/ModuleAccountByName RPC method. */
 export interface QueryModuleAccountByNameResponseAmino {
-	account?: AnyAmino
+	account?: AnyAmino | undefined
 }
 export interface QueryModuleAccountByNameResponseAminoMsg {
 	type: "cosmos-sdk/QueryModuleAccountByNameResponse"
@@ -481,7 +481,7 @@ export interface QueryAccountInfoRequestAminoMsg {
  */
 export interface QueryAccountInfoResponse {
 	/** info is the account info which is represented by BaseAccount. */
-	info?: BaseAccount
+	info?: BaseAccount | undefined
 }
 export interface QueryAccountInfoResponseProtoMsg {
 	typeUrl: "/cosmos.auth.v1beta1.QueryAccountInfoResponse"
@@ -494,7 +494,7 @@ export interface QueryAccountInfoResponseProtoMsg {
  */
 export interface QueryAccountInfoResponseAmino {
 	/** info is the account info which is represented by BaseAccount. */
-	info?: BaseAccountAmino
+	info?: BaseAccountAmino | undefined
 }
 export interface QueryAccountInfoResponseAminoMsg {
 	type: "cosmos-sdk/QueryAccountInfoResponse"
@@ -677,7 +677,7 @@ export const QueryAccountRequest = {
 		message: QueryAccountRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.address !== undefined) {
+		if (message.address && message.address !== "") {
 			writer.uint32(10).string(message.address)
 		}
 		return writer
@@ -1093,7 +1093,7 @@ export const QueryModuleAccountByNameRequest = {
 		message: QueryModuleAccountByNameRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.name !== undefined) {
+		if (message.name && message.name !== "") {
 			writer.uint32(10).string(message.name)
 		}
 		return writer
@@ -1304,7 +1304,7 @@ export const Bech32PrefixResponse = {
 		message: Bech32PrefixResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.bech32Prefix !== undefined) {
+		if (message.bech32Prefix && message.bech32Prefix !== "") {
 			writer.uint32(10).string(message.bech32Prefix)
 		}
 		return writer
@@ -1448,7 +1448,7 @@ export const AddressBytesToStringResponse = {
 		message: AddressBytesToStringResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.addressString !== undefined) {
+		if (message.addressString && message.addressString !== "") {
 			writer.uint32(10).string(message.addressString)
 		}
 		return writer
@@ -1520,7 +1520,7 @@ export const AddressStringToBytesRequest = {
 		message: AddressStringToBytesRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.addressString !== undefined) {
+		if (message.addressString && message.addressString !== "") {
 			writer.uint32(10).string(message.addressString)
 		}
 		return writer
@@ -1665,10 +1665,10 @@ export const QueryAccountAddressByIDRequest = {
 		message: QueryAccountAddressByIDRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.id !== undefined) {
+		if (message.id && message.id !== BigInt(0)) {
 			writer.uint32(8).int64(message.id)
 		}
-		if (message.accountId !== undefined) {
+		if (message.accountId && message.accountId !== BigInt(0)) {
 			writer.uint32(16).uint64(message.accountId)
 		}
 		return writer
@@ -1752,7 +1752,7 @@ export const QueryAccountAddressByIDResponse = {
 		message: QueryAccountAddressByIDResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.accountAddress !== undefined) {
+		if (message.accountAddress && message.accountAddress !== "") {
 			writer.uint32(10).string(message.accountAddress)
 		}
 		return writer
@@ -1824,7 +1824,7 @@ export const QueryAccountInfoRequest = {
 		message: QueryAccountInfoRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.address !== undefined) {
+		if (message.address && message.address !== "") {
 			writer.uint32(10).string(message.address)
 		}
 		return writer

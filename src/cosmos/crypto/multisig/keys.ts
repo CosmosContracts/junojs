@@ -35,7 +35,7 @@ function createBaseLegacyAminoPubKey(): LegacyAminoPubKey {
 export const LegacyAminoPubKey = {
 	typeUrl: "/cosmos.crypto.multisig.LegacyAminoPubKey",
 	encode(message: LegacyAminoPubKey, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.threshold !== undefined) {
+		if (message.threshold && message.threshold !== 0) {
 			writer.uint32(8).uint32(message.threshold)
 		}
 		for (const v of message.publicKeys) {

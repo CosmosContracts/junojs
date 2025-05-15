@@ -157,16 +157,16 @@ export const PageRequest = {
 		if (message.key.length !== 0) {
 			writer.uint32(10).bytes(message.key)
 		}
-		if (message.offset !== undefined) {
+		if (message.offset && message.offset !== BigInt(0)) {
 			writer.uint32(16).uint64(message.offset)
 		}
-		if (message.limit !== undefined) {
+		if (message.limit && message.limit !== BigInt(0)) {
 			writer.uint32(24).uint64(message.limit)
 		}
-		if (message.countTotal !== undefined) {
+		if (message.countTotal === true) {
 			writer.uint32(32).bool(message.countTotal)
 		}
-		if (message.reverse !== undefined) {
+		if (message.reverse === true) {
 			writer.uint32(40).bool(message.reverse)
 		}
 		return writer
@@ -277,7 +277,7 @@ export const PageResponse = {
 		if (message.nextKey.length !== 0) {
 			writer.uint32(10).bytes(message.nextKey)
 		}
-		if (message.total !== undefined) {
+		if (message.total && message.total !== BigInt(0)) {
 			writer.uint32(16).uint64(message.total)
 		}
 		return writer

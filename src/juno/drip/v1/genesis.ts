@@ -2,7 +2,7 @@ import { BinaryReader, BinaryWriter } from "../../../binary"
 /** GenesisState defines the module's genesis state. */
 export interface GenesisState {
 	/** params are the drip module parameters */
-	params: Params
+	params: Params | undefined
 }
 export interface GenesisStateProtoMsg {
 	typeUrl: "/juno.drip.v1.GenesisState"
@@ -11,7 +11,7 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the module's genesis state. */
 export interface GenesisStateAmino {
 	/** params are the drip module parameters */
-	params: ParamsAmino
+	params: ParamsAmino | undefined
 }
 export interface GenesisStateAminoMsg {
 	type: "/juno.drip.v1.GenesisState"
@@ -116,7 +116,7 @@ function createBaseParams(): Params {
 export const Params = {
 	typeUrl: "/juno.drip.v1.Params",
 	encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.enableDrip !== undefined) {
+		if (message.enableDrip === true) {
 			writer.uint32(8).bool(message.enableDrip)
 		}
 		for (const v of message.allowedAddresses) {

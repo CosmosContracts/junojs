@@ -41,16 +41,16 @@ export interface ResponsePingAminoMsg {
 	value: ResponsePingAmino
 }
 export interface ResponseBroadcastTx {
-	checkTx?: ResponseCheckTx
-	txResult?: ExecTxResult
+	checkTx?: ResponseCheckTx | undefined
+	txResult?: ExecTxResult | undefined
 }
 export interface ResponseBroadcastTxProtoMsg {
 	typeUrl: "/tendermint.rpc.grpc.ResponseBroadcastTx"
 	value: Uint8Array
 }
 export interface ResponseBroadcastTxAmino {
-	check_tx?: ResponseCheckTxAmino
-	tx_result?: ExecTxResultAmino
+	check_tx?: ResponseCheckTxAmino | undefined
+	tx_result?: ExecTxResultAmino | undefined
 }
 export interface ResponseBroadcastTxAminoMsg {
 	type: "/tendermint.rpc.grpc.ResponseBroadcastTx"

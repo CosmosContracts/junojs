@@ -5,7 +5,7 @@ import { DenomTrace, type DenomTraceAmino, Params, type ParamsAmino } from "./tr
 export interface GenesisState {
 	portId: string
 	denomTraces: DenomTrace[]
-	params: Params
+	params: Params | undefined
 	/**
 	 * total_escrowed contains the total amount of tokens escrowed
 	 * by the transfer module
@@ -20,7 +20,7 @@ export interface GenesisStateProtoMsg {
 export interface GenesisStateAmino {
 	port_id?: string
 	denom_traces?: DenomTraceAmino[]
-	params?: ParamsAmino
+	params?: ParamsAmino | undefined
 	/**
 	 * total_escrowed contains the total amount of tokens escrowed
 	 * by the transfer module
@@ -42,7 +42,7 @@ function createBaseGenesisState(): GenesisState {
 export const GenesisState = {
 	typeUrl: "/ibc.applications.transfer.v1.GenesisState",
 	encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
 		for (const v of message.denomTraces) {

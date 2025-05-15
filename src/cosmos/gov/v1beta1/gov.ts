@@ -300,17 +300,17 @@ export interface Proposal {
 	 * querying a proposal via gRPC, this field is not populated until the
 	 * proposal's voting period has ended.
 	 */
-	finalTallyResult: TallyResult
+	finalTallyResult: TallyResult | undefined
 	/** submit_time is the time of proposal submission. */
-	submitTime: Date
+	submitTime: Date | undefined
 	/** deposit_end_time is the end time for deposition. */
-	depositEndTime: Date
+	depositEndTime: Date | undefined
 	/** total_deposit is the total deposit on the proposal. */
 	totalDeposit: Coin[]
 	/** voting_start_time is the starting time to vote on a proposal. */
-	votingStartTime: Date
+	votingStartTime: Date | undefined
 	/** voting_end_time is the end time of voting on a proposal. */
-	votingEndTime: Date
+	votingEndTime: Date | undefined
 }
 export interface ProposalProtoMsg {
 	typeUrl: "/cosmos.gov.v1beta1.Proposal"
@@ -345,7 +345,7 @@ export interface ProposalAmino {
 	/** proposal_id defines the unique id of the proposal. */
 	proposal_id?: string
 	/** content is the proposal's content. */
-	content?: AnyAmino
+	content?: AnyAmino | undefined
 	/** status defines the proposal status. */
 	status?: ProposalStatus
 	/**
@@ -353,17 +353,17 @@ export interface ProposalAmino {
 	 * querying a proposal via gRPC, this field is not populated until the
 	 * proposal's voting period has ended.
 	 */
-	final_tally_result: TallyResultAmino
+	final_tally_result: TallyResultAmino | undefined
 	/** submit_time is the time of proposal submission. */
-	submit_time: string
+	submit_time: string | undefined
 	/** deposit_end_time is the end time for deposition. */
-	deposit_end_time: string
+	deposit_end_time: string | undefined
 	/** total_deposit is the total deposit on the proposal. */
 	total_deposit: CoinAmino[]
 	/** voting_start_time is the starting time to vote on a proposal. */
-	voting_start_time: string
+	voting_start_time: string | undefined
 	/** voting_end_time is the end time of voting on a proposal. */
-	voting_end_time: string
+	voting_end_time: string | undefined
 }
 export interface ProposalAminoMsg {
 	type: "cosmos-sdk/Proposal"
@@ -461,7 +461,7 @@ export interface DepositParams {
 	 * Maximum period for Atom holders to deposit on a proposal. Initial value: 2
 	 * months.
 	 */
-	maxDepositPeriod: Duration
+	maxDepositPeriod: Duration | undefined
 }
 export interface DepositParamsProtoMsg {
 	typeUrl: "/cosmos.gov.v1beta1.DepositParams"
@@ -475,7 +475,7 @@ export interface DepositParamsAmino {
 	 * Maximum period for Atom holders to deposit on a proposal. Initial value: 2
 	 * months.
 	 */
-	max_deposit_period?: DurationAmino
+	max_deposit_period?: DurationAmino | undefined
 }
 export interface DepositParamsAminoMsg {
 	type: "cosmos-sdk/DepositParams"
@@ -484,7 +484,7 @@ export interface DepositParamsAminoMsg {
 /** VotingParams defines the params for voting on governance proposals. */
 export interface VotingParams {
 	/** Duration of the voting period. */
-	votingPeriod: Duration
+	votingPeriod: Duration | undefined
 }
 export interface VotingParamsProtoMsg {
 	typeUrl: "/cosmos.gov.v1beta1.VotingParams"
@@ -493,7 +493,7 @@ export interface VotingParamsProtoMsg {
 /** VotingParams defines the params for voting on governance proposals. */
 export interface VotingParamsAmino {
 	/** Duration of the voting period. */
-	voting_period?: DurationAmino
+	voting_period?: DurationAmino | undefined
 }
 export interface VotingParamsAminoMsg {
 	type: "cosmos-sdk/VotingParams"
@@ -549,7 +549,7 @@ export const WeightedVoteOption = {
 		if (message.option !== 0) {
 			writer.uint32(8).int32(message.option)
 		}
-		if (message.weight !== undefined) {
+		if (message.weight && message.weight !== "") {
 			writer.uint32(18).string(Decimal.fromUserInput(message.weight, 18).atomics)
 		}
 		return writer
@@ -628,10 +628,10 @@ function createBaseTextProposal(): TextProposal {
 export const TextProposal = {
 	typeUrl: "/cosmos.gov.v1beta1.TextProposal",
 	encode(message: TextProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.title !== undefined) {
+		if (message.title && message.title !== "") {
 			writer.uint32(10).string(message.title)
 		}
-		if (message.description !== undefined) {
+		if (message.description && message.description !== "") {
 			writer.uint32(18).string(message.description)
 		}
 		return writer
@@ -710,10 +710,10 @@ function createBaseDeposit(): Deposit {
 export const Deposit = {
 	typeUrl: "/cosmos.gov.v1beta1.Deposit",
 	encode(message: Deposit, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.proposalId !== undefined) {
+		if (message.proposalId && message.proposalId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.proposalId)
 		}
-		if (message.depositor !== undefined) {
+		if (message.depositor && message.depositor !== "") {
 			writer.uint32(18).string(message.depositor)
 		}
 		for (const v of message.amount) {
@@ -815,7 +815,7 @@ function createBaseProposal(): Proposal {
 export const Proposal = {
 	typeUrl: "/cosmos.gov.v1beta1.Proposal",
 	encode(message: Proposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.proposalId !== undefined) {
+		if (message.proposalId && message.proposalId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.proposalId)
 		}
 		if (message.content !== undefined) {
@@ -999,16 +999,16 @@ function createBaseTallyResult(): TallyResult {
 export const TallyResult = {
 	typeUrl: "/cosmos.gov.v1beta1.TallyResult",
 	encode(message: TallyResult, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.yes !== undefined) {
+		if (message.yes && message.yes !== "") {
 			writer.uint32(10).string(message.yes)
 		}
-		if (message.abstain !== undefined) {
+		if (message.abstain && message.abstain !== "") {
 			writer.uint32(18).string(message.abstain)
 		}
-		if (message.no !== undefined) {
+		if (message.no && message.no !== "") {
 			writer.uint32(26).string(message.no)
 		}
-		if (message.noWithVeto !== undefined) {
+		if (message.noWithVeto && message.noWithVeto !== "") {
 			writer.uint32(34).string(message.noWithVeto)
 		}
 		return writer
@@ -1104,10 +1104,10 @@ function createBaseVote(): Vote {
 export const Vote = {
 	typeUrl: "/cosmos.gov.v1beta1.Vote",
 	encode(message: Vote, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.proposalId !== undefined) {
+		if (message.proposalId && message.proposalId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.proposalId)
 		}
-		if (message.voter !== undefined) {
+		if (message.voter && message.voter !== "") {
 			writer.uint32(18).string(message.voter)
 		}
 		if (message.option !== 0) {

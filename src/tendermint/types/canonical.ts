@@ -4,7 +4,7 @@ import { base64FromBytes, bytesFromBase64, fromTimestamp, toTimestamp } from "..
 import type { SignedMsgType } from "./types"
 export interface CanonicalBlockID {
 	hash: Uint8Array
-	partSetHeader: CanonicalPartSetHeader
+	partSetHeader: CanonicalPartSetHeader | undefined
 }
 export interface CanonicalBlockIDProtoMsg {
 	typeUrl: "/tendermint.types.CanonicalBlockID"
@@ -12,7 +12,7 @@ export interface CanonicalBlockIDProtoMsg {
 }
 export interface CanonicalBlockIDAmino {
 	hash?: string
-	part_set_header?: CanonicalPartSetHeaderAmino
+	part_set_header?: CanonicalPartSetHeaderAmino | undefined
 }
 export interface CanonicalBlockIDAminoMsg {
 	type: "/tendermint.types.CanonicalBlockID"
@@ -42,8 +42,8 @@ export interface CanonicalProposal {
 	/** canonicalization requires fixed size encoding here */
 	round: bigint
 	polRound: bigint
-	blockId?: CanonicalBlockID
-	timestamp: Date
+	blockId?: CanonicalBlockID | undefined
+	timestamp: Date | undefined
 	chainId: string
 }
 export interface CanonicalProposalProtoMsg {
@@ -58,8 +58,8 @@ export interface CanonicalProposalAmino {
 	/** canonicalization requires fixed size encoding here */
 	round?: string
 	pol_round?: string
-	block_id?: CanonicalBlockIDAmino
-	timestamp?: string
+	block_id?: CanonicalBlockIDAmino | undefined
+	timestamp?: string | undefined
 	chain_id?: string
 }
 export interface CanonicalProposalAminoMsg {
@@ -73,8 +73,8 @@ export interface CanonicalVote {
 	height: bigint
 	/** canonicalization requires fixed size encoding here */
 	round: bigint
-	blockId?: CanonicalBlockID
-	timestamp: Date
+	blockId?: CanonicalBlockID | undefined
+	timestamp: Date | undefined
 	chainId: string
 }
 export interface CanonicalVoteProtoMsg {
@@ -88,8 +88,8 @@ export interface CanonicalVoteAmino {
 	height?: string
 	/** canonicalization requires fixed size encoding here */
 	round?: string
-	block_id?: CanonicalBlockIDAmino
-	timestamp?: string
+	block_id?: CanonicalBlockIDAmino | undefined
+	timestamp?: string | undefined
 	chain_id?: string
 }
 export interface CanonicalVoteAminoMsg {
@@ -216,7 +216,7 @@ export const CanonicalPartSetHeader = {
 		message: CanonicalPartSetHeader,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.total !== undefined) {
+		if (message.total && message.total !== 0) {
 			writer.uint32(8).uint32(message.total)
 		}
 		if (message.hash.length !== 0) {
@@ -299,13 +299,13 @@ export const CanonicalProposal = {
 		if (message.type !== 0) {
 			writer.uint32(8).int32(message.type)
 		}
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(17).sfixed64(message.height)
 		}
-		if (message.round !== undefined) {
+		if (message.round && message.round !== BigInt(0)) {
 			writer.uint32(25).sfixed64(message.round)
 		}
-		if (message.polRound !== undefined) {
+		if (message.polRound && message.polRound !== BigInt(0)) {
 			writer.uint32(32).int64(message.polRound)
 		}
 		if (message.blockId !== undefined) {
@@ -314,7 +314,7 @@ export const CanonicalProposal = {
 		if (message.timestamp !== undefined) {
 			Timestamp.encode(toTimestamp(message.timestamp), writer.uint32(50).fork()).ldelim()
 		}
-		if (message.chainId !== undefined) {
+		if (message.chainId && message.chainId !== "") {
 			writer.uint32(58).string(message.chainId)
 		}
 		return writer
@@ -447,10 +447,10 @@ export const CanonicalVote = {
 		if (message.type !== 0) {
 			writer.uint32(8).int32(message.type)
 		}
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(17).sfixed64(message.height)
 		}
-		if (message.round !== undefined) {
+		if (message.round && message.round !== BigInt(0)) {
 			writer.uint32(25).sfixed64(message.round)
 		}
 		if (message.blockId !== undefined) {
@@ -459,7 +459,7 @@ export const CanonicalVote = {
 		if (message.timestamp !== undefined) {
 			Timestamp.encode(toTimestamp(message.timestamp), writer.uint32(42).fork()).ldelim()
 		}
-		if (message.chainId !== undefined) {
+		if (message.chainId && message.chainId !== "") {
 			writer.uint32(50).string(message.chainId)
 		}
 		return writer
@@ -582,13 +582,13 @@ export const CanonicalVoteExtension = {
 		if (message.extension.length !== 0) {
 			writer.uint32(10).bytes(message.extension)
 		}
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(17).sfixed64(message.height)
 		}
-		if (message.round !== undefined) {
+		if (message.round && message.round !== BigInt(0)) {
 			writer.uint32(25).sfixed64(message.round)
 		}
-		if (message.chainId !== undefined) {
+		if (message.chainId && message.chainId !== "") {
 			writer.uint32(34).string(message.chainId)
 		}
 		return writer

@@ -21,7 +21,7 @@ export interface StoreCodeProposal {
 	/** WASMByteCode can be raw or gzip compressed */
 	wasmByteCode: Uint8Array
 	/** InstantiatePermission to apply on contract creation, optional */
-	instantiatePermission?: AccessConfig
+	instantiatePermission?: AccessConfig | undefined
 	/** UnpinCode code on upload, optional */
 	unpinCode: boolean
 	/** Source is the URL where the code is hosted */
@@ -58,7 +58,7 @@ export interface StoreCodeProposalAmino {
 	/** WASMByteCode can be raw or gzip compressed */
 	wasm_byte_code?: string
 	/** InstantiatePermission to apply on contract creation, optional */
-	instantiate_permission?: AccessConfigAmino
+	instantiate_permission?: AccessConfigAmino | undefined
 	/** UnpinCode code on upload, optional */
 	unpin_code?: boolean
 	/** Source is the URL where the code is hosted */
@@ -519,7 +519,7 @@ export interface AccessConfigUpdate {
 	/** CodeID is the reference to the stored WASM code to be updated */
 	codeId: bigint
 	/** InstantiatePermission to apply to the set of code ids */
-	instantiatePermission: AccessConfig
+	instantiatePermission: AccessConfig | undefined
 }
 export interface AccessConfigUpdateProtoMsg {
 	typeUrl: "/cosmwasm.wasm.v1.AccessConfigUpdate"
@@ -533,7 +533,7 @@ export interface AccessConfigUpdateAmino {
 	/** CodeID is the reference to the stored WASM code to be updated */
 	code_id?: string
 	/** InstantiatePermission to apply to the set of code ids */
-	instantiate_permission: AccessConfigAmino
+	instantiate_permission: AccessConfigAmino | undefined
 }
 export interface AccessConfigUpdateAminoMsg {
 	type: "wasm/AccessConfigUpdate"
@@ -602,7 +602,7 @@ export interface StoreAndInstantiateContractProposal {
 	/** WASMByteCode can be raw or gzip compressed */
 	wasmByteCode: Uint8Array
 	/** InstantiatePermission to apply on contract creation, optional */
-	instantiatePermission?: AccessConfig
+	instantiatePermission?: AccessConfig | undefined
 	/** UnpinCode code on upload, optional */
 	unpinCode: boolean
 	/** Admin is an optional address that can execute migrations */
@@ -647,7 +647,7 @@ export interface StoreAndInstantiateContractProposalAmino {
 	/** WASMByteCode can be raw or gzip compressed */
 	wasm_byte_code?: string
 	/** InstantiatePermission to apply on contract creation, optional */
-	instantiate_permission?: AccessConfigAmino
+	instantiate_permission?: AccessConfigAmino | undefined
 	/** UnpinCode code on upload, optional */
 	unpin_code?: boolean
 	/** Admin is an optional address that can execute migrations */
@@ -692,13 +692,13 @@ function createBaseStoreCodeProposal(): StoreCodeProposal {
 export const StoreCodeProposal = {
 	typeUrl: "/cosmwasm.wasm.v1.StoreCodeProposal",
 	encode(message: StoreCodeProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.title !== undefined) {
+		if (message.title && message.title !== "") {
 			writer.uint32(10).string(message.title)
 		}
-		if (message.description !== undefined) {
+		if (message.description && message.description !== "") {
 			writer.uint32(18).string(message.description)
 		}
-		if (message.runAs !== undefined) {
+		if (message.runAs && message.runAs !== "") {
 			writer.uint32(26).string(message.runAs)
 		}
 		if (message.wasmByteCode.length !== 0) {
@@ -707,13 +707,13 @@ export const StoreCodeProposal = {
 		if (message.instantiatePermission !== undefined) {
 			AccessConfig.encode(message.instantiatePermission, writer.uint32(58).fork()).ldelim()
 		}
-		if (message.unpinCode !== undefined) {
+		if (message.unpinCode === true) {
 			writer.uint32(64).bool(message.unpinCode)
 		}
-		if (message.source !== undefined) {
+		if (message.source && message.source !== "") {
 			writer.uint32(74).string(message.source)
 		}
-		if (message.builder !== undefined) {
+		if (message.builder && message.builder !== "") {
 			writer.uint32(82).string(message.builder)
 		}
 		if (message.codeHash.length !== 0) {
@@ -865,22 +865,22 @@ export const InstantiateContractProposal = {
 		message: InstantiateContractProposal,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.title !== undefined) {
+		if (message.title && message.title !== "") {
 			writer.uint32(10).string(message.title)
 		}
-		if (message.description !== undefined) {
+		if (message.description && message.description !== "") {
 			writer.uint32(18).string(message.description)
 		}
-		if (message.runAs !== undefined) {
+		if (message.runAs && message.runAs !== "") {
 			writer.uint32(26).string(message.runAs)
 		}
-		if (message.admin !== undefined) {
+		if (message.admin && message.admin !== "") {
 			writer.uint32(34).string(message.admin)
 		}
-		if (message.codeId !== undefined) {
+		if (message.codeId && message.codeId !== BigInt(0)) {
 			writer.uint32(40).uint64(message.codeId)
 		}
-		if (message.label !== undefined) {
+		if (message.label && message.label !== "") {
 			writer.uint32(50).string(message.label)
 		}
 		if (message.msg.length !== 0) {
@@ -1029,22 +1029,22 @@ export const InstantiateContract2Proposal = {
 		message: InstantiateContract2Proposal,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.title !== undefined) {
+		if (message.title && message.title !== "") {
 			writer.uint32(10).string(message.title)
 		}
-		if (message.description !== undefined) {
+		if (message.description && message.description !== "") {
 			writer.uint32(18).string(message.description)
 		}
-		if (message.runAs !== undefined) {
+		if (message.runAs && message.runAs !== "") {
 			writer.uint32(26).string(message.runAs)
 		}
-		if (message.admin !== undefined) {
+		if (message.admin && message.admin !== "") {
 			writer.uint32(34).string(message.admin)
 		}
-		if (message.codeId !== undefined) {
+		if (message.codeId && message.codeId !== BigInt(0)) {
 			writer.uint32(40).uint64(message.codeId)
 		}
-		if (message.label !== undefined) {
+		if (message.label && message.label !== "") {
 			writer.uint32(50).string(message.label)
 		}
 		if (message.msg.length !== 0) {
@@ -1056,7 +1056,7 @@ export const InstantiateContract2Proposal = {
 		if (message.salt.length !== 0) {
 			writer.uint32(74).bytes(message.salt)
 		}
-		if (message.fixMsg !== undefined) {
+		if (message.fixMsg === true) {
 			writer.uint32(80).bool(message.fixMsg)
 		}
 		return writer
@@ -1210,16 +1210,16 @@ export const MigrateContractProposal = {
 		message: MigrateContractProposal,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.title !== undefined) {
+		if (message.title && message.title !== "") {
 			writer.uint32(10).string(message.title)
 		}
-		if (message.description !== undefined) {
+		if (message.description && message.description !== "") {
 			writer.uint32(18).string(message.description)
 		}
-		if (message.contract !== undefined) {
+		if (message.contract && message.contract !== "") {
 			writer.uint32(34).string(message.contract)
 		}
-		if (message.codeId !== undefined) {
+		if (message.codeId && message.codeId !== BigInt(0)) {
 			writer.uint32(40).uint64(message.codeId)
 		}
 		if (message.msg.length !== 0) {
@@ -1333,13 +1333,13 @@ export const SudoContractProposal = {
 		message: SudoContractProposal,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.title !== undefined) {
+		if (message.title && message.title !== "") {
 			writer.uint32(10).string(message.title)
 		}
-		if (message.description !== undefined) {
+		if (message.description && message.description !== "") {
 			writer.uint32(18).string(message.description)
 		}
-		if (message.contract !== undefined) {
+		if (message.contract && message.contract !== "") {
 			writer.uint32(26).string(message.contract)
 		}
 		if (message.msg.length !== 0) {
@@ -1444,16 +1444,16 @@ export const ExecuteContractProposal = {
 		message: ExecuteContractProposal,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.title !== undefined) {
+		if (message.title && message.title !== "") {
 			writer.uint32(10).string(message.title)
 		}
-		if (message.description !== undefined) {
+		if (message.description && message.description !== "") {
 			writer.uint32(18).string(message.description)
 		}
-		if (message.runAs !== undefined) {
+		if (message.runAs && message.runAs !== "") {
 			writer.uint32(26).string(message.runAs)
 		}
-		if (message.contract !== undefined) {
+		if (message.contract && message.contract !== "") {
 			writer.uint32(34).string(message.contract)
 		}
 		if (message.msg.length !== 0) {
@@ -1577,16 +1577,16 @@ export const UpdateAdminProposal = {
 		message: UpdateAdminProposal,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.title !== undefined) {
+		if (message.title && message.title !== "") {
 			writer.uint32(10).string(message.title)
 		}
-		if (message.description !== undefined) {
+		if (message.description && message.description !== "") {
 			writer.uint32(18).string(message.description)
 		}
-		if (message.newAdmin !== undefined) {
+		if (message.newAdmin && message.newAdmin !== "") {
 			writer.uint32(26).string(message.newAdmin)
 		}
-		if (message.contract !== undefined) {
+		if (message.contract && message.contract !== "") {
 			writer.uint32(34).string(message.contract)
 		}
 		return writer
@@ -1682,13 +1682,13 @@ function createBaseClearAdminProposal(): ClearAdminProposal {
 export const ClearAdminProposal = {
 	typeUrl: "/cosmwasm.wasm.v1.ClearAdminProposal",
 	encode(message: ClearAdminProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.title !== undefined) {
+		if (message.title && message.title !== "") {
 			writer.uint32(10).string(message.title)
 		}
-		if (message.description !== undefined) {
+		if (message.description && message.description !== "") {
 			writer.uint32(18).string(message.description)
 		}
-		if (message.contract !== undefined) {
+		if (message.contract && message.contract !== "") {
 			writer.uint32(26).string(message.contract)
 		}
 		return writer
@@ -1776,10 +1776,10 @@ function createBasePinCodesProposal(): PinCodesProposal {
 export const PinCodesProposal = {
 	typeUrl: "/cosmwasm.wasm.v1.PinCodesProposal",
 	encode(message: PinCodesProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.title !== undefined) {
+		if (message.title && message.title !== "") {
 			writer.uint32(10).string(message.title)
 		}
-		if (message.description !== undefined) {
+		if (message.description && message.description !== "") {
 			writer.uint32(18).string(message.description)
 		}
 		writer.uint32(26).fork()
@@ -1881,10 +1881,10 @@ function createBaseUnpinCodesProposal(): UnpinCodesProposal {
 export const UnpinCodesProposal = {
 	typeUrl: "/cosmwasm.wasm.v1.UnpinCodesProposal",
 	encode(message: UnpinCodesProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.title !== undefined) {
+		if (message.title && message.title !== "") {
 			writer.uint32(10).string(message.title)
 		}
-		if (message.description !== undefined) {
+		if (message.description && message.description !== "") {
 			writer.uint32(18).string(message.description)
 		}
 		writer.uint32(26).fork()
@@ -1984,7 +1984,7 @@ function createBaseAccessConfigUpdate(): AccessConfigUpdate {
 export const AccessConfigUpdate = {
 	typeUrl: "/cosmwasm.wasm.v1.AccessConfigUpdate",
 	encode(message: AccessConfigUpdate, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.codeId !== undefined) {
+		if (message.codeId && message.codeId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.codeId)
 		}
 		if (message.instantiatePermission !== undefined) {
@@ -2078,10 +2078,10 @@ export const UpdateInstantiateConfigProposal = {
 		message: UpdateInstantiateConfigProposal,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.title !== undefined) {
+		if (message.title && message.title !== "") {
 			writer.uint32(10).string(message.title)
 		}
-		if (message.description !== undefined) {
+		if (message.description && message.description !== "") {
 			writer.uint32(18).string(message.description)
 		}
 		for (const v of message.accessConfigUpdates) {
@@ -2191,13 +2191,13 @@ export const StoreAndInstantiateContractProposal = {
 		message: StoreAndInstantiateContractProposal,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.title !== undefined) {
+		if (message.title && message.title !== "") {
 			writer.uint32(10).string(message.title)
 		}
-		if (message.description !== undefined) {
+		if (message.description && message.description !== "") {
 			writer.uint32(18).string(message.description)
 		}
-		if (message.runAs !== undefined) {
+		if (message.runAs && message.runAs !== "") {
 			writer.uint32(26).string(message.runAs)
 		}
 		if (message.wasmByteCode.length !== 0) {
@@ -2206,13 +2206,13 @@ export const StoreAndInstantiateContractProposal = {
 		if (message.instantiatePermission !== undefined) {
 			AccessConfig.encode(message.instantiatePermission, writer.uint32(42).fork()).ldelim()
 		}
-		if (message.unpinCode !== undefined) {
+		if (message.unpinCode === true) {
 			writer.uint32(48).bool(message.unpinCode)
 		}
-		if (message.admin !== undefined) {
+		if (message.admin && message.admin !== "") {
 			writer.uint32(58).string(message.admin)
 		}
-		if (message.label !== undefined) {
+		if (message.label && message.label !== "") {
 			writer.uint32(66).string(message.label)
 		}
 		if (message.msg.length !== 0) {
@@ -2221,10 +2221,10 @@ export const StoreAndInstantiateContractProposal = {
 		for (const v of message.funds) {
 			Coin.encode(v!, writer.uint32(82).fork()).ldelim()
 		}
-		if (message.source !== undefined) {
+		if (message.source && message.source !== "") {
 			writer.uint32(90).string(message.source)
 		}
-		if (message.builder !== undefined) {
+		if (message.builder && message.builder !== "") {
 			writer.uint32(98).string(message.builder)
 		}
 		if (message.codeHash.length !== 0) {

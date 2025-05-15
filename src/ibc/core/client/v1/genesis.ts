@@ -16,7 +16,7 @@ export interface GenesisState {
 	clientsConsensus: ClientConsensusStates[]
 	/** metadata from each client */
 	clientsMetadata: IdentifiedGenesisMetadata[]
-	params: Params
+	params: Params | undefined
 	/**
 	 * Deprecated: create_localhost has been deprecated.
 	 * The localhost client is automatically created at genesis.
@@ -38,7 +38,7 @@ export interface GenesisStateAmino {
 	clients_consensus?: ClientConsensusStatesAmino[]
 	/** metadata from each client */
 	clients_metadata?: IdentifiedGenesisMetadataAmino[]
-	params?: ParamsAmino
+	params?: ParamsAmino | undefined
 	/**
 	 * Deprecated: create_localhost has been deprecated.
 	 * The localhost client is automatically created at genesis.
@@ -129,10 +129,10 @@ export const GenesisState = {
 		if (message.params !== undefined) {
 			Params.encode(message.params, writer.uint32(34).fork()).ldelim()
 		}
-		if (message.createLocalhost !== undefined) {
+		if (message.createLocalhost === true) {
 			writer.uint32(40).bool(message.createLocalhost)
 		}
-		if (message.nextClientSequence !== undefined) {
+		if (message.nextClientSequence && message.nextClientSequence !== BigInt(0)) {
 			writer.uint32(48).uint64(message.nextClientSequence)
 		}
 		return writer
@@ -353,7 +353,7 @@ export const IdentifiedGenesisMetadata = {
 		message: IdentifiedGenesisMetadata,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.clientId !== undefined) {
+		if (message.clientId && message.clientId !== "") {
 			writer.uint32(10).string(message.clientId)
 		}
 		for (const v of message.clientMetadata) {

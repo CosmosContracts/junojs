@@ -90,7 +90,7 @@ export const InterchainAccountPacketData = {
 		if (message.data.length !== 0) {
 			writer.uint32(18).bytes(message.data)
 		}
-		if (message.memo !== undefined) {
+		if (message.memo && message.memo !== "") {
 			writer.uint32(26).string(message.memo)
 		}
 		return writer

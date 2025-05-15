@@ -52,16 +52,16 @@ function createBaseMsgSend(): MsgSend {
 export const MsgSend = {
 	typeUrl: "/cosmos.nft.v1beta1.MsgSend",
 	encode(message: MsgSend, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.classId !== undefined) {
+		if (message.classId && message.classId !== "") {
 			writer.uint32(10).string(message.classId)
 		}
-		if (message.id !== undefined) {
+		if (message.id && message.id !== "") {
 			writer.uint32(18).string(message.id)
 		}
-		if (message.sender !== undefined) {
+		if (message.sender && message.sender !== "") {
 			writer.uint32(26).string(message.sender)
 		}
-		if (message.receiver !== undefined) {
+		if (message.receiver && message.receiver !== "") {
 			writer.uint32(34).string(message.receiver)
 		}
 		return writer

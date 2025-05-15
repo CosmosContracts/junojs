@@ -9,7 +9,7 @@ export interface MsgUpdateParams {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params: Params
+	params: Params | undefined
 }
 export interface MsgUpdateParamsProtoMsg {
 	typeUrl: "/juno.cwhooks.v1.MsgUpdateParams"
@@ -24,7 +24,7 @@ export interface MsgUpdateParamsAmino {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params: ParamsAmino
+	params: ParamsAmino | undefined
 }
 export interface MsgUpdateParamsAminoMsg {
 	type: "juno/x/cwhooks/MsgUpdateParams"
@@ -181,7 +181,7 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
 export const MsgUpdateParams = {
 	typeUrl: "/juno.cwhooks.v1.MsgUpdateParams",
 	encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.authority !== undefined) {
+		if (message.authority && message.authority !== "") {
 			writer.uint32(10).string(message.authority)
 		}
 		if (message.params !== undefined) {
@@ -317,10 +317,10 @@ function createBaseMsgRegisterStaking(): MsgRegisterStaking {
 export const MsgRegisterStaking = {
 	typeUrl: "/juno.cwhooks.v1.MsgRegisterStaking",
 	encode(message: MsgRegisterStaking, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.contractAddress !== undefined) {
+		if (message.contractAddress && message.contractAddress !== "") {
 			writer.uint32(10).string(message.contractAddress)
 		}
-		if (message.registerAddress !== undefined) {
+		if (message.registerAddress && message.registerAddress !== "") {
 			writer.uint32(18).string(message.registerAddress)
 		}
 		return writer
@@ -454,10 +454,10 @@ export const MsgRegisterGovernance = {
 		message: MsgRegisterGovernance,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.contractAddress !== undefined) {
+		if (message.contractAddress && message.contractAddress !== "") {
 			writer.uint32(10).string(message.contractAddress)
 		}
-		if (message.registerAddress !== undefined) {
+		if (message.registerAddress && message.registerAddress !== "") {
 			writer.uint32(18).string(message.registerAddress)
 		}
 		return writer
@@ -591,10 +591,10 @@ export const MsgUnregisterGovernance = {
 		message: MsgUnregisterGovernance,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.contractAddress !== undefined) {
+		if (message.contractAddress && message.contractAddress !== "") {
 			writer.uint32(10).string(message.contractAddress)
 		}
-		if (message.registerAddress !== undefined) {
+		if (message.registerAddress && message.registerAddress !== "") {
 			writer.uint32(18).string(message.registerAddress)
 		}
 		return writer
@@ -728,10 +728,10 @@ export const MsgUnregisterStaking = {
 		message: MsgUnregisterStaking,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.contractAddress !== undefined) {
+		if (message.contractAddress && message.contractAddress !== "") {
 			writer.uint32(10).string(message.contractAddress)
 		}
-		if (message.registerAddress !== undefined) {
+		if (message.registerAddress && message.registerAddress !== "") {
 			writer.uint32(18).string(message.registerAddress)
 		}
 		return writer

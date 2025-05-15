@@ -68,7 +68,7 @@ export interface ConnectionEnd {
 	/** current state of the connection end. */
 	state: State
 	/** counterparty chain associated with this connection. */
-	counterparty: Counterparty
+	counterparty: Counterparty | undefined
 	/**
 	 * delay period that must pass before a consensus state can be used for
 	 * packet-verification NOTE: delay period logic is only implemented by some
@@ -97,7 +97,7 @@ export interface ConnectionEndAmino {
 	/** current state of the connection end. */
 	state?: State
 	/** counterparty chain associated with this connection. */
-	counterparty?: CounterpartyAmino
+	counterparty?: CounterpartyAmino | undefined
 	/**
 	 * delay period that must pass before a consensus state can be used for
 	 * packet-verification NOTE: delay period logic is only implemented by some
@@ -126,7 +126,7 @@ export interface IdentifiedConnection {
 	/** current state of the connection end. */
 	state: State
 	/** counterparty chain associated with this connection. */
-	counterparty: Counterparty
+	counterparty: Counterparty | undefined
 	/** delay period associated with this connection. */
 	delayPeriod: bigint
 }
@@ -151,7 +151,7 @@ export interface IdentifiedConnectionAmino {
 	/** current state of the connection end. */
 	state?: State
 	/** counterparty chain associated with this connection. */
-	counterparty?: CounterpartyAmino
+	counterparty?: CounterpartyAmino | undefined
 	/** delay period associated with this connection. */
 	delay_period?: string
 }
@@ -172,7 +172,7 @@ export interface Counterparty {
 	 */
 	connectionId: string
 	/** commitment merkle prefix of the counterparty chain. */
-	prefix: MerklePrefix
+	prefix: MerklePrefix | undefined
 }
 export interface CounterpartyProtoMsg {
 	typeUrl: "/ibc.core.connection.v1.Counterparty"
@@ -191,7 +191,7 @@ export interface CounterpartyAmino {
 	 */
 	connection_id?: string
 	/** commitment merkle prefix of the counterparty chain. */
-	prefix?: MerklePrefixAmino
+	prefix?: MerklePrefixAmino | undefined
 }
 export interface CounterpartyAminoMsg {
 	type: "cosmos-sdk/Counterparty"
@@ -303,7 +303,7 @@ function createBaseConnectionEnd(): ConnectionEnd {
 export const ConnectionEnd = {
 	typeUrl: "/ibc.core.connection.v1.ConnectionEnd",
 	encode(message: ConnectionEnd, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.clientId !== undefined) {
+		if (message.clientId && message.clientId !== "") {
 			writer.uint32(10).string(message.clientId)
 		}
 		for (const v of message.versions) {
@@ -315,7 +315,7 @@ export const ConnectionEnd = {
 		if (message.counterparty !== undefined) {
 			Counterparty.encode(message.counterparty, writer.uint32(34).fork()).ldelim()
 		}
-		if (message.delayPeriod !== undefined) {
+		if (message.delayPeriod && message.delayPeriod !== BigInt(0)) {
 			writer.uint32(40).uint64(message.delayPeriod)
 		}
 		return writer
@@ -435,10 +435,10 @@ export const IdentifiedConnection = {
 		message: IdentifiedConnection,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.id !== undefined) {
+		if (message.id && message.id !== "") {
 			writer.uint32(10).string(message.id)
 		}
-		if (message.clientId !== undefined) {
+		if (message.clientId && message.clientId !== "") {
 			writer.uint32(18).string(message.clientId)
 		}
 		for (const v of message.versions) {
@@ -450,7 +450,7 @@ export const IdentifiedConnection = {
 		if (message.counterparty !== undefined) {
 			Counterparty.encode(message.counterparty, writer.uint32(42).fork()).ldelim()
 		}
-		if (message.delayPeriod !== undefined) {
+		if (message.delayPeriod && message.delayPeriod !== BigInt(0)) {
 			writer.uint32(48).uint64(message.delayPeriod)
 		}
 		return writer
@@ -572,10 +572,10 @@ function createBaseCounterparty(): Counterparty {
 export const Counterparty = {
 	typeUrl: "/ibc.core.connection.v1.Counterparty",
 	encode(message: Counterparty, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.clientId !== undefined) {
+		if (message.clientId && message.clientId !== "") {
 			writer.uint32(10).string(message.clientId)
 		}
-		if (message.connectionId !== undefined) {
+		if (message.connectionId && message.connectionId !== "") {
 			writer.uint32(18).string(message.connectionId)
 		}
 		if (message.prefix !== undefined) {
@@ -738,7 +738,7 @@ function createBaseConnectionPaths(): ConnectionPaths {
 export const ConnectionPaths = {
 	typeUrl: "/ibc.core.connection.v1.ConnectionPaths",
 	encode(message: ConnectionPaths, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.clientId !== undefined) {
+		if (message.clientId && message.clientId !== "") {
 			writer.uint32(10).string(message.clientId)
 		}
 		for (const v of message.paths) {
@@ -821,7 +821,7 @@ function createBaseVersion(): Version {
 export const Version = {
 	typeUrl: "/ibc.core.connection.v1.Version",
 	encode(message: Version, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.identifier !== undefined) {
+		if (message.identifier && message.identifier !== "") {
 			writer.uint32(10).string(message.identifier)
 		}
 		for (const v of message.features) {
@@ -903,7 +903,7 @@ function createBaseParams(): Params {
 export const Params = {
 	typeUrl: "/ibc.core.connection.v1.Params",
 	encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.maxExpectedTimePerBlock !== undefined) {
+		if (message.maxExpectedTimePerBlock && message.maxExpectedTimePerBlock !== BigInt(0)) {
 			writer.uint32(8).uint64(message.maxExpectedTimePerBlock)
 		}
 		return writer

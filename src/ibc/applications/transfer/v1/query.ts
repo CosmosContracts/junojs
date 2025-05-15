@@ -37,7 +37,7 @@ export interface QueryDenomTraceRequestAminoMsg {
  */
 export interface QueryDenomTraceResponse {
 	/** denom_trace returns the requested denomination trace information. */
-	denomTrace?: DenomTrace
+	denomTrace?: DenomTrace | undefined
 }
 export interface QueryDenomTraceResponseProtoMsg {
 	typeUrl: "/ibc.applications.transfer.v1.QueryDenomTraceResponse"
@@ -49,7 +49,7 @@ export interface QueryDenomTraceResponseProtoMsg {
  */
 export interface QueryDenomTraceResponseAmino {
 	/** denom_trace returns the requested denomination trace information. */
-	denom_trace?: DenomTraceAmino
+	denom_trace?: DenomTraceAmino | undefined
 }
 export interface QueryDenomTraceResponseAminoMsg {
 	type: "cosmos-sdk/QueryDenomTraceResponse"
@@ -61,7 +61,7 @@ export interface QueryDenomTraceResponseAminoMsg {
  */
 export interface QueryDenomTracesRequest {
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 }
 export interface QueryDenomTracesRequestProtoMsg {
 	typeUrl: "/ibc.applications.transfer.v1.QueryDenomTracesRequest"
@@ -73,7 +73,7 @@ export interface QueryDenomTracesRequestProtoMsg {
  */
 export interface QueryDenomTracesRequestAmino {
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 }
 export interface QueryDenomTracesRequestAminoMsg {
 	type: "cosmos-sdk/QueryDenomTracesRequest"
@@ -87,7 +87,7 @@ export interface QueryDenomTracesResponse {
 	/** denom_traces returns all denominations trace information. */
 	denomTraces: DenomTrace[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 }
 export interface QueryDenomTracesResponseProtoMsg {
 	typeUrl: "/ibc.applications.transfer.v1.QueryDenomTracesResponse"
@@ -101,7 +101,7 @@ export interface QueryDenomTracesResponseAmino {
 	/** denom_traces returns all denominations trace information. */
 	denom_traces?: DenomTraceAmino[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 }
 export interface QueryDenomTracesResponseAminoMsg {
 	type: "cosmos-sdk/QueryDenomTracesResponse"
@@ -122,7 +122,7 @@ export interface QueryParamsRequestAminoMsg {
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponse {
 	/** params defines the parameters of the module. */
-	params?: Params
+	params?: Params | undefined
 }
 export interface QueryParamsResponseProtoMsg {
 	typeUrl: "/ibc.applications.transfer.v1.QueryParamsResponse"
@@ -131,7 +131,7 @@ export interface QueryParamsResponseProtoMsg {
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponseAmino {
 	/** params defines the parameters of the module. */
-	params?: ParamsAmino
+	params?: ParamsAmino | undefined
 }
 export interface QueryParamsResponseAminoMsg {
 	type: "cosmos-sdk/QueryParamsResponse"
@@ -243,7 +243,7 @@ export interface QueryTotalEscrowForDenomRequestAminoMsg {
 }
 /** QueryTotalEscrowForDenomResponse is the response type for TotalEscrowForDenom RPC method. */
 export interface QueryTotalEscrowForDenomResponse {
-	amount: Coin
+	amount: Coin | undefined
 }
 export interface QueryTotalEscrowForDenomResponseProtoMsg {
 	typeUrl: "/ibc.applications.transfer.v1.QueryTotalEscrowForDenomResponse"
@@ -251,7 +251,7 @@ export interface QueryTotalEscrowForDenomResponseProtoMsg {
 }
 /** QueryTotalEscrowForDenomResponse is the response type for TotalEscrowForDenom RPC method. */
 export interface QueryTotalEscrowForDenomResponseAmino {
-	amount?: CoinAmino
+	amount?: CoinAmino | undefined
 }
 export interface QueryTotalEscrowForDenomResponseAminoMsg {
 	type: "cosmos-sdk/QueryTotalEscrowForDenomResponse"
@@ -268,7 +268,7 @@ export const QueryDenomTraceRequest = {
 		message: QueryDenomTraceRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.hash !== undefined) {
+		if (message.hash && message.hash !== "") {
 			writer.uint32(10).string(message.hash)
 		}
 		return writer
@@ -710,7 +710,7 @@ export const QueryDenomHashRequest = {
 		message: QueryDenomHashRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.trace !== undefined) {
+		if (message.trace && message.trace !== "") {
 			writer.uint32(10).string(message.trace)
 		}
 		return writer
@@ -782,7 +782,7 @@ export const QueryDenomHashResponse = {
 		message: QueryDenomHashResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.hash !== undefined) {
+		if (message.hash && message.hash !== "") {
 			writer.uint32(10).string(message.hash)
 		}
 		return writer
@@ -855,10 +855,10 @@ export const QueryEscrowAddressRequest = {
 		message: QueryEscrowAddressRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
 		return writer
@@ -938,7 +938,7 @@ export const QueryEscrowAddressResponse = {
 		message: QueryEscrowAddressResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.escrowAddress !== undefined) {
+		if (message.escrowAddress && message.escrowAddress !== "") {
 			writer.uint32(10).string(message.escrowAddress)
 		}
 		return writer
@@ -1010,7 +1010,7 @@ export const QueryTotalEscrowForDenomRequest = {
 		message: QueryTotalEscrowForDenomRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.denom !== undefined) {
+		if (message.denom && message.denom !== "") {
 			writer.uint32(10).string(message.denom)
 		}
 		return writer

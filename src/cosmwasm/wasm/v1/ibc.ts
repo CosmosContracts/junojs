@@ -105,13 +105,13 @@ function createBaseMsgIBCSend(): MsgIBCSend {
 export const MsgIBCSend = {
 	typeUrl: "/cosmwasm.wasm.v1.MsgIBCSend",
 	encode(message: MsgIBCSend, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.channel !== undefined) {
+		if (message.channel && message.channel !== "") {
 			writer.uint32(18).string(message.channel)
 		}
-		if (message.timeoutHeight !== undefined) {
+		if (message.timeoutHeight && message.timeoutHeight !== BigInt(0)) {
 			writer.uint32(32).uint64(message.timeoutHeight)
 		}
-		if (message.timeoutTimestamp !== undefined) {
+		if (message.timeoutTimestamp && message.timeoutTimestamp !== BigInt(0)) {
 			writer.uint32(40).uint64(message.timeoutTimestamp)
 		}
 		if (message.data.length !== 0) {
@@ -215,7 +215,7 @@ function createBaseMsgIBCSendResponse(): MsgIBCSendResponse {
 export const MsgIBCSendResponse = {
 	typeUrl: "/cosmwasm.wasm.v1.MsgIBCSendResponse",
 	encode(message: MsgIBCSendResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.sequence !== undefined) {
+		if (message.sequence && message.sequence !== BigInt(0)) {
 			writer.uint32(8).uint64(message.sequence)
 		}
 		return writer
@@ -354,7 +354,7 @@ function createBaseMsgIBCCloseChannel(): MsgIBCCloseChannel {
 export const MsgIBCCloseChannel = {
 	typeUrl: "/cosmwasm.wasm.v1.MsgIBCCloseChannel",
 	encode(message: MsgIBCCloseChannel, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.channel !== undefined) {
+		if (message.channel && message.channel !== "") {
 			writer.uint32(18).string(message.channel)
 		}
 		return writer

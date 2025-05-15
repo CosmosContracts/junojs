@@ -3,9 +3,9 @@ import { Minter, type MinterAmino, Params, type ParamsAmino } from "./mint"
 /** GenesisState defines the mint module's genesis state. */
 export interface GenesisState {
 	/** minter is a space for holding current inflation information. */
-	minter: Minter
+	minter: Minter | undefined
 	/** params defines all the parameters of the module. */
-	params: Params
+	params: Params | undefined
 }
 export interface GenesisStateProtoMsg {
 	typeUrl: "/juno.mint.v1.GenesisState"
@@ -14,9 +14,9 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the mint module's genesis state. */
 export interface GenesisStateAmino {
 	/** minter is a space for holding current inflation information. */
-	minter: MinterAmino
+	minter: MinterAmino | undefined
 	/** params defines all the parameters of the module. */
-	params: ParamsAmino
+	params: ParamsAmino | undefined
 }
 export interface GenesisStateAminoMsg {
 	type: "/juno.mint.v1.GenesisState"

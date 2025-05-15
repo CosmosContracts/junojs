@@ -29,9 +29,14 @@ const common = defineConfig({
 const config = defineConfig([
 	{
 		...common,
+		resolve: {
+			conditionNames: ["node", "import"],
+			tsconfigFilename: "./tsconfig.json",
+			symlinks: true,
+			exportsFields: [["exports"]]
+		},
 		output: {
 			sourcemap: true,
-			exports: "named",
 			minify: {
 				compress: true,
 				mangle: true,
@@ -45,9 +50,15 @@ const config = defineConfig([
 	},
 	{
 		...common,
+		platform: "node",
+		resolve: {
+			tsconfigFilename: "./tsconfig.json",
+			symlinks: true,
+			exportsFields: [["exports"]],
+			conditionNames: ["node", "require"]
+		},
 		output: {
 			sourcemap: true,
-			exports: "named",
 			minify: {
 				compress: true,
 				mangle: true,
@@ -65,11 +76,6 @@ const config = defineConfig([
 		output: {
 			sourcemap: true,
 			exports: "named",
-			minify: {
-				compress: true,
-				mangle: true,
-				removeWhitespace: true
-			},
 			dir: "dist/types",
 			format: "esm",
 			entryFileNames: "[name].ts",

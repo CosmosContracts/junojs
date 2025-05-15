@@ -9,7 +9,7 @@ import { Grant, type GrantAmino } from "./authz"
 export interface MsgGrant {
 	granter: string
 	grantee: string
-	grant: Grant
+	grant: Grant | undefined
 }
 export interface MsgGrantProtoMsg {
 	typeUrl: "/cosmos.authz.v1beta1.MsgGrant"
@@ -22,7 +22,7 @@ export interface MsgGrantProtoMsg {
 export interface MsgGrantAmino {
 	granter?: string
 	grantee?: string
-	grant: GrantAmino
+	grant: GrantAmino | undefined
 }
 export interface MsgGrantAminoMsg {
 	type: "cosmos-sdk/MsgGrant"
@@ -148,10 +148,10 @@ function createBaseMsgGrant(): MsgGrant {
 export const MsgGrant = {
 	typeUrl: "/cosmos.authz.v1beta1.MsgGrant",
 	encode(message: MsgGrant, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.granter !== undefined) {
+		if (message.granter && message.granter !== "") {
 			writer.uint32(10).string(message.granter)
 		}
-		if (message.grantee !== undefined) {
+		if (message.grantee && message.grantee !== "") {
 			writer.uint32(18).string(message.grantee)
 		}
 		if (message.grant !== undefined) {
@@ -301,7 +301,7 @@ function createBaseMsgExec(): MsgExec {
 export const MsgExec = {
 	typeUrl: "/cosmos.authz.v1beta1.MsgExec",
 	encode(message: MsgExec, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.grantee !== undefined) {
+		if (message.grantee && message.grantee !== "") {
 			writer.uint32(10).string(message.grantee)
 		}
 		for (const v of message.msgs) {
@@ -458,13 +458,13 @@ function createBaseMsgRevoke(): MsgRevoke {
 export const MsgRevoke = {
 	typeUrl: "/cosmos.authz.v1beta1.MsgRevoke",
 	encode(message: MsgRevoke, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.granter !== undefined) {
+		if (message.granter && message.granter !== "") {
 			writer.uint32(10).string(message.granter)
 		}
-		if (message.grantee !== undefined) {
+		if (message.grantee && message.grantee !== "") {
 			writer.uint32(18).string(message.grantee)
 		}
-		if (message.msgTypeUrl !== undefined) {
+		if (message.msgTypeUrl && message.msgTypeUrl !== "") {
 			writer.uint32(26).string(message.msgTypeUrl)
 		}
 		return writer

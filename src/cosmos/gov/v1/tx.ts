@@ -210,7 +210,7 @@ export type MsgExecLegacyContentEncoded = Omit<MsgExecLegacyContent, "content"> 
  */
 export interface MsgExecLegacyContentAmino {
 	/** content is the proposal's content. */
-	content?: AnyAmino
+	content?: AnyAmino | undefined
 	/** authority must be the gov module address. */
 	authority?: string
 }
@@ -365,7 +365,7 @@ export interface MsgUpdateParams {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params: Params
+	params: Params | undefined
 }
 export interface MsgUpdateParamsProtoMsg {
 	typeUrl: "/cosmos.gov.v1.MsgUpdateParams"
@@ -384,7 +384,7 @@ export interface MsgUpdateParamsAmino {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params: ParamsAmino
+	params: ParamsAmino | undefined
 }
 export interface MsgUpdateParamsAminoMsg {
 	type: "cosmos-sdk/x/gov/v1/MsgUpdateParams"
@@ -452,7 +452,7 @@ export interface MsgCancelProposalResponse {
 	/** proposal_id defines the unique id of the proposal. */
 	proposalId: bigint
 	/** canceled_time is the time when proposal is canceled. */
-	canceledTime: Date
+	canceledTime: Date | undefined
 	/** canceled_height defines the block height at which the proposal is canceled. */
 	canceledHeight: bigint
 }
@@ -470,7 +470,7 @@ export interface MsgCancelProposalResponseAmino {
 	/** proposal_id defines the unique id of the proposal. */
 	proposal_id: string
 	/** canceled_time is the time when proposal is canceled. */
-	canceled_time?: string
+	canceled_time?: string | undefined
 	/** canceled_height defines the block height at which the proposal is canceled. */
 	canceled_height?: string
 }
@@ -498,19 +498,19 @@ export const MsgSubmitProposal = {
 		for (const v of message.initialDeposit) {
 			Coin.encode(v!, writer.uint32(18).fork()).ldelim()
 		}
-		if (message.proposer !== undefined) {
+		if (message.proposer && message.proposer !== "") {
 			writer.uint32(26).string(message.proposer)
 		}
-		if (message.metadata !== undefined) {
+		if (message.metadata && message.metadata !== "") {
 			writer.uint32(34).string(message.metadata)
 		}
-		if (message.title !== undefined) {
+		if (message.title && message.title !== "") {
 			writer.uint32(42).string(message.title)
 		}
-		if (message.summary !== undefined) {
+		if (message.summary && message.summary !== "") {
 			writer.uint32(50).string(message.summary)
 		}
-		if (message.expedited !== undefined) {
+		if (message.expedited === true) {
 			writer.uint32(56).bool(message.expedited)
 		}
 		return writer
@@ -634,7 +634,7 @@ export const MsgSubmitProposalResponse = {
 		message: MsgSubmitProposalResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.proposalId !== undefined) {
+		if (message.proposalId && message.proposalId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.proposalId)
 		}
 		return writer
@@ -714,7 +714,7 @@ export const MsgExecLegacyContent = {
 		if (message.content !== undefined) {
 			Any.encode(message.content as Any, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.authority !== undefined) {
+		if (message.authority && message.authority !== "") {
 			writer.uint32(18).string(message.authority)
 		}
 		return writer
@@ -858,16 +858,16 @@ function createBaseMsgVote(): MsgVote {
 export const MsgVote = {
 	typeUrl: "/cosmos.gov.v1.MsgVote",
 	encode(message: MsgVote, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.proposalId !== undefined) {
+		if (message.proposalId && message.proposalId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.proposalId)
 		}
-		if (message.voter !== undefined) {
+		if (message.voter && message.voter !== "") {
 			writer.uint32(18).string(message.voter)
 		}
 		if (message.option !== 0) {
 			writer.uint32(24).int32(message.option)
 		}
-		if (message.metadata !== undefined) {
+		if (message.metadata && message.metadata !== "") {
 			writer.uint32(34).string(message.metadata)
 		}
 		return writer
@@ -1022,16 +1022,16 @@ function createBaseMsgVoteWeighted(): MsgVoteWeighted {
 export const MsgVoteWeighted = {
 	typeUrl: "/cosmos.gov.v1.MsgVoteWeighted",
 	encode(message: MsgVoteWeighted, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.proposalId !== undefined) {
+		if (message.proposalId && message.proposalId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.proposalId)
 		}
-		if (message.voter !== undefined) {
+		if (message.voter && message.voter !== "") {
 			writer.uint32(18).string(message.voter)
 		}
 		for (const v of message.options) {
 			WeightedVoteOption.encode(v!, writer.uint32(26).fork()).ldelim()
 		}
-		if (message.metadata !== undefined) {
+		if (message.metadata && message.metadata !== "") {
 			writer.uint32(34).string(message.metadata)
 		}
 		return writer
@@ -1187,10 +1187,10 @@ function createBaseMsgDeposit(): MsgDeposit {
 export const MsgDeposit = {
 	typeUrl: "/cosmos.gov.v1.MsgDeposit",
 	encode(message: MsgDeposit, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.proposalId !== undefined) {
+		if (message.proposalId && message.proposalId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.proposalId)
 		}
-		if (message.depositor !== undefined) {
+		if (message.depositor && message.depositor !== "") {
 			writer.uint32(18).string(message.depositor)
 		}
 		for (const v of message.amount) {
@@ -1340,7 +1340,7 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
 export const MsgUpdateParams = {
 	typeUrl: "/cosmos.gov.v1.MsgUpdateParams",
 	encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.authority !== undefined) {
+		if (message.authority && message.authority !== "") {
 			writer.uint32(10).string(message.authority)
 		}
 		if (message.params !== undefined) {
@@ -1482,10 +1482,10 @@ function createBaseMsgCancelProposal(): MsgCancelProposal {
 export const MsgCancelProposal = {
 	typeUrl: "/cosmos.gov.v1.MsgCancelProposal",
 	encode(message: MsgCancelProposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.proposalId !== undefined) {
+		if (message.proposalId && message.proposalId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.proposalId)
 		}
-		if (message.proposer !== undefined) {
+		if (message.proposer && message.proposer !== "") {
 			writer.uint32(18).string(message.proposer)
 		}
 		return writer
@@ -1570,13 +1570,13 @@ export const MsgCancelProposalResponse = {
 		message: MsgCancelProposalResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.proposalId !== undefined) {
+		if (message.proposalId && message.proposalId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.proposalId)
 		}
 		if (message.canceledTime !== undefined) {
 			Timestamp.encode(toTimestamp(message.canceledTime), writer.uint32(18).fork()).ldelim()
 		}
-		if (message.canceledHeight !== undefined) {
+		if (message.canceledHeight && message.canceledHeight !== BigInt(0)) {
 			writer.uint32(24).uint64(message.canceledHeight)
 		}
 		return writer

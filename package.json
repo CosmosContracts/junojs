@@ -10,33 +10,33 @@
 	},
 	"exports": {
 		"./cosmos": {
-			"import": "./dist/esm/cosmos/index.mjs",
-			"require": "./dist/cjs/cosmos/index.cjs",
+			"import": "./dist/esm/cosmos/*.mjs",
+			"require": "./dist/cjs/cosmos/*.cjs",
 			"types": "./dist/types/cosmos.d.ts"
 		},
 		"./cosmwasm": {
-			"import": "./dist/esm/cosmwasm/index.mjs",
-			"require": "./dist/cjs/cosmwasm/index.cjs",
+			"import": "./dist/esm/cosmwasm/*.mjs",
+			"require": "./dist/cjs/cosmwasm/*.cjs",
 			"types": "./dist/types/cosmwasm.d.ts"
 		},
 		"./ibc": {
-			"import": "./dist/esm/ibc/index.mjs",
-			"require": "./dist/cjs/ibc/index.cjs",
+			"import": "./dist/esm/ibc/*.mjs",
+			"require": "./dist/cjs/ibc/*.cjs",
 			"types": "./dist/types/ibc.d.ts"
 		},
 		"./juno": {
-			"import": "./dist/esm/juno/index.mjs",
-			"require": "./dist/cjs/juno/index.cjs",
+			"import": "./dist/esm/juno/*.mjs",
+			"require": "./dist/cjs/juno/*.cjs",
 			"types": "./dist/types/juno.d.ts"
 		},
 		"./gaia": {
-			"import": "./dist/esm/gaia/index.mjs",
-			"require": "./dist/cjs/gaia/index.cjs",
+			"import": "./dist/esm/gaia/*.mjs",
+			"require": "./dist/cjs/gaia/*.cjs",
 			"types": "./dist/types/gaia.d.ts"
 		},
 		"./osmosis": {
-			"import": "./dist/esm/osmosis/index.mjs",
-			"require": "./dist/cjs/osmosis/index.cjs",
+			"import": "./dist/esm/osmosis/*.mjs",
+			"require": "./dist/cjs/osmosis/*.cjs",
 			"types": "./dist/types/osmosis.d.ts"
 		}
 	},
@@ -52,7 +52,7 @@
 	"description": "JS-based standard library for Juno's Protobuffers",
 	"devDependencies": {
 		"@biomejs/biome": "1.9.4",
-		"@chain-registry/v2": "1.71.210",
+		"@chain-registry/v2": "1.71.211",
 		"@chain-registry/v2-types": "0.53.130",
 		"@commitlint/cli": "19.8.1",
 		"@commitlint/config-conventional": "19.8.1",

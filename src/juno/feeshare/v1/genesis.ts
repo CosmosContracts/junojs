@@ -4,7 +4,7 @@ import { FeeShare, type FeeShareAmino } from "./feeshare"
 /** GenesisState defines the module's genesis state. */
 export interface GenesisState {
 	/** params are the feeshare module parameters */
-	params: Params
+	params: Params | undefined
 	/** FeeShare is a slice of active registered contracts for fee distribution */
 	feeShare: FeeShare[]
 }
@@ -15,7 +15,7 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the module's genesis state. */
 export interface GenesisStateAmino {
 	/** params are the feeshare module parameters */
-	params: ParamsAmino
+	params: ParamsAmino | undefined
 	/** FeeShare is a slice of active registered contracts for fee distribution */
 	fee_share: FeeShareAmino[]
 }
@@ -157,10 +157,10 @@ function createBaseParams(): Params {
 export const Params = {
 	typeUrl: "/juno.feeshare.v1.Params",
 	encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.enableFeeShare !== undefined) {
+		if (message.enableFeeShare === true) {
 			writer.uint32(8).bool(message.enableFeeShare)
 		}
-		if (message.developerShares !== undefined) {
+		if (message.developerShares && message.developerShares !== "") {
 			writer.uint32(18).string(Decimal.fromUserInput(message.developerShares, 18).atomics)
 		}
 		for (const v of message.allowedDenoms) {

@@ -3,7 +3,7 @@ import { FeePayContract, type FeePayContractAmino } from "./feepay"
 /** GenesisState defines the module's genesis state. */
 export interface GenesisState {
 	/** params are the feepay module parameters */
-	params: Params
+	params: Params | undefined
 	/** fee_pay_contracts are the feepay module contracts */
 	feePayContracts: FeePayContract[]
 }
@@ -14,7 +14,7 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the module's genesis state. */
 export interface GenesisStateAmino {
 	/** params are the feepay module parameters */
-	params: ParamsAmino
+	params: ParamsAmino | undefined
 	/** fee_pay_contracts are the feepay module contracts */
 	fee_pay_contracts: FeePayContractAmino[]
 }
@@ -134,7 +134,7 @@ function createBaseParams(): Params {
 export const Params = {
 	typeUrl: "/juno.feepay.v1.Params",
 	encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.enableFeepay !== undefined) {
+		if (message.enableFeepay === true) {
 			writer.uint32(8).bool(message.enableFeepay)
 		}
 		return writer

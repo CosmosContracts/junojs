@@ -30,7 +30,7 @@ export interface FeeAminoMsg {
 /** PacketFee contains ICS29 relayer fees, refund address and optional list of permitted relayers */
 export interface PacketFee {
 	/** fee encapsulates the recv, ack and timeout fees associated with an IBC packet */
-	fee: Fee
+	fee: Fee | undefined
 	/** the refund address for unspent fees */
 	refundAddress: string
 	/** optional list of relayers permitted to receive fees */
@@ -43,7 +43,7 @@ export interface PacketFeeProtoMsg {
 /** PacketFee contains ICS29 relayer fees, refund address and optional list of permitted relayers */
 export interface PacketFeeAmino {
 	/** fee encapsulates the recv, ack and timeout fees associated with an IBC packet */
-	fee?: FeeAmino
+	fee?: FeeAmino | undefined
 	/** the refund address for unspent fees */
 	refund_address?: string
 	/** optional list of relayers permitted to receive fees */
@@ -74,7 +74,7 @@ export interface PacketFeesAminoMsg {
 /** IdentifiedPacketFees contains a list of type PacketFee and associated PacketId */
 export interface IdentifiedPacketFees {
 	/** unique packet identifier comprised of the channel ID, port ID and sequence */
-	packetId: PacketId
+	packetId: PacketId | undefined
 	/** list of packet fees */
 	packetFees: PacketFee[]
 }
@@ -85,7 +85,7 @@ export interface IdentifiedPacketFeesProtoMsg {
 /** IdentifiedPacketFees contains a list of type PacketFee and associated PacketId */
 export interface IdentifiedPacketFeesAmino {
 	/** unique packet identifier comprised of the channel ID, port ID and sequence */
-	packet_id?: PacketIdAmino
+	packet_id?: PacketIdAmino | undefined
 	/** list of packet fees */
 	packet_fees?: PacketFeeAmino[]
 }
@@ -205,7 +205,7 @@ export const PacketFee = {
 		if (message.fee !== undefined) {
 			Fee.encode(message.fee, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.refundAddress !== undefined) {
+		if (message.refundAddress && message.refundAddress !== "") {
 			writer.uint32(18).string(message.refundAddress)
 		}
 		for (const v of message.relayers) {

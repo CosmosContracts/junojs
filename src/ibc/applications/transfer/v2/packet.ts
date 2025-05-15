@@ -56,19 +56,19 @@ export const FungibleTokenPacketData = {
 		message: FungibleTokenPacketData,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.denom !== undefined) {
+		if (message.denom && message.denom !== "") {
 			writer.uint32(10).string(message.denom)
 		}
-		if (message.amount !== undefined) {
+		if (message.amount && message.amount !== "") {
 			writer.uint32(18).string(message.amount)
 		}
-		if (message.sender !== undefined) {
+		if (message.sender && message.sender !== "") {
 			writer.uint32(26).string(message.sender)
 		}
-		if (message.receiver !== undefined) {
+		if (message.receiver && message.receiver !== "") {
 			writer.uint32(34).string(message.receiver)
 		}
-		if (message.memo !== undefined) {
+		if (message.memo && message.memo !== "") {
 			writer.uint32(42).string(message.memo)
 		}
 		return writer

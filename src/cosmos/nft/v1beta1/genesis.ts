@@ -138,7 +138,7 @@ function createBaseEntry(): Entry {
 export const Entry = {
 	typeUrl: "/cosmos.nft.v1beta1.Entry",
 	encode(message: Entry, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.owner !== undefined) {
+		if (message.owner && message.owner !== "") {
 			writer.uint32(10).string(message.owner)
 		}
 		for (const v of message.nfts) {

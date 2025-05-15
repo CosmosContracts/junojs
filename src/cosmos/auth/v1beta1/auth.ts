@@ -9,7 +9,7 @@ import { base64FromBytes, bytesFromBase64 } from "../../../helpers"
 export interface BaseAccount {
 	$typeUrl?: "/cosmos.auth.v1beta1.BaseAccount"
 	address: string
-	pubKey?: Any
+	pubKey?: Any | undefined
 	accountNumber: bigint
 	sequence: bigint
 }
@@ -24,7 +24,7 @@ export interface BaseAccountProtoMsg {
  */
 export interface BaseAccountAmino {
 	address?: string
-	pub_key?: AnyAmino
+	pub_key?: AnyAmino | undefined
 	account_number?: string
 	sequence?: string
 }
@@ -35,7 +35,7 @@ export interface BaseAccountAminoMsg {
 /** ModuleAccount defines an account for modules that holds coins on a pool. */
 export interface ModuleAccount {
 	$typeUrl?: "/cosmos.auth.v1beta1.ModuleAccount"
-	baseAccount?: BaseAccount
+	baseAccount?: BaseAccount | undefined
 	name: string
 	permissions: string[]
 }
@@ -45,7 +45,7 @@ export interface ModuleAccountProtoMsg {
 }
 /** ModuleAccount defines an account for modules that holds coins on a pool. */
 export interface ModuleAccountAmino {
-	base_account?: BaseAccountAmino
+	base_account?: BaseAccountAmino | undefined
 	name?: string
 	permissions?: string[]
 }
@@ -125,16 +125,16 @@ function createBaseBaseAccount(): BaseAccount {
 export const BaseAccount = {
 	typeUrl: "/cosmos.auth.v1beta1.BaseAccount",
 	encode(message: BaseAccount, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.address !== undefined) {
+		if (message.address && message.address !== "") {
 			writer.uint32(10).string(message.address)
 		}
 		if (message.pubKey !== undefined) {
 			Any.encode(message.pubKey, writer.uint32(18).fork()).ldelim()
 		}
-		if (message.accountNumber !== undefined) {
+		if (message.accountNumber && message.accountNumber !== BigInt(0)) {
 			writer.uint32(24).uint64(message.accountNumber)
 		}
-		if (message.sequence !== undefined) {
+		if (message.sequence && message.sequence !== BigInt(0)) {
 			writer.uint32(32).uint64(message.sequence)
 		}
 		return writer
@@ -243,7 +243,7 @@ export const ModuleAccount = {
 		if (message.baseAccount !== undefined) {
 			BaseAccount.encode(message.baseAccount, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.name !== undefined) {
+		if (message.name && message.name !== "") {
 			writer.uint32(18).string(message.name)
 		}
 		for (const v of message.permissions) {
@@ -337,7 +337,7 @@ function createBaseModuleCredential(): ModuleCredential {
 export const ModuleCredential = {
 	typeUrl: "/cosmos.auth.v1beta1.ModuleCredential",
 	encode(message: ModuleCredential, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.moduleName !== undefined) {
+		if (message.moduleName && message.moduleName !== "") {
 			writer.uint32(10).string(message.moduleName)
 		}
 		for (const v of message.derivationKeys) {
@@ -423,19 +423,19 @@ function createBaseParams(): Params {
 export const Params = {
 	typeUrl: "/cosmos.auth.v1beta1.Params",
 	encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.maxMemoCharacters !== undefined) {
+		if (message.maxMemoCharacters && message.maxMemoCharacters !== BigInt(0)) {
 			writer.uint32(8).uint64(message.maxMemoCharacters)
 		}
-		if (message.txSigLimit !== undefined) {
+		if (message.txSigLimit && message.txSigLimit !== BigInt(0)) {
 			writer.uint32(16).uint64(message.txSigLimit)
 		}
-		if (message.txSizeCostPerByte !== undefined) {
+		if (message.txSizeCostPerByte && message.txSizeCostPerByte !== BigInt(0)) {
 			writer.uint32(24).uint64(message.txSizeCostPerByte)
 		}
-		if (message.sigVerifyCostEd25519 !== undefined) {
+		if (message.sigVerifyCostEd25519 && message.sigVerifyCostEd25519 !== BigInt(0)) {
 			writer.uint32(32).uint64(message.sigVerifyCostEd25519)
 		}
-		if (message.sigVerifyCostSecp256k1 !== undefined) {
+		if (message.sigVerifyCostSecp256k1 && message.sigVerifyCostSecp256k1 !== BigInt(0)) {
 			writer.uint32(40).uint64(message.sigVerifyCostSecp256k1)
 		}
 		return writer

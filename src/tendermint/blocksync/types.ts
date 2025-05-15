@@ -35,8 +35,8 @@ export interface NoBlockResponseAminoMsg {
 }
 /** BlockResponse returns block to the requested */
 export interface BlockResponse {
-	block?: Block
-	extCommit?: ExtendedCommit
+	block?: Block | undefined
+	extCommit?: ExtendedCommit | undefined
 }
 export interface BlockResponseProtoMsg {
 	typeUrl: "/tendermint.blocksync.BlockResponse"
@@ -44,8 +44,8 @@ export interface BlockResponseProtoMsg {
 }
 /** BlockResponse returns block to the requested */
 export interface BlockResponseAmino {
-	block?: BlockAmino
-	ext_commit?: ExtendedCommitAmino
+	block?: BlockAmino | undefined
+	ext_commit?: ExtendedCommitAmino | undefined
 }
 export interface BlockResponseAminoMsg {
 	type: "/tendermint.blocksync.BlockResponse"
@@ -82,22 +82,22 @@ export interface StatusResponseAminoMsg {
 	value: StatusResponseAmino
 }
 export interface Message {
-	blockRequest?: BlockRequest
-	noBlockResponse?: NoBlockResponse
-	blockResponse?: BlockResponse
-	statusRequest?: StatusRequest
-	statusResponse?: StatusResponse
+	blockRequest?: BlockRequest | undefined
+	noBlockResponse?: NoBlockResponse | undefined
+	blockResponse?: BlockResponse | undefined
+	statusRequest?: StatusRequest | undefined
+	statusResponse?: StatusResponse | undefined
 }
 export interface MessageProtoMsg {
 	typeUrl: "/tendermint.blocksync.Message"
 	value: Uint8Array
 }
 export interface MessageAmino {
-	block_request?: BlockRequestAmino
-	no_block_response?: NoBlockResponseAmino
-	block_response?: BlockResponseAmino
-	status_request?: StatusRequestAmino
-	status_response?: StatusResponseAmino
+	block_request?: BlockRequestAmino | undefined
+	no_block_response?: NoBlockResponseAmino | undefined
+	block_response?: BlockResponseAmino | undefined
+	status_request?: StatusRequestAmino | undefined
+	status_response?: StatusResponseAmino | undefined
 }
 export interface MessageAminoMsg {
 	type: "/tendermint.blocksync.Message"
@@ -111,7 +111,7 @@ function createBaseBlockRequest(): BlockRequest {
 export const BlockRequest = {
 	typeUrl: "/tendermint.blocksync.BlockRequest",
 	encode(message: BlockRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(8).int64(message.height)
 		}
 		return writer
@@ -177,7 +177,7 @@ function createBaseNoBlockResponse(): NoBlockResponse {
 export const NoBlockResponse = {
 	typeUrl: "/tendermint.blocksync.NoBlockResponse",
 	encode(message: NoBlockResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(8).int64(message.height)
 		}
 		return writer
@@ -375,10 +375,10 @@ function createBaseStatusResponse(): StatusResponse {
 export const StatusResponse = {
 	typeUrl: "/tendermint.blocksync.StatusResponse",
 	encode(message: StatusResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(8).int64(message.height)
 		}
-		if (message.base !== undefined) {
+		if (message.base && message.base !== BigInt(0)) {
 			writer.uint32(16).int64(message.base)
 		}
 		return writer

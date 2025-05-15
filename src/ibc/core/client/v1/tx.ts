@@ -6,12 +6,12 @@ import { Params, type ParamsAmino } from "./client"
 /** MsgCreateClient defines a message to create an IBC client */
 export interface MsgCreateClient {
 	/** light client state */
-	clientState?: Any
+	clientState?: Any | undefined
 	/**
 	 * consensus state associated with the client that corresponds to a given
 	 * height.
 	 */
-	consensusState?: Any
+	consensusState?: Any | undefined
 	/** signer address */
 	signer: string
 }
@@ -22,12 +22,12 @@ export interface MsgCreateClientProtoMsg {
 /** MsgCreateClient defines a message to create an IBC client */
 export interface MsgCreateClientAmino {
 	/** light client state */
-	client_state?: AnyAmino
+	client_state?: AnyAmino | undefined
 	/**
 	 * consensus state associated with the client that corresponds to a given
 	 * height.
 	 */
-	consensus_state?: AnyAmino
+	consensus_state?: AnyAmino | undefined
 	/** signer address */
 	signer?: string
 }
@@ -55,7 +55,7 @@ export interface MsgUpdateClient {
 	/** client unique identifier */
 	clientId: string
 	/** client message to update the light client */
-	clientMessage?: Any
+	clientMessage?: Any | undefined
 	/** signer address */
 	signer: string
 }
@@ -71,7 +71,7 @@ export interface MsgUpdateClientAmino {
 	/** client unique identifier */
 	client_id?: string
 	/** client message to update the light client */
-	client_message?: AnyAmino
+	client_message?: AnyAmino | undefined
 	/** signer address */
 	signer?: string
 }
@@ -99,12 +99,12 @@ export interface MsgUpgradeClient {
 	/** client unique identifier */
 	clientId: string
 	/** upgraded client state */
-	clientState?: Any
+	clientState?: Any | undefined
 	/**
 	 * upgraded consensus state, only contains enough information to serve as a
 	 * basis of trust in update logic
 	 */
-	consensusState?: Any
+	consensusState?: Any | undefined
 	/** proof that old chain committed to new client */
 	proofUpgradeClient: Uint8Array
 	/** proof that old chain committed to new consensus state */
@@ -124,12 +124,12 @@ export interface MsgUpgradeClientAmino {
 	/** client unique identifier */
 	client_id?: string
 	/** upgraded client state */
-	client_state?: AnyAmino
+	client_state?: AnyAmino | undefined
 	/**
 	 * upgraded consensus state, only contains enough information to serve as a
 	 * basis of trust in update logic
 	 */
-	consensus_state?: AnyAmino
+	consensus_state?: AnyAmino | undefined
 	/** proof that old chain committed to new client */
 	proof_upgrade_client?: string
 	/** proof that old chain committed to new consensus state */
@@ -163,7 +163,7 @@ export interface MsgSubmitMisbehaviour {
 	/** client unique identifier */
 	clientId: string
 	/** misbehaviour used for freezing the light client */
-	misbehaviour?: Any
+	misbehaviour?: Any | undefined
 	/** signer address */
 	signer: string
 }
@@ -181,7 +181,7 @@ export interface MsgSubmitMisbehaviourAmino {
 	/** client unique identifier */
 	client_id?: string
 	/** misbehaviour used for freezing the light client */
-	misbehaviour?: AnyAmino
+	misbehaviour?: AnyAmino | undefined
 	/** signer address */
 	signer?: string
 }
@@ -253,7 +253,7 @@ export interface MsgRecoverClientResponseAminoMsg {
 }
 /** MsgIBCSoftwareUpgrade defines the message used to schedule an upgrade of an IBC client using a v1 governance proposal */
 export interface MsgIBCSoftwareUpgrade {
-	plan: Plan
+	plan: Plan | undefined
 	/**
 	 * An UpgradedClientState must be provided to perform an IBC breaking upgrade.
 	 * This will make the chain commit to the correct upgraded (self) client state
@@ -264,7 +264,7 @@ export interface MsgIBCSoftwareUpgrade {
 	 * deprecated in the Cosmos SDK to allow for this logic to exist solely in
 	 * the 02-client module.
 	 */
-	upgradedClientState?: Any
+	upgradedClientState?: Any | undefined
 	/** signer address */
 	signer: string
 }
@@ -274,7 +274,7 @@ export interface MsgIBCSoftwareUpgradeProtoMsg {
 }
 /** MsgIBCSoftwareUpgrade defines the message used to schedule an upgrade of an IBC client using a v1 governance proposal */
 export interface MsgIBCSoftwareUpgradeAmino {
-	plan?: PlanAmino
+	plan?: PlanAmino | undefined
 	/**
 	 * An UpgradedClientState must be provided to perform an IBC breaking upgrade.
 	 * This will make the chain commit to the correct upgraded (self) client state
@@ -285,7 +285,7 @@ export interface MsgIBCSoftwareUpgradeAmino {
 	 * deprecated in the Cosmos SDK to allow for this logic to exist solely in
 	 * the 02-client module.
 	 */
-	upgraded_client_state?: AnyAmino
+	upgraded_client_state?: AnyAmino | undefined
 	/** signer address */
 	signer?: string
 }
@@ -314,7 +314,7 @@ export interface MsgUpdateParams {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params: Params
+	params: Params | undefined
 }
 export interface MsgUpdateParamsProtoMsg {
 	typeUrl: "/ibc.core.client.v1.MsgUpdateParams"
@@ -329,7 +329,7 @@ export interface MsgUpdateParamsAmino {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params?: ParamsAmino
+	params?: ParamsAmino | undefined
 }
 export interface MsgUpdateParamsAminoMsg {
 	type: "cosmos-sdk/MsgUpdateParams"
@@ -363,7 +363,7 @@ export const MsgCreateClient = {
 		if (message.consensusState !== undefined) {
 			Any.encode(message.consensusState, writer.uint32(18).fork()).ldelim()
 		}
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(26).string(message.signer)
 		}
 		return writer
@@ -512,13 +512,13 @@ function createBaseMsgUpdateClient(): MsgUpdateClient {
 export const MsgUpdateClient = {
 	typeUrl: "/ibc.core.client.v1.MsgUpdateClient",
 	encode(message: MsgUpdateClient, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.clientId !== undefined) {
+		if (message.clientId && message.clientId !== "") {
 			writer.uint32(10).string(message.clientId)
 		}
 		if (message.clientMessage !== undefined) {
 			Any.encode(message.clientMessage, writer.uint32(18).fork()).ldelim()
 		}
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(26).string(message.signer)
 		}
 		return writer
@@ -667,7 +667,7 @@ function createBaseMsgUpgradeClient(): MsgUpgradeClient {
 export const MsgUpgradeClient = {
 	typeUrl: "/ibc.core.client.v1.MsgUpgradeClient",
 	encode(message: MsgUpgradeClient, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.clientId !== undefined) {
+		if (message.clientId && message.clientId !== "") {
 			writer.uint32(10).string(message.clientId)
 		}
 		if (message.clientState !== undefined) {
@@ -682,7 +682,7 @@ export const MsgUpgradeClient = {
 		if (message.proofUpgradeConsensusState.length !== 0) {
 			writer.uint32(42).bytes(message.proofUpgradeConsensusState)
 		}
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(50).string(message.signer)
 		}
 		return writer
@@ -865,13 +865,13 @@ export const MsgSubmitMisbehaviour = {
 		message: MsgSubmitMisbehaviour,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.clientId !== undefined) {
+		if (message.clientId && message.clientId !== "") {
 			writer.uint32(10).string(message.clientId)
 		}
 		if (message.misbehaviour !== undefined) {
 			Any.encode(message.misbehaviour, writer.uint32(18).fork()).ldelim()
 		}
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(26).string(message.signer)
 		}
 		return writer
@@ -1020,13 +1020,13 @@ function createBaseMsgRecoverClient(): MsgRecoverClient {
 export const MsgRecoverClient = {
 	typeUrl: "/ibc.core.client.v1.MsgRecoverClient",
 	encode(message: MsgRecoverClient, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.subjectClientId !== undefined) {
+		if (message.subjectClientId && message.subjectClientId !== "") {
 			writer.uint32(10).string(message.subjectClientId)
 		}
-		if (message.substituteClientId !== undefined) {
+		if (message.substituteClientId && message.substituteClientId !== "") {
 			writer.uint32(18).string(message.substituteClientId)
 		}
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(26).string(message.signer)
 		}
 		return writer
@@ -1179,7 +1179,7 @@ export const MsgIBCSoftwareUpgrade = {
 		if (message.upgradedClientState !== undefined) {
 			Any.encode(message.upgradedClientState, writer.uint32(18).fork()).ldelim()
 		}
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(26).string(message.signer)
 		}
 		return writer
@@ -1332,7 +1332,7 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
 export const MsgUpdateParams = {
 	typeUrl: "/ibc.core.client.v1.MsgUpdateParams",
 	encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(10).string(message.signer)
 		}
 		if (message.params !== undefined) {

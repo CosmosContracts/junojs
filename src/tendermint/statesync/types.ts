@@ -1,20 +1,20 @@
 import { BinaryReader, BinaryWriter } from "../../binary"
 import { base64FromBytes, bytesFromBase64 } from "../../helpers"
 export interface Message {
-	snapshotsRequest?: SnapshotsRequest
-	snapshotsResponse?: SnapshotsResponse
-	chunkRequest?: ChunkRequest
-	chunkResponse?: ChunkResponse
+	snapshotsRequest?: SnapshotsRequest | undefined
+	snapshotsResponse?: SnapshotsResponse | undefined
+	chunkRequest?: ChunkRequest | undefined
+	chunkResponse?: ChunkResponse | undefined
 }
 export interface MessageProtoMsg {
 	typeUrl: "/tendermint.statesync.Message"
 	value: Uint8Array
 }
 export interface MessageAmino {
-	snapshots_request?: SnapshotsRequestAmino
-	snapshots_response?: SnapshotsResponseAmino
-	chunk_request?: ChunkRequestAmino
-	chunk_response?: ChunkResponseAmino
+	snapshots_request?: SnapshotsRequestAmino | undefined
+	snapshots_response?: SnapshotsResponseAmino | undefined
+	chunk_request?: ChunkRequestAmino | undefined
+	chunk_response?: ChunkResponseAmino | undefined
 }
 export interface MessageAminoMsg {
 	type: "/tendermint.statesync.Message"
@@ -273,13 +273,13 @@ function createBaseSnapshotsResponse(): SnapshotsResponse {
 export const SnapshotsResponse = {
 	typeUrl: "/tendermint.statesync.SnapshotsResponse",
 	encode(message: SnapshotsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(8).uint64(message.height)
 		}
-		if (message.format !== undefined) {
+		if (message.format && message.format !== 0) {
 			writer.uint32(16).uint32(message.format)
 		}
-		if (message.chunks !== undefined) {
+		if (message.chunks && message.chunks !== 0) {
 			writer.uint32(24).uint32(message.chunks)
 		}
 		if (message.hash.length !== 0) {
@@ -385,13 +385,13 @@ function createBaseChunkRequest(): ChunkRequest {
 export const ChunkRequest = {
 	typeUrl: "/tendermint.statesync.ChunkRequest",
 	encode(message: ChunkRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(8).uint64(message.height)
 		}
-		if (message.format !== undefined) {
+		if (message.format && message.format !== 0) {
 			writer.uint32(16).uint32(message.format)
 		}
-		if (message.index !== undefined) {
+		if (message.index && message.index !== 0) {
 			writer.uint32(24).uint32(message.index)
 		}
 		return writer
@@ -477,19 +477,19 @@ function createBaseChunkResponse(): ChunkResponse {
 export const ChunkResponse = {
 	typeUrl: "/tendermint.statesync.ChunkResponse",
 	encode(message: ChunkResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(8).uint64(message.height)
 		}
-		if (message.format !== undefined) {
+		if (message.format && message.format !== 0) {
 			writer.uint32(16).uint32(message.format)
 		}
-		if (message.index !== undefined) {
+		if (message.index && message.index !== 0) {
 			writer.uint32(24).uint32(message.index)
 		}
 		if (message.chunk.length !== 0) {
 			writer.uint32(34).bytes(message.chunk)
 		}
-		if (message.missing !== undefined) {
+		if (message.missing === true) {
 			writer.uint32(40).bool(message.missing)
 		}
 		return writer

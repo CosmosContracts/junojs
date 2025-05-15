@@ -59,13 +59,13 @@ function createBaseFeeShare(): FeeShare {
 export const FeeShare = {
 	typeUrl: "/juno.feeshare.v1.FeeShare",
 	encode(message: FeeShare, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.contractAddress !== undefined) {
+		if (message.contractAddress && message.contractAddress !== "") {
 			writer.uint32(10).string(message.contractAddress)
 		}
-		if (message.deployerAddress !== undefined) {
+		if (message.deployerAddress && message.deployerAddress !== "") {
 			writer.uint32(18).string(message.deployerAddress)
 		}
-		if (message.withdrawerAddress !== undefined) {
+		if (message.withdrawerAddress && message.withdrawerAddress !== "") {
 			writer.uint32(26).string(message.withdrawerAddress)
 		}
 		return writer

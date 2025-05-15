@@ -1,15 +1,21 @@
 #!/usr/bin/env bun
-
+import type { Dirent } from "node:fs"
+import { readdir } from "node:fs/promises"
+import { join } from "node:path"
 import { file as bunFile, write as bunWrite } from "bun"
 
-const filesToFix = [
-	"src/juno/index.ts",
-	"src/ibc/index.ts",
-	"src/gaia/index.ts",
-	"src/osmosis/index.ts",
-	"src/cosmwasm/index.ts",
-	"src/cosmos/index.ts"
-]
+const baseDir = new URL("..", import.meta.url).pathname
+const outPath = join(baseDir, "src")
+const exports = await readdir(outPath, { withFileTypes: true })
+const excludedDirectories = new Set(["gogoproto", "google", "tendermint", "cosmos_proto"])
+const filterDirectories = (entries: Dirent[]): string[] =>
+	entries
+		.filter(
+			(e): e is Dirent => e.isDirectory() && e.name != null && !excludedDirectories.has(e.name)
+		)
+		.map((e) => join("src", e.name, "index.ts"))
+
+const filesToFix = filterDirectories(exports)
 
 const dotKeyRegex = /^(\s*)([A-Za-z0-9\.]+):/
 const aliasExportRegex = /^\s*export\s*\{\s*(\w+)\s+as\s+([\w\.]+)\s*\};?$/
@@ -31,7 +37,6 @@ for (const path of filesToFix) {
 		const outLines: string[] = []
 
 		for (let line of lines) {
-			// Skip designated imports only in src/cosmos/index.ts
 			if (path === "src/cosmos/index.ts" && cosmosImportsToRemove.has(line.trim())) {
 				continue
 			}
@@ -66,11 +71,10 @@ for (const path of filesToFix) {
 		const updated = outLines.join("\n")
 		if (updated !== original) {
 			await bunWrite(path, updated)
-			console.log(`✔ Fixed ${path}`)
 		} else {
-			console.log(`- No changes needed in ${path}`)
+			console.log(`No changes needed in ${path}`)
 		}
 	} catch (err) {
-		console.error(`✖ Error processing ${path}:`, err)
+		console.error(`Error processing ${path}:`, err)
 	}
 }

@@ -10,7 +10,7 @@ import { Params, type ParamsAmino } from "./genesis"
 /** QueryFeeSharesRequest is the request type for the Query/FeeShares RPC method. */
 export interface QueryFeeSharesRequest {
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 }
 export interface QueryFeeSharesRequestProtoMsg {
 	typeUrl: "/juno.feeshare.v1.QueryFeeSharesRequest"
@@ -19,7 +19,7 @@ export interface QueryFeeSharesRequestProtoMsg {
 /** QueryFeeSharesRequest is the request type for the Query/FeeShares RPC method. */
 export interface QueryFeeSharesRequestAmino {
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 }
 export interface QueryFeeSharesRequestAminoMsg {
 	type: "/juno.feeshare.v1.QueryFeeSharesRequest"
@@ -33,7 +33,7 @@ export interface QueryFeeSharesResponse {
 	/** FeeShare is a slice of all stored Reveneue */
 	feeshare: FeeShare[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 }
 export interface QueryFeeSharesResponseProtoMsg {
 	typeUrl: "/juno.feeshare.v1.QueryFeeSharesResponse"
@@ -47,7 +47,7 @@ export interface QueryFeeSharesResponseAmino {
 	/** FeeShare is a slice of all stored Reveneue */
 	feeshare: FeeShareAmino[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 }
 export interface QueryFeeSharesResponseAminoMsg {
 	type: "/juno.feeshare.v1.QueryFeeSharesResponse"
@@ -74,7 +74,7 @@ export interface QueryFeeShareRequestAminoMsg {
 /** QueryFeeShareResponse is the response type for the Query/FeeShare RPC method. */
 export interface QueryFeeShareResponse {
 	/** FeeShare is a stored Reveneue for the queried contract */
-	feeshare: FeeShare
+	feeshare: FeeShare | undefined
 }
 export interface QueryFeeShareResponseProtoMsg {
 	typeUrl: "/juno.feeshare.v1.QueryFeeShareResponse"
@@ -83,7 +83,7 @@ export interface QueryFeeShareResponseProtoMsg {
 /** QueryFeeShareResponse is the response type for the Query/FeeShare RPC method. */
 export interface QueryFeeShareResponseAmino {
 	/** FeeShare is a stored Reveneue for the queried contract */
-	feeshare: FeeShareAmino
+	feeshare: FeeShareAmino | undefined
 }
 export interface QueryFeeShareResponseAminoMsg {
 	type: "/juno.feeshare.v1.QueryFeeShareResponse"
@@ -104,7 +104,7 @@ export interface QueryParamsRequestAminoMsg {
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponse {
 	/** params is the returned FeeShare parameter */
-	params: Params
+	params: Params | undefined
 }
 export interface QueryParamsResponseProtoMsg {
 	typeUrl: "/juno.feeshare.v1.QueryParamsResponse"
@@ -113,7 +113,7 @@ export interface QueryParamsResponseProtoMsg {
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponseAmino {
 	/** params is the returned FeeShare parameter */
-	params: ParamsAmino
+	params: ParamsAmino | undefined
 }
 export interface QueryParamsResponseAminoMsg {
 	type: "/juno.feeshare.v1.QueryParamsResponse"
@@ -127,7 +127,7 @@ export interface QueryDeployerFeeSharesRequest {
 	/** deployer_address in bech32 format */
 	deployerAddress: string
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 }
 export interface QueryDeployerFeeSharesRequestProtoMsg {
 	typeUrl: "/juno.feeshare.v1.QueryDeployerFeeSharesRequest"
@@ -141,7 +141,7 @@ export interface QueryDeployerFeeSharesRequestAmino {
 	/** deployer_address in bech32 format */
 	deployer_address?: string
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 }
 export interface QueryDeployerFeeSharesRequestAminoMsg {
 	type: "/juno.feeshare.v1.QueryDeployerFeeSharesRequest"
@@ -158,7 +158,7 @@ export interface QueryDeployerFeeSharesResponse {
 	 */
 	contractAddresses: string[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 }
 export interface QueryDeployerFeeSharesResponseProtoMsg {
 	typeUrl: "/juno.feeshare.v1.QueryDeployerFeeSharesResponse"
@@ -175,7 +175,7 @@ export interface QueryDeployerFeeSharesResponseAmino {
 	 */
 	contract_addresses?: string[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 }
 export interface QueryDeployerFeeSharesResponseAminoMsg {
 	type: "/juno.feeshare.v1.QueryDeployerFeeSharesResponse"
@@ -189,7 +189,7 @@ export interface QueryWithdrawerFeeSharesRequest {
 	/** withdrawer_address in bech32 format */
 	withdrawerAddress: string
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 }
 export interface QueryWithdrawerFeeSharesRequestProtoMsg {
 	typeUrl: "/juno.feeshare.v1.QueryWithdrawerFeeSharesRequest"
@@ -203,7 +203,7 @@ export interface QueryWithdrawerFeeSharesRequestAmino {
 	/** withdrawer_address in bech32 format */
 	withdrawer_address?: string
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 }
 export interface QueryWithdrawerFeeSharesRequestAminoMsg {
 	type: "/juno.feeshare.v1.QueryWithdrawerFeeSharesRequest"
@@ -220,7 +220,7 @@ export interface QueryWithdrawerFeeSharesResponse {
 	 */
 	contractAddresses: string[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 }
 export interface QueryWithdrawerFeeSharesResponseProtoMsg {
 	typeUrl: "/juno.feeshare.v1.QueryWithdrawerFeeSharesResponse"
@@ -237,7 +237,7 @@ export interface QueryWithdrawerFeeSharesResponseAmino {
 	 */
 	contract_addresses?: string[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 }
 export interface QueryWithdrawerFeeSharesResponseAminoMsg {
 	type: "/juno.feeshare.v1.QueryWithdrawerFeeSharesResponse"
@@ -406,7 +406,7 @@ export const QueryFeeShareRequest = {
 		message: QueryFeeShareRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.contractAddress !== undefined) {
+		if (message.contractAddress && message.contractAddress !== "") {
 			writer.uint32(10).string(message.contractAddress)
 		}
 		return writer
@@ -665,7 +665,7 @@ export const QueryDeployerFeeSharesRequest = {
 		message: QueryDeployerFeeSharesRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.deployerAddress !== undefined) {
+		if (message.deployerAddress && message.deployerAddress !== "") {
 			writer.uint32(10).string(message.deployerAddress)
 		}
 		if (message.pagination !== undefined) {
@@ -829,7 +829,7 @@ export const QueryWithdrawerFeeSharesRequest = {
 		message: QueryWithdrawerFeeSharesRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.withdrawerAddress !== undefined) {
+		if (message.withdrawerAddress && message.withdrawerAddress !== "") {
 			writer.uint32(10).string(message.withdrawerAddress)
 		}
 		if (message.pagination !== undefined) {

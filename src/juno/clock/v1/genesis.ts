@@ -2,7 +2,7 @@ import { BinaryReader, BinaryWriter } from "../../../binary"
 /** GenesisState - initial state of module */
 export interface GenesisState {
 	/** Params of this module */
-	params: Params
+	params: Params | undefined
 }
 export interface GenesisStateProtoMsg {
 	typeUrl: "/juno.clock.v1.GenesisState"
@@ -11,7 +11,7 @@ export interface GenesisStateProtoMsg {
 /** GenesisState - initial state of module */
 export interface GenesisStateAmino {
 	/** Params of this module */
-	params: ParamsAmino
+	params: ParamsAmino | undefined
 }
 export interface GenesisStateAminoMsg {
 	type: "/juno.clock.v1.GenesisState"
@@ -111,7 +111,7 @@ function createBaseParams(): Params {
 export const Params = {
 	typeUrl: "/juno.clock.v1.Params",
 	encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.contractGasLimit !== undefined) {
+		if (message.contractGasLimit && message.contractGasLimit !== BigInt(0)) {
 			writer.uint32(8).uint64(message.contractGasLimit)
 		}
 		return writer

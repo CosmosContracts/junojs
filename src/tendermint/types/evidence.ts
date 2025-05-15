@@ -4,16 +4,16 @@ import { fromTimestamp, toTimestamp } from "../../helpers"
 import { LightBlock, type LightBlockAmino, Vote, type VoteAmino } from "./types"
 import { Validator, type ValidatorAmino } from "./validator"
 export interface Evidence {
-	duplicateVoteEvidence?: DuplicateVoteEvidence
-	lightClientAttackEvidence?: LightClientAttackEvidence
+	duplicateVoteEvidence?: DuplicateVoteEvidence | undefined
+	lightClientAttackEvidence?: LightClientAttackEvidence | undefined
 }
 export interface EvidenceProtoMsg {
 	typeUrl: "/tendermint.types.Evidence"
 	value: Uint8Array
 }
 export interface EvidenceAmino {
-	duplicate_vote_evidence?: DuplicateVoteEvidenceAmino
-	light_client_attack_evidence?: LightClientAttackEvidenceAmino
+	duplicate_vote_evidence?: DuplicateVoteEvidenceAmino | undefined
+	light_client_attack_evidence?: LightClientAttackEvidenceAmino | undefined
 }
 export interface EvidenceAminoMsg {
 	type: "/tendermint.types.Evidence"
@@ -21,11 +21,11 @@ export interface EvidenceAminoMsg {
 }
 /** DuplicateVoteEvidence contains evidence of a validator signed two conflicting votes. */
 export interface DuplicateVoteEvidence {
-	voteA?: Vote
-	voteB?: Vote
+	voteA?: Vote | undefined
+	voteB?: Vote | undefined
 	totalVotingPower: bigint
 	validatorPower: bigint
-	timestamp: Date
+	timestamp: Date | undefined
 }
 export interface DuplicateVoteEvidenceProtoMsg {
 	typeUrl: "/tendermint.types.DuplicateVoteEvidence"
@@ -33,11 +33,11 @@ export interface DuplicateVoteEvidenceProtoMsg {
 }
 /** DuplicateVoteEvidence contains evidence of a validator signed two conflicting votes. */
 export interface DuplicateVoteEvidenceAmino {
-	vote_a?: VoteAmino
-	vote_b?: VoteAmino
+	vote_a?: VoteAmino | undefined
+	vote_b?: VoteAmino | undefined
 	total_voting_power?: string
 	validator_power?: string
-	timestamp?: string
+	timestamp?: string | undefined
 }
 export interface DuplicateVoteEvidenceAminoMsg {
 	type: "/tendermint.types.DuplicateVoteEvidence"
@@ -45,11 +45,11 @@ export interface DuplicateVoteEvidenceAminoMsg {
 }
 /** LightClientAttackEvidence contains evidence of a set of validators attempting to mislead a light client. */
 export interface LightClientAttackEvidence {
-	conflictingBlock?: LightBlock
+	conflictingBlock?: LightBlock | undefined
 	commonHeight: bigint
 	byzantineValidators: Validator[]
 	totalVotingPower: bigint
-	timestamp: Date
+	timestamp: Date | undefined
 }
 export interface LightClientAttackEvidenceProtoMsg {
 	typeUrl: "/tendermint.types.LightClientAttackEvidence"
@@ -57,11 +57,11 @@ export interface LightClientAttackEvidenceProtoMsg {
 }
 /** LightClientAttackEvidence contains evidence of a set of validators attempting to mislead a light client. */
 export interface LightClientAttackEvidenceAmino {
-	conflicting_block?: LightBlockAmino
+	conflicting_block?: LightBlockAmino | undefined
 	common_height?: string
 	byzantine_validators?: ValidatorAmino[]
 	total_voting_power?: string
-	timestamp?: string
+	timestamp?: string | undefined
 }
 export interface LightClientAttackEvidenceAminoMsg {
 	type: "/tendermint.types.LightClientAttackEvidence"
@@ -203,10 +203,10 @@ export const DuplicateVoteEvidence = {
 		if (message.voteB !== undefined) {
 			Vote.encode(message.voteB, writer.uint32(18).fork()).ldelim()
 		}
-		if (message.totalVotingPower !== undefined) {
+		if (message.totalVotingPower && message.totalVotingPower !== BigInt(0)) {
 			writer.uint32(24).int64(message.totalVotingPower)
 		}
-		if (message.validatorPower !== undefined) {
+		if (message.validatorPower && message.validatorPower !== BigInt(0)) {
 			writer.uint32(32).int64(message.validatorPower)
 		}
 		if (message.timestamp !== undefined) {
@@ -330,13 +330,13 @@ export const LightClientAttackEvidence = {
 		if (message.conflictingBlock !== undefined) {
 			LightBlock.encode(message.conflictingBlock, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.commonHeight !== undefined) {
+		if (message.commonHeight && message.commonHeight !== BigInt(0)) {
 			writer.uint32(16).int64(message.commonHeight)
 		}
 		for (const v of message.byzantineValidators) {
 			Validator.encode(v!, writer.uint32(26).fork()).ldelim()
 		}
-		if (message.totalVotingPower !== undefined) {
+		if (message.totalVotingPower && message.totalVotingPower !== BigInt(0)) {
 			writer.uint32(32).int64(message.totalVotingPower)
 		}
 		if (message.timestamp !== undefined) {

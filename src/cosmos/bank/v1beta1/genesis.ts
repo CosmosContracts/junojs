@@ -11,7 +11,7 @@ import {
 /** GenesisState defines the bank module's genesis state. */
 export interface GenesisState {
 	/** params defines all the parameters of the module. */
-	params: Params
+	params: Params | undefined
 	/** balances is an array containing the balances of all the accounts. */
 	balances: Balance[]
 	/**
@@ -35,7 +35,7 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the bank module's genesis state. */
 export interface GenesisStateAmino {
 	/** params defines all the parameters of the module. */
-	params: ParamsAmino
+	params: ParamsAmino | undefined
 	/** balances is an array containing the balances of all the accounts. */
 	balances: BalanceAmino[]
 	/**
@@ -225,7 +225,7 @@ function createBaseBalance(): Balance {
 export const Balance = {
 	typeUrl: "/cosmos.bank.v1beta1.Balance",
 	encode(message: Balance, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.address !== undefined) {
+		if (message.address && message.address !== "") {
 			writer.uint32(10).string(message.address)
 		}
 		for (const v of message.coins) {

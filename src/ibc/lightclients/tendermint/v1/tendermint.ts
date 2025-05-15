@@ -13,20 +13,20 @@ import { MerkleRoot, type MerkleRootAmino } from "../../../core/commitment/v1/co
  */
 export interface ClientState {
 	chainId: string
-	trustLevel: Fraction
+	trustLevel: Fraction | undefined
 	/**
 	 * duration of the period since the LastestTimestamp during which the
 	 * submitted headers are valid for upgrade
 	 */
-	trustingPeriod: Duration
+	trustingPeriod: Duration | undefined
 	/** duration of the staking unbonding period */
-	unbondingPeriod: Duration
+	unbondingPeriod: Duration | undefined
 	/** defines how much new (untrusted) header's Time can drift into the future. */
-	maxClockDrift: Duration
+	maxClockDrift: Duration | undefined
 	/** Block height when the client was frozen due to a misbehaviour */
-	frozenHeight: Height
+	frozenHeight: Height | undefined
 	/** Latest height the client was updated to */
-	latestHeight: Height
+	latestHeight: Height | undefined
 	/** Proof specifications used in verifying counterparty state */
 	proofSpecs: ProofSpec[]
 	/**
@@ -56,20 +56,20 @@ export interface ClientStateProtoMsg {
  */
 export interface ClientStateAmino {
 	chain_id?: string
-	trust_level?: FractionAmino
+	trust_level?: FractionAmino | undefined
 	/**
 	 * duration of the period since the LastestTimestamp during which the
 	 * submitted headers are valid for upgrade
 	 */
-	trusting_period?: DurationAmino
+	trusting_period?: DurationAmino | undefined
 	/** duration of the staking unbonding period */
-	unbonding_period?: DurationAmino
+	unbonding_period?: DurationAmino | undefined
 	/** defines how much new (untrusted) header's Time can drift into the future. */
-	max_clock_drift?: DurationAmino
+	max_clock_drift?: DurationAmino | undefined
 	/** Block height when the client was frozen due to a misbehaviour */
-	frozen_height?: HeightAmino
+	frozen_height?: HeightAmino | undefined
 	/** Latest height the client was updated to */
-	latest_height?: HeightAmino
+	latest_height?: HeightAmino | undefined
 	/** Proof specifications used in verifying counterparty state */
 	proof_specs?: ProofSpecAmino[]
 	/**
@@ -99,9 +99,9 @@ export interface ConsensusState {
 	 * timestamp that corresponds to the block height in which the ConsensusState
 	 * was stored.
 	 */
-	timestamp: Date
+	timestamp: Date | undefined
 	/** commitment root (i.e app hash) */
-	root: MerkleRoot
+	root: MerkleRoot | undefined
 	nextValidatorsHash: Uint8Array
 }
 export interface ConsensusStateProtoMsg {
@@ -114,9 +114,9 @@ export interface ConsensusStateAmino {
 	 * timestamp that corresponds to the block height in which the ConsensusState
 	 * was stored.
 	 */
-	timestamp?: string
+	timestamp?: string | undefined
 	/** commitment root (i.e app hash) */
-	root?: MerkleRootAmino
+	root?: MerkleRootAmino | undefined
 	next_validators_hash?: string
 }
 export interface ConsensusStateAminoMsg {
@@ -131,8 +131,8 @@ export interface Misbehaviour {
 	/** ClientID is deprecated */
 	/** @deprecated */
 	clientId: string
-	header1?: Header
-	header2?: Header
+	header1?: Header | undefined
+	header2?: Header | undefined
 }
 export interface MisbehaviourProtoMsg {
 	typeUrl: "/ibc.lightclients.tendermint.v1.Misbehaviour"
@@ -146,8 +146,8 @@ export interface MisbehaviourAmino {
 	/** ClientID is deprecated */
 	/** @deprecated */
 	client_id?: string
-	header_1?: HeaderAmino
-	header_2?: HeaderAmino
+	header_1?: HeaderAmino | undefined
+	header_2?: HeaderAmino | undefined
 }
 export interface MisbehaviourAminoMsg {
 	type: "cosmos-sdk/Misbehaviour"
@@ -168,10 +168,10 @@ export interface MisbehaviourAminoMsg {
  * trusted validator set at the TrustedHeight.
  */
 export interface Header {
-	signedHeader?: SignedHeader
-	validatorSet?: ValidatorSet
-	trustedHeight: Height
-	trustedValidators?: ValidatorSet
+	signedHeader?: SignedHeader | undefined
+	validatorSet?: ValidatorSet | undefined
+	trustedHeight: Height | undefined
+	trustedValidators?: ValidatorSet | undefined
 }
 export interface HeaderProtoMsg {
 	typeUrl: "/ibc.lightclients.tendermint.v1.Header"
@@ -192,10 +192,10 @@ export interface HeaderProtoMsg {
  * trusted validator set at the TrustedHeight.
  */
 export interface HeaderAmino {
-	signed_header?: SignedHeaderAmino
-	validator_set?: ValidatorSetAmino
-	trusted_height?: HeightAmino
-	trusted_validators?: ValidatorSetAmino
+	signed_header?: SignedHeaderAmino | undefined
+	validator_set?: ValidatorSetAmino | undefined
+	trusted_height?: HeightAmino | undefined
+	trusted_validators?: ValidatorSetAmino | undefined
 }
 export interface HeaderAminoMsg {
 	type: "cosmos-sdk/Header"
@@ -243,7 +243,7 @@ function createBaseClientState(): ClientState {
 export const ClientState = {
 	typeUrl: "/ibc.lightclients.tendermint.v1.ClientState",
 	encode(message: ClientState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.chainId !== undefined) {
+		if (message.chainId && message.chainId !== "") {
 			writer.uint32(10).string(message.chainId)
 		}
 		if (message.trustLevel !== undefined) {
@@ -270,10 +270,10 @@ export const ClientState = {
 		for (const v of message.upgradePath) {
 			writer.uint32(74).string(v!)
 		}
-		if (message.allowUpdateAfterExpiry !== undefined) {
+		if (message.allowUpdateAfterExpiry === true) {
 			writer.uint32(80).bool(message.allowUpdateAfterExpiry)
 		}
-		if (message.allowUpdateAfterMisbehaviour !== undefined) {
+		if (message.allowUpdateAfterMisbehaviour === true) {
 			writer.uint32(88).bool(message.allowUpdateAfterMisbehaviour)
 		}
 		return writer
@@ -562,7 +562,7 @@ function createBaseMisbehaviour(): Misbehaviour {
 export const Misbehaviour = {
 	typeUrl: "/ibc.lightclients.tendermint.v1.Misbehaviour",
 	encode(message: Misbehaviour, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.clientId !== undefined) {
+		if (message.clientId && message.clientId !== "") {
 			writer.uint32(10).string(message.clientId)
 		}
 		if (message.header1 !== undefined) {
@@ -783,10 +783,10 @@ function createBaseFraction(): Fraction {
 export const Fraction = {
 	typeUrl: "/ibc.lightclients.tendermint.v1.Fraction",
 	encode(message: Fraction, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.numerator !== undefined) {
+		if (message.numerator && message.numerator !== BigInt(0)) {
 			writer.uint32(8).uint64(message.numerator)
 		}
-		if (message.denominator !== undefined) {
+		if (message.denominator && message.denominator !== BigInt(0)) {
 			writer.uint32(16).uint64(message.denominator)
 		}
 		return writer

@@ -36,10 +36,10 @@ function createBaseMetadata(): Metadata {
 export const Metadata = {
 	typeUrl: "/ibc.applications.fee.v1.Metadata",
 	encode(message: Metadata, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.feeVersion !== undefined) {
+		if (message.feeVersion && message.feeVersion !== "") {
 			writer.uint32(10).string(message.feeVersion)
 		}
-		if (message.appVersion !== undefined) {
+		if (message.appVersion && message.appVersion !== "") {
 			writer.uint32(18).string(message.appVersion)
 		}
 		return writer

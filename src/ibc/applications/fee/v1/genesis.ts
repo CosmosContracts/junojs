@@ -120,7 +120,7 @@ export interface ForwardRelayerAddress {
 	/** the forward relayer address */
 	address: string
 	/** unique packet identifer comprised of the channel ID, port ID and sequence */
-	packetId: PacketId
+	packetId: PacketId | undefined
 }
 export interface ForwardRelayerAddressProtoMsg {
 	typeUrl: "/ibc.applications.fee.v1.ForwardRelayerAddress"
@@ -131,7 +131,7 @@ export interface ForwardRelayerAddressAmino {
 	/** the forward relayer address */
 	address?: string
 	/** unique packet identifer comprised of the channel ID, port ID and sequence */
-	packet_id?: PacketIdAmino
+	packet_id?: PacketIdAmino | undefined
 }
 export interface ForwardRelayerAddressAminoMsg {
 	type: "cosmos-sdk/ForwardRelayerAddress"
@@ -299,10 +299,10 @@ function createBaseFeeEnabledChannel(): FeeEnabledChannel {
 export const FeeEnabledChannel = {
 	typeUrl: "/ibc.applications.fee.v1.FeeEnabledChannel",
 	encode(message: FeeEnabledChannel, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
 		return writer
@@ -381,13 +381,13 @@ function createBaseRegisteredPayee(): RegisteredPayee {
 export const RegisteredPayee = {
 	typeUrl: "/ibc.applications.fee.v1.RegisteredPayee",
 	encode(message: RegisteredPayee, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(10).string(message.channelId)
 		}
-		if (message.relayer !== undefined) {
+		if (message.relayer && message.relayer !== "") {
 			writer.uint32(18).string(message.relayer)
 		}
-		if (message.payee !== undefined) {
+		if (message.payee && message.payee !== "") {
 			writer.uint32(26).string(message.payee)
 		}
 		return writer
@@ -477,13 +477,13 @@ export const RegisteredCounterpartyPayee = {
 		message: RegisteredCounterpartyPayee,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(10).string(message.channelId)
 		}
-		if (message.relayer !== undefined) {
+		if (message.relayer && message.relayer !== "") {
 			writer.uint32(18).string(message.relayer)
 		}
-		if (message.counterpartyPayee !== undefined) {
+		if (message.counterpartyPayee && message.counterpartyPayee !== "") {
 			writer.uint32(26).string(message.counterpartyPayee)
 		}
 		return writer
@@ -573,7 +573,7 @@ export const ForwardRelayerAddress = {
 		message: ForwardRelayerAddress,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.address !== undefined) {
+		if (message.address && message.address !== "") {
 			writer.uint32(10).string(message.address)
 		}
 		if (message.packetId !== undefined) {

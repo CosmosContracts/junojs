@@ -25,7 +25,7 @@ export interface QueryCurrentPlanRequestAminoMsg {
  */
 export interface QueryCurrentPlanResponse {
 	/** plan is the current upgrade plan. */
-	plan?: Plan
+	plan?: Plan | undefined
 }
 export interface QueryCurrentPlanResponseProtoMsg {
 	typeUrl: "/cosmos.upgrade.v1beta1.QueryCurrentPlanResponse"
@@ -37,7 +37,7 @@ export interface QueryCurrentPlanResponseProtoMsg {
  */
 export interface QueryCurrentPlanResponseAmino {
 	/** plan is the current upgrade plan. */
-	plan?: PlanAmino
+	plan?: PlanAmino | undefined
 }
 export interface QueryCurrentPlanResponseAminoMsg {
 	type: "cosmos-sdk/QueryCurrentPlanResponse"
@@ -399,7 +399,7 @@ export const QueryAppliedPlanRequest = {
 		message: QueryAppliedPlanRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.name !== undefined) {
+		if (message.name && message.name !== "") {
 			writer.uint32(10).string(message.name)
 		}
 		return writer
@@ -471,7 +471,7 @@ export const QueryAppliedPlanResponse = {
 		message: QueryAppliedPlanResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(8).int64(message.height)
 		}
 		return writer
@@ -546,7 +546,7 @@ export const QueryUpgradedConsensusStateRequest = {
 		message: QueryUpgradedConsensusStateRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.lastHeight !== undefined) {
+		if (message.lastHeight && message.lastHeight !== BigInt(0)) {
 			writer.uint32(8).int64(message.lastHeight)
 		}
 		return writer
@@ -721,7 +721,7 @@ export const QueryModuleVersionsRequest = {
 		message: QueryModuleVersionsRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.moduleName !== undefined) {
+		if (message.moduleName && message.moduleName !== "") {
 			writer.uint32(10).string(message.moduleName)
 		}
 		return writer
@@ -925,7 +925,7 @@ export const QueryAuthorityResponse = {
 		message: QueryAuthorityResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.address !== undefined) {
+		if (message.address && message.address !== "") {
 			writer.uint32(10).string(message.address)
 		}
 		return writer

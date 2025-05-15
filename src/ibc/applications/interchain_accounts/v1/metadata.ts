@@ -62,22 +62,22 @@ function createBaseMetadata(): Metadata {
 export const Metadata = {
 	typeUrl: "/ibc.applications.interchain_accounts.v1.Metadata",
 	encode(message: Metadata, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.version !== undefined) {
+		if (message.version && message.version !== "") {
 			writer.uint32(10).string(message.version)
 		}
-		if (message.controllerConnectionId !== undefined) {
+		if (message.controllerConnectionId && message.controllerConnectionId !== "") {
 			writer.uint32(18).string(message.controllerConnectionId)
 		}
-		if (message.hostConnectionId !== undefined) {
+		if (message.hostConnectionId && message.hostConnectionId !== "") {
 			writer.uint32(26).string(message.hostConnectionId)
 		}
-		if (message.address !== undefined) {
+		if (message.address && message.address !== "") {
 			writer.uint32(34).string(message.address)
 		}
-		if (message.encoding !== undefined) {
+		if (message.encoding && message.encoding !== "") {
 			writer.uint32(42).string(message.encoding)
 		}
-		if (message.txType !== undefined) {
+		if (message.txType && message.txType !== "") {
 			writer.uint32(50).string(message.txType)
 		}
 		return writer

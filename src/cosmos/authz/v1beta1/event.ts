@@ -61,13 +61,13 @@ function createBaseEventGrant(): EventGrant {
 export const EventGrant = {
 	typeUrl: "/cosmos.authz.v1beta1.EventGrant",
 	encode(message: EventGrant, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.msgTypeUrl !== undefined) {
+		if (message.msgTypeUrl && message.msgTypeUrl !== "") {
 			writer.uint32(18).string(message.msgTypeUrl)
 		}
-		if (message.granter !== undefined) {
+		if (message.granter && message.granter !== "") {
 			writer.uint32(26).string(message.granter)
 		}
-		if (message.grantee !== undefined) {
+		if (message.grantee && message.grantee !== "") {
 			writer.uint32(34).string(message.grantee)
 		}
 		return writer
@@ -154,13 +154,13 @@ function createBaseEventRevoke(): EventRevoke {
 export const EventRevoke = {
 	typeUrl: "/cosmos.authz.v1beta1.EventRevoke",
 	encode(message: EventRevoke, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.msgTypeUrl !== undefined) {
+		if (message.msgTypeUrl && message.msgTypeUrl !== "") {
 			writer.uint32(18).string(message.msgTypeUrl)
 		}
-		if (message.granter !== undefined) {
+		if (message.granter && message.granter !== "") {
 			writer.uint32(26).string(message.granter)
 		}
-		if (message.grantee !== undefined) {
+		if (message.grantee && message.grantee !== "") {
 			writer.uint32(34).string(message.grantee)
 		}
 		return writer

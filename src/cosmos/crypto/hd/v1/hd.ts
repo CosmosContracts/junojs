@@ -51,19 +51,19 @@ function createBaseBIP44Params(): BIP44Params {
 export const BIP44Params = {
 	typeUrl: "/cosmos.crypto.hd.v1.BIP44Params",
 	encode(message: BIP44Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.purpose !== undefined) {
+		if (message.purpose && message.purpose !== 0) {
 			writer.uint32(8).uint32(message.purpose)
 		}
-		if (message.coinType !== undefined) {
+		if (message.coinType && message.coinType !== 0) {
 			writer.uint32(16).uint32(message.coinType)
 		}
-		if (message.account !== undefined) {
+		if (message.account && message.account !== 0) {
 			writer.uint32(24).uint32(message.account)
 		}
-		if (message.change !== undefined) {
+		if (message.change === true) {
 			writer.uint32(32).bool(message.change)
 		}
-		if (message.addressIndex !== undefined) {
+		if (message.addressIndex && message.addressIndex !== 0) {
 			writer.uint32(40).uint32(message.addressIndex)
 		}
 		return writer

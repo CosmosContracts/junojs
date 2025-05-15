@@ -13,7 +13,7 @@ export interface MsgStoreCode {
 	 * InstantiatePermission access control to apply on contract creation,
 	 * optional
 	 */
-	instantiatePermission?: AccessConfig
+	instantiatePermission?: AccessConfig | undefined
 }
 export interface MsgStoreCodeProtoMsg {
 	typeUrl: "/cosmwasm.wasm.v1.MsgStoreCode"
@@ -29,7 +29,7 @@ export interface MsgStoreCodeAmino {
 	 * InstantiatePermission access control to apply on contract creation,
 	 * optional
 	 */
-	instantiate_permission?: AccessConfigAmino
+	instantiate_permission?: AccessConfigAmino | undefined
 }
 export interface MsgStoreCodeAminoMsg {
 	type: "wasm/MsgStoreCode"
@@ -384,7 +384,7 @@ export interface MsgUpdateInstantiateConfig {
 	/** CodeID references the stored WASM code */
 	codeId: bigint
 	/** NewInstantiatePermission is the new access control */
-	newInstantiatePermission?: AccessConfig
+	newInstantiatePermission?: AccessConfig | undefined
 }
 export interface MsgUpdateInstantiateConfigProtoMsg {
 	typeUrl: "/cosmwasm.wasm.v1.MsgUpdateInstantiateConfig"
@@ -397,7 +397,7 @@ export interface MsgUpdateInstantiateConfigAmino {
 	/** CodeID references the stored WASM code */
 	code_id?: string
 	/** NewInstantiatePermission is the new access control */
-	new_instantiate_permission?: AccessConfigAmino
+	new_instantiate_permission?: AccessConfigAmino | undefined
 }
 export interface MsgUpdateInstantiateConfigAminoMsg {
 	type: "wasm/MsgUpdateInstantiateConfig"
@@ -428,7 +428,7 @@ export interface MsgUpdateParams {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params: Params
+	params: Params | undefined
 }
 export interface MsgUpdateParamsProtoMsg {
 	typeUrl: "/cosmwasm.wasm.v1.MsgUpdateParams"
@@ -447,7 +447,7 @@ export interface MsgUpdateParamsAmino {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params: ParamsAmino
+	params: ParamsAmino | undefined
 }
 export interface MsgUpdateParamsAminoMsg {
 	type: "wasm/MsgUpdateParams"
@@ -653,7 +653,7 @@ export interface MsgStoreAndInstantiateContract {
 	/** WASMByteCode can be raw or gzip compressed */
 	wasmByteCode: Uint8Array
 	/** InstantiatePermission to apply on contract creation, optional */
-	instantiatePermission?: AccessConfig
+	instantiatePermission?: AccessConfig | undefined
 	/**
 	 * UnpinCode code on upload, optional. As default the uploaded contract is
 	 * pinned to cache.
@@ -699,7 +699,7 @@ export interface MsgStoreAndInstantiateContractAmino {
 	/** WASMByteCode can be raw or gzip compressed */
 	wasm_byte_code?: string
 	/** InstantiatePermission to apply on contract creation, optional */
-	instantiate_permission?: AccessConfigAmino
+	instantiate_permission?: AccessConfigAmino | undefined
 	/**
 	 * UnpinCode code on upload, optional. As default the uploaded contract is
 	 * pinned to cache.
@@ -865,7 +865,7 @@ export interface MsgStoreAndMigrateContract {
 	/** WASMByteCode can be raw or gzip compressed */
 	wasmByteCode: Uint8Array
 	/** InstantiatePermission to apply on contract creation, optional */
-	instantiatePermission?: AccessConfig
+	instantiatePermission?: AccessConfig | undefined
 	/** Contract is the address of the smart contract */
 	contract: string
 	/** Msg json encoded message to be passed to the contract on migration */
@@ -887,7 +887,7 @@ export interface MsgStoreAndMigrateContractAmino {
 	/** WASMByteCode can be raw or gzip compressed */
 	wasm_byte_code?: string
 	/** InstantiatePermission to apply on contract creation, optional */
-	instantiate_permission?: AccessConfigAmino
+	instantiate_permission?: AccessConfigAmino | undefined
 	/** Contract is the address of the smart contract */
 	contract?: string
 	/** Msg json encoded message to be passed to the contract on migration */
@@ -981,7 +981,7 @@ function createBaseMsgStoreCode(): MsgStoreCode {
 export const MsgStoreCode = {
 	typeUrl: "/cosmwasm.wasm.v1.MsgStoreCode",
 	encode(message: MsgStoreCode, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.sender !== undefined) {
+		if (message.sender && message.sender !== "") {
 			writer.uint32(10).string(message.sender)
 		}
 		if (message.wasmByteCode.length !== 0) {
@@ -1081,7 +1081,7 @@ export const MsgStoreCodeResponse = {
 		message: MsgStoreCodeResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.codeId !== undefined) {
+		if (message.codeId && message.codeId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.codeId)
 		}
 		if (message.checksum.length !== 0) {
@@ -1172,16 +1172,16 @@ export const MsgInstantiateContract = {
 		message: MsgInstantiateContract,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.sender !== undefined) {
+		if (message.sender && message.sender !== "") {
 			writer.uint32(10).string(message.sender)
 		}
-		if (message.admin !== undefined) {
+		if (message.admin && message.admin !== "") {
 			writer.uint32(18).string(message.admin)
 		}
-		if (message.codeId !== undefined) {
+		if (message.codeId && message.codeId !== BigInt(0)) {
 			writer.uint32(24).uint64(message.codeId)
 		}
-		if (message.label !== undefined) {
+		if (message.label && message.label !== "") {
 			writer.uint32(34).string(message.label)
 		}
 		if (message.msg.length !== 0) {
@@ -1305,7 +1305,7 @@ export const MsgInstantiateContractResponse = {
 		message: MsgInstantiateContractResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.address !== undefined) {
+		if (message.address && message.address !== "") {
 			writer.uint32(10).string(message.address)
 		}
 		if (message.data.length !== 0) {
@@ -1395,16 +1395,16 @@ export const MsgInstantiateContract2 = {
 		message: MsgInstantiateContract2,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.sender !== undefined) {
+		if (message.sender && message.sender !== "") {
 			writer.uint32(10).string(message.sender)
 		}
-		if (message.admin !== undefined) {
+		if (message.admin && message.admin !== "") {
 			writer.uint32(18).string(message.admin)
 		}
-		if (message.codeId !== undefined) {
+		if (message.codeId && message.codeId !== BigInt(0)) {
 			writer.uint32(24).uint64(message.codeId)
 		}
-		if (message.label !== undefined) {
+		if (message.label && message.label !== "") {
 			writer.uint32(34).string(message.label)
 		}
 		if (message.msg.length !== 0) {
@@ -1416,7 +1416,7 @@ export const MsgInstantiateContract2 = {
 		if (message.salt.length !== 0) {
 			writer.uint32(58).bytes(message.salt)
 		}
-		if (message.fixMsg !== undefined) {
+		if (message.fixMsg === true) {
 			writer.uint32(64).bool(message.fixMsg)
 		}
 		return writer
@@ -1550,7 +1550,7 @@ export const MsgInstantiateContract2Response = {
 		message: MsgInstantiateContract2Response,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.address !== undefined) {
+		if (message.address && message.address !== "") {
 			writer.uint32(10).string(message.address)
 		}
 		if (message.data.length !== 0) {
@@ -1633,10 +1633,10 @@ function createBaseMsgExecuteContract(): MsgExecuteContract {
 export const MsgExecuteContract = {
 	typeUrl: "/cosmwasm.wasm.v1.MsgExecuteContract",
 	encode(message: MsgExecuteContract, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.sender !== undefined) {
+		if (message.sender && message.sender !== "") {
 			writer.uint32(10).string(message.sender)
 		}
-		if (message.contract !== undefined) {
+		if (message.contract && message.contract !== "") {
 			writer.uint32(18).string(message.contract)
 		}
 		if (message.msg.length !== 0) {
@@ -1812,13 +1812,13 @@ function createBaseMsgMigrateContract(): MsgMigrateContract {
 export const MsgMigrateContract = {
 	typeUrl: "/cosmwasm.wasm.v1.MsgMigrateContract",
 	encode(message: MsgMigrateContract, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.sender !== undefined) {
+		if (message.sender && message.sender !== "") {
 			writer.uint32(10).string(message.sender)
 		}
-		if (message.contract !== undefined) {
+		if (message.contract && message.contract !== "") {
 			writer.uint32(18).string(message.contract)
 		}
-		if (message.codeId !== undefined) {
+		if (message.codeId && message.codeId !== BigInt(0)) {
 			writer.uint32(24).uint64(message.codeId)
 		}
 		if (message.msg.length !== 0) {
@@ -1991,13 +1991,13 @@ function createBaseMsgUpdateAdmin(): MsgUpdateAdmin {
 export const MsgUpdateAdmin = {
 	typeUrl: "/cosmwasm.wasm.v1.MsgUpdateAdmin",
 	encode(message: MsgUpdateAdmin, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.sender !== undefined) {
+		if (message.sender && message.sender !== "") {
 			writer.uint32(10).string(message.sender)
 		}
-		if (message.newAdmin !== undefined) {
+		if (message.newAdmin && message.newAdmin !== "") {
 			writer.uint32(18).string(message.newAdmin)
 		}
-		if (message.contract !== undefined) {
+		if (message.contract && message.contract !== "") {
 			writer.uint32(26).string(message.contract)
 		}
 		return writer
@@ -2139,10 +2139,10 @@ function createBaseMsgClearAdmin(): MsgClearAdmin {
 export const MsgClearAdmin = {
 	typeUrl: "/cosmwasm.wasm.v1.MsgClearAdmin",
 	encode(message: MsgClearAdmin, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.sender !== undefined) {
+		if (message.sender && message.sender !== "") {
 			writer.uint32(10).string(message.sender)
 		}
-		if (message.contract !== undefined) {
+		if (message.contract && message.contract !== "") {
 			writer.uint32(26).string(message.contract)
 		}
 		return writer
@@ -2280,10 +2280,10 @@ export const MsgUpdateInstantiateConfig = {
 		message: MsgUpdateInstantiateConfig,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.sender !== undefined) {
+		if (message.sender && message.sender !== "") {
 			writer.uint32(10).string(message.sender)
 		}
-		if (message.codeId !== undefined) {
+		if (message.codeId && message.codeId !== BigInt(0)) {
 			writer.uint32(16).uint64(message.codeId)
 		}
 		if (message.newInstantiatePermission !== undefined) {
@@ -2452,7 +2452,7 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
 export const MsgUpdateParams = {
 	typeUrl: "/cosmwasm.wasm.v1.MsgUpdateParams",
 	encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.authority !== undefined) {
+		if (message.authority && message.authority !== "") {
 			writer.uint32(10).string(message.authority)
 		}
 		if (message.params !== undefined) {
@@ -2595,10 +2595,10 @@ function createBaseMsgSudoContract(): MsgSudoContract {
 export const MsgSudoContract = {
 	typeUrl: "/cosmwasm.wasm.v1.MsgSudoContract",
 	encode(message: MsgSudoContract, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.authority !== undefined) {
+		if (message.authority && message.authority !== "") {
 			writer.uint32(10).string(message.authority)
 		}
-		if (message.contract !== undefined) {
+		if (message.contract && message.contract !== "") {
 			writer.uint32(18).string(message.contract)
 		}
 		if (message.msg.length !== 0) {
@@ -2759,7 +2759,7 @@ function createBaseMsgPinCodes(): MsgPinCodes {
 export const MsgPinCodes = {
 	typeUrl: "/cosmwasm.wasm.v1.MsgPinCodes",
 	encode(message: MsgPinCodes, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.authority !== undefined) {
+		if (message.authority && message.authority !== "") {
 			writer.uint32(10).string(message.authority)
 		}
 		writer.uint32(18).fork()
@@ -2907,7 +2907,7 @@ function createBaseMsgUnpinCodes(): MsgUnpinCodes {
 export const MsgUnpinCodes = {
 	typeUrl: "/cosmwasm.wasm.v1.MsgUnpinCodes",
 	encode(message: MsgUnpinCodes, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.authority !== undefined) {
+		if (message.authority && message.authority !== "") {
 			writer.uint32(10).string(message.authority)
 		}
 		writer.uint32(18).fork()
@@ -3067,7 +3067,7 @@ export const MsgStoreAndInstantiateContract = {
 		message: MsgStoreAndInstantiateContract,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.authority !== undefined) {
+		if (message.authority && message.authority !== "") {
 			writer.uint32(10).string(message.authority)
 		}
 		if (message.wasmByteCode.length !== 0) {
@@ -3076,13 +3076,13 @@ export const MsgStoreAndInstantiateContract = {
 		if (message.instantiatePermission !== undefined) {
 			AccessConfig.encode(message.instantiatePermission, writer.uint32(34).fork()).ldelim()
 		}
-		if (message.unpinCode !== undefined) {
+		if (message.unpinCode === true) {
 			writer.uint32(40).bool(message.unpinCode)
 		}
-		if (message.admin !== undefined) {
+		if (message.admin && message.admin !== "") {
 			writer.uint32(50).string(message.admin)
 		}
-		if (message.label !== undefined) {
+		if (message.label && message.label !== "") {
 			writer.uint32(58).string(message.label)
 		}
 		if (message.msg.length !== 0) {
@@ -3091,10 +3091,10 @@ export const MsgStoreAndInstantiateContract = {
 		for (const v of message.funds) {
 			Coin.encode(v!, writer.uint32(74).fork()).ldelim()
 		}
-		if (message.source !== undefined) {
+		if (message.source && message.source !== "") {
 			writer.uint32(82).string(message.source)
 		}
-		if (message.builder !== undefined) {
+		if (message.builder && message.builder !== "") {
 			writer.uint32(90).string(message.builder)
 		}
 		if (message.codeHash.length !== 0) {
@@ -3257,7 +3257,7 @@ export const MsgStoreAndInstantiateContractResponse = {
 		message: MsgStoreAndInstantiateContractResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.address !== undefined) {
+		if (message.address && message.address !== "") {
 			writer.uint32(10).string(message.address)
 		}
 		if (message.data.length !== 0) {
@@ -3358,7 +3358,7 @@ export const MsgAddCodeUploadParamsAddresses = {
 		message: MsgAddCodeUploadParamsAddresses,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.authority !== undefined) {
+		if (message.authority && message.authority !== "") {
 			writer.uint32(10).string(message.authority)
 		}
 		for (const v of message.addresses) {
@@ -3520,7 +3520,7 @@ export const MsgRemoveCodeUploadParamsAddresses = {
 		message: MsgRemoveCodeUploadParamsAddresses,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.authority !== undefined) {
+		if (message.authority && message.authority !== "") {
 			writer.uint32(10).string(message.authority)
 		}
 		for (const v of message.addresses) {
@@ -3695,7 +3695,7 @@ export const MsgStoreAndMigrateContract = {
 		message: MsgStoreAndMigrateContract,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.authority !== undefined) {
+		if (message.authority && message.authority !== "") {
 			writer.uint32(10).string(message.authority)
 		}
 		if (message.wasmByteCode.length !== 0) {
@@ -3704,7 +3704,7 @@ export const MsgStoreAndMigrateContract = {
 		if (message.instantiatePermission !== undefined) {
 			AccessConfig.encode(message.instantiatePermission, writer.uint32(26).fork()).ldelim()
 		}
-		if (message.contract !== undefined) {
+		if (message.contract && message.contract !== "") {
 			writer.uint32(34).string(message.contract)
 		}
 		if (message.msg.length !== 0) {
@@ -3818,7 +3818,7 @@ export const MsgStoreAndMigrateContractResponse = {
 		message: MsgStoreAndMigrateContractResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.codeId !== undefined) {
+		if (message.codeId && message.codeId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.codeId)
 		}
 		if (message.checksum.length !== 0) {
@@ -3927,13 +3927,13 @@ export const MsgUpdateContractLabel = {
 		message: MsgUpdateContractLabel,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.sender !== undefined) {
+		if (message.sender && message.sender !== "") {
 			writer.uint32(10).string(message.sender)
 		}
-		if (message.newLabel !== undefined) {
+		if (message.newLabel && message.newLabel !== "") {
 			writer.uint32(18).string(message.newLabel)
 		}
-		if (message.contract !== undefined) {
+		if (message.contract && message.contract !== "") {
 			writer.uint32(26).string(message.contract)
 		}
 		return writer

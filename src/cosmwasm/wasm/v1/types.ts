@@ -132,7 +132,7 @@ export interface AccessConfigAminoMsg {
 }
 /** Params defines the set of wasm parameters. */
 export interface Params {
-	codeUploadAccess: AccessConfig
+	codeUploadAccess: AccessConfig | undefined
 	instantiateDefaultPermission: AccessType
 }
 export interface ParamsProtoMsg {
@@ -141,7 +141,7 @@ export interface ParamsProtoMsg {
 }
 /** Params defines the set of wasm parameters. */
 export interface ParamsAmino {
-	code_upload_access: AccessConfigAmino
+	code_upload_access: AccessConfigAmino | undefined
 	instantiate_default_permission?: AccessType
 }
 export interface ParamsAminoMsg {
@@ -155,7 +155,7 @@ export interface CodeInfo {
 	/** Creator address who initially stored the code */
 	creator: string
 	/** InstantiateConfig access control to apply on contract creation, optional */
-	instantiateConfig: AccessConfig
+	instantiateConfig: AccessConfig | undefined
 }
 export interface CodeInfoProtoMsg {
 	typeUrl: "/cosmwasm.wasm.v1.CodeInfo"
@@ -168,7 +168,7 @@ export interface CodeInfoAmino {
 	/** Creator address who initially stored the code */
 	creator?: string
 	/** InstantiateConfig access control to apply on contract creation, optional */
-	instantiate_config: AccessConfigAmino
+	instantiate_config: AccessConfigAmino | undefined
 }
 export interface CodeInfoAminoMsg {
 	type: "wasm/CodeInfo"
@@ -185,7 +185,7 @@ export interface ContractInfo {
 	/** Label is optional metadata to be stored with a contract instance. */
 	label: string
 	/** Created Tx position when the contract was instantiated. */
-	created?: AbsoluteTxPosition
+	created?: AbsoluteTxPosition | undefined
 	ibcPortId: string
 	/**
 	 * Extension is an extension point to store custom metadata within the
@@ -215,13 +215,13 @@ export interface ContractInfoAmino {
 	/** Label is optional metadata to be stored with a contract instance. */
 	label?: string
 	/** Created Tx position when the contract was instantiated. */
-	created?: AbsoluteTxPositionAmino
+	created?: AbsoluteTxPositionAmino | undefined
 	ibc_port_id?: string
 	/**
 	 * Extension is an extension point to store custom metadata within the
 	 * persistence model.
 	 */
-	extension?: AnyAmino
+	extension?: AnyAmino | undefined
 }
 export interface ContractInfoAminoMsg {
 	type: "wasm/ContractInfo"
@@ -233,7 +233,7 @@ export interface ContractCodeHistoryEntry {
 	/** CodeID is the reference to the stored WASM code */
 	codeId: bigint
 	/** Updated Tx position when the operation was executed. */
-	updated?: AbsoluteTxPosition
+	updated?: AbsoluteTxPosition | undefined
 	msg: Uint8Array
 }
 export interface ContractCodeHistoryEntryProtoMsg {
@@ -246,7 +246,7 @@ export interface ContractCodeHistoryEntryAmino {
 	/** CodeID is the reference to the stored WASM code */
 	code_id?: string
 	/** Updated Tx position when the operation was executed. */
-	updated?: AbsoluteTxPositionAmino
+	updated?: AbsoluteTxPositionAmino | undefined
 	msg?: any
 }
 export interface ContractCodeHistoryEntryAminoMsg {
@@ -566,7 +566,7 @@ export const CodeInfo = {
 		if (message.codeHash.length !== 0) {
 			writer.uint32(10).bytes(message.codeHash)
 		}
-		if (message.creator !== undefined) {
+		if (message.creator && message.creator !== "") {
 			writer.uint32(18).string(message.creator)
 		}
 		if (message.instantiateConfig !== undefined) {
@@ -665,22 +665,22 @@ function createBaseContractInfo(): ContractInfo {
 export const ContractInfo = {
 	typeUrl: "/cosmwasm.wasm.v1.ContractInfo",
 	encode(message: ContractInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.codeId !== undefined) {
+		if (message.codeId && message.codeId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.codeId)
 		}
-		if (message.creator !== undefined) {
+		if (message.creator && message.creator !== "") {
 			writer.uint32(18).string(message.creator)
 		}
-		if (message.admin !== undefined) {
+		if (message.admin && message.admin !== "") {
 			writer.uint32(26).string(message.admin)
 		}
-		if (message.label !== undefined) {
+		if (message.label && message.label !== "") {
 			writer.uint32(34).string(message.label)
 		}
 		if (message.created !== undefined) {
 			AbsoluteTxPosition.encode(message.created, writer.uint32(42).fork()).ldelim()
 		}
-		if (message.ibcPortId !== undefined) {
+		if (message.ibcPortId && message.ibcPortId !== "") {
 			writer.uint32(50).string(message.ibcPortId)
 		}
 		if (message.extension !== undefined) {
@@ -822,7 +822,7 @@ export const ContractCodeHistoryEntry = {
 		if (message.operation !== 0) {
 			writer.uint32(8).int32(message.operation)
 		}
-		if (message.codeId !== undefined) {
+		if (message.codeId && message.codeId !== BigInt(0)) {
 			writer.uint32(16).uint64(message.codeId)
 		}
 		if (message.updated !== undefined) {
@@ -928,10 +928,10 @@ function createBaseAbsoluteTxPosition(): AbsoluteTxPosition {
 export const AbsoluteTxPosition = {
 	typeUrl: "/cosmwasm.wasm.v1.AbsoluteTxPosition",
 	encode(message: AbsoluteTxPosition, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.blockHeight !== undefined) {
+		if (message.blockHeight && message.blockHeight !== BigInt(0)) {
 			writer.uint32(8).uint64(message.blockHeight)
 		}
-		if (message.txIndex !== undefined) {
+		if (message.txIndex && message.txIndex !== BigInt(0)) {
 			writer.uint32(16).uint64(message.txIndex)
 		}
 		return writer

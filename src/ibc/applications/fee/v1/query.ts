@@ -12,7 +12,7 @@ import { FeeEnabledChannel, type FeeEnabledChannelAmino } from "./genesis"
 /** QueryIncentivizedPacketsRequest defines the request type for the IncentivizedPackets rpc */
 export interface QueryIncentivizedPacketsRequest {
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 	/** block height at which to query */
 	queryHeight?: bigint
 }
@@ -23,7 +23,7 @@ export interface QueryIncentivizedPacketsRequestProtoMsg {
 /** QueryIncentivizedPacketsRequest defines the request type for the IncentivizedPackets rpc */
 export interface QueryIncentivizedPacketsRequestAmino {
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 	/** block height at which to query */
 	query_height?: string
 }
@@ -36,7 +36,7 @@ export interface QueryIncentivizedPacketsResponse {
 	/** list of identified fees for incentivized packets */
 	incentivizedPackets: IdentifiedPacketFees[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 }
 export interface QueryIncentivizedPacketsResponseProtoMsg {
 	typeUrl: "/ibc.applications.fee.v1.QueryIncentivizedPacketsResponse"
@@ -47,7 +47,7 @@ export interface QueryIncentivizedPacketsResponseAmino {
 	/** list of identified fees for incentivized packets */
 	incentivized_packets?: IdentifiedPacketFeesAmino[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 }
 export interface QueryIncentivizedPacketsResponseAminoMsg {
 	type: "cosmos-sdk/QueryIncentivizedPacketsResponse"
@@ -56,7 +56,7 @@ export interface QueryIncentivizedPacketsResponseAminoMsg {
 /** QueryIncentivizedPacketRequest defines the request type for the IncentivizedPacket rpc */
 export interface QueryIncentivizedPacketRequest {
 	/** unique packet identifier comprised of channel ID, port ID and sequence */
-	packetId?: PacketId
+	packetId?: PacketId | undefined
 	/** block height at which to query */
 	queryHeight?: bigint
 }
@@ -67,7 +67,7 @@ export interface QueryIncentivizedPacketRequestProtoMsg {
 /** QueryIncentivizedPacketRequest defines the request type for the IncentivizedPacket rpc */
 export interface QueryIncentivizedPacketRequestAmino {
 	/** unique packet identifier comprised of channel ID, port ID and sequence */
-	packet_id?: PacketIdAmino
+	packet_id?: PacketIdAmino | undefined
 	/** block height at which to query */
 	query_height?: string
 }
@@ -78,7 +78,7 @@ export interface QueryIncentivizedPacketRequestAminoMsg {
 /** QueryIncentivizedPacketsResponse defines the response type for the IncentivizedPacket rpc */
 export interface QueryIncentivizedPacketResponse {
 	/** the identified fees for the incentivized packet */
-	incentivizedPacket: IdentifiedPacketFees
+	incentivizedPacket: IdentifiedPacketFees | undefined
 }
 export interface QueryIncentivizedPacketResponseProtoMsg {
 	typeUrl: "/ibc.applications.fee.v1.QueryIncentivizedPacketResponse"
@@ -87,7 +87,7 @@ export interface QueryIncentivizedPacketResponseProtoMsg {
 /** QueryIncentivizedPacketsResponse defines the response type for the IncentivizedPacket rpc */
 export interface QueryIncentivizedPacketResponseAmino {
 	/** the identified fees for the incentivized packet */
-	incentivized_packet?: IdentifiedPacketFeesAmino
+	incentivized_packet?: IdentifiedPacketFeesAmino | undefined
 }
 export interface QueryIncentivizedPacketResponseAminoMsg {
 	type: "cosmos-sdk/QueryIncentivizedPacketResponse"
@@ -99,7 +99,7 @@ export interface QueryIncentivizedPacketResponseAminoMsg {
  */
 export interface QueryIncentivizedPacketsForChannelRequest {
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 	portId: string
 	channelId: string
 	/** Height to query at */
@@ -115,7 +115,7 @@ export interface QueryIncentivizedPacketsForChannelRequestProtoMsg {
  */
 export interface QueryIncentivizedPacketsForChannelRequestAmino {
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 	port_id?: string
 	channel_id?: string
 	/** Height to query at */
@@ -130,7 +130,7 @@ export interface QueryIncentivizedPacketsForChannelResponse {
 	/** Map of all incentivized_packets */
 	incentivizedPackets: IdentifiedPacketFees[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 }
 export interface QueryIncentivizedPacketsForChannelResponseProtoMsg {
 	typeUrl: "/ibc.applications.fee.v1.QueryIncentivizedPacketsForChannelResponse"
@@ -141,7 +141,7 @@ export interface QueryIncentivizedPacketsForChannelResponseAmino {
 	/** Map of all incentivized_packets */
 	incentivized_packets?: IdentifiedPacketFeesAmino[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 }
 export interface QueryIncentivizedPacketsForChannelResponseAminoMsg {
 	type: "cosmos-sdk/QueryIncentivizedPacketsForChannelResponse"
@@ -150,7 +150,7 @@ export interface QueryIncentivizedPacketsForChannelResponseAminoMsg {
 /** QueryTotalRecvFeesRequest defines the request type for the TotalRecvFees rpc */
 export interface QueryTotalRecvFeesRequest {
 	/** the packet identifier for the associated fees */
-	packetId?: PacketId
+	packetId?: PacketId | undefined
 }
 export interface QueryTotalRecvFeesRequestProtoMsg {
 	typeUrl: "/ibc.applications.fee.v1.QueryTotalRecvFeesRequest"
@@ -159,7 +159,7 @@ export interface QueryTotalRecvFeesRequestProtoMsg {
 /** QueryTotalRecvFeesRequest defines the request type for the TotalRecvFees rpc */
 export interface QueryTotalRecvFeesRequestAmino {
 	/** the packet identifier for the associated fees */
-	packet_id?: PacketIdAmino
+	packet_id?: PacketIdAmino | undefined
 }
 export interface QueryTotalRecvFeesRequestAminoMsg {
 	type: "cosmos-sdk/QueryTotalRecvFeesRequest"
@@ -186,7 +186,7 @@ export interface QueryTotalRecvFeesResponseAminoMsg {
 /** QueryTotalAckFeesRequest defines the request type for the TotalAckFees rpc */
 export interface QueryTotalAckFeesRequest {
 	/** the packet identifier for the associated fees */
-	packetId?: PacketId
+	packetId?: PacketId | undefined
 }
 export interface QueryTotalAckFeesRequestProtoMsg {
 	typeUrl: "/ibc.applications.fee.v1.QueryTotalAckFeesRequest"
@@ -195,7 +195,7 @@ export interface QueryTotalAckFeesRequestProtoMsg {
 /** QueryTotalAckFeesRequest defines the request type for the TotalAckFees rpc */
 export interface QueryTotalAckFeesRequestAmino {
 	/** the packet identifier for the associated fees */
-	packet_id?: PacketIdAmino
+	packet_id?: PacketIdAmino | undefined
 }
 export interface QueryTotalAckFeesRequestAminoMsg {
 	type: "cosmos-sdk/QueryTotalAckFeesRequest"
@@ -222,7 +222,7 @@ export interface QueryTotalAckFeesResponseAminoMsg {
 /** QueryTotalTimeoutFeesRequest defines the request type for the TotalTimeoutFees rpc */
 export interface QueryTotalTimeoutFeesRequest {
 	/** the packet identifier for the associated fees */
-	packetId?: PacketId
+	packetId?: PacketId | undefined
 }
 export interface QueryTotalTimeoutFeesRequestProtoMsg {
 	typeUrl: "/ibc.applications.fee.v1.QueryTotalTimeoutFeesRequest"
@@ -231,7 +231,7 @@ export interface QueryTotalTimeoutFeesRequestProtoMsg {
 /** QueryTotalTimeoutFeesRequest defines the request type for the TotalTimeoutFees rpc */
 export interface QueryTotalTimeoutFeesRequestAmino {
 	/** the packet identifier for the associated fees */
-	packet_id?: PacketIdAmino
+	packet_id?: PacketIdAmino | undefined
 }
 export interface QueryTotalTimeoutFeesRequestAminoMsg {
 	type: "cosmos-sdk/QueryTotalTimeoutFeesRequest"
@@ -338,7 +338,7 @@ export interface QueryCounterpartyPayeeResponseAminoMsg {
 /** QueryFeeEnabledChannelsRequest defines the request type for the FeeEnabledChannels rpc */
 export interface QueryFeeEnabledChannelsRequest {
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 	/** block height at which to query */
 	queryHeight?: bigint
 }
@@ -349,7 +349,7 @@ export interface QueryFeeEnabledChannelsRequestProtoMsg {
 /** QueryFeeEnabledChannelsRequest defines the request type for the FeeEnabledChannels rpc */
 export interface QueryFeeEnabledChannelsRequestAmino {
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 	/** block height at which to query */
 	query_height?: string
 }
@@ -362,7 +362,7 @@ export interface QueryFeeEnabledChannelsResponse {
 	/** list of fee enabled channels */
 	feeEnabledChannels: FeeEnabledChannel[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 }
 export interface QueryFeeEnabledChannelsResponseProtoMsg {
 	typeUrl: "/ibc.applications.fee.v1.QueryFeeEnabledChannelsResponse"
@@ -373,7 +373,7 @@ export interface QueryFeeEnabledChannelsResponseAmino {
 	/** list of fee enabled channels */
 	fee_enabled_channels?: FeeEnabledChannelAmino[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 }
 export interface QueryFeeEnabledChannelsResponseAminoMsg {
 	type: "cosmos-sdk/QueryFeeEnabledChannelsResponse"
@@ -434,7 +434,7 @@ export const QueryIncentivizedPacketsRequest = {
 		if (message.pagination !== undefined) {
 			PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.queryHeight !== undefined) {
+		if (message.queryHeight && message.queryHeight !== BigInt(0)) {
 			writer.uint32(16).uint64(message.queryHeight)
 		}
 		return writer
@@ -626,7 +626,7 @@ export const QueryIncentivizedPacketRequest = {
 		if (message.packetId !== undefined) {
 			PacketId.encode(message.packetId, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.queryHeight !== undefined) {
+		if (message.queryHeight && message.queryHeight !== BigInt(0)) {
 			writer.uint32(16).uint64(message.queryHeight)
 		}
 		return writer
@@ -796,13 +796,13 @@ export const QueryIncentivizedPacketsForChannelRequest = {
 		if (message.pagination !== undefined) {
 			PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(18).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(26).string(message.channelId)
 		}
-		if (message.queryHeight !== undefined) {
+		if (message.queryHeight && message.queryHeight !== BigInt(0)) {
 			writer.uint32(32).uint64(message.queryHeight)
 		}
 		return writer
@@ -1479,10 +1479,10 @@ function createBaseQueryPayeeRequest(): QueryPayeeRequest {
 export const QueryPayeeRequest = {
 	typeUrl: "/ibc.applications.fee.v1.QueryPayeeRequest",
 	encode(message: QueryPayeeRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(10).string(message.channelId)
 		}
-		if (message.relayer !== undefined) {
+		if (message.relayer && message.relayer !== "") {
 			writer.uint32(18).string(message.relayer)
 		}
 		return writer
@@ -1559,7 +1559,7 @@ function createBaseQueryPayeeResponse(): QueryPayeeResponse {
 export const QueryPayeeResponse = {
 	typeUrl: "/ibc.applications.fee.v1.QueryPayeeResponse",
 	encode(message: QueryPayeeResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.payeeAddress !== undefined) {
+		if (message.payeeAddress && message.payeeAddress !== "") {
 			writer.uint32(10).string(message.payeeAddress)
 		}
 		return writer
@@ -1632,10 +1632,10 @@ export const QueryCounterpartyPayeeRequest = {
 		message: QueryCounterpartyPayeeRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(10).string(message.channelId)
 		}
-		if (message.relayer !== undefined) {
+		if (message.relayer && message.relayer !== "") {
 			writer.uint32(18).string(message.relayer)
 		}
 		return writer
@@ -1715,7 +1715,7 @@ export const QueryCounterpartyPayeeResponse = {
 		message: QueryCounterpartyPayeeResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.counterpartyPayee !== undefined) {
+		if (message.counterpartyPayee && message.counterpartyPayee !== "") {
 			writer.uint32(10).string(message.counterpartyPayee)
 		}
 		return writer
@@ -1792,7 +1792,7 @@ export const QueryFeeEnabledChannelsRequest = {
 		if (message.pagination !== undefined) {
 			PageRequest.encode(message.pagination, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.queryHeight !== undefined) {
+		if (message.queryHeight && message.queryHeight !== BigInt(0)) {
 			writer.uint32(16).uint64(message.queryHeight)
 		}
 		return writer
@@ -1973,10 +1973,10 @@ export const QueryFeeEnabledChannelRequest = {
 		message: QueryFeeEnabledChannelRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
 		return writer
@@ -2056,7 +2056,7 @@ export const QueryFeeEnabledChannelResponse = {
 		message: QueryFeeEnabledChannelResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.feeEnabled !== undefined) {
+		if (message.feeEnabled === true) {
 			writer.uint32(8).bool(message.feeEnabled)
 		}
 		return writer

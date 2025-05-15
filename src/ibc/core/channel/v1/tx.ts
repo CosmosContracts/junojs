@@ -61,7 +61,7 @@ export function responseResultTypeToJSON(object: ResponseResultType): string {
  */
 export interface MsgChannelOpenInit {
 	portId: string
-	channel: Channel
+	channel: Channel | undefined
 	signer: string
 }
 export interface MsgChannelOpenInitProtoMsg {
@@ -74,7 +74,7 @@ export interface MsgChannelOpenInitProtoMsg {
  */
 export interface MsgChannelOpenInitAmino {
 	port_id?: string
-	channel?: ChannelAmino
+	channel?: ChannelAmino | undefined
 	signer?: string
 }
 export interface MsgChannelOpenInitAminoMsg {
@@ -110,10 +110,10 @@ export interface MsgChannelOpenTry {
 	/** @deprecated */
 	previousChannelId: string
 	/** NOTE: the version field within the channel has been deprecated. Its value will be ignored by core IBC. */
-	channel: Channel
+	channel: Channel | undefined
 	counterpartyVersion: string
 	proofInit: Uint8Array
-	proofHeight: Height
+	proofHeight: Height | undefined
 	signer: string
 }
 export interface MsgChannelOpenTryProtoMsg {
@@ -131,10 +131,10 @@ export interface MsgChannelOpenTryAmino {
 	/** @deprecated */
 	previous_channel_id?: string
 	/** NOTE: the version field within the channel has been deprecated. Its value will be ignored by core IBC. */
-	channel?: ChannelAmino
+	channel?: ChannelAmino | undefined
 	counterparty_version?: string
 	proof_init?: string
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 	signer?: string
 }
 export interface MsgChannelOpenTryAminoMsg {
@@ -172,7 +172,7 @@ export interface MsgChannelOpenAck {
 	counterpartyChannelId: string
 	counterpartyVersion: string
 	proofTry: Uint8Array
-	proofHeight: Height
+	proofHeight: Height | undefined
 	signer: string
 }
 export interface MsgChannelOpenAckProtoMsg {
@@ -192,7 +192,7 @@ export interface MsgChannelOpenAckAmino {
 	counterparty_channel_id?: string
 	counterparty_version?: string
 	proof_try?: string
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 	signer?: string
 }
 export interface MsgChannelOpenAckAminoMsg {
@@ -219,7 +219,7 @@ export interface MsgChannelOpenConfirm {
 	portId: string
 	channelId: string
 	proofAck: Uint8Array
-	proofHeight: Height
+	proofHeight: Height | undefined
 	signer: string
 }
 export interface MsgChannelOpenConfirmProtoMsg {
@@ -234,7 +234,7 @@ export interface MsgChannelOpenConfirmAmino {
 	port_id?: string
 	channel_id?: string
 	proof_ack?: string
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 	signer?: string
 }
 export interface MsgChannelOpenConfirmAminoMsg {
@@ -305,7 +305,7 @@ export interface MsgChannelCloseConfirm {
 	portId: string
 	channelId: string
 	proofInit: Uint8Array
-	proofHeight: Height
+	proofHeight: Height | undefined
 	signer: string
 	counterpartyUpgradeSequence: bigint
 }
@@ -321,7 +321,7 @@ export interface MsgChannelCloseConfirmAmino {
 	port_id?: string
 	channel_id?: string
 	proof_init?: string
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 	signer?: string
 	counterparty_upgrade_sequence?: string
 }
@@ -349,9 +349,9 @@ export interface MsgChannelCloseConfirmResponseAminoMsg {
 }
 /** MsgRecvPacket receives incoming IBC packet */
 export interface MsgRecvPacket {
-	packet: Packet
+	packet: Packet | undefined
 	proofCommitment: Uint8Array
-	proofHeight: Height
+	proofHeight: Height | undefined
 	signer: string
 }
 export interface MsgRecvPacketProtoMsg {
@@ -360,9 +360,9 @@ export interface MsgRecvPacketProtoMsg {
 }
 /** MsgRecvPacket receives incoming IBC packet */
 export interface MsgRecvPacketAmino {
-	packet?: PacketAmino
+	packet?: PacketAmino | undefined
 	proof_commitment?: string
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 	signer?: string
 }
 export interface MsgRecvPacketAminoMsg {
@@ -387,9 +387,9 @@ export interface MsgRecvPacketResponseAminoMsg {
 }
 /** MsgTimeout receives timed-out packet */
 export interface MsgTimeout {
-	packet: Packet
+	packet: Packet | undefined
 	proofUnreceived: Uint8Array
-	proofHeight: Height
+	proofHeight: Height | undefined
 	nextSequenceRecv: bigint
 	signer: string
 }
@@ -399,9 +399,9 @@ export interface MsgTimeoutProtoMsg {
 }
 /** MsgTimeout receives timed-out packet */
 export interface MsgTimeoutAmino {
-	packet?: PacketAmino
+	packet?: PacketAmino | undefined
 	proof_unreceived?: string
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 	next_sequence_recv?: string
 	signer?: string
 }
@@ -427,10 +427,10 @@ export interface MsgTimeoutResponseAminoMsg {
 }
 /** MsgTimeoutOnClose timed-out packet upon counterparty channel closure. */
 export interface MsgTimeoutOnClose {
-	packet: Packet
+	packet: Packet | undefined
 	proofUnreceived: Uint8Array
 	proofClose: Uint8Array
-	proofHeight: Height
+	proofHeight: Height | undefined
 	nextSequenceRecv: bigint
 	signer: string
 	counterpartyUpgradeSequence: bigint
@@ -441,10 +441,10 @@ export interface MsgTimeoutOnCloseProtoMsg {
 }
 /** MsgTimeoutOnClose timed-out packet upon counterparty channel closure. */
 export interface MsgTimeoutOnCloseAmino {
-	packet?: PacketAmino
+	packet?: PacketAmino | undefined
 	proof_unreceived?: string
 	proof_close?: string
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 	next_sequence_recv?: string
 	signer?: string
 	counterparty_upgrade_sequence?: string
@@ -471,10 +471,10 @@ export interface MsgTimeoutOnCloseResponseAminoMsg {
 }
 /** MsgAcknowledgement receives incoming IBC acknowledgement */
 export interface MsgAcknowledgement {
-	packet: Packet
+	packet: Packet | undefined
 	acknowledgement: Uint8Array
 	proofAcked: Uint8Array
-	proofHeight: Height
+	proofHeight: Height | undefined
 	signer: string
 }
 export interface MsgAcknowledgementProtoMsg {
@@ -483,10 +483,10 @@ export interface MsgAcknowledgementProtoMsg {
 }
 /** MsgAcknowledgement receives incoming IBC acknowledgement */
 export interface MsgAcknowledgementAmino {
-	packet?: PacketAmino
+	packet?: PacketAmino | undefined
 	acknowledgement?: string
 	proof_acked?: string
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 	signer?: string
 }
 export interface MsgAcknowledgementAminoMsg {
@@ -517,7 +517,7 @@ export interface MsgAcknowledgementResponseAminoMsg {
 export interface MsgChannelUpgradeInit {
 	portId: string
 	channelId: string
-	fields: UpgradeFields
+	fields: UpgradeFields | undefined
 	signer: string
 }
 export interface MsgChannelUpgradeInitProtoMsg {
@@ -532,7 +532,7 @@ export interface MsgChannelUpgradeInitProtoMsg {
 export interface MsgChannelUpgradeInitAmino {
 	port_id?: string
 	channel_id?: string
-	fields?: UpgradeFieldsAmino
+	fields?: UpgradeFieldsAmino | undefined
 	signer?: string
 }
 export interface MsgChannelUpgradeInitAminoMsg {
@@ -541,7 +541,7 @@ export interface MsgChannelUpgradeInitAminoMsg {
 }
 /** MsgChannelUpgradeInitResponse defines the MsgChannelUpgradeInit response type */
 export interface MsgChannelUpgradeInitResponse {
-	upgrade: Upgrade
+	upgrade: Upgrade | undefined
 	upgradeSequence: bigint
 }
 export interface MsgChannelUpgradeInitResponseProtoMsg {
@@ -550,7 +550,7 @@ export interface MsgChannelUpgradeInitResponseProtoMsg {
 }
 /** MsgChannelUpgradeInitResponse defines the MsgChannelUpgradeInit response type */
 export interface MsgChannelUpgradeInitResponseAmino {
-	upgrade?: UpgradeAmino
+	upgrade?: UpgradeAmino | undefined
 	upgrade_sequence?: string
 }
 export interface MsgChannelUpgradeInitResponseAminoMsg {
@@ -562,11 +562,11 @@ export interface MsgChannelUpgradeTry {
 	portId: string
 	channelId: string
 	proposedUpgradeConnectionHops: string[]
-	counterpartyUpgradeFields: UpgradeFields
+	counterpartyUpgradeFields: UpgradeFields | undefined
 	counterpartyUpgradeSequence: bigint
 	proofChannel: Uint8Array
 	proofUpgrade: Uint8Array
-	proofHeight: Height
+	proofHeight: Height | undefined
 	signer: string
 }
 export interface MsgChannelUpgradeTryProtoMsg {
@@ -578,11 +578,11 @@ export interface MsgChannelUpgradeTryAmino {
 	port_id?: string
 	channel_id?: string
 	proposed_upgrade_connection_hops?: string[]
-	counterparty_upgrade_fields?: UpgradeFieldsAmino
+	counterparty_upgrade_fields?: UpgradeFieldsAmino | undefined
 	counterparty_upgrade_sequence?: string
 	proof_channel?: string
 	proof_upgrade?: string
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 	signer?: string
 }
 export interface MsgChannelUpgradeTryAminoMsg {
@@ -591,7 +591,7 @@ export interface MsgChannelUpgradeTryAminoMsg {
 }
 /** MsgChannelUpgradeTryResponse defines the MsgChannelUpgradeTry response type */
 export interface MsgChannelUpgradeTryResponse {
-	upgrade: Upgrade
+	upgrade: Upgrade | undefined
 	upgradeSequence: bigint
 	result: ResponseResultType
 }
@@ -601,7 +601,7 @@ export interface MsgChannelUpgradeTryResponseProtoMsg {
 }
 /** MsgChannelUpgradeTryResponse defines the MsgChannelUpgradeTry response type */
 export interface MsgChannelUpgradeTryResponseAmino {
-	upgrade?: UpgradeAmino
+	upgrade?: UpgradeAmino | undefined
 	upgrade_sequence?: string
 	result?: ResponseResultType
 }
@@ -613,10 +613,10 @@ export interface MsgChannelUpgradeTryResponseAminoMsg {
 export interface MsgChannelUpgradeAck {
 	portId: string
 	channelId: string
-	counterpartyUpgrade: Upgrade
+	counterpartyUpgrade: Upgrade | undefined
 	proofChannel: Uint8Array
 	proofUpgrade: Uint8Array
-	proofHeight: Height
+	proofHeight: Height | undefined
 	signer: string
 }
 export interface MsgChannelUpgradeAckProtoMsg {
@@ -627,10 +627,10 @@ export interface MsgChannelUpgradeAckProtoMsg {
 export interface MsgChannelUpgradeAckAmino {
 	port_id?: string
 	channel_id?: string
-	counterparty_upgrade?: UpgradeAmino
+	counterparty_upgrade?: UpgradeAmino | undefined
 	proof_channel?: string
 	proof_upgrade?: string
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 	signer?: string
 }
 export interface MsgChannelUpgradeAckAminoMsg {
@@ -658,10 +658,10 @@ export interface MsgChannelUpgradeConfirm {
 	portId: string
 	channelId: string
 	counterpartyChannelState: State
-	counterpartyUpgrade: Upgrade
+	counterpartyUpgrade: Upgrade | undefined
 	proofChannel: Uint8Array
 	proofUpgrade: Uint8Array
-	proofHeight: Height
+	proofHeight: Height | undefined
 	signer: string
 }
 export interface MsgChannelUpgradeConfirmProtoMsg {
@@ -673,10 +673,10 @@ export interface MsgChannelUpgradeConfirmAmino {
 	port_id?: string
 	channel_id?: string
 	counterparty_channel_state?: State
-	counterparty_upgrade?: UpgradeAmino
+	counterparty_upgrade?: UpgradeAmino | undefined
 	proof_channel?: string
 	proof_upgrade?: string
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 	signer?: string
 }
 export interface MsgChannelUpgradeConfirmAminoMsg {
@@ -706,7 +706,7 @@ export interface MsgChannelUpgradeOpen {
 	counterpartyChannelState: State
 	counterpartyUpgradeSequence: bigint
 	proofChannel: Uint8Array
-	proofHeight: Height
+	proofHeight: Height | undefined
 	signer: string
 }
 export interface MsgChannelUpgradeOpenProtoMsg {
@@ -720,7 +720,7 @@ export interface MsgChannelUpgradeOpenAmino {
 	counterparty_channel_state?: State
 	counterparty_upgrade_sequence?: string
 	proof_channel?: string
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 	signer?: string
 }
 export interface MsgChannelUpgradeOpenAminoMsg {
@@ -743,9 +743,9 @@ export interface MsgChannelUpgradeOpenResponseAminoMsg {
 export interface MsgChannelUpgradeTimeout {
 	portId: string
 	channelId: string
-	counterpartyChannel: Channel
+	counterpartyChannel: Channel | undefined
 	proofChannel: Uint8Array
-	proofHeight: Height
+	proofHeight: Height | undefined
 	signer: string
 }
 export interface MsgChannelUpgradeTimeoutProtoMsg {
@@ -756,9 +756,9 @@ export interface MsgChannelUpgradeTimeoutProtoMsg {
 export interface MsgChannelUpgradeTimeoutAmino {
 	port_id?: string
 	channel_id?: string
-	counterparty_channel?: ChannelAmino
+	counterparty_channel?: ChannelAmino | undefined
 	proof_channel?: string
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 	signer?: string
 }
 export interface MsgChannelUpgradeTimeoutAminoMsg {
@@ -781,9 +781,9 @@ export interface MsgChannelUpgradeTimeoutResponseAminoMsg {
 export interface MsgChannelUpgradeCancel {
 	portId: string
 	channelId: string
-	errorReceipt: ErrorReceipt
+	errorReceipt: ErrorReceipt | undefined
 	proofErrorReceipt: Uint8Array
-	proofHeight: Height
+	proofHeight: Height | undefined
 	signer: string
 }
 export interface MsgChannelUpgradeCancelProtoMsg {
@@ -794,9 +794,9 @@ export interface MsgChannelUpgradeCancelProtoMsg {
 export interface MsgChannelUpgradeCancelAmino {
 	port_id?: string
 	channel_id?: string
-	error_receipt?: ErrorReceiptAmino
+	error_receipt?: ErrorReceiptAmino | undefined
 	proof_error_receipt?: string
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 	signer?: string
 }
 export interface MsgChannelUpgradeCancelAminoMsg {
@@ -824,7 +824,7 @@ export interface MsgUpdateParams {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params: Params
+	params: Params | undefined
 }
 export interface MsgUpdateParamsProtoMsg {
 	typeUrl: "/ibc.core.channel.v1.MsgUpdateParams"
@@ -839,7 +839,7 @@ export interface MsgUpdateParamsAmino {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params?: ParamsAmino
+	params?: ParamsAmino | undefined
 }
 export interface MsgUpdateParamsAminoMsg {
 	type: "cosmos-sdk/MsgUpdateParams"
@@ -911,13 +911,13 @@ function createBaseMsgChannelOpenInit(): MsgChannelOpenInit {
 export const MsgChannelOpenInit = {
 	typeUrl: "/ibc.core.channel.v1.MsgChannelOpenInit",
 	encode(message: MsgChannelOpenInit, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
 		if (message.channel !== undefined) {
 			Channel.encode(message.channel, writer.uint32(18).fork()).ldelim()
 		}
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(26).string(message.signer)
 		}
 		return writer
@@ -1009,10 +1009,10 @@ export const MsgChannelOpenInitResponse = {
 		message: MsgChannelOpenInitResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(10).string(message.channelId)
 		}
-		if (message.version !== undefined) {
+		if (message.version && message.version !== "") {
 			writer.uint32(18).string(message.version)
 		}
 		return writer
@@ -1095,16 +1095,16 @@ function createBaseMsgChannelOpenTry(): MsgChannelOpenTry {
 export const MsgChannelOpenTry = {
 	typeUrl: "/ibc.core.channel.v1.MsgChannelOpenTry",
 	encode(message: MsgChannelOpenTry, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.previousChannelId !== undefined) {
+		if (message.previousChannelId && message.previousChannelId !== "") {
 			writer.uint32(18).string(message.previousChannelId)
 		}
 		if (message.channel !== undefined) {
 			Channel.encode(message.channel, writer.uint32(26).fork()).ldelim()
 		}
-		if (message.counterpartyVersion !== undefined) {
+		if (message.counterpartyVersion && message.counterpartyVersion !== "") {
 			writer.uint32(34).string(message.counterpartyVersion)
 		}
 		if (message.proofInit.length !== 0) {
@@ -1113,7 +1113,7 @@ export const MsgChannelOpenTry = {
 		if (message.proofHeight !== undefined) {
 			Height.encode(message.proofHeight, writer.uint32(50).fork()).ldelim()
 		}
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(58).string(message.signer)
 		}
 		return writer
@@ -1242,10 +1242,10 @@ export const MsgChannelOpenTryResponse = {
 		message: MsgChannelOpenTryResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.version !== undefined) {
+		if (message.version && message.version !== "") {
 			writer.uint32(10).string(message.version)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
 		return writer
@@ -1328,16 +1328,16 @@ function createBaseMsgChannelOpenAck(): MsgChannelOpenAck {
 export const MsgChannelOpenAck = {
 	typeUrl: "/ibc.core.channel.v1.MsgChannelOpenAck",
 	encode(message: MsgChannelOpenAck, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
-		if (message.counterpartyChannelId !== undefined) {
+		if (message.counterpartyChannelId && message.counterpartyChannelId !== "") {
 			writer.uint32(26).string(message.counterpartyChannelId)
 		}
-		if (message.counterpartyVersion !== undefined) {
+		if (message.counterpartyVersion && message.counterpartyVersion !== "") {
 			writer.uint32(34).string(message.counterpartyVersion)
 		}
 		if (message.proofTry.length !== 0) {
@@ -1346,7 +1346,7 @@ export const MsgChannelOpenAck = {
 		if (message.proofHeight !== undefined) {
 			Height.encode(message.proofHeight, writer.uint32(50).fork()).ldelim()
 		}
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(58).string(message.signer)
 		}
 		return writer
@@ -1534,10 +1534,10 @@ export const MsgChannelOpenConfirm = {
 		message: MsgChannelOpenConfirm,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
 		if (message.proofAck.length !== 0) {
@@ -1546,7 +1546,7 @@ export const MsgChannelOpenConfirm = {
 		if (message.proofHeight !== undefined) {
 			Height.encode(message.proofHeight, writer.uint32(34).fork()).ldelim()
 		}
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(42).string(message.signer)
 		}
 		return writer
@@ -1714,13 +1714,13 @@ export const MsgChannelCloseInit = {
 		message: MsgChannelCloseInit,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(26).string(message.signer)
 		}
 		return writer
@@ -1872,10 +1872,10 @@ export const MsgChannelCloseConfirm = {
 		message: MsgChannelCloseConfirm,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
 		if (message.proofInit.length !== 0) {
@@ -1884,10 +1884,13 @@ export const MsgChannelCloseConfirm = {
 		if (message.proofHeight !== undefined) {
 			Height.encode(message.proofHeight, writer.uint32(34).fork()).ldelim()
 		}
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(42).string(message.signer)
 		}
-		if (message.counterpartyUpgradeSequence !== undefined) {
+		if (
+			message.counterpartyUpgradeSequence &&
+			message.counterpartyUpgradeSequence !== BigInt(0)
+		) {
 			writer.uint32(48).uint64(message.counterpartyUpgradeSequence)
 		}
 		return writer
@@ -2080,7 +2083,7 @@ export const MsgRecvPacket = {
 		if (message.proofHeight !== undefined) {
 			Height.encode(message.proofHeight, writer.uint32(26).fork()).ldelim()
 		}
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(34).string(message.signer)
 		}
 		return writer
@@ -2266,10 +2269,10 @@ export const MsgTimeout = {
 		if (message.proofHeight !== undefined) {
 			Height.encode(message.proofHeight, writer.uint32(26).fork()).ldelim()
 		}
-		if (message.nextSequenceRecv !== undefined) {
+		if (message.nextSequenceRecv && message.nextSequenceRecv !== BigInt(0)) {
 			writer.uint32(32).uint64(message.nextSequenceRecv)
 		}
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(42).string(message.signer)
 		}
 		return writer
@@ -2469,13 +2472,16 @@ export const MsgTimeoutOnClose = {
 		if (message.proofHeight !== undefined) {
 			Height.encode(message.proofHeight, writer.uint32(34).fork()).ldelim()
 		}
-		if (message.nextSequenceRecv !== undefined) {
+		if (message.nextSequenceRecv && message.nextSequenceRecv !== BigInt(0)) {
 			writer.uint32(40).uint64(message.nextSequenceRecv)
 		}
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(50).string(message.signer)
 		}
-		if (message.counterpartyUpgradeSequence !== undefined) {
+		if (
+			message.counterpartyUpgradeSequence &&
+			message.counterpartyUpgradeSequence !== BigInt(0)
+		) {
 			writer.uint32(56).uint64(message.counterpartyUpgradeSequence)
 		}
 		return writer
@@ -2702,7 +2708,7 @@ export const MsgAcknowledgement = {
 		if (message.proofHeight !== undefined) {
 			Height.encode(message.proofHeight, writer.uint32(34).fork()).ldelim()
 		}
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(42).string(message.signer)
 		}
 		return writer
@@ -2889,16 +2895,16 @@ export const MsgChannelUpgradeInit = {
 		message: MsgChannelUpgradeInit,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
 		if (message.fields !== undefined) {
 			UpgradeFields.encode(message.fields, writer.uint32(26).fork()).ldelim()
 		}
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(34).string(message.signer)
 		}
 		return writer
@@ -3001,7 +3007,7 @@ export const MsgChannelUpgradeInitResponse = {
 		if (message.upgrade !== undefined) {
 			Upgrade.encode(message.upgrade, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.upgradeSequence !== undefined) {
+		if (message.upgradeSequence && message.upgradeSequence !== BigInt(0)) {
 			writer.uint32(16).uint64(message.upgradeSequence)
 		}
 		return writer
@@ -3096,10 +3102,10 @@ export const MsgChannelUpgradeTry = {
 		message: MsgChannelUpgradeTry,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
 		for (const v of message.proposedUpgradeConnectionHops) {
@@ -3108,7 +3114,10 @@ export const MsgChannelUpgradeTry = {
 		if (message.counterpartyUpgradeFields !== undefined) {
 			UpgradeFields.encode(message.counterpartyUpgradeFields, writer.uint32(34).fork()).ldelim()
 		}
-		if (message.counterpartyUpgradeSequence !== undefined) {
+		if (
+			message.counterpartyUpgradeSequence &&
+			message.counterpartyUpgradeSequence !== BigInt(0)
+		) {
 			writer.uint32(40).uint64(message.counterpartyUpgradeSequence)
 		}
 		if (message.proofChannel.length !== 0) {
@@ -3120,7 +3129,7 @@ export const MsgChannelUpgradeTry = {
 		if (message.proofHeight !== undefined) {
 			Height.encode(message.proofHeight, writer.uint32(66).fork()).ldelim()
 		}
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(74).string(message.signer)
 		}
 		return writer
@@ -3288,7 +3297,7 @@ export const MsgChannelUpgradeTryResponse = {
 		if (message.upgrade !== undefined) {
 			Upgrade.encode(message.upgrade, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.upgradeSequence !== undefined) {
+		if (message.upgradeSequence && message.upgradeSequence !== BigInt(0)) {
 			writer.uint32(16).uint64(message.upgradeSequence)
 		}
 		if (message.result !== 0) {
@@ -3392,10 +3401,10 @@ export const MsgChannelUpgradeAck = {
 		message: MsgChannelUpgradeAck,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
 		if (message.counterpartyUpgrade !== undefined) {
@@ -3410,7 +3419,7 @@ export const MsgChannelUpgradeAck = {
 		if (message.proofHeight !== undefined) {
 			Height.encode(message.proofHeight, writer.uint32(50).fork()).ldelim()
 		}
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(58).string(message.signer)
 		}
 		return writer
@@ -3617,10 +3626,10 @@ export const MsgChannelUpgradeConfirm = {
 		message: MsgChannelUpgradeConfirm,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
 		if (message.counterpartyChannelState !== 0) {
@@ -3638,7 +3647,7 @@ export const MsgChannelUpgradeConfirm = {
 		if (message.proofHeight !== undefined) {
 			Height.encode(message.proofHeight, writer.uint32(58).fork()).ldelim()
 		}
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(66).string(message.signer)
 		}
 		return writer
@@ -3862,16 +3871,19 @@ export const MsgChannelUpgradeOpen = {
 		message: MsgChannelUpgradeOpen,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
 		if (message.counterpartyChannelState !== 0) {
 			writer.uint32(24).int32(message.counterpartyChannelState)
 		}
-		if (message.counterpartyUpgradeSequence !== undefined) {
+		if (
+			message.counterpartyUpgradeSequence &&
+			message.counterpartyUpgradeSequence !== BigInt(0)
+		) {
 			writer.uint32(32).uint64(message.counterpartyUpgradeSequence)
 		}
 		if (message.proofChannel.length !== 0) {
@@ -3880,7 +3892,7 @@ export const MsgChannelUpgradeOpen = {
 		if (message.proofHeight !== undefined) {
 			Height.encode(message.proofHeight, writer.uint32(50).fork()).ldelim()
 		}
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(58).string(message.signer)
 		}
 		return writer
@@ -4081,10 +4093,10 @@ export const MsgChannelUpgradeTimeout = {
 		message: MsgChannelUpgradeTimeout,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
 		if (message.counterpartyChannel !== undefined) {
@@ -4096,7 +4108,7 @@ export const MsgChannelUpgradeTimeout = {
 		if (message.proofHeight !== undefined) {
 			Height.encode(message.proofHeight, writer.uint32(42).fork()).ldelim()
 		}
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(50).string(message.signer)
 		}
 		return writer
@@ -4284,10 +4296,10 @@ export const MsgChannelUpgradeCancel = {
 		message: MsgChannelUpgradeCancel,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
 		if (message.errorReceipt !== undefined) {
@@ -4299,7 +4311,7 @@ export const MsgChannelUpgradeCancel = {
 		if (message.proofHeight !== undefined) {
 			Height.encode(message.proofHeight, writer.uint32(42).fork()).ldelim()
 		}
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(50).string(message.signer)
 		}
 		return writer
@@ -4478,7 +4490,7 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
 export const MsgUpdateParams = {
 	typeUrl: "/ibc.core.channel.v1.MsgUpdateParams",
 	encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.authority !== undefined) {
+		if (message.authority && message.authority !== "") {
 			writer.uint32(10).string(message.authority)
 		}
 		if (message.params !== undefined) {
@@ -4623,16 +4635,16 @@ export const MsgPruneAcknowledgements = {
 		message: MsgPruneAcknowledgements,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
-		if (message.limit !== undefined) {
+		if (message.limit && message.limit !== BigInt(0)) {
 			writer.uint32(24).uint64(message.limit)
 		}
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(34).string(message.signer)
 		}
 		return writer
@@ -4732,10 +4744,10 @@ export const MsgPruneAcknowledgementsResponse = {
 		message: MsgPruneAcknowledgementsResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.totalPrunedSequences !== undefined) {
+		if (message.totalPrunedSequences && message.totalPrunedSequences !== BigInt(0)) {
 			writer.uint32(8).uint64(message.totalPrunedSequences)
 		}
-		if (message.totalRemainingSequences !== undefined) {
+		if (message.totalRemainingSequences && message.totalRemainingSequences !== BigInt(0)) {
 			writer.uint32(16).uint64(message.totalRemainingSequences)
 		}
 		return writer

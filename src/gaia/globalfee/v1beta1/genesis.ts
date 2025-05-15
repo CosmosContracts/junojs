@@ -3,7 +3,7 @@ import { DecCoin, type DecCoinAmino } from "../../../cosmos/base/v1beta1/coin"
 /** GenesisState - initial state of module */
 export interface GenesisState {
 	/** Params of this module */
-	params: Params
+	params: Params | undefined
 }
 export interface GenesisStateProtoMsg {
 	typeUrl: "/gaia.globalfee.v1beta1.GenesisState"
@@ -12,7 +12,7 @@ export interface GenesisStateProtoMsg {
 /** GenesisState - initial state of module */
 export interface GenesisStateAmino {
 	/** Params of this module */
-	params: ParamsAmino
+	params: ParamsAmino | undefined
 }
 export interface GenesisStateAminoMsg {
 	type: "/gaia.globalfee.v1beta1.GenesisState"

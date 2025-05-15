@@ -5,11 +5,11 @@ import { Duration, type DurationAmino } from "../../google/protobuf/duration"
  * validity of blocks.
  */
 export interface ConsensusParams {
-	block?: BlockParams
-	evidence?: EvidenceParams
-	validator?: ValidatorParams
-	version?: VersionParams
-	abci?: ABCIParams
+	block?: BlockParams | undefined
+	evidence?: EvidenceParams | undefined
+	validator?: ValidatorParams | undefined
+	version?: VersionParams | undefined
+	abci?: ABCIParams | undefined
 }
 export interface ConsensusParamsProtoMsg {
 	typeUrl: "/tendermint.types.ConsensusParams"
@@ -20,11 +20,11 @@ export interface ConsensusParamsProtoMsg {
  * validity of blocks.
  */
 export interface ConsensusParamsAmino {
-	block?: BlockParamsAmino
-	evidence?: EvidenceParamsAmino
-	validator?: ValidatorParamsAmino
-	version?: VersionParamsAmino
-	abci?: ABCIParamsAmino
+	block?: BlockParamsAmino | undefined
+	evidence?: EvidenceParamsAmino | undefined
+	validator?: ValidatorParamsAmino | undefined
+	version?: VersionParamsAmino | undefined
+	abci?: ABCIParamsAmino | undefined
 }
 export interface ConsensusParamsAminoMsg {
 	type: "/tendermint.types.ConsensusParams"
@@ -80,7 +80,7 @@ export interface EvidenceParams {
 	 * mechanism for handling [Nothing-At-Stake
 	 * attacks](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
 	 */
-	maxAgeDuration: Duration
+	maxAgeDuration: Duration | undefined
 	/**
 	 * This sets the maximum size of total evidence in bytes that can be committed in a single block.
 	 * and should fall comfortably under the max block bytes.
@@ -108,7 +108,7 @@ export interface EvidenceParamsAmino {
 	 * mechanism for handling [Nothing-At-Stake
 	 * attacks](https://github.com/ethereum/wiki/wiki/Proof-of-Stake-FAQ#what-is-the-nothing-at-stake-problem-and-how-can-it-be-fixed).
 	 */
-	max_age_duration?: DurationAmino
+	max_age_duration?: DurationAmino | undefined
 	/**
 	 * This sets the maximum size of total evidence in bytes that can be committed in a single block.
 	 * and should fall comfortably under the max block bytes.
@@ -357,10 +357,10 @@ function createBaseBlockParams(): BlockParams {
 export const BlockParams = {
 	typeUrl: "/tendermint.types.BlockParams",
 	encode(message: BlockParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.maxBytes !== undefined) {
+		if (message.maxBytes && message.maxBytes !== BigInt(0)) {
 			writer.uint32(8).int64(message.maxBytes)
 		}
-		if (message.maxGas !== undefined) {
+		if (message.maxGas && message.maxGas !== BigInt(0)) {
 			writer.uint32(16).int64(message.maxGas)
 		}
 		return writer
@@ -439,13 +439,13 @@ function createBaseEvidenceParams(): EvidenceParams {
 export const EvidenceParams = {
 	typeUrl: "/tendermint.types.EvidenceParams",
 	encode(message: EvidenceParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.maxAgeNumBlocks !== undefined) {
+		if (message.maxAgeNumBlocks && message.maxAgeNumBlocks !== BigInt(0)) {
 			writer.uint32(8).int64(message.maxAgeNumBlocks)
 		}
 		if (message.maxAgeDuration !== undefined) {
 			Duration.encode(message.maxAgeDuration, writer.uint32(18).fork()).ldelim()
 		}
-		if (message.maxBytes !== undefined) {
+		if (message.maxBytes && message.maxBytes !== BigInt(0)) {
 			writer.uint32(24).int64(message.maxBytes)
 		}
 		return writer
@@ -601,7 +601,7 @@ function createBaseVersionParams(): VersionParams {
 export const VersionParams = {
 	typeUrl: "/tendermint.types.VersionParams",
 	encode(message: VersionParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.app !== undefined) {
+		if (message.app && message.app !== BigInt(0)) {
 			writer.uint32(8).uint64(message.app)
 		}
 		return writer
@@ -666,10 +666,10 @@ function createBaseHashedParams(): HashedParams {
 export const HashedParams = {
 	typeUrl: "/tendermint.types.HashedParams",
 	encode(message: HashedParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.blockMaxBytes !== undefined) {
+		if (message.blockMaxBytes && message.blockMaxBytes !== BigInt(0)) {
 			writer.uint32(8).int64(message.blockMaxBytes)
 		}
-		if (message.blockMaxGas !== undefined) {
+		if (message.blockMaxGas && message.blockMaxGas !== BigInt(0)) {
 			writer.uint32(16).int64(message.blockMaxGas)
 		}
 		return writer
@@ -748,7 +748,7 @@ function createBaseABCIParams(): ABCIParams {
 export const ABCIParams = {
 	typeUrl: "/tendermint.types.ABCIParams",
 	encode(message: ABCIParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.voteExtensionsEnableHeight !== undefined) {
+		if (message.voteExtensionsEnableHeight && message.voteExtensionsEnableHeight !== BigInt(0)) {
 			writer.uint32(8).int64(message.voteExtensionsEnableHeight)
 		}
 		return writer

@@ -15,7 +15,7 @@ export interface QueryParamsRequestAminoMsg {
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponse {
 	/** params is the returned parameter from the module */
-	params: Params
+	params: Params | undefined
 }
 export interface QueryParamsResponseProtoMsg {
 	typeUrl: "/juno.drip.v1.QueryParamsResponse"
@@ -24,7 +24,7 @@ export interface QueryParamsResponseProtoMsg {
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponseAmino {
 	/** params is the returned parameter from the module */
-	params: ParamsAmino
+	params: ParamsAmino | undefined
 }
 export interface QueryParamsResponseAminoMsg {
 	type: "/juno.drip.v1.QueryParamsResponse"

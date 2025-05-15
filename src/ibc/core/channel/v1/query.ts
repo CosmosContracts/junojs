@@ -53,11 +53,11 @@ export interface QueryChannelRequestAminoMsg {
  */
 export interface QueryChannelResponse {
 	/** channel associated with the request identifiers */
-	channel?: Channel
+	channel?: Channel | undefined
 	/** merkle proof of existence */
 	proof: Uint8Array
 	/** height at which the proof was retrieved */
-	proofHeight: Height
+	proofHeight: Height | undefined
 }
 export interface QueryChannelResponseProtoMsg {
 	typeUrl: "/ibc.core.channel.v1.QueryChannelResponse"
@@ -70,11 +70,11 @@ export interface QueryChannelResponseProtoMsg {
  */
 export interface QueryChannelResponseAmino {
 	/** channel associated with the request identifiers */
-	channel?: ChannelAmino
+	channel?: ChannelAmino | undefined
 	/** merkle proof of existence */
 	proof?: string
 	/** height at which the proof was retrieved */
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 }
 export interface QueryChannelResponseAminoMsg {
 	type: "cosmos-sdk/QueryChannelResponse"
@@ -83,7 +83,7 @@ export interface QueryChannelResponseAminoMsg {
 /** QueryChannelsRequest is the request type for the Query/Channels RPC method */
 export interface QueryChannelsRequest {
 	/** pagination request */
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 }
 export interface QueryChannelsRequestProtoMsg {
 	typeUrl: "/ibc.core.channel.v1.QueryChannelsRequest"
@@ -92,7 +92,7 @@ export interface QueryChannelsRequestProtoMsg {
 /** QueryChannelsRequest is the request type for the Query/Channels RPC method */
 export interface QueryChannelsRequestAmino {
 	/** pagination request */
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 }
 export interface QueryChannelsRequestAminoMsg {
 	type: "cosmos-sdk/QueryChannelsRequest"
@@ -103,9 +103,9 @@ export interface QueryChannelsResponse {
 	/** list of stored channels of the chain. */
 	channels: IdentifiedChannel[]
 	/** pagination response */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 	/** query block height */
-	height: Height
+	height: Height | undefined
 }
 export interface QueryChannelsResponseProtoMsg {
 	typeUrl: "/ibc.core.channel.v1.QueryChannelsResponse"
@@ -116,9 +116,9 @@ export interface QueryChannelsResponseAmino {
 	/** list of stored channels of the chain. */
 	channels?: IdentifiedChannelAmino[]
 	/** pagination response */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 	/** query block height */
-	height?: HeightAmino
+	height?: HeightAmino | undefined
 }
 export interface QueryChannelsResponseAminoMsg {
 	type: "cosmos-sdk/QueryChannelsResponse"
@@ -132,7 +132,7 @@ export interface QueryConnectionChannelsRequest {
 	/** connection unique identifier */
 	connection: string
 	/** pagination request */
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 }
 export interface QueryConnectionChannelsRequestProtoMsg {
 	typeUrl: "/ibc.core.channel.v1.QueryConnectionChannelsRequest"
@@ -146,7 +146,7 @@ export interface QueryConnectionChannelsRequestAmino {
 	/** connection unique identifier */
 	connection?: string
 	/** pagination request */
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 }
 export interface QueryConnectionChannelsRequestAminoMsg {
 	type: "cosmos-sdk/QueryConnectionChannelsRequest"
@@ -160,9 +160,9 @@ export interface QueryConnectionChannelsResponse {
 	/** list of channels associated with a connection. */
 	channels: IdentifiedChannel[]
 	/** pagination response */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 	/** query block height */
-	height: Height
+	height: Height | undefined
 }
 export interface QueryConnectionChannelsResponseProtoMsg {
 	typeUrl: "/ibc.core.channel.v1.QueryConnectionChannelsResponse"
@@ -176,9 +176,9 @@ export interface QueryConnectionChannelsResponseAmino {
 	/** list of channels associated with a connection. */
 	channels?: IdentifiedChannelAmino[]
 	/** pagination response */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 	/** query block height */
-	height?: HeightAmino
+	height?: HeightAmino | undefined
 }
 export interface QueryConnectionChannelsResponseAminoMsg {
 	type: "cosmos-sdk/QueryConnectionChannelsResponse"
@@ -218,11 +218,11 @@ export interface QueryChannelClientStateRequestAminoMsg {
  */
 export interface QueryChannelClientStateResponse {
 	/** client state associated with the channel */
-	identifiedClientState?: IdentifiedClientState
+	identifiedClientState?: IdentifiedClientState | undefined
 	/** merkle proof of existence */
 	proof: Uint8Array
 	/** height at which the proof was retrieved */
-	proofHeight: Height
+	proofHeight: Height | undefined
 }
 export interface QueryChannelClientStateResponseProtoMsg {
 	typeUrl: "/ibc.core.channel.v1.QueryChannelClientStateResponse"
@@ -234,11 +234,11 @@ export interface QueryChannelClientStateResponseProtoMsg {
  */
 export interface QueryChannelClientStateResponseAmino {
 	/** client state associated with the channel */
-	identified_client_state?: IdentifiedClientStateAmino
+	identified_client_state?: IdentifiedClientStateAmino | undefined
 	/** merkle proof of existence */
 	proof?: string
 	/** height at which the proof was retrieved */
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 }
 export interface QueryChannelClientStateResponseAminoMsg {
 	type: "cosmos-sdk/QueryChannelClientStateResponse"
@@ -286,13 +286,13 @@ export interface QueryChannelConsensusStateRequestAminoMsg {
  */
 export interface QueryChannelConsensusStateResponse {
 	/** consensus state associated with the channel */
-	consensusState?: Any
+	consensusState?: Any | undefined
 	/** client ID associated with the consensus state */
 	clientId: string
 	/** merkle proof of existence */
 	proof: Uint8Array
 	/** height at which the proof was retrieved */
-	proofHeight: Height
+	proofHeight: Height | undefined
 }
 export interface QueryChannelConsensusStateResponseProtoMsg {
 	typeUrl: "/ibc.core.channel.v1.QueryChannelConsensusStateResponse"
@@ -304,13 +304,13 @@ export interface QueryChannelConsensusStateResponseProtoMsg {
  */
 export interface QueryChannelConsensusStateResponseAmino {
 	/** consensus state associated with the channel */
-	consensus_state?: AnyAmino
+	consensus_state?: AnyAmino | undefined
 	/** client ID associated with the consensus state */
 	client_id?: string
 	/** merkle proof of existence */
 	proof?: string
 	/** height at which the proof was retrieved */
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 }
 export interface QueryChannelConsensusStateResponseAminoMsg {
 	type: "cosmos-sdk/QueryChannelConsensusStateResponse"
@@ -359,7 +359,7 @@ export interface QueryPacketCommitmentResponse {
 	/** merkle proof of existence */
 	proof: Uint8Array
 	/** height at which the proof was retrieved */
-	proofHeight: Height
+	proofHeight: Height | undefined
 }
 export interface QueryPacketCommitmentResponseProtoMsg {
 	typeUrl: "/ibc.core.channel.v1.QueryPacketCommitmentResponse"
@@ -376,7 +376,7 @@ export interface QueryPacketCommitmentResponseAmino {
 	/** merkle proof of existence */
 	proof?: string
 	/** height at which the proof was retrieved */
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 }
 export interface QueryPacketCommitmentResponseAminoMsg {
 	type: "cosmos-sdk/QueryPacketCommitmentResponse"
@@ -392,7 +392,7 @@ export interface QueryPacketCommitmentsRequest {
 	/** channel unique identifier */
 	channelId: string
 	/** pagination request */
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 }
 export interface QueryPacketCommitmentsRequestProtoMsg {
 	typeUrl: "/ibc.core.channel.v1.QueryPacketCommitmentsRequest"
@@ -408,7 +408,7 @@ export interface QueryPacketCommitmentsRequestAmino {
 	/** channel unique identifier */
 	channel_id?: string
 	/** pagination request */
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 }
 export interface QueryPacketCommitmentsRequestAminoMsg {
 	type: "cosmos-sdk/QueryPacketCommitmentsRequest"
@@ -421,9 +421,9 @@ export interface QueryPacketCommitmentsRequestAminoMsg {
 export interface QueryPacketCommitmentsResponse {
 	commitments: PacketState[]
 	/** pagination response */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 	/** query block height */
-	height: Height
+	height: Height | undefined
 }
 export interface QueryPacketCommitmentsResponseProtoMsg {
 	typeUrl: "/ibc.core.channel.v1.QueryPacketCommitmentsResponse"
@@ -436,9 +436,9 @@ export interface QueryPacketCommitmentsResponseProtoMsg {
 export interface QueryPacketCommitmentsResponseAmino {
 	commitments?: PacketStateAmino[]
 	/** pagination response */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 	/** query block height */
-	height?: HeightAmino
+	height?: HeightAmino | undefined
 }
 export interface QueryPacketCommitmentsResponseAminoMsg {
 	type: "cosmos-sdk/QueryPacketCommitmentsResponse"
@@ -487,7 +487,7 @@ export interface QueryPacketReceiptResponse {
 	/** merkle proof of existence */
 	proof: Uint8Array
 	/** height at which the proof was retrieved */
-	proofHeight: Height
+	proofHeight: Height | undefined
 }
 export interface QueryPacketReceiptResponseProtoMsg {
 	typeUrl: "/ibc.core.channel.v1.QueryPacketReceiptResponse"
@@ -504,7 +504,7 @@ export interface QueryPacketReceiptResponseAmino {
 	/** merkle proof of existence */
 	proof?: string
 	/** height at which the proof was retrieved */
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 }
 export interface QueryPacketReceiptResponseAminoMsg {
 	type: "cosmos-sdk/QueryPacketReceiptResponse"
@@ -553,7 +553,7 @@ export interface QueryPacketAcknowledgementResponse {
 	/** merkle proof of existence */
 	proof: Uint8Array
 	/** height at which the proof was retrieved */
-	proofHeight: Height
+	proofHeight: Height | undefined
 }
 export interface QueryPacketAcknowledgementResponseProtoMsg {
 	typeUrl: "/ibc.core.channel.v1.QueryPacketAcknowledgementResponse"
@@ -570,7 +570,7 @@ export interface QueryPacketAcknowledgementResponseAmino {
 	/** merkle proof of existence */
 	proof?: string
 	/** height at which the proof was retrieved */
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 }
 export interface QueryPacketAcknowledgementResponseAminoMsg {
 	type: "cosmos-sdk/QueryPacketAcknowledgementResponse"
@@ -586,7 +586,7 @@ export interface QueryPacketAcknowledgementsRequest {
 	/** channel unique identifier */
 	channelId: string
 	/** pagination request */
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 	/** list of packet sequences */
 	packetCommitmentSequences?: bigint[]
 }
@@ -604,7 +604,7 @@ export interface QueryPacketAcknowledgementsRequestAmino {
 	/** channel unique identifier */
 	channel_id?: string
 	/** pagination request */
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 	/** list of packet sequences */
 	packet_commitment_sequences?: string[]
 }
@@ -619,9 +619,9 @@ export interface QueryPacketAcknowledgementsRequestAminoMsg {
 export interface QueryPacketAcknowledgementsResponse {
 	acknowledgements: PacketState[]
 	/** pagination response */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 	/** query block height */
-	height: Height
+	height: Height | undefined
 }
 export interface QueryPacketAcknowledgementsResponseProtoMsg {
 	typeUrl: "/ibc.core.channel.v1.QueryPacketAcknowledgementsResponse"
@@ -634,9 +634,9 @@ export interface QueryPacketAcknowledgementsResponseProtoMsg {
 export interface QueryPacketAcknowledgementsResponseAmino {
 	acknowledgements?: PacketStateAmino[]
 	/** pagination response */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 	/** query block height */
-	height?: HeightAmino
+	height?: HeightAmino | undefined
 }
 export interface QueryPacketAcknowledgementsResponseAminoMsg {
 	type: "cosmos-sdk/QueryPacketAcknowledgementsResponse"
@@ -682,7 +682,7 @@ export interface QueryUnreceivedPacketsResponse {
 	/** list of unreceived packet sequences */
 	sequences: bigint[]
 	/** query block height */
-	height: Height
+	height: Height | undefined
 }
 export interface QueryUnreceivedPacketsResponseProtoMsg {
 	typeUrl: "/ibc.core.channel.v1.QueryUnreceivedPacketsResponse"
@@ -696,7 +696,7 @@ export interface QueryUnreceivedPacketsResponseAmino {
 	/** list of unreceived packet sequences */
 	sequences?: string[]
 	/** query block height */
-	height?: HeightAmino
+	height?: HeightAmino | undefined
 }
 export interface QueryUnreceivedPacketsResponseAminoMsg {
 	type: "cosmos-sdk/QueryUnreceivedPacketsResponse"
@@ -742,7 +742,7 @@ export interface QueryUnreceivedAcksResponse {
 	/** list of unreceived acknowledgement sequences */
 	sequences: bigint[]
 	/** query block height */
-	height: Height
+	height: Height | undefined
 }
 export interface QueryUnreceivedAcksResponseProtoMsg {
 	typeUrl: "/ibc.core.channel.v1.QueryUnreceivedAcksResponse"
@@ -756,7 +756,7 @@ export interface QueryUnreceivedAcksResponseAmino {
 	/** list of unreceived acknowledgement sequences */
 	sequences?: string[]
 	/** query block height */
-	height?: HeightAmino
+	height?: HeightAmino | undefined
 }
 export interface QueryUnreceivedAcksResponseAminoMsg {
 	type: "cosmos-sdk/QueryUnreceivedAcksResponse"
@@ -800,7 +800,7 @@ export interface QueryNextSequenceReceiveResponse {
 	/** merkle proof of existence */
 	proof: Uint8Array
 	/** height at which the proof was retrieved */
-	proofHeight: Height
+	proofHeight: Height | undefined
 }
 export interface QueryNextSequenceReceiveResponseProtoMsg {
 	typeUrl: "/ibc.core.channel.v1.QueryNextSequenceReceiveResponse"
@@ -816,7 +816,7 @@ export interface QueryNextSequenceReceiveResponseAmino {
 	/** merkle proof of existence */
 	proof?: string
 	/** height at which the proof was retrieved */
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 }
 export interface QueryNextSequenceReceiveResponseAminoMsg {
 	type: "cosmos-sdk/QueryNextSequenceReceiveResponse"
@@ -860,7 +860,7 @@ export interface QueryNextSequenceSendResponse {
 	/** merkle proof of existence */
 	proof: Uint8Array
 	/** height at which the proof was retrieved */
-	proofHeight: Height
+	proofHeight: Height | undefined
 }
 export interface QueryNextSequenceSendResponseProtoMsg {
 	typeUrl: "/ibc.core.channel.v1.QueryNextSequenceSendResponse"
@@ -876,7 +876,7 @@ export interface QueryNextSequenceSendResponseAmino {
 	/** merkle proof of existence */
 	proof?: string
 	/** height at which the proof was retrieved */
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 }
 export interface QueryNextSequenceSendResponseAminoMsg {
 	type: "cosmos-sdk/QueryNextSequenceSendResponse"
@@ -902,11 +902,11 @@ export interface QueryUpgradeErrorRequestAminoMsg {
 }
 /** QueryUpgradeErrorResponse is the response type for the Query/QueryUpgradeError RPC method */
 export interface QueryUpgradeErrorResponse {
-	errorReceipt: ErrorReceipt
+	errorReceipt: ErrorReceipt | undefined
 	/** merkle proof of existence */
 	proof: Uint8Array
 	/** height at which the proof was retrieved */
-	proofHeight: Height
+	proofHeight: Height | undefined
 }
 export interface QueryUpgradeErrorResponseProtoMsg {
 	typeUrl: "/ibc.core.channel.v1.QueryUpgradeErrorResponse"
@@ -914,11 +914,11 @@ export interface QueryUpgradeErrorResponseProtoMsg {
 }
 /** QueryUpgradeErrorResponse is the response type for the Query/QueryUpgradeError RPC method */
 export interface QueryUpgradeErrorResponseAmino {
-	error_receipt?: ErrorReceiptAmino
+	error_receipt?: ErrorReceiptAmino | undefined
 	/** merkle proof of existence */
 	proof?: string
 	/** height at which the proof was retrieved */
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 }
 export interface QueryUpgradeErrorResponseAminoMsg {
 	type: "cosmos-sdk/QueryUpgradeErrorResponse"
@@ -944,11 +944,11 @@ export interface QueryUpgradeRequestAminoMsg {
 }
 /** QueryUpgradeResponse is the response type for the QueryUpgradeResponse RPC method */
 export interface QueryUpgradeResponse {
-	upgrade: Upgrade
+	upgrade: Upgrade | undefined
 	/** merkle proof of existence */
 	proof: Uint8Array
 	/** height at which the proof was retrieved */
-	proofHeight: Height
+	proofHeight: Height | undefined
 }
 export interface QueryUpgradeResponseProtoMsg {
 	typeUrl: "/ibc.core.channel.v1.QueryUpgradeResponse"
@@ -956,11 +956,11 @@ export interface QueryUpgradeResponseProtoMsg {
 }
 /** QueryUpgradeResponse is the response type for the QueryUpgradeResponse RPC method */
 export interface QueryUpgradeResponseAmino {
-	upgrade?: UpgradeAmino
+	upgrade?: UpgradeAmino | undefined
 	/** merkle proof of existence */
 	proof?: string
 	/** height at which the proof was retrieved */
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 }
 export interface QueryUpgradeResponseAminoMsg {
 	type: "cosmos-sdk/QueryUpgradeResponse"
@@ -981,7 +981,7 @@ export interface QueryChannelParamsRequestAminoMsg {
 /** QueryChannelParamsResponse is the response type for the Query/ChannelParams RPC method. */
 export interface QueryChannelParamsResponse {
 	/** params defines the parameters of the module. */
-	params?: Params
+	params?: Params | undefined
 }
 export interface QueryChannelParamsResponseProtoMsg {
 	typeUrl: "/ibc.core.channel.v1.QueryChannelParamsResponse"
@@ -990,7 +990,7 @@ export interface QueryChannelParamsResponseProtoMsg {
 /** QueryChannelParamsResponse is the response type for the Query/ChannelParams RPC method. */
 export interface QueryChannelParamsResponseAmino {
 	/** params defines the parameters of the module. */
-	params?: ParamsAmino
+	params?: ParamsAmino | undefined
 }
 export interface QueryChannelParamsResponseAminoMsg {
 	type: "cosmos-sdk/QueryChannelParamsResponse"
@@ -1008,10 +1008,10 @@ export const QueryChannelRequest = {
 		message: QueryChannelRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
 		return writer
@@ -1373,7 +1373,7 @@ export const QueryConnectionChannelsRequest = {
 		message: QueryConnectionChannelsRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.connection !== undefined) {
+		if (message.connection && message.connection !== "") {
 			writer.uint32(10).string(message.connection)
 		}
 		if (message.pagination !== undefined) {
@@ -1564,10 +1564,10 @@ export const QueryChannelClientStateRequest = {
 		message: QueryChannelClientStateRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
 		return writer
@@ -1759,16 +1759,16 @@ export const QueryChannelConsensusStateRequest = {
 		message: QueryChannelConsensusStateRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
-		if (message.revisionNumber !== undefined) {
+		if (message.revisionNumber && message.revisionNumber !== BigInt(0)) {
 			writer.uint32(24).uint64(message.revisionNumber)
 		}
-		if (message.revisionHeight !== undefined) {
+		if (message.revisionHeight && message.revisionHeight !== BigInt(0)) {
 			writer.uint32(32).uint64(message.revisionHeight)
 		}
 		return writer
@@ -1888,7 +1888,7 @@ export const QueryChannelConsensusStateResponse = {
 		if (message.consensusState !== undefined) {
 			Any.encode(message.consensusState, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.clientId !== undefined) {
+		if (message.clientId && message.clientId !== "") {
 			writer.uint32(18).string(message.clientId)
 		}
 		if (message.proof.length !== 0) {
@@ -2008,13 +2008,13 @@ export const QueryPacketCommitmentRequest = {
 		message: QueryPacketCommitmentRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
-		if (message.sequence !== undefined) {
+		if (message.sequence && message.sequence !== BigInt(0)) {
 			writer.uint32(24).uint64(message.sequence)
 		}
 		return writer
@@ -2206,10 +2206,10 @@ export const QueryPacketCommitmentsRequest = {
 		message: QueryPacketCommitmentsRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
 		if (message.pagination !== undefined) {
@@ -2409,13 +2409,13 @@ export const QueryPacketReceiptRequest = {
 		message: QueryPacketReceiptRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
-		if (message.sequence !== undefined) {
+		if (message.sequence && message.sequence !== BigInt(0)) {
 			writer.uint32(24).uint64(message.sequence)
 		}
 		return writer
@@ -2508,7 +2508,7 @@ export const QueryPacketReceiptResponse = {
 		message: QueryPacketReceiptResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.received !== undefined) {
+		if (message.received === true) {
 			writer.uint32(16).bool(message.received)
 		}
 		if (message.proof.length !== 0) {
@@ -2607,13 +2607,13 @@ export const QueryPacketAcknowledgementRequest = {
 		message: QueryPacketAcknowledgementRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
-		if (message.sequence !== undefined) {
+		if (message.sequence && message.sequence !== BigInt(0)) {
 			writer.uint32(24).uint64(message.sequence)
 		}
 		return writer
@@ -2828,10 +2828,10 @@ export const QueryPacketAcknowledgementsRequest = {
 		message: QueryPacketAcknowledgementsRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
 		if (message.pagination !== undefined) {
@@ -3082,10 +3082,10 @@ export const QueryUnreceivedPacketsRequest = {
 		message: QueryUnreceivedPacketsRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
 		writer.uint32(26).fork()
@@ -3291,10 +3291,10 @@ export const QueryUnreceivedAcksRequest = {
 		message: QueryUnreceivedAcksRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
 		writer.uint32(26).fork()
@@ -3495,10 +3495,10 @@ export const QueryNextSequenceReceiveRequest = {
 		message: QueryNextSequenceReceiveRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
 		return writer
@@ -3580,7 +3580,7 @@ export const QueryNextSequenceReceiveResponse = {
 		message: QueryNextSequenceReceiveResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.nextSequenceReceive !== undefined) {
+		if (message.nextSequenceReceive && message.nextSequenceReceive !== BigInt(0)) {
 			writer.uint32(8).uint64(message.nextSequenceReceive)
 		}
 		if (message.proof.length !== 0) {
@@ -3690,10 +3690,10 @@ export const QueryNextSequenceSendRequest = {
 		message: QueryNextSequenceSendRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
 		return writer
@@ -3775,7 +3775,7 @@ export const QueryNextSequenceSendResponse = {
 		message: QueryNextSequenceSendResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.nextSequenceSend !== undefined) {
+		if (message.nextSequenceSend && message.nextSequenceSend !== BigInt(0)) {
 			writer.uint32(8).uint64(message.nextSequenceSend)
 		}
 		if (message.proof.length !== 0) {
@@ -3877,10 +3877,10 @@ export const QueryUpgradeErrorRequest = {
 		message: QueryUpgradeErrorRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
 		return writer
@@ -4065,10 +4065,10 @@ export const QueryUpgradeRequest = {
 		message: QueryUpgradeRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
 		return writer

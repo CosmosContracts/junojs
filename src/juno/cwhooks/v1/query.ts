@@ -14,7 +14,7 @@ export interface QueryParamsRequestAminoMsg {
 }
 /** QueryClockContractsResponse is the response type for the Query/ClockContracts RPC method. */
 export interface QueryParamsResponse {
-	params: Params
+	params: Params | undefined
 }
 export interface QueryParamsResponseProtoMsg {
 	typeUrl: "/juno.cwhooks.v1.QueryParamsResponse"
@@ -22,7 +22,7 @@ export interface QueryParamsResponseProtoMsg {
 }
 /** QueryClockContractsResponse is the response type for the Query/ClockContracts RPC method. */
 export interface QueryParamsResponseAmino {
-	params: ParamsAmino
+	params: ParamsAmino | undefined
 }
 export interface QueryParamsResponseAminoMsg {
 	type: "/juno.cwhooks.v1.QueryParamsResponse"

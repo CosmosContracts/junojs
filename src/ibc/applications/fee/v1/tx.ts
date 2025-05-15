@@ -92,7 +92,7 @@ export interface MsgRegisterCounterpartyPayeeResponseAminoMsg {
  */
 export interface MsgPayPacketFee {
 	/** fee encapsulates the recv, ack and timeout fees associated with an IBC packet */
-	fee: Fee
+	fee: Fee | undefined
 	/** the source port unique identifier */
 	sourcePortId: string
 	/** the source channel unique identifer */
@@ -113,7 +113,7 @@ export interface MsgPayPacketFeeProtoMsg {
  */
 export interface MsgPayPacketFeeAmino {
 	/** fee encapsulates the recv, ack and timeout fees associated with an IBC packet */
-	fee: FeeAmino
+	fee: FeeAmino | undefined
 	/** the source port unique identifier */
 	source_port_id?: string
 	/** the source channel unique identifer */
@@ -145,9 +145,9 @@ export interface MsgPayPacketFeeResponseAminoMsg {
  */
 export interface MsgPayPacketFeeAsync {
 	/** unique packet identifier comprised of the channel ID, port ID and sequence */
-	packetId: PacketId
+	packetId: PacketId | undefined
 	/** the packet fee associated with a particular IBC packet */
-	packetFee: PacketFee
+	packetFee: PacketFee | undefined
 }
 export interface MsgPayPacketFeeAsyncProtoMsg {
 	typeUrl: "/ibc.applications.fee.v1.MsgPayPacketFeeAsync"
@@ -159,9 +159,9 @@ export interface MsgPayPacketFeeAsyncProtoMsg {
  */
 export interface MsgPayPacketFeeAsyncAmino {
 	/** unique packet identifier comprised of the channel ID, port ID and sequence */
-	packet_id: PacketIdAmino
+	packet_id: PacketIdAmino | undefined
 	/** the packet fee associated with a particular IBC packet */
-	packet_fee: PacketFeeAmino
+	packet_fee: PacketFeeAmino | undefined
 }
 export interface MsgPayPacketFeeAsyncAminoMsg {
 	type: "cosmos-sdk/MsgPayPacketFeeAsync"
@@ -190,16 +190,16 @@ function createBaseMsgRegisterPayee(): MsgRegisterPayee {
 export const MsgRegisterPayee = {
 	typeUrl: "/ibc.applications.fee.v1.MsgRegisterPayee",
 	encode(message: MsgRegisterPayee, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
-		if (message.relayer !== undefined) {
+		if (message.relayer && message.relayer !== "") {
 			writer.uint32(26).string(message.relayer)
 		}
-		if (message.payee !== undefined) {
+		if (message.payee && message.payee !== "") {
 			writer.uint32(34).string(message.payee)
 		}
 		return writer
@@ -354,16 +354,16 @@ export const MsgRegisterCounterpartyPayee = {
 		message: MsgRegisterCounterpartyPayee,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
-		if (message.relayer !== undefined) {
+		if (message.relayer && message.relayer !== "") {
 			writer.uint32(26).string(message.relayer)
 		}
-		if (message.counterpartyPayee !== undefined) {
+		if (message.counterpartyPayee && message.counterpartyPayee !== "") {
 			writer.uint32(34).string(message.counterpartyPayee)
 		}
 		return writer
@@ -533,13 +533,13 @@ export const MsgPayPacketFee = {
 		if (message.fee !== undefined) {
 			Fee.encode(message.fee, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.sourcePortId !== undefined) {
+		if (message.sourcePortId && message.sourcePortId !== "") {
 			writer.uint32(18).string(message.sourcePortId)
 		}
-		if (message.sourceChannelId !== undefined) {
+		if (message.sourceChannelId && message.sourceChannelId !== "") {
 			writer.uint32(26).string(message.sourceChannelId)
 		}
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(34).string(message.signer)
 		}
 		for (const v of message.relayers) {

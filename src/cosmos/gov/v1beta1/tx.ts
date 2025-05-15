@@ -119,7 +119,7 @@ export type MsgSubmitProposalEncoded = Omit<MsgSubmitProposal, "content"> & {
  */
 export interface MsgSubmitProposalAmino {
 	/** content is the proposal's content. */
-	content?: AnyAmino
+	content?: AnyAmino | undefined
 	/** initial_deposit is the deposit value that must be paid at proposal submission. */
 	initial_deposit: CoinAmino[]
 	/** proposer is the account address of the proposer. */
@@ -293,7 +293,7 @@ export const MsgSubmitProposal = {
 		for (const v of message.initialDeposit) {
 			Coin.encode(v!, writer.uint32(18).fork()).ldelim()
 		}
-		if (message.proposer !== undefined) {
+		if (message.proposer && message.proposer !== "") {
 			writer.uint32(26).string(message.proposer)
 		}
 		return writer
@@ -388,7 +388,7 @@ export const MsgSubmitProposalResponse = {
 		message: MsgSubmitProposalResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.proposalId !== undefined) {
+		if (message.proposalId && message.proposalId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.proposalId)
 		}
 		return writer
@@ -462,10 +462,10 @@ function createBaseMsgVote(): MsgVote {
 export const MsgVote = {
 	typeUrl: "/cosmos.gov.v1beta1.MsgVote",
 	encode(message: MsgVote, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.proposalId !== undefined) {
+		if (message.proposalId && message.proposalId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.proposalId)
 		}
-		if (message.voter !== undefined) {
+		if (message.voter && message.voter !== "") {
 			writer.uint32(18).string(message.voter)
 		}
 		if (message.option !== 0) {
@@ -615,10 +615,10 @@ function createBaseMsgVoteWeighted(): MsgVoteWeighted {
 export const MsgVoteWeighted = {
 	typeUrl: "/cosmos.gov.v1beta1.MsgVoteWeighted",
 	encode(message: MsgVoteWeighted, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.proposalId !== undefined) {
+		if (message.proposalId && message.proposalId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.proposalId)
 		}
-		if (message.voter !== undefined) {
+		if (message.voter && message.voter !== "") {
 			writer.uint32(18).string(message.voter)
 		}
 		for (const v of message.options) {
@@ -769,10 +769,10 @@ function createBaseMsgDeposit(): MsgDeposit {
 export const MsgDeposit = {
 	typeUrl: "/cosmos.gov.v1beta1.MsgDeposit",
 	encode(message: MsgDeposit, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.proposalId !== undefined) {
+		if (message.proposalId && message.proposalId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.proposalId)
 		}
-		if (message.depositor !== undefined) {
+		if (message.depositor && message.depositor !== "") {
 			writer.uint32(18).string(message.depositor)
 		}
 		for (const v of message.amount) {

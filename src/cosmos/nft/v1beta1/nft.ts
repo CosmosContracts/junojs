@@ -15,7 +15,7 @@ export interface Class {
 	/** uri_hash is a hash of the document pointed by uri. Optional */
 	uriHash: string
 	/** data is the app specific metadata of the NFT class. Optional */
-	data?: Any
+	data?: Any | undefined
 }
 export interface ClassProtoMsg {
 	typeUrl: "/cosmos.nft.v1beta1.Class"
@@ -36,7 +36,7 @@ export interface ClassAmino {
 	/** uri_hash is a hash of the document pointed by uri. Optional */
 	uri_hash?: string
 	/** data is the app specific metadata of the NFT class. Optional */
-	data?: AnyAmino
+	data?: AnyAmino | undefined
 }
 export interface ClassAminoMsg {
 	type: "cosmos-sdk/Class"
@@ -53,7 +53,7 @@ export interface NFT {
 	/** uri_hash is a hash of the document pointed by uri */
 	uriHash: string
 	/** data is an app specific data of the NFT. Optional */
-	data?: Any
+	data?: Any | undefined
 }
 export interface NFTProtoMsg {
 	typeUrl: "/cosmos.nft.v1beta1.NFT"
@@ -70,7 +70,7 @@ export interface NFTAmino {
 	/** uri_hash is a hash of the document pointed by uri */
 	uri_hash?: string
 	/** data is an app specific data of the NFT. Optional */
-	data?: AnyAmino
+	data?: AnyAmino | undefined
 }
 export interface NFTAminoMsg {
 	type: "cosmos-sdk/NFT"
@@ -90,22 +90,22 @@ function createBaseClass(): Class {
 export const Class = {
 	typeUrl: "/cosmos.nft.v1beta1.Class",
 	encode(message: Class, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.id !== undefined) {
+		if (message.id && message.id !== "") {
 			writer.uint32(10).string(message.id)
 		}
-		if (message.name !== undefined) {
+		if (message.name && message.name !== "") {
 			writer.uint32(18).string(message.name)
 		}
-		if (message.symbol !== undefined) {
+		if (message.symbol && message.symbol !== "") {
 			writer.uint32(26).string(message.symbol)
 		}
-		if (message.description !== undefined) {
+		if (message.description && message.description !== "") {
 			writer.uint32(34).string(message.description)
 		}
-		if (message.uri !== undefined) {
+		if (message.uri && message.uri !== "") {
 			writer.uint32(42).string(message.uri)
 		}
-		if (message.uriHash !== undefined) {
+		if (message.uriHash && message.uriHash !== "") {
 			writer.uint32(50).string(message.uriHash)
 		}
 		if (message.data !== undefined) {
@@ -232,16 +232,16 @@ function createBaseNFT(): NFT {
 export const NFT = {
 	typeUrl: "/cosmos.nft.v1beta1.NFT",
 	encode(message: NFT, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.classId !== undefined) {
+		if (message.classId && message.classId !== "") {
 			writer.uint32(10).string(message.classId)
 		}
-		if (message.id !== undefined) {
+		if (message.id && message.id !== "") {
 			writer.uint32(18).string(message.id)
 		}
-		if (message.uri !== undefined) {
+		if (message.uri && message.uri !== "") {
 			writer.uint32(26).string(message.uri)
 		}
-		if (message.uriHash !== undefined) {
+		if (message.uriHash && message.uriHash !== "") {
 			writer.uint32(34).string(message.uriHash)
 		}
 		if (message.data !== undefined) {

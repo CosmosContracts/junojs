@@ -2,20 +2,20 @@ import { BinaryReader, BinaryWriter } from "../../binary"
 import { EvidenceList, type EvidenceListAmino } from "./evidence"
 import { Commit, type CommitAmino, Data, type DataAmino, Header, type HeaderAmino } from "./types"
 export interface Block {
-	header: Header
-	data: Data
-	evidence: EvidenceList
-	lastCommit?: Commit
+	header: Header | undefined
+	data: Data | undefined
+	evidence: EvidenceList | undefined
+	lastCommit?: Commit | undefined
 }
 export interface BlockProtoMsg {
 	typeUrl: "/tendermint.types.Block"
 	value: Uint8Array
 }
 export interface BlockAmino {
-	header?: HeaderAmino
-	data?: DataAmino
-	evidence?: EvidenceListAmino
-	last_commit?: CommitAmino
+	header?: HeaderAmino | undefined
+	data?: DataAmino | undefined
+	evidence?: EvidenceListAmino | undefined
+	last_commit?: CommitAmino | undefined
 }
 export interface BlockAminoMsg {
 	type: "/tendermint.types.Block"

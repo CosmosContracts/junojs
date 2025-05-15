@@ -42,7 +42,7 @@ export interface QueryProposalRequestAminoMsg {
 }
 /** QueryProposalResponse is the response type for the Query/Proposal RPC method. */
 export interface QueryProposalResponse {
-	proposal: Proposal
+	proposal: Proposal | undefined
 }
 export interface QueryProposalResponseProtoMsg {
 	typeUrl: "/cosmos.gov.v1beta1.QueryProposalResponse"
@@ -50,7 +50,7 @@ export interface QueryProposalResponseProtoMsg {
 }
 /** QueryProposalResponse is the response type for the Query/Proposal RPC method. */
 export interface QueryProposalResponseAmino {
-	proposal: ProposalAmino
+	proposal: ProposalAmino | undefined
 }
 export interface QueryProposalResponseAminoMsg {
 	type: "cosmos-sdk/QueryProposalResponse"
@@ -65,7 +65,7 @@ export interface QueryProposalsRequest {
 	/** depositor defines the deposit addresses from the proposals. */
 	depositor?: string
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 }
 export interface QueryProposalsRequestProtoMsg {
 	typeUrl: "/cosmos.gov.v1beta1.QueryProposalsRequest"
@@ -80,7 +80,7 @@ export interface QueryProposalsRequestAmino {
 	/** depositor defines the deposit addresses from the proposals. */
 	depositor?: string
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 }
 export interface QueryProposalsRequestAminoMsg {
 	type: "cosmos-sdk/QueryProposalsRequest"
@@ -94,7 +94,7 @@ export interface QueryProposalsResponse {
 	/** proposals defines all the requested governance proposals. */
 	proposals: Proposal[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 }
 export interface QueryProposalsResponseProtoMsg {
 	typeUrl: "/cosmos.gov.v1beta1.QueryProposalsResponse"
@@ -108,7 +108,7 @@ export interface QueryProposalsResponseAmino {
 	/** proposals defines all the requested governance proposals. */
 	proposals: ProposalAmino[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 }
 export interface QueryProposalsResponseAminoMsg {
 	type: "cosmos-sdk/QueryProposalsResponse"
@@ -139,7 +139,7 @@ export interface QueryVoteRequestAminoMsg {
 /** QueryVoteResponse is the response type for the Query/Vote RPC method. */
 export interface QueryVoteResponse {
 	/** vote defines the queried vote. */
-	vote: Vote
+	vote: Vote | undefined
 }
 export interface QueryVoteResponseProtoMsg {
 	typeUrl: "/cosmos.gov.v1beta1.QueryVoteResponse"
@@ -148,7 +148,7 @@ export interface QueryVoteResponseProtoMsg {
 /** QueryVoteResponse is the response type for the Query/Vote RPC method. */
 export interface QueryVoteResponseAmino {
 	/** vote defines the queried vote. */
-	vote: VoteAmino
+	vote: VoteAmino | undefined
 }
 export interface QueryVoteResponseAminoMsg {
 	type: "cosmos-sdk/QueryVoteResponse"
@@ -159,7 +159,7 @@ export interface QueryVotesRequest {
 	/** proposal_id defines the unique id of the proposal. */
 	proposalId: bigint
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 }
 export interface QueryVotesRequestProtoMsg {
 	typeUrl: "/cosmos.gov.v1beta1.QueryVotesRequest"
@@ -170,7 +170,7 @@ export interface QueryVotesRequestAmino {
 	/** proposal_id defines the unique id of the proposal. */
 	proposal_id?: string
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 }
 export interface QueryVotesRequestAminoMsg {
 	type: "cosmos-sdk/QueryVotesRequest"
@@ -181,7 +181,7 @@ export interface QueryVotesResponse {
 	/** votes defines the queried votes. */
 	votes: Vote[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 }
 export interface QueryVotesResponseProtoMsg {
 	typeUrl: "/cosmos.gov.v1beta1.QueryVotesResponse"
@@ -192,7 +192,7 @@ export interface QueryVotesResponseAmino {
 	/** votes defines the queried votes. */
 	votes: VoteAmino[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 }
 export interface QueryVotesResponseAminoMsg {
 	type: "cosmos-sdk/QueryVotesResponse"
@@ -225,11 +225,11 @@ export interface QueryParamsRequestAminoMsg {
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponse {
 	/** voting_params defines the parameters related to voting. */
-	votingParams: VotingParams
+	votingParams: VotingParams | undefined
 	/** deposit_params defines the parameters related to deposit. */
-	depositParams: DepositParams
+	depositParams: DepositParams | undefined
 	/** tally_params defines the parameters related to tally. */
-	tallyParams: TallyParams
+	tallyParams: TallyParams | undefined
 }
 export interface QueryParamsResponseProtoMsg {
 	typeUrl: "/cosmos.gov.v1beta1.QueryParamsResponse"
@@ -238,11 +238,11 @@ export interface QueryParamsResponseProtoMsg {
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponseAmino {
 	/** voting_params defines the parameters related to voting. */
-	voting_params: VotingParamsAmino
+	voting_params: VotingParamsAmino | undefined
 	/** deposit_params defines the parameters related to deposit. */
-	deposit_params: DepositParamsAmino
+	deposit_params: DepositParamsAmino | undefined
 	/** tally_params defines the parameters related to tally. */
-	tally_params: TallyParamsAmino
+	tally_params: TallyParamsAmino | undefined
 }
 export interface QueryParamsResponseAminoMsg {
 	type: "cosmos-sdk/QueryParamsResponse"
@@ -273,7 +273,7 @@ export interface QueryDepositRequestAminoMsg {
 /** QueryDepositResponse is the response type for the Query/Deposit RPC method. */
 export interface QueryDepositResponse {
 	/** deposit defines the requested deposit. */
-	deposit: Deposit
+	deposit: Deposit | undefined
 }
 export interface QueryDepositResponseProtoMsg {
 	typeUrl: "/cosmos.gov.v1beta1.QueryDepositResponse"
@@ -282,7 +282,7 @@ export interface QueryDepositResponseProtoMsg {
 /** QueryDepositResponse is the response type for the Query/Deposit RPC method. */
 export interface QueryDepositResponseAmino {
 	/** deposit defines the requested deposit. */
-	deposit: DepositAmino
+	deposit: DepositAmino | undefined
 }
 export interface QueryDepositResponseAminoMsg {
 	type: "cosmos-sdk/QueryDepositResponse"
@@ -293,7 +293,7 @@ export interface QueryDepositsRequest {
 	/** proposal_id defines the unique id of the proposal. */
 	proposalId: bigint
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 }
 export interface QueryDepositsRequestProtoMsg {
 	typeUrl: "/cosmos.gov.v1beta1.QueryDepositsRequest"
@@ -304,7 +304,7 @@ export interface QueryDepositsRequestAmino {
 	/** proposal_id defines the unique id of the proposal. */
 	proposal_id?: string
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 }
 export interface QueryDepositsRequestAminoMsg {
 	type: "cosmos-sdk/QueryDepositsRequest"
@@ -315,7 +315,7 @@ export interface QueryDepositsResponse {
 	/** deposits defines the requested deposits. */
 	deposits: Deposit[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 }
 export interface QueryDepositsResponseProtoMsg {
 	typeUrl: "/cosmos.gov.v1beta1.QueryDepositsResponse"
@@ -326,7 +326,7 @@ export interface QueryDepositsResponseAmino {
 	/** deposits defines the requested deposits. */
 	deposits: DepositAmino[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 }
 export interface QueryDepositsResponseAminoMsg {
 	type: "cosmos-sdk/QueryDepositsResponse"
@@ -353,7 +353,7 @@ export interface QueryTallyResultRequestAminoMsg {
 /** QueryTallyResultResponse is the response type for the Query/Tally RPC method. */
 export interface QueryTallyResultResponse {
 	/** tally defines the requested tally. */
-	tally: TallyResult
+	tally: TallyResult | undefined
 }
 export interface QueryTallyResultResponseProtoMsg {
 	typeUrl: "/cosmos.gov.v1beta1.QueryTallyResultResponse"
@@ -362,7 +362,7 @@ export interface QueryTallyResultResponseProtoMsg {
 /** QueryTallyResultResponse is the response type for the Query/Tally RPC method. */
 export interface QueryTallyResultResponseAmino {
 	/** tally defines the requested tally. */
-	tally: TallyResultAmino
+	tally: TallyResultAmino | undefined
 }
 export interface QueryTallyResultResponseAminoMsg {
 	type: "cosmos-sdk/QueryTallyResultResponse"
@@ -379,7 +379,7 @@ export const QueryProposalRequest = {
 		message: QueryProposalRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.proposalId !== undefined) {
+		if (message.proposalId && message.proposalId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.proposalId)
 		}
 		return writer
@@ -538,10 +538,10 @@ export const QueryProposalsRequest = {
 		if (message.proposalStatus !== 0) {
 			writer.uint32(8).int32(message.proposalStatus)
 		}
-		if (message.voter !== undefined) {
+		if (message.voter && message.voter !== "") {
 			writer.uint32(18).string(message.voter)
 		}
-		if (message.depositor !== undefined) {
+		if (message.depositor && message.depositor !== "") {
 			writer.uint32(26).string(message.depositor)
 		}
 		if (message.pagination !== undefined) {
@@ -730,10 +730,10 @@ function createBaseQueryVoteRequest(): QueryVoteRequest {
 export const QueryVoteRequest = {
 	typeUrl: "/cosmos.gov.v1beta1.QueryVoteRequest",
 	encode(message: QueryVoteRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.proposalId !== undefined) {
+		if (message.proposalId && message.proposalId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.proposalId)
 		}
-		if (message.voter !== undefined) {
+		if (message.voter && message.voter !== "") {
 			writer.uint32(18).string(message.voter)
 		}
 		return writer
@@ -887,7 +887,7 @@ function createBaseQueryVotesRequest(): QueryVotesRequest {
 export const QueryVotesRequest = {
 	typeUrl: "/cosmos.gov.v1beta1.QueryVotesRequest",
 	encode(message: QueryVotesRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.proposalId !== undefined) {
+		if (message.proposalId && message.proposalId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.proposalId)
 		}
 		if (message.pagination !== undefined) {
@@ -1060,7 +1060,7 @@ function createBaseQueryParamsRequest(): QueryParamsRequest {
 export const QueryParamsRequest = {
 	typeUrl: "/cosmos.gov.v1beta1.QueryParamsRequest",
 	encode(message: QueryParamsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.paramsType !== undefined) {
+		if (message.paramsType && message.paramsType !== "") {
 			writer.uint32(10).string(message.paramsType)
 		}
 		return writer
@@ -1244,10 +1244,10 @@ export const QueryDepositRequest = {
 		message: QueryDepositRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.proposalId !== undefined) {
+		if (message.proposalId && message.proposalId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.proposalId)
 		}
-		if (message.depositor !== undefined) {
+		if (message.depositor && message.depositor !== "") {
 			writer.uint32(18).string(message.depositor)
 		}
 		return writer
@@ -1409,7 +1409,7 @@ export const QueryDepositsRequest = {
 		message: QueryDepositsRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.proposalId !== undefined) {
+		if (message.proposalId && message.proposalId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.proposalId)
 		}
 		if (message.pagination !== undefined) {
@@ -1588,7 +1588,7 @@ export const QueryTallyResultRequest = {
 		message: QueryTallyResultRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.proposalId !== undefined) {
+		if (message.proposalId && message.proposalId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.proposalId)
 		}
 		return writer

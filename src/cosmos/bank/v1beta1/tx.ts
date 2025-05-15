@@ -93,7 +93,7 @@ export interface MsgUpdateParams {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params: Params
+	params: Params | undefined
 }
 export interface MsgUpdateParamsProtoMsg {
 	typeUrl: "/cosmos.bank.v1beta1.MsgUpdateParams"
@@ -112,7 +112,7 @@ export interface MsgUpdateParamsAmino {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params: ParamsAmino
+	params: ParamsAmino | undefined
 }
 export interface MsgUpdateParamsAminoMsg {
 	type: "cosmos-sdk/x/bank/MsgUpdateParams"
@@ -222,10 +222,10 @@ function createBaseMsgSend(): MsgSend {
 export const MsgSend = {
 	typeUrl: "/cosmos.bank.v1beta1.MsgSend",
 	encode(message: MsgSend, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.fromAddress !== undefined) {
+		if (message.fromAddress && message.fromAddress !== "") {
 			writer.uint32(10).string(message.fromAddress)
 		}
-		if (message.toAddress !== undefined) {
+		if (message.toAddress && message.toAddress !== "") {
 			writer.uint32(18).string(message.toAddress)
 		}
 		for (const v of message.amount) {
@@ -513,7 +513,7 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
 export const MsgUpdateParams = {
 	typeUrl: "/cosmos.bank.v1beta1.MsgUpdateParams",
 	encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.authority !== undefined) {
+		if (message.authority && message.authority !== "") {
 			writer.uint32(10).string(message.authority)
 		}
 		if (message.params !== undefined) {
@@ -656,7 +656,7 @@ function createBaseMsgSetSendEnabled(): MsgSetSendEnabled {
 export const MsgSetSendEnabled = {
 	typeUrl: "/cosmos.bank.v1beta1.MsgSetSendEnabled",
 	encode(message: MsgSetSendEnabled, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.authority !== undefined) {
+		if (message.authority && message.authority !== "") {
 			writer.uint32(10).string(message.authority)
 		}
 		for (const v of message.sendEnabled) {

@@ -348,7 +348,7 @@ export interface HttpRule {
 	 * HTTP method unspecified for this rule. The wild-card rule is useful
 	 * for services that provide content to Web (HTML) clients.
 	 */
-	custom?: CustomHttpPattern
+	custom?: CustomHttpPattern | undefined
 	/**
 	 * The name of the request field whose value is mapped to the HTTP request
 	 * body, or `*` for mapping all request fields not captured by the path
@@ -675,7 +675,7 @@ export interface HttpRuleAmino {
 	 * HTTP method unspecified for this rule. The wild-card rule is useful
 	 * for services that provide content to Web (HTML) clients.
 	 */
-	custom?: CustomHttpPatternAmino
+	custom?: CustomHttpPatternAmino | undefined
 	/**
 	 * The name of the request field whose value is mapped to the HTTP request
 	 * body, or `*` for mapping all request fields not captured by the path
@@ -739,7 +739,7 @@ export const Http = {
 		for (const v of message.rules) {
 			HttpRule.encode(v!, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.fullyDecodeReservedExpansion !== undefined) {
+		if (message.fullyDecodeReservedExpansion === true) {
 			writer.uint32(16).bool(message.fullyDecodeReservedExpansion)
 		}
 		return writer
@@ -827,7 +827,7 @@ function createBaseHttpRule(): HttpRule {
 export const HttpRule = {
 	typeUrl: "/google.api.HttpRule",
 	encode(message: HttpRule, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.selector !== undefined) {
+		if (message.selector && message.selector !== "") {
 			writer.uint32(10).string(message.selector)
 		}
 		if (message.get !== undefined) {
@@ -848,10 +848,10 @@ export const HttpRule = {
 		if (message.custom !== undefined) {
 			CustomHttpPattern.encode(message.custom, writer.uint32(66).fork()).ldelim()
 		}
-		if (message.body !== undefined) {
+		if (message.body && message.body !== "") {
 			writer.uint32(58).string(message.body)
 		}
-		if (message.responseBody !== undefined) {
+		if (message.responseBody && message.responseBody !== "") {
 			writer.uint32(98).string(message.responseBody)
 		}
 		for (const v of message.additionalBindings) {
@@ -999,10 +999,10 @@ function createBaseCustomHttpPattern(): CustomHttpPattern {
 export const CustomHttpPattern = {
 	typeUrl: "/google.api.CustomHttpPattern",
 	encode(message: CustomHttpPattern, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.kind !== undefined) {
+		if (message.kind && message.kind !== "") {
 			writer.uint32(10).string(message.kind)
 		}
-		if (message.path !== undefined) {
+		if (message.path && message.path !== "") {
 			writer.uint32(18).string(message.path)
 		}
 		return writer

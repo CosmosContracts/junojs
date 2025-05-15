@@ -73,13 +73,13 @@ function createBaseFeePayContract(): FeePayContract {
 export const FeePayContract = {
 	typeUrl: "/juno.feepay.v1.FeePayContract",
 	encode(message: FeePayContract, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.contractAddress !== undefined) {
+		if (message.contractAddress && message.contractAddress !== "") {
 			writer.uint32(10).string(message.contractAddress)
 		}
-		if (message.balance !== undefined) {
+		if (message.balance && message.balance !== BigInt(0)) {
 			writer.uint32(16).uint64(message.balance)
 		}
-		if (message.walletLimit !== undefined) {
+		if (message.walletLimit && message.walletLimit !== BigInt(0)) {
 			writer.uint32(24).uint64(message.walletLimit)
 		}
 		return writer
@@ -167,13 +167,13 @@ function createBaseFeePayWalletUsage(): FeePayWalletUsage {
 export const FeePayWalletUsage = {
 	typeUrl: "/juno.feepay.v1.FeePayWalletUsage",
 	encode(message: FeePayWalletUsage, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.contractAddress !== undefined) {
+		if (message.contractAddress && message.contractAddress !== "") {
 			writer.uint32(10).string(message.contractAddress)
 		}
-		if (message.walletAddress !== undefined) {
+		if (message.walletAddress && message.walletAddress !== "") {
 			writer.uint32(18).string(message.walletAddress)
 		}
-		if (message.uses !== undefined) {
+		if (message.uses && message.uses !== BigInt(0)) {
 			writer.uint32(24).uint64(message.uses)
 		}
 		return writer

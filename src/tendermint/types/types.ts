@@ -68,7 +68,7 @@ export interface PartSetHeaderAminoMsg {
 export interface Part {
 	index: number
 	bytes: Uint8Array
-	proof: Proof
+	proof: Proof | undefined
 }
 export interface PartProtoMsg {
 	typeUrl: "/tendermint.types.Part"
@@ -77,7 +77,7 @@ export interface PartProtoMsg {
 export interface PartAmino {
 	index?: number
 	bytes?: string
-	proof?: ProofAmino
+	proof?: ProofAmino | undefined
 }
 export interface PartAminoMsg {
 	type: "/tendermint.types.Part"
@@ -86,7 +86,7 @@ export interface PartAminoMsg {
 /** BlockID */
 export interface BlockID {
 	hash: Uint8Array
-	partSetHeader: PartSetHeader
+	partSetHeader: PartSetHeader | undefined
 }
 export interface BlockIDProtoMsg {
 	typeUrl: "/tendermint.types.BlockID"
@@ -95,7 +95,7 @@ export interface BlockIDProtoMsg {
 /** BlockID */
 export interface BlockIDAmino {
 	hash?: string
-	part_set_header?: PartSetHeaderAmino
+	part_set_header?: PartSetHeaderAmino | undefined
 }
 export interface BlockIDAminoMsg {
 	type: "/tendermint.types.BlockID"
@@ -104,12 +104,12 @@ export interface BlockIDAminoMsg {
 /** Header defines the structure of a block header. */
 export interface Header {
 	/** basic block info */
-	version: Consensus
+	version: Consensus | undefined
 	chainId: string
 	height: bigint
-	time: Date
+	time: Date | undefined
 	/** prev block info */
-	lastBlockId: BlockID
+	lastBlockId: BlockID | undefined
 	/** hashes of block data */
 	lastCommitHash: Uint8Array
 	/** transactions */
@@ -136,12 +136,12 @@ export interface HeaderProtoMsg {
 /** Header defines the structure of a block header. */
 export interface HeaderAmino {
 	/** basic block info */
-	version?: ConsensusAmino
+	version?: ConsensusAmino | undefined
 	chain_id?: string
 	height?: string
-	time?: string
+	time?: string | undefined
 	/** prev block info */
-	last_block_id?: BlockIDAmino
+	last_block_id?: BlockIDAmino | undefined
 	/** hashes of block data */
 	last_commit_hash?: string
 	/** transactions */
@@ -200,8 +200,8 @@ export interface Vote {
 	height: bigint
 	round: number
 	/** zero if vote is nil. */
-	blockId: BlockID
-	timestamp: Date
+	blockId: BlockID | undefined
+	timestamp: Date | undefined
 	validatorAddress: Uint8Array
 	validatorIndex: number
 	/**
@@ -234,8 +234,8 @@ export interface VoteAmino {
 	height?: string
 	round?: number
 	/** zero if vote is nil. */
-	block_id?: BlockIDAmino
-	timestamp?: string
+	block_id?: BlockIDAmino | undefined
+	timestamp?: string | undefined
 	validator_address?: string
 	validator_index?: number
 	/**
@@ -263,7 +263,7 @@ export interface VoteAminoMsg {
 export interface Commit {
 	height: bigint
 	round: number
-	blockId: BlockID
+	blockId: BlockID | undefined
 	signatures: CommitSig[]
 }
 export interface CommitProtoMsg {
@@ -274,7 +274,7 @@ export interface CommitProtoMsg {
 export interface CommitAmino {
 	height?: string
 	round?: number
-	block_id?: BlockIDAmino
+	block_id?: BlockIDAmino | undefined
 	signatures?: CommitSigAmino[]
 }
 export interface CommitAminoMsg {
@@ -285,7 +285,7 @@ export interface CommitAminoMsg {
 export interface CommitSig {
 	blockIdFlag: BlockIDFlag
 	validatorAddress: Uint8Array
-	timestamp: Date
+	timestamp: Date | undefined
 	signature: Uint8Array
 }
 export interface CommitSigProtoMsg {
@@ -296,7 +296,7 @@ export interface CommitSigProtoMsg {
 export interface CommitSigAmino {
 	block_id_flag?: BlockIDFlag
 	validator_address?: string
-	timestamp?: string
+	timestamp?: string | undefined
 	signature?: string
 }
 export interface CommitSigAminoMsg {
@@ -306,7 +306,7 @@ export interface CommitSigAminoMsg {
 export interface ExtendedCommit {
 	height: bigint
 	round: number
-	blockId: BlockID
+	blockId: BlockID | undefined
 	extendedSignatures: ExtendedCommitSig[]
 }
 export interface ExtendedCommitProtoMsg {
@@ -316,7 +316,7 @@ export interface ExtendedCommitProtoMsg {
 export interface ExtendedCommitAmino {
 	height?: string
 	round?: number
-	block_id?: BlockIDAmino
+	block_id?: BlockIDAmino | undefined
 	extended_signatures?: ExtendedCommitSigAmino[]
 }
 export interface ExtendedCommitAminoMsg {
@@ -331,7 +331,7 @@ export interface ExtendedCommitAminoMsg {
 export interface ExtendedCommitSig {
 	blockIdFlag: BlockIDFlag
 	validatorAddress: Uint8Array
-	timestamp: Date
+	timestamp: Date | undefined
 	signature: Uint8Array
 	/** Vote extension data */
 	extension: Uint8Array
@@ -350,7 +350,7 @@ export interface ExtendedCommitSigProtoMsg {
 export interface ExtendedCommitSigAmino {
 	block_id_flag?: BlockIDFlag
 	validator_address?: string
-	timestamp?: string
+	timestamp?: string | undefined
 	signature?: string
 	/** Vote extension data */
 	extension?: string
@@ -366,8 +366,8 @@ export interface Proposal {
 	height: bigint
 	round: number
 	polRound: number
-	blockId: BlockID
-	timestamp: Date
+	blockId: BlockID | undefined
+	timestamp: Date | undefined
 	signature: Uint8Array
 }
 export interface ProposalProtoMsg {
@@ -379,8 +379,8 @@ export interface ProposalAmino {
 	height?: string
 	round?: number
 	pol_round?: number
-	block_id?: BlockIDAmino
-	timestamp?: string
+	block_id?: BlockIDAmino | undefined
+	timestamp?: string | undefined
 	signature?: string
 }
 export interface ProposalAminoMsg {
@@ -388,41 +388,41 @@ export interface ProposalAminoMsg {
 	value: ProposalAmino
 }
 export interface SignedHeader {
-	header?: Header
-	commit?: Commit
+	header?: Header | undefined
+	commit?: Commit | undefined
 }
 export interface SignedHeaderProtoMsg {
 	typeUrl: "/tendermint.types.SignedHeader"
 	value: Uint8Array
 }
 export interface SignedHeaderAmino {
-	header?: HeaderAmino
-	commit?: CommitAmino
+	header?: HeaderAmino | undefined
+	commit?: CommitAmino | undefined
 }
 export interface SignedHeaderAminoMsg {
 	type: "/tendermint.types.SignedHeader"
 	value: SignedHeaderAmino
 }
 export interface LightBlock {
-	signedHeader?: SignedHeader
-	validatorSet?: ValidatorSet
+	signedHeader?: SignedHeader | undefined
+	validatorSet?: ValidatorSet | undefined
 }
 export interface LightBlockProtoMsg {
 	typeUrl: "/tendermint.types.LightBlock"
 	value: Uint8Array
 }
 export interface LightBlockAmino {
-	signed_header?: SignedHeaderAmino
-	validator_set?: ValidatorSetAmino
+	signed_header?: SignedHeaderAmino | undefined
+	validator_set?: ValidatorSetAmino | undefined
 }
 export interface LightBlockAminoMsg {
 	type: "/tendermint.types.LightBlock"
 	value: LightBlockAmino
 }
 export interface BlockMeta {
-	blockId: BlockID
+	blockId: BlockID | undefined
 	blockSize: bigint
-	header: Header
+	header: Header | undefined
 	numTxs: bigint
 }
 export interface BlockMetaProtoMsg {
@@ -430,9 +430,9 @@ export interface BlockMetaProtoMsg {
 	value: Uint8Array
 }
 export interface BlockMetaAmino {
-	block_id?: BlockIDAmino
+	block_id?: BlockIDAmino | undefined
 	block_size?: string
-	header?: HeaderAmino
+	header?: HeaderAmino | undefined
 	num_txs?: string
 }
 export interface BlockMetaAminoMsg {
@@ -443,7 +443,7 @@ export interface BlockMetaAminoMsg {
 export interface TxProof {
 	rootHash: Uint8Array
 	data: Uint8Array
-	proof?: Proof
+	proof?: Proof | undefined
 }
 export interface TxProofProtoMsg {
 	typeUrl: "/tendermint.types.TxProof"
@@ -453,7 +453,7 @@ export interface TxProofProtoMsg {
 export interface TxProofAmino {
 	root_hash?: string
 	data?: string
-	proof?: ProofAmino
+	proof?: ProofAmino | undefined
 }
 export interface TxProofAminoMsg {
 	type: "/tendermint.types.TxProof"
@@ -468,7 +468,7 @@ function createBasePartSetHeader(): PartSetHeader {
 export const PartSetHeader = {
 	typeUrl: "/tendermint.types.PartSetHeader",
 	encode(message: PartSetHeader, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.total !== undefined) {
+		if (message.total && message.total !== 0) {
 			writer.uint32(8).uint32(message.total)
 		}
 		if (message.hash.length !== 0) {
@@ -544,7 +544,7 @@ function createBasePart(): Part {
 export const Part = {
 	typeUrl: "/tendermint.types.Part",
 	encode(message: Part, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.index !== undefined) {
+		if (message.index && message.index !== 0) {
 			writer.uint32(8).uint32(message.index)
 		}
 		if (message.bytes.length !== 0) {
@@ -728,10 +728,10 @@ export const Header = {
 		if (message.version !== undefined) {
 			Consensus.encode(message.version, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.chainId !== undefined) {
+		if (message.chainId && message.chainId !== "") {
 			writer.uint32(18).string(message.chainId)
 		}
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(24).int64(message.height)
 		}
 		if (message.time !== undefined) {
@@ -1029,10 +1029,10 @@ export const Vote = {
 		if (message.type !== 0) {
 			writer.uint32(8).int32(message.type)
 		}
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(16).int64(message.height)
 		}
-		if (message.round !== undefined) {
+		if (message.round && message.round !== 0) {
 			writer.uint32(24).int32(message.round)
 		}
 		if (message.blockId !== undefined) {
@@ -1044,7 +1044,7 @@ export const Vote = {
 		if (message.validatorAddress.length !== 0) {
 			writer.uint32(50).bytes(message.validatorAddress)
 		}
-		if (message.validatorIndex !== undefined) {
+		if (message.validatorIndex && message.validatorIndex !== 0) {
 			writer.uint32(56).int32(message.validatorIndex)
 		}
 		if (message.signature.length !== 0) {
@@ -1203,10 +1203,10 @@ function createBaseCommit(): Commit {
 export const Commit = {
 	typeUrl: "/tendermint.types.Commit",
 	encode(message: Commit, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(8).int64(message.height)
 		}
-		if (message.round !== undefined) {
+		if (message.round && message.round !== 0) {
 			writer.uint32(16).int32(message.round)
 		}
 		if (message.blockId !== undefined) {
@@ -1413,10 +1413,10 @@ function createBaseExtendedCommit(): ExtendedCommit {
 export const ExtendedCommit = {
 	typeUrl: "/tendermint.types.ExtendedCommit",
 	encode(message: ExtendedCommit, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(8).int64(message.height)
 		}
-		if (message.round !== undefined) {
+		if (message.round && message.round !== 0) {
 			writer.uint32(16).int32(message.round)
 		}
 		if (message.blockId !== undefined) {
@@ -1659,13 +1659,13 @@ export const Proposal = {
 		if (message.type !== 0) {
 			writer.uint32(8).int32(message.type)
 		}
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(16).int64(message.height)
 		}
-		if (message.round !== undefined) {
+		if (message.round && message.round !== 0) {
 			writer.uint32(24).int32(message.round)
 		}
-		if (message.polRound !== undefined) {
+		if (message.polRound && message.polRound !== 0) {
 			writer.uint32(32).int32(message.polRound)
 		}
 		if (message.blockId !== undefined) {
@@ -1965,13 +1965,13 @@ export const BlockMeta = {
 		if (message.blockId !== undefined) {
 			BlockID.encode(message.blockId, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.blockSize !== undefined) {
+		if (message.blockSize && message.blockSize !== BigInt(0)) {
 			writer.uint32(16).int64(message.blockSize)
 		}
 		if (message.header !== undefined) {
 			Header.encode(message.header, writer.uint32(26).fork()).ldelim()
 		}
-		if (message.numTxs !== undefined) {
+		if (message.numTxs && message.numTxs !== BigInt(0)) {
 			writer.uint32(32).int64(message.numTxs)
 		}
 		return writer

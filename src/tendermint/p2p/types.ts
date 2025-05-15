@@ -37,28 +37,28 @@ export interface ProtocolVersionAminoMsg {
 	value: ProtocolVersionAmino
 }
 export interface DefaultNodeInfo {
-	protocolVersion: ProtocolVersion
+	protocolVersion: ProtocolVersion | undefined
 	defaultNodeId: string
 	listenAddr: string
 	network: string
 	version: string
 	channels: Uint8Array
 	moniker: string
-	other: DefaultNodeInfoOther
+	other: DefaultNodeInfoOther | undefined
 }
 export interface DefaultNodeInfoProtoMsg {
 	typeUrl: "/tendermint.p2p.DefaultNodeInfo"
 	value: Uint8Array
 }
 export interface DefaultNodeInfoAmino {
-	protocol_version?: ProtocolVersionAmino
+	protocol_version?: ProtocolVersionAmino | undefined
 	default_node_id?: string
 	listen_addr?: string
 	network?: string
 	version?: string
 	channels?: string
 	moniker?: string
-	other?: DefaultNodeInfoOtherAmino
+	other?: DefaultNodeInfoOtherAmino | undefined
 }
 export interface DefaultNodeInfoAminoMsg {
 	type: "/tendermint.p2p.DefaultNodeInfo"
@@ -90,13 +90,13 @@ function createBaseNetAddress(): NetAddress {
 export const NetAddress = {
 	typeUrl: "/tendermint.p2p.NetAddress",
 	encode(message: NetAddress, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.id !== undefined) {
+		if (message.id && message.id !== "") {
 			writer.uint32(10).string(message.id)
 		}
-		if (message.ip !== undefined) {
+		if (message.ip && message.ip !== "") {
 			writer.uint32(18).string(message.ip)
 		}
-		if (message.port !== undefined) {
+		if (message.port && message.port !== 0) {
 			writer.uint32(24).uint32(message.port)
 		}
 		return writer
@@ -177,13 +177,13 @@ function createBaseProtocolVersion(): ProtocolVersion {
 export const ProtocolVersion = {
 	typeUrl: "/tendermint.p2p.ProtocolVersion",
 	encode(message: ProtocolVersion, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.p2p !== undefined) {
+		if (message.p2p && message.p2p !== BigInt(0)) {
 			writer.uint32(8).uint64(message.p2p)
 		}
-		if (message.block !== undefined) {
+		if (message.block && message.block !== BigInt(0)) {
 			writer.uint32(16).uint64(message.block)
 		}
-		if (message.app !== undefined) {
+		if (message.app && message.app !== BigInt(0)) {
 			writer.uint32(24).uint64(message.app)
 		}
 		return writer
@@ -277,22 +277,22 @@ export const DefaultNodeInfo = {
 		if (message.protocolVersion !== undefined) {
 			ProtocolVersion.encode(message.protocolVersion, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.defaultNodeId !== undefined) {
+		if (message.defaultNodeId && message.defaultNodeId !== "") {
 			writer.uint32(18).string(message.defaultNodeId)
 		}
-		if (message.listenAddr !== undefined) {
+		if (message.listenAddr && message.listenAddr !== "") {
 			writer.uint32(26).string(message.listenAddr)
 		}
-		if (message.network !== undefined) {
+		if (message.network && message.network !== "") {
 			writer.uint32(34).string(message.network)
 		}
-		if (message.version !== undefined) {
+		if (message.version && message.version !== "") {
 			writer.uint32(42).string(message.version)
 		}
 		if (message.channels.length !== 0) {
 			writer.uint32(50).bytes(message.channels)
 		}
-		if (message.moniker !== undefined) {
+		if (message.moniker && message.moniker !== "") {
 			writer.uint32(58).string(message.moniker)
 		}
 		if (message.other !== undefined) {
@@ -426,10 +426,10 @@ export const DefaultNodeInfoOther = {
 		message: DefaultNodeInfoOther,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.txIndex !== undefined) {
+		if (message.txIndex && message.txIndex !== "") {
 			writer.uint32(10).string(message.txIndex)
 		}
-		if (message.rpcAddress !== undefined) {
+		if (message.rpcAddress && message.rpcAddress !== "") {
 			writer.uint32(18).string(message.rpcAddress)
 		}
 		return writer

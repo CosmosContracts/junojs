@@ -8,8 +8,8 @@ import { type Order, Timeout, type TimeoutAmino } from "./channel"
  * The next sequence send is used for pruning and upgrading from unordered to ordered channels.
  */
 export interface Upgrade {
-	fields: UpgradeFields
-	timeout: Timeout
+	fields: UpgradeFields | undefined
+	timeout: Timeout | undefined
 	nextSequenceSend: bigint
 }
 export interface UpgradeProtoMsg {
@@ -24,8 +24,8 @@ export interface UpgradeProtoMsg {
  * The next sequence send is used for pruning and upgrading from unordered to ordered channels.
  */
 export interface UpgradeAmino {
-	fields?: UpgradeFieldsAmino
-	timeout?: TimeoutAmino
+	fields?: UpgradeFieldsAmino | undefined
+	timeout?: TimeoutAmino | undefined
 	next_sequence_send?: string
 }
 export interface UpgradeAminoMsg {
@@ -104,7 +104,7 @@ export const Upgrade = {
 		if (message.timeout !== undefined) {
 			Timeout.encode(message.timeout, writer.uint32(18).fork()).ldelim()
 		}
-		if (message.nextSequenceSend !== undefined) {
+		if (message.nextSequenceSend && message.nextSequenceSend !== BigInt(0)) {
 			writer.uint32(24).uint64(message.nextSequenceSend)
 		}
 		return writer
@@ -207,7 +207,7 @@ export const UpgradeFields = {
 		for (const v of message.connectionHops) {
 			writer.uint32(18).string(v!)
 		}
-		if (message.version !== undefined) {
+		if (message.version && message.version !== "") {
 			writer.uint32(26).string(message.version)
 		}
 		return writer
@@ -295,10 +295,10 @@ function createBaseErrorReceipt(): ErrorReceipt {
 export const ErrorReceipt = {
 	typeUrl: "/ibc.core.channel.v1.ErrorReceipt",
 	encode(message: ErrorReceipt, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.sequence !== undefined) {
+		if (message.sequence && message.sequence !== BigInt(0)) {
 			writer.uint32(8).uint64(message.sequence)
 		}
-		if (message.message !== undefined) {
+		if (message.message && message.message !== "") {
 			writer.uint32(18).string(message.message)
 		}
 		return writer

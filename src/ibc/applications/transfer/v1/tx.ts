@@ -12,7 +12,7 @@ export interface MsgTransfer {
 	/** the channel by which the packet will be sent */
 	sourceChannel: string
 	/** the tokens to be transferred */
-	token: Coin
+	token: Coin | undefined
 	/** the sender address */
 	sender: string
 	/** the recipient address on the destination chain */
@@ -21,7 +21,7 @@ export interface MsgTransfer {
 	 * Timeout height relative to the current block height.
 	 * The timeout is disabled when set to 0.
 	 */
-	timeoutHeight: Height
+	timeoutHeight: Height | undefined
 	/**
 	 * Timeout timestamp in absolute nanoseconds since unix epoch.
 	 * The timeout is disabled when set to 0.
@@ -45,7 +45,7 @@ export interface MsgTransferAmino {
 	/** the channel by which the packet will be sent */
 	source_channel?: string
 	/** the tokens to be transferred */
-	token: CoinAmino
+	token: CoinAmino | undefined
 	/** the sender address */
 	sender?: string
 	/** the recipient address on the destination chain */
@@ -54,7 +54,7 @@ export interface MsgTransferAmino {
 	 * Timeout height relative to the current block height.
 	 * The timeout is disabled when set to 0.
 	 */
-	timeout_height: HeightAmino
+	timeout_height: HeightAmino | undefined
 	/**
 	 * Timeout timestamp in absolute nanoseconds since unix epoch.
 	 * The timeout is disabled when set to 0.
@@ -94,7 +94,7 @@ export interface MsgUpdateParams {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params: Params
+	params: Params | undefined
 }
 export interface MsgUpdateParamsProtoMsg {
 	typeUrl: "/ibc.applications.transfer.v1.MsgUpdateParams"
@@ -109,7 +109,7 @@ export interface MsgUpdateParamsAmino {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params?: ParamsAmino
+	params?: ParamsAmino | undefined
 }
 export interface MsgUpdateParamsAminoMsg {
 	type: "cosmos-sdk/MsgUpdateParams"
@@ -148,28 +148,28 @@ function createBaseMsgTransfer(): MsgTransfer {
 export const MsgTransfer = {
 	typeUrl: "/ibc.applications.transfer.v1.MsgTransfer",
 	encode(message: MsgTransfer, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.sourcePort !== undefined) {
+		if (message.sourcePort && message.sourcePort !== "") {
 			writer.uint32(10).string(message.sourcePort)
 		}
-		if (message.sourceChannel !== undefined) {
+		if (message.sourceChannel && message.sourceChannel !== "") {
 			writer.uint32(18).string(message.sourceChannel)
 		}
 		if (message.token !== undefined) {
 			Coin.encode(message.token, writer.uint32(26).fork()).ldelim()
 		}
-		if (message.sender !== undefined) {
+		if (message.sender && message.sender !== "") {
 			writer.uint32(34).string(message.sender)
 		}
-		if (message.receiver !== undefined) {
+		if (message.receiver && message.receiver !== "") {
 			writer.uint32(42).string(message.receiver)
 		}
 		if (message.timeoutHeight !== undefined) {
 			Height.encode(message.timeoutHeight, writer.uint32(50).fork()).ldelim()
 		}
-		if (message.timeoutTimestamp !== undefined) {
+		if (message.timeoutTimestamp && message.timeoutTimestamp !== BigInt(0)) {
 			writer.uint32(56).uint64(message.timeoutTimestamp)
 		}
-		if (message.memo !== undefined) {
+		if (message.memo && message.memo !== "") {
 			writer.uint32(66).string(message.memo)
 		}
 		return writer
@@ -307,7 +307,7 @@ export const MsgTransferResponse = {
 		message: MsgTransferResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.sequence !== undefined) {
+		if (message.sequence && message.sequence !== BigInt(0)) {
 			writer.uint32(8).uint64(message.sequence)
 		}
 		return writer
@@ -380,7 +380,7 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
 export const MsgUpdateParams = {
 	typeUrl: "/ibc.applications.transfer.v1.MsgUpdateParams",
 	encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(10).string(message.signer)
 		}
 		if (message.params !== undefined) {

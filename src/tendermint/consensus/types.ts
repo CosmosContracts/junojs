@@ -51,8 +51,8 @@ export interface NewRoundStepAminoMsg {
 export interface NewValidBlock {
 	height: bigint
 	round: number
-	blockPartSetHeader: PartSetHeader
-	blockParts?: BitArray
+	blockPartSetHeader: PartSetHeader | undefined
+	blockParts?: BitArray | undefined
 	isCommit: boolean
 }
 export interface NewValidBlockProtoMsg {
@@ -67,8 +67,8 @@ export interface NewValidBlockProtoMsg {
 export interface NewValidBlockAmino {
 	height?: string
 	round?: number
-	block_part_set_header?: PartSetHeaderAmino
-	block_parts?: BitArrayAmino
+	block_part_set_header?: PartSetHeaderAmino | undefined
+	block_parts?: BitArrayAmino | undefined
 	is_commit?: boolean
 }
 export interface NewValidBlockAminoMsg {
@@ -77,7 +77,7 @@ export interface NewValidBlockAminoMsg {
 }
 /** Proposal is sent when a new block is proposed. */
 export interface Proposal {
-	proposal: Proposal1
+	proposal: Proposal1 | undefined
 }
 export interface ProposalProtoMsg {
 	typeUrl: "/tendermint.consensus.Proposal"
@@ -85,7 +85,7 @@ export interface ProposalProtoMsg {
 }
 /** Proposal is sent when a new block is proposed. */
 export interface ProposalAmino {
-	proposal?: Proposal1Amino
+	proposal?: Proposal1Amino | undefined
 }
 export interface ProposalAminoMsg {
 	type: "/tendermint.consensus.Proposal"
@@ -95,7 +95,7 @@ export interface ProposalAminoMsg {
 export interface ProposalPOL {
 	height: bigint
 	proposalPolRound: number
-	proposalPol: BitArray
+	proposalPol: BitArray | undefined
 }
 export interface ProposalPOLProtoMsg {
 	typeUrl: "/tendermint.consensus.ProposalPOL"
@@ -105,7 +105,7 @@ export interface ProposalPOLProtoMsg {
 export interface ProposalPOLAmino {
 	height?: string
 	proposal_pol_round?: number
-	proposal_pol?: BitArrayAmino
+	proposal_pol?: BitArrayAmino | undefined
 }
 export interface ProposalPOLAminoMsg {
 	type: "/tendermint.consensus.ProposalPOL"
@@ -115,7 +115,7 @@ export interface ProposalPOLAminoMsg {
 export interface BlockPart {
 	height: bigint
 	round: number
-	part: Part
+	part: Part | undefined
 }
 export interface BlockPartProtoMsg {
 	typeUrl: "/tendermint.consensus.BlockPart"
@@ -125,7 +125,7 @@ export interface BlockPartProtoMsg {
 export interface BlockPartAmino {
 	height?: string
 	round?: number
-	part?: PartAmino
+	part?: PartAmino | undefined
 }
 export interface BlockPartAminoMsg {
 	type: "/tendermint.consensus.BlockPart"
@@ -133,7 +133,7 @@ export interface BlockPartAminoMsg {
 }
 /** Vote is sent when voting for a proposal (or lack thereof). */
 export interface Vote {
-	vote?: Vote1
+	vote?: Vote1 | undefined
 }
 export interface VoteProtoMsg {
 	typeUrl: "/tendermint.consensus.Vote"
@@ -141,7 +141,7 @@ export interface VoteProtoMsg {
 }
 /** Vote is sent when voting for a proposal (or lack thereof). */
 export interface VoteAmino {
-	vote?: Vote1Amino
+	vote?: Vote1Amino | undefined
 }
 export interface VoteAminoMsg {
 	type: "/tendermint.consensus.Vote"
@@ -174,7 +174,7 @@ export interface VoteSetMaj23 {
 	height: bigint
 	round: number
 	type: SignedMsgType
-	blockId: BlockID
+	blockId: BlockID | undefined
 }
 export interface VoteSetMaj23ProtoMsg {
 	typeUrl: "/tendermint.consensus.VoteSetMaj23"
@@ -185,7 +185,7 @@ export interface VoteSetMaj23Amino {
 	height?: string
 	round?: number
 	type?: SignedMsgType
-	block_id?: BlockIDAmino
+	block_id?: BlockIDAmino | undefined
 }
 export interface VoteSetMaj23AminoMsg {
 	type: "/tendermint.consensus.VoteSetMaj23"
@@ -196,8 +196,8 @@ export interface VoteSetBits {
 	height: bigint
 	round: number
 	type: SignedMsgType
-	blockId: BlockID
-	votes: BitArray
+	blockId: BlockID | undefined
+	votes: BitArray | undefined
 }
 export interface VoteSetBitsProtoMsg {
 	typeUrl: "/tendermint.consensus.VoteSetBits"
@@ -208,38 +208,38 @@ export interface VoteSetBitsAmino {
 	height?: string
 	round?: number
 	type?: SignedMsgType
-	block_id?: BlockIDAmino
-	votes?: BitArrayAmino
+	block_id?: BlockIDAmino | undefined
+	votes?: BitArrayAmino | undefined
 }
 export interface VoteSetBitsAminoMsg {
 	type: "/tendermint.consensus.VoteSetBits"
 	value: VoteSetBitsAmino
 }
 export interface Message {
-	newRoundStep?: NewRoundStep
-	newValidBlock?: NewValidBlock
-	proposal?: Proposal
-	proposalPol?: ProposalPOL
-	blockPart?: BlockPart
-	vote?: Vote
-	hasVote?: HasVote
-	voteSetMaj23?: VoteSetMaj23
-	voteSetBits?: VoteSetBits
+	newRoundStep?: NewRoundStep | undefined
+	newValidBlock?: NewValidBlock | undefined
+	proposal?: Proposal | undefined
+	proposalPol?: ProposalPOL | undefined
+	blockPart?: BlockPart | undefined
+	vote?: Vote | undefined
+	hasVote?: HasVote | undefined
+	voteSetMaj23?: VoteSetMaj23 | undefined
+	voteSetBits?: VoteSetBits | undefined
 }
 export interface MessageProtoMsg {
 	typeUrl: "/tendermint.consensus.Message"
 	value: Uint8Array
 }
 export interface MessageAmino {
-	new_round_step?: NewRoundStepAmino
-	new_valid_block?: NewValidBlockAmino
-	proposal?: ProposalAmino
-	proposal_pol?: ProposalPOLAmino
-	block_part?: BlockPartAmino
-	vote?: VoteAmino
-	has_vote?: HasVoteAmino
-	vote_set_maj23?: VoteSetMaj23Amino
-	vote_set_bits?: VoteSetBitsAmino
+	new_round_step?: NewRoundStepAmino | undefined
+	new_valid_block?: NewValidBlockAmino | undefined
+	proposal?: ProposalAmino | undefined
+	proposal_pol?: ProposalPOLAmino | undefined
+	block_part?: BlockPartAmino | undefined
+	vote?: VoteAmino | undefined
+	has_vote?: HasVoteAmino | undefined
+	vote_set_maj23?: VoteSetMaj23Amino | undefined
+	vote_set_bits?: VoteSetBitsAmino | undefined
 }
 export interface MessageAminoMsg {
 	type: "/tendermint.consensus.Message"
@@ -257,19 +257,19 @@ function createBaseNewRoundStep(): NewRoundStep {
 export const NewRoundStep = {
 	typeUrl: "/tendermint.consensus.NewRoundStep",
 	encode(message: NewRoundStep, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(8).int64(message.height)
 		}
-		if (message.round !== undefined) {
+		if (message.round && message.round !== 0) {
 			writer.uint32(16).int32(message.round)
 		}
-		if (message.step !== undefined) {
+		if (message.step && message.step !== 0) {
 			writer.uint32(24).uint32(message.step)
 		}
-		if (message.secondsSinceStartTime !== undefined) {
+		if (message.secondsSinceStartTime && message.secondsSinceStartTime !== BigInt(0)) {
 			writer.uint32(32).int64(message.secondsSinceStartTime)
 		}
-		if (message.lastCommitRound !== undefined) {
+		if (message.lastCommitRound && message.lastCommitRound !== 0) {
 			writer.uint32(40).int32(message.lastCommitRound)
 		}
 		return writer
@@ -380,10 +380,10 @@ function createBaseNewValidBlock(): NewValidBlock {
 export const NewValidBlock = {
 	typeUrl: "/tendermint.consensus.NewValidBlock",
 	encode(message: NewValidBlock, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(8).int64(message.height)
 		}
-		if (message.round !== undefined) {
+		if (message.round && message.round !== 0) {
 			writer.uint32(16).int32(message.round)
 		}
 		if (message.blockPartSetHeader !== undefined) {
@@ -392,7 +392,7 @@ export const NewValidBlock = {
 		if (message.blockParts !== undefined) {
 			BitArray.encode(message.blockParts, writer.uint32(34).fork()).ldelim()
 		}
-		if (message.isCommit !== undefined) {
+		if (message.isCommit === true) {
 			writer.uint32(40).bool(message.isCommit)
 		}
 		return writer
@@ -566,10 +566,10 @@ function createBaseProposalPOL(): ProposalPOL {
 export const ProposalPOL = {
 	typeUrl: "/tendermint.consensus.ProposalPOL",
 	encode(message: ProposalPOL, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(8).int64(message.height)
 		}
-		if (message.proposalPolRound !== undefined) {
+		if (message.proposalPolRound && message.proposalPolRound !== 0) {
 			writer.uint32(16).int32(message.proposalPolRound)
 		}
 		if (message.proposalPol !== undefined) {
@@ -659,10 +659,10 @@ function createBaseBlockPart(): BlockPart {
 export const BlockPart = {
 	typeUrl: "/tendermint.consensus.BlockPart",
 	encode(message: BlockPart, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(8).int64(message.height)
 		}
-		if (message.round !== undefined) {
+		if (message.round && message.round !== 0) {
 			writer.uint32(16).int32(message.round)
 		}
 		if (message.part !== undefined) {
@@ -819,16 +819,16 @@ function createBaseHasVote(): HasVote {
 export const HasVote = {
 	typeUrl: "/tendermint.consensus.HasVote",
 	encode(message: HasVote, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(8).int64(message.height)
 		}
-		if (message.round !== undefined) {
+		if (message.round && message.round !== 0) {
 			writer.uint32(16).int32(message.round)
 		}
 		if (message.type !== 0) {
 			writer.uint32(24).int32(message.type)
 		}
-		if (message.index !== undefined) {
+		if (message.index && message.index !== 0) {
 			writer.uint32(32).int32(message.index)
 		}
 		return writer
@@ -921,10 +921,10 @@ function createBaseVoteSetMaj23(): VoteSetMaj23 {
 export const VoteSetMaj23 = {
 	typeUrl: "/tendermint.consensus.VoteSetMaj23",
 	encode(message: VoteSetMaj23, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(8).int64(message.height)
 		}
-		if (message.round !== undefined) {
+		if (message.round && message.round !== 0) {
 			writer.uint32(16).int32(message.round)
 		}
 		if (message.type !== 0) {
@@ -1027,10 +1027,10 @@ function createBaseVoteSetBits(): VoteSetBits {
 export const VoteSetBits = {
 	typeUrl: "/tendermint.consensus.VoteSetBits",
 	encode(message: VoteSetBits, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(8).int64(message.height)
 		}
-		if (message.round !== undefined) {
+		if (message.round && message.round !== 0) {
 			writer.uint32(16).int32(message.round)
 		}
 		if (message.type !== 0) {

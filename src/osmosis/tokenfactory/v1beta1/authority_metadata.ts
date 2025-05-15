@@ -36,7 +36,7 @@ export const DenomAuthorityMetadata = {
 		message: DenomAuthorityMetadata,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.admin !== undefined) {
+		if (message.admin && message.admin !== "") {
 			writer.uint32(10).string(message.admin)
 		}
 		return writer

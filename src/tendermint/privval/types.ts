@@ -87,8 +87,8 @@ export interface PubKeyRequestAminoMsg {
 }
 /** PubKeyResponse is a response message containing the public key. */
 export interface PubKeyResponse {
-	pubKey: PublicKey
-	error?: RemoteSignerError
+	pubKey: PublicKey | undefined
+	error?: RemoteSignerError | undefined
 }
 export interface PubKeyResponseProtoMsg {
 	typeUrl: "/tendermint.privval.PubKeyResponse"
@@ -96,8 +96,8 @@ export interface PubKeyResponseProtoMsg {
 }
 /** PubKeyResponse is a response message containing the public key. */
 export interface PubKeyResponseAmino {
-	pub_key?: PublicKeyAmino
-	error?: RemoteSignerErrorAmino
+	pub_key?: PublicKeyAmino | undefined
+	error?: RemoteSignerErrorAmino | undefined
 }
 export interface PubKeyResponseAminoMsg {
 	type: "/tendermint.privval.PubKeyResponse"
@@ -105,7 +105,7 @@ export interface PubKeyResponseAminoMsg {
 }
 /** SignVoteRequest is a request to sign a vote */
 export interface SignVoteRequest {
-	vote?: Vote
+	vote?: Vote | undefined
 	chainId: string
 }
 export interface SignVoteRequestProtoMsg {
@@ -114,7 +114,7 @@ export interface SignVoteRequestProtoMsg {
 }
 /** SignVoteRequest is a request to sign a vote */
 export interface SignVoteRequestAmino {
-	vote?: VoteAmino
+	vote?: VoteAmino | undefined
 	chain_id?: string
 }
 export interface SignVoteRequestAminoMsg {
@@ -123,8 +123,8 @@ export interface SignVoteRequestAminoMsg {
 }
 /** SignedVoteResponse is a response containing a signed vote or an error */
 export interface SignedVoteResponse {
-	vote: Vote
-	error?: RemoteSignerError
+	vote: Vote | undefined
+	error?: RemoteSignerError | undefined
 }
 export interface SignedVoteResponseProtoMsg {
 	typeUrl: "/tendermint.privval.SignedVoteResponse"
@@ -132,8 +132,8 @@ export interface SignedVoteResponseProtoMsg {
 }
 /** SignedVoteResponse is a response containing a signed vote or an error */
 export interface SignedVoteResponseAmino {
-	vote?: VoteAmino
-	error?: RemoteSignerErrorAmino
+	vote?: VoteAmino | undefined
+	error?: RemoteSignerErrorAmino | undefined
 }
 export interface SignedVoteResponseAminoMsg {
 	type: "/tendermint.privval.SignedVoteResponse"
@@ -141,7 +141,7 @@ export interface SignedVoteResponseAminoMsg {
 }
 /** SignProposalRequest is a request to sign a proposal */
 export interface SignProposalRequest {
-	proposal?: Proposal
+	proposal?: Proposal | undefined
 	chainId: string
 }
 export interface SignProposalRequestProtoMsg {
@@ -150,7 +150,7 @@ export interface SignProposalRequestProtoMsg {
 }
 /** SignProposalRequest is a request to sign a proposal */
 export interface SignProposalRequestAmino {
-	proposal?: ProposalAmino
+	proposal?: ProposalAmino | undefined
 	chain_id?: string
 }
 export interface SignProposalRequestAminoMsg {
@@ -159,8 +159,8 @@ export interface SignProposalRequestAminoMsg {
 }
 /** SignedProposalResponse is response containing a signed proposal or an error */
 export interface SignedProposalResponse {
-	proposal: Proposal
-	error?: RemoteSignerError
+	proposal: Proposal | undefined
+	error?: RemoteSignerError | undefined
 }
 export interface SignedProposalResponseProtoMsg {
 	typeUrl: "/tendermint.privval.SignedProposalResponse"
@@ -168,8 +168,8 @@ export interface SignedProposalResponseProtoMsg {
 }
 /** SignedProposalResponse is response containing a signed proposal or an error */
 export interface SignedProposalResponseAmino {
-	proposal?: ProposalAmino
-	error?: RemoteSignerErrorAmino
+	proposal?: ProposalAmino | undefined
+	error?: RemoteSignerErrorAmino | undefined
 }
 export interface SignedProposalResponseAminoMsg {
 	type: "/tendermint.privval.SignedProposalResponse"
@@ -200,28 +200,28 @@ export interface PingResponseAminoMsg {
 	value: PingResponseAmino
 }
 export interface Message {
-	pubKeyRequest?: PubKeyRequest
-	pubKeyResponse?: PubKeyResponse
-	signVoteRequest?: SignVoteRequest
-	signedVoteResponse?: SignedVoteResponse
-	signProposalRequest?: SignProposalRequest
-	signedProposalResponse?: SignedProposalResponse
-	pingRequest?: PingRequest
-	pingResponse?: PingResponse
+	pubKeyRequest?: PubKeyRequest | undefined
+	pubKeyResponse?: PubKeyResponse | undefined
+	signVoteRequest?: SignVoteRequest | undefined
+	signedVoteResponse?: SignedVoteResponse | undefined
+	signProposalRequest?: SignProposalRequest | undefined
+	signedProposalResponse?: SignedProposalResponse | undefined
+	pingRequest?: PingRequest | undefined
+	pingResponse?: PingResponse | undefined
 }
 export interface MessageProtoMsg {
 	typeUrl: "/tendermint.privval.Message"
 	value: Uint8Array
 }
 export interface MessageAmino {
-	pub_key_request?: PubKeyRequestAmino
-	pub_key_response?: PubKeyResponseAmino
-	sign_vote_request?: SignVoteRequestAmino
-	signed_vote_response?: SignedVoteResponseAmino
-	sign_proposal_request?: SignProposalRequestAmino
-	signed_proposal_response?: SignedProposalResponseAmino
-	ping_request?: PingRequestAmino
-	ping_response?: PingResponseAmino
+	pub_key_request?: PubKeyRequestAmino | undefined
+	pub_key_response?: PubKeyResponseAmino | undefined
+	sign_vote_request?: SignVoteRequestAmino | undefined
+	signed_vote_response?: SignedVoteResponseAmino | undefined
+	sign_proposal_request?: SignProposalRequestAmino | undefined
+	signed_proposal_response?: SignedProposalResponseAmino | undefined
+	ping_request?: PingRequestAmino | undefined
+	ping_response?: PingResponseAmino | undefined
 }
 export interface MessageAminoMsg {
 	type: "/tendermint.privval.Message"
@@ -236,10 +236,10 @@ function createBaseRemoteSignerError(): RemoteSignerError {
 export const RemoteSignerError = {
 	typeUrl: "/tendermint.privval.RemoteSignerError",
 	encode(message: RemoteSignerError, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.code !== undefined) {
+		if (message.code && message.code !== 0) {
 			writer.uint32(8).int32(message.code)
 		}
-		if (message.description !== undefined) {
+		if (message.description && message.description !== "") {
 			writer.uint32(18).string(message.description)
 		}
 		return writer
@@ -310,7 +310,7 @@ function createBasePubKeyRequest(): PubKeyRequest {
 export const PubKeyRequest = {
 	typeUrl: "/tendermint.privval.PubKeyRequest",
 	encode(message: PubKeyRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.chainId !== undefined) {
+		if (message.chainId && message.chainId !== "") {
 			writer.uint32(10).string(message.chainId)
 		}
 		return writer
@@ -458,7 +458,7 @@ export const SignVoteRequest = {
 		if (message.vote !== undefined) {
 			Vote.encode(message.vote, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.chainId !== undefined) {
+		if (message.chainId && message.chainId !== "") {
 			writer.uint32(18).string(message.chainId)
 		}
 		return writer
@@ -620,7 +620,7 @@ export const SignProposalRequest = {
 		if (message.proposal !== undefined) {
 			Proposal.encode(message.proposal, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.chainId !== undefined) {
+		if (message.chainId && message.chainId !== "") {
 			writer.uint32(18).string(message.chainId)
 		}
 		return writer

@@ -109,10 +109,10 @@ function createBaseCoin(): Coin {
 export const Coin = {
 	typeUrl: "/cosmos.base.v1beta1.Coin",
 	encode(message: Coin, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.denom !== undefined) {
+		if (message.denom && message.denom !== "") {
 			writer.uint32(10).string(message.denom)
 		}
-		if (message.amount !== undefined) {
+		if (message.amount && message.amount !== "") {
 			writer.uint32(18).string(message.amount)
 		}
 		return writer
@@ -190,10 +190,10 @@ function createBaseDecCoin(): DecCoin {
 export const DecCoin = {
 	typeUrl: "/cosmos.base.v1beta1.DecCoin",
 	encode(message: DecCoin, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.denom !== undefined) {
+		if (message.denom && message.denom !== "") {
 			writer.uint32(10).string(message.denom)
 		}
-		if (message.amount !== undefined) {
+		if (message.amount && message.amount !== "") {
 			writer.uint32(18).string(Decimal.fromUserInput(message.amount, 18).atomics)
 		}
 		return writer
@@ -270,7 +270,7 @@ function createBaseIntProto(): IntProto {
 export const IntProto = {
 	typeUrl: "/cosmos.base.v1beta1.IntProto",
 	encode(message: IntProto, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.int !== undefined) {
+		if (message.int && message.int !== "") {
 			writer.uint32(10).string(message.int)
 		}
 		return writer
@@ -339,7 +339,7 @@ function createBaseDecProto(): DecProto {
 export const DecProto = {
 	typeUrl: "/cosmos.base.v1beta1.DecProto",
 	encode(message: DecProto, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.dec !== undefined) {
+		if (message.dec && message.dec !== "") {
 			writer.uint32(10).string(Decimal.fromUserInput(message.dec, 18).atomics)
 		}
 		return writer

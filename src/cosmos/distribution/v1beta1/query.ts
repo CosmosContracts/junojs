@@ -33,7 +33,7 @@ export interface QueryParamsRequestAminoMsg {
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponse {
 	/** params defines the parameters of the module. */
-	params: Params
+	params: Params | undefined
 }
 export interface QueryParamsResponseProtoMsg {
 	typeUrl: "/cosmos.distribution.v1beta1.QueryParamsResponse"
@@ -42,7 +42,7 @@ export interface QueryParamsResponseProtoMsg {
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponseAmino {
 	/** params defines the parameters of the module. */
-	params: ParamsAmino
+	params: ParamsAmino | undefined
 }
 export interface QueryParamsResponseAminoMsg {
 	type: "cosmos-sdk/QueryParamsResponse"
@@ -121,7 +121,7 @@ export interface QueryValidatorOutstandingRewardsRequestAminoMsg {
  * Query/ValidatorOutstandingRewards RPC method.
  */
 export interface QueryValidatorOutstandingRewardsResponse {
-	rewards: ValidatorOutstandingRewards
+	rewards: ValidatorOutstandingRewards | undefined
 }
 export interface QueryValidatorOutstandingRewardsResponseProtoMsg {
 	typeUrl: "/cosmos.distribution.v1beta1.QueryValidatorOutstandingRewardsResponse"
@@ -132,7 +132,7 @@ export interface QueryValidatorOutstandingRewardsResponseProtoMsg {
  * Query/ValidatorOutstandingRewards RPC method.
  */
 export interface QueryValidatorOutstandingRewardsResponseAmino {
-	rewards: ValidatorOutstandingRewardsAmino
+	rewards: ValidatorOutstandingRewardsAmino | undefined
 }
 export interface QueryValidatorOutstandingRewardsResponseAminoMsg {
 	type: "cosmos-sdk/QueryValidatorOutstandingRewardsResponse"
@@ -168,7 +168,7 @@ export interface QueryValidatorCommissionRequestAminoMsg {
  */
 export interface QueryValidatorCommissionResponse {
 	/** commission defines the commission the validator received. */
-	commission: ValidatorAccumulatedCommission
+	commission: ValidatorAccumulatedCommission | undefined
 }
 export interface QueryValidatorCommissionResponseProtoMsg {
 	typeUrl: "/cosmos.distribution.v1beta1.QueryValidatorCommissionResponse"
@@ -180,7 +180,7 @@ export interface QueryValidatorCommissionResponseProtoMsg {
  */
 export interface QueryValidatorCommissionResponseAmino {
 	/** commission defines the commission the validator received. */
-	commission: ValidatorAccumulatedCommissionAmino
+	commission: ValidatorAccumulatedCommissionAmino | undefined
 }
 export interface QueryValidatorCommissionResponseAminoMsg {
 	type: "cosmos-sdk/QueryValidatorCommissionResponse"
@@ -198,7 +198,7 @@ export interface QueryValidatorSlashesRequest {
 	/** starting_height defines the optional ending height to query the slashes. */
 	endingHeight?: bigint
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 }
 export interface QueryValidatorSlashesRequestProtoMsg {
 	typeUrl: "/cosmos.distribution.v1beta1.QueryValidatorSlashesRequest"
@@ -216,7 +216,7 @@ export interface QueryValidatorSlashesRequestAmino {
 	/** starting_height defines the optional ending height to query the slashes. */
 	ending_height?: string
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 }
 export interface QueryValidatorSlashesRequestAminoMsg {
 	type: "cosmos-sdk/QueryValidatorSlashesRequest"
@@ -230,7 +230,7 @@ export interface QueryValidatorSlashesResponse {
 	/** slashes defines the slashes the validator received. */
 	slashes: ValidatorSlashEvent[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 }
 export interface QueryValidatorSlashesResponseProtoMsg {
 	typeUrl: "/cosmos.distribution.v1beta1.QueryValidatorSlashesResponse"
@@ -244,7 +244,7 @@ export interface QueryValidatorSlashesResponseAmino {
 	/** slashes defines the slashes the validator received. */
 	slashes: ValidatorSlashEventAmino[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 }
 export interface QueryValidatorSlashesResponseAminoMsg {
 	type: "cosmos-sdk/QueryValidatorSlashesResponse"
@@ -636,7 +636,7 @@ export const QueryValidatorDistributionInfoRequest = {
 		message: QueryValidatorDistributionInfoRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.validatorAddress !== undefined) {
+		if (message.validatorAddress && message.validatorAddress !== "") {
 			writer.uint32(10).string(message.validatorAddress)
 		}
 		return writer
@@ -727,7 +727,7 @@ export const QueryValidatorDistributionInfoResponse = {
 		message: QueryValidatorDistributionInfoResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.operatorAddress !== undefined) {
+		if (message.operatorAddress && message.operatorAddress !== "") {
 			writer.uint32(10).string(message.operatorAddress)
 		}
 		for (const v of message.selfBondRewards) {
@@ -844,7 +844,7 @@ export const QueryValidatorOutstandingRewardsRequest = {
 		message: QueryValidatorOutstandingRewardsRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.validatorAddress !== undefined) {
+		if (message.validatorAddress && message.validatorAddress !== "") {
 			writer.uint32(10).string(message.validatorAddress)
 		}
 		return writer
@@ -1027,7 +1027,7 @@ export const QueryValidatorCommissionRequest = {
 		message: QueryValidatorCommissionRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.validatorAddress !== undefined) {
+		if (message.validatorAddress && message.validatorAddress !== "") {
 			writer.uint32(10).string(message.validatorAddress)
 		}
 		return writer
@@ -1188,13 +1188,13 @@ export const QueryValidatorSlashesRequest = {
 		message: QueryValidatorSlashesRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.validatorAddress !== undefined) {
+		if (message.validatorAddress && message.validatorAddress !== "") {
 			writer.uint32(10).string(message.validatorAddress)
 		}
-		if (message.startingHeight !== undefined) {
+		if (message.startingHeight && message.startingHeight !== BigInt(0)) {
 			writer.uint32(16).uint64(message.startingHeight)
 		}
-		if (message.endingHeight !== undefined) {
+		if (message.endingHeight && message.endingHeight !== BigInt(0)) {
 			writer.uint32(24).uint64(message.endingHeight)
 		}
 		if (message.pagination !== undefined) {
@@ -1394,10 +1394,10 @@ export const QueryDelegationRewardsRequest = {
 		message: QueryDelegationRewardsRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.delegatorAddress !== undefined) {
+		if (message.delegatorAddress && message.delegatorAddress !== "") {
 			writer.uint32(10).string(message.delegatorAddress)
 		}
-		if (message.validatorAddress !== undefined) {
+		if (message.validatorAddress && message.validatorAddress !== "") {
 			writer.uint32(18).string(message.validatorAddress)
 		}
 		return writer
@@ -1551,7 +1551,7 @@ export const QueryDelegationTotalRewardsRequest = {
 		message: QueryDelegationTotalRewardsRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.delegatorAddress !== undefined) {
+		if (message.delegatorAddress && message.delegatorAddress !== "") {
 			writer.uint32(10).string(message.delegatorAddress)
 		}
 		return writer
@@ -1735,7 +1735,7 @@ export const QueryDelegatorValidatorsRequest = {
 		message: QueryDelegatorValidatorsRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.delegatorAddress !== undefined) {
+		if (message.delegatorAddress && message.delegatorAddress !== "") {
 			writer.uint32(10).string(message.delegatorAddress)
 		}
 		return writer
@@ -1887,7 +1887,7 @@ export const QueryDelegatorWithdrawAddressRequest = {
 		message: QueryDelegatorWithdrawAddressRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.delegatorAddress !== undefined) {
+		if (message.delegatorAddress && message.delegatorAddress !== "") {
 			writer.uint32(10).string(message.delegatorAddress)
 		}
 		return writer
@@ -1973,7 +1973,7 @@ export const QueryDelegatorWithdrawAddressResponse = {
 		message: QueryDelegatorWithdrawAddressResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.withdrawAddress !== undefined) {
+		if (message.withdrawAddress && message.withdrawAddress !== "") {
 			writer.uint32(10).string(message.withdrawAddress)
 		}
 		return writer

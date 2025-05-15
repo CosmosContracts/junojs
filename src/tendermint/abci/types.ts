@@ -271,44 +271,44 @@ export function misbehaviorTypeToJSON(object: MisbehaviorType): string {
 	}
 }
 export interface Request {
-	echo?: RequestEcho
-	flush?: RequestFlush
-	info?: RequestInfo
-	initChain?: RequestInitChain
-	query?: RequestQuery
-	checkTx?: RequestCheckTx
-	commit?: RequestCommit
-	listSnapshots?: RequestListSnapshots
-	offerSnapshot?: RequestOfferSnapshot
-	loadSnapshotChunk?: RequestLoadSnapshotChunk
-	applySnapshotChunk?: RequestApplySnapshotChunk
-	prepareProposal?: RequestPrepareProposal
-	processProposal?: RequestProcessProposal
-	extendVote?: RequestExtendVote
-	verifyVoteExtension?: RequestVerifyVoteExtension
-	finalizeBlock?: RequestFinalizeBlock
+	echo?: RequestEcho | undefined
+	flush?: RequestFlush | undefined
+	info?: RequestInfo | undefined
+	initChain?: RequestInitChain | undefined
+	query?: RequestQuery | undefined
+	checkTx?: RequestCheckTx | undefined
+	commit?: RequestCommit | undefined
+	listSnapshots?: RequestListSnapshots | undefined
+	offerSnapshot?: RequestOfferSnapshot | undefined
+	loadSnapshotChunk?: RequestLoadSnapshotChunk | undefined
+	applySnapshotChunk?: RequestApplySnapshotChunk | undefined
+	prepareProposal?: RequestPrepareProposal | undefined
+	processProposal?: RequestProcessProposal | undefined
+	extendVote?: RequestExtendVote | undefined
+	verifyVoteExtension?: RequestVerifyVoteExtension | undefined
+	finalizeBlock?: RequestFinalizeBlock | undefined
 }
 export interface RequestProtoMsg {
 	typeUrl: "/tendermint.abci.Request"
 	value: Uint8Array
 }
 export interface RequestAmino {
-	echo?: RequestEchoAmino
-	flush?: RequestFlushAmino
-	info?: RequestInfoAmino
-	init_chain?: RequestInitChainAmino
-	query?: RequestQueryAmino
-	check_tx?: RequestCheckTxAmino
-	commit?: RequestCommitAmino
-	list_snapshots?: RequestListSnapshotsAmino
-	offer_snapshot?: RequestOfferSnapshotAmino
-	load_snapshot_chunk?: RequestLoadSnapshotChunkAmino
-	apply_snapshot_chunk?: RequestApplySnapshotChunkAmino
-	prepare_proposal?: RequestPrepareProposalAmino
-	process_proposal?: RequestProcessProposalAmino
-	extend_vote?: RequestExtendVoteAmino
-	verify_vote_extension?: RequestVerifyVoteExtensionAmino
-	finalize_block?: RequestFinalizeBlockAmino
+	echo?: RequestEchoAmino | undefined
+	flush?: RequestFlushAmino | undefined
+	info?: RequestInfoAmino | undefined
+	init_chain?: RequestInitChainAmino | undefined
+	query?: RequestQueryAmino | undefined
+	check_tx?: RequestCheckTxAmino | undefined
+	commit?: RequestCommitAmino | undefined
+	list_snapshots?: RequestListSnapshotsAmino | undefined
+	offer_snapshot?: RequestOfferSnapshotAmino | undefined
+	load_snapshot_chunk?: RequestLoadSnapshotChunkAmino | undefined
+	apply_snapshot_chunk?: RequestApplySnapshotChunkAmino | undefined
+	prepare_proposal?: RequestPrepareProposalAmino | undefined
+	process_proposal?: RequestProcessProposalAmino | undefined
+	extend_vote?: RequestExtendVoteAmino | undefined
+	verify_vote_extension?: RequestVerifyVoteExtensionAmino | undefined
+	finalize_block?: RequestFinalizeBlockAmino | undefined
 }
 export interface RequestAminoMsg {
 	type: "/tendermint.abci.Request"
@@ -359,9 +359,9 @@ export interface RequestInfoAminoMsg {
 	value: RequestInfoAmino
 }
 export interface RequestInitChain {
-	time: Date
+	time: Date | undefined
 	chainId: string
-	consensusParams?: ConsensusParams
+	consensusParams?: ConsensusParams | undefined
 	validators: ValidatorUpdate[]
 	appStateBytes: Uint8Array
 	initialHeight: bigint
@@ -371,9 +371,9 @@ export interface RequestInitChainProtoMsg {
 	value: Uint8Array
 }
 export interface RequestInitChainAmino {
-	time?: string
+	time?: string | undefined
 	chain_id?: string
-	consensus_params?: ConsensusParamsAmino
+	consensus_params?: ConsensusParamsAmino | undefined
 	validators?: ValidatorUpdateAmino[]
 	app_state_bytes?: string
 	initial_height?: string
@@ -443,7 +443,7 @@ export interface RequestListSnapshotsAminoMsg {
 /** offers a snapshot to the application */
 export interface RequestOfferSnapshot {
 	/** snapshot offered by peers */
-	snapshot?: Snapshot
+	snapshot?: Snapshot | undefined
 	/** light client-verified app hash for snapshot height */
 	appHash: Uint8Array
 }
@@ -454,7 +454,7 @@ export interface RequestOfferSnapshotProtoMsg {
 /** offers a snapshot to the application */
 export interface RequestOfferSnapshotAmino {
 	/** snapshot offered by peers */
-	snapshot?: SnapshotAmino
+	snapshot?: SnapshotAmino | undefined
 	/** light client-verified app hash for snapshot height */
 	app_hash?: string
 }
@@ -510,10 +510,10 @@ export interface RequestPrepareProposal {
 	 * sent to the app for possible modifications.
 	 */
 	txs: Uint8Array[]
-	localLastCommit: ExtendedCommitInfo
+	localLastCommit: ExtendedCommitInfo | undefined
 	misbehavior: Misbehavior[]
 	height: bigint
-	time: Date
+	time: Date | undefined
 	nextValidatorsHash: Uint8Array
 	/** address of the public key of the validator proposing the block. */
 	proposerAddress: Uint8Array
@@ -530,10 +530,10 @@ export interface RequestPrepareProposalAmino {
 	 * sent to the app for possible modifications.
 	 */
 	txs?: string[]
-	local_last_commit?: ExtendedCommitInfoAmino
+	local_last_commit?: ExtendedCommitInfoAmino | undefined
 	misbehavior?: MisbehaviorAmino[]
 	height?: string
-	time?: string
+	time?: string | undefined
 	next_validators_hash?: string
 	/** address of the public key of the validator proposing the block. */
 	proposer_address?: string
@@ -544,12 +544,12 @@ export interface RequestPrepareProposalAminoMsg {
 }
 export interface RequestProcessProposal {
 	txs: Uint8Array[]
-	proposedLastCommit: CommitInfo
+	proposedLastCommit: CommitInfo | undefined
 	misbehavior: Misbehavior[]
 	/** hash is the merkle root hash of the fields of the proposed block. */
 	hash: Uint8Array
 	height: bigint
-	time: Date
+	time: Date | undefined
 	nextValidatorsHash: Uint8Array
 	/** address of the public key of the original proposer of the block. */
 	proposerAddress: Uint8Array
@@ -560,12 +560,12 @@ export interface RequestProcessProposalProtoMsg {
 }
 export interface RequestProcessProposalAmino {
 	txs?: string[]
-	proposed_last_commit?: CommitInfoAmino
+	proposed_last_commit?: CommitInfoAmino | undefined
 	misbehavior?: MisbehaviorAmino[]
 	/** hash is the merkle root hash of the fields of the proposed block. */
 	hash?: string
 	height?: string
-	time?: string
+	time?: string | undefined
 	next_validators_hash?: string
 	/** address of the public key of the original proposer of the block. */
 	proposer_address?: string
@@ -581,9 +581,9 @@ export interface RequestExtendVote {
 	/** the height of the extended vote */
 	height: bigint
 	/** info of the block that this vote may be referring to */
-	time: Date
+	time: Date | undefined
 	txs: Uint8Array[]
-	proposedLastCommit: CommitInfo
+	proposedLastCommit: CommitInfo | undefined
 	misbehavior: Misbehavior[]
 	nextValidatorsHash: Uint8Array
 	/** address of the public key of the original proposer of the block. */
@@ -600,9 +600,9 @@ export interface RequestExtendVoteAmino {
 	/** the height of the extended vote */
 	height?: string
 	/** info of the block that this vote may be referring to */
-	time?: string
+	time?: string | undefined
 	txs?: string[]
-	proposed_last_commit?: CommitInfoAmino
+	proposed_last_commit?: CommitInfoAmino | undefined
 	misbehavior?: MisbehaviorAmino[]
 	next_validators_hash?: string
 	/** address of the public key of the original proposer of the block. */
@@ -640,12 +640,12 @@ export interface RequestVerifyVoteExtensionAminoMsg {
 }
 export interface RequestFinalizeBlock {
 	txs: Uint8Array[]
-	decidedLastCommit: CommitInfo
+	decidedLastCommit: CommitInfo | undefined
 	misbehavior: Misbehavior[]
 	/** hash is the merkle root hash of the fields of the decided block. */
 	hash: Uint8Array
 	height: bigint
-	time: Date
+	time: Date | undefined
 	nextValidatorsHash: Uint8Array
 	/** proposer_address is the address of the public key of the original proposer of the block. */
 	proposerAddress: Uint8Array
@@ -656,12 +656,12 @@ export interface RequestFinalizeBlockProtoMsg {
 }
 export interface RequestFinalizeBlockAmino {
 	txs?: string[]
-	decided_last_commit?: CommitInfoAmino
+	decided_last_commit?: CommitInfoAmino | undefined
 	misbehavior?: MisbehaviorAmino[]
 	/** hash is the merkle root hash of the fields of the decided block. */
 	hash?: string
 	height?: string
-	time?: string
+	time?: string | undefined
 	next_validators_hash?: string
 	/** proposer_address is the address of the public key of the original proposer of the block. */
 	proposer_address?: string
@@ -671,46 +671,46 @@ export interface RequestFinalizeBlockAminoMsg {
 	value: RequestFinalizeBlockAmino
 }
 export interface Response {
-	exception?: ResponseException
-	echo?: ResponseEcho
-	flush?: ResponseFlush
-	info?: ResponseInfo
-	initChain?: ResponseInitChain
-	query?: ResponseQuery
-	checkTx?: ResponseCheckTx
-	commit?: ResponseCommit
-	listSnapshots?: ResponseListSnapshots
-	offerSnapshot?: ResponseOfferSnapshot
-	loadSnapshotChunk?: ResponseLoadSnapshotChunk
-	applySnapshotChunk?: ResponseApplySnapshotChunk
-	prepareProposal?: ResponsePrepareProposal
-	processProposal?: ResponseProcessProposal
-	extendVote?: ResponseExtendVote
-	verifyVoteExtension?: ResponseVerifyVoteExtension
-	finalizeBlock?: ResponseFinalizeBlock
+	exception?: ResponseException | undefined
+	echo?: ResponseEcho | undefined
+	flush?: ResponseFlush | undefined
+	info?: ResponseInfo | undefined
+	initChain?: ResponseInitChain | undefined
+	query?: ResponseQuery | undefined
+	checkTx?: ResponseCheckTx | undefined
+	commit?: ResponseCommit | undefined
+	listSnapshots?: ResponseListSnapshots | undefined
+	offerSnapshot?: ResponseOfferSnapshot | undefined
+	loadSnapshotChunk?: ResponseLoadSnapshotChunk | undefined
+	applySnapshotChunk?: ResponseApplySnapshotChunk | undefined
+	prepareProposal?: ResponsePrepareProposal | undefined
+	processProposal?: ResponseProcessProposal | undefined
+	extendVote?: ResponseExtendVote | undefined
+	verifyVoteExtension?: ResponseVerifyVoteExtension | undefined
+	finalizeBlock?: ResponseFinalizeBlock | undefined
 }
 export interface ResponseProtoMsg {
 	typeUrl: "/tendermint.abci.Response"
 	value: Uint8Array
 }
 export interface ResponseAmino {
-	exception?: ResponseExceptionAmino
-	echo?: ResponseEchoAmino
-	flush?: ResponseFlushAmino
-	info?: ResponseInfoAmino
-	init_chain?: ResponseInitChainAmino
-	query?: ResponseQueryAmino
-	check_tx?: ResponseCheckTxAmino
-	commit?: ResponseCommitAmino
-	list_snapshots?: ResponseListSnapshotsAmino
-	offer_snapshot?: ResponseOfferSnapshotAmino
-	load_snapshot_chunk?: ResponseLoadSnapshotChunkAmino
-	apply_snapshot_chunk?: ResponseApplySnapshotChunkAmino
-	prepare_proposal?: ResponsePrepareProposalAmino
-	process_proposal?: ResponseProcessProposalAmino
-	extend_vote?: ResponseExtendVoteAmino
-	verify_vote_extension?: ResponseVerifyVoteExtensionAmino
-	finalize_block?: ResponseFinalizeBlockAmino
+	exception?: ResponseExceptionAmino | undefined
+	echo?: ResponseEchoAmino | undefined
+	flush?: ResponseFlushAmino | undefined
+	info?: ResponseInfoAmino | undefined
+	init_chain?: ResponseInitChainAmino | undefined
+	query?: ResponseQueryAmino | undefined
+	check_tx?: ResponseCheckTxAmino | undefined
+	commit?: ResponseCommitAmino | undefined
+	list_snapshots?: ResponseListSnapshotsAmino | undefined
+	offer_snapshot?: ResponseOfferSnapshotAmino | undefined
+	load_snapshot_chunk?: ResponseLoadSnapshotChunkAmino | undefined
+	apply_snapshot_chunk?: ResponseApplySnapshotChunkAmino | undefined
+	prepare_proposal?: ResponsePrepareProposalAmino | undefined
+	process_proposal?: ResponseProcessProposalAmino | undefined
+	extend_vote?: ResponseExtendVoteAmino | undefined
+	verify_vote_extension?: ResponseVerifyVoteExtensionAmino | undefined
+	finalize_block?: ResponseFinalizeBlockAmino | undefined
 }
 export interface ResponseAminoMsg {
 	type: "/tendermint.abci.Response"
@@ -779,7 +779,7 @@ export interface ResponseInfoAminoMsg {
 	value: ResponseInfoAmino
 }
 export interface ResponseInitChain {
-	consensusParams?: ConsensusParams
+	consensusParams?: ConsensusParams | undefined
 	validators: ValidatorUpdate[]
 	appHash: Uint8Array
 }
@@ -788,7 +788,7 @@ export interface ResponseInitChainProtoMsg {
 	value: Uint8Array
 }
 export interface ResponseInitChainAmino {
-	consensus_params?: ConsensusParamsAmino
+	consensus_params?: ConsensusParamsAmino | undefined
 	validators?: ValidatorUpdateAmino[]
 	app_hash?: string
 }
@@ -805,7 +805,7 @@ export interface ResponseQuery {
 	index: bigint
 	key: Uint8Array
 	value: Uint8Array
-	proofOps?: ProofOps
+	proofOps?: ProofOps | undefined
 	height: bigint
 	codespace: string
 }
@@ -822,7 +822,7 @@ export interface ResponseQueryAmino {
 	index?: string
 	key?: string
 	value?: string
-	proof_ops?: ProofOpsAmino
+	proof_ops?: ProofOpsAmino | undefined
 	height?: string
 	codespace?: string
 }
@@ -1008,7 +1008,7 @@ export interface ResponseFinalizeBlock {
 	/** a list of updates to the validator set. These will reflect the validator set at current height + 2. */
 	validatorUpdates: ValidatorUpdate[]
 	/** updates to the consensus params, if any. */
-	consensusParamUpdates?: ConsensusParams
+	consensusParamUpdates?: ConsensusParams | undefined
 	/**
 	 * app_hash is the hash of the applications' state which is used to confirm that execution of the transactions was
 	 * deterministic. It is up to the application to decide which algorithm to use.
@@ -1031,7 +1031,7 @@ export interface ResponseFinalizeBlockAmino {
 	/** a list of updates to the validator set. These will reflect the validator set at current height + 2. */
 	validator_updates?: ValidatorUpdateAmino[]
 	/** updates to the consensus params, if any. */
-	consensus_param_updates?: ConsensusParamsAmino
+	consensus_param_updates?: ConsensusParamsAmino | undefined
 	/**
 	 * app_hash is the hash of the applications' state which is used to confirm that execution of the transactions was
 	 * deterministic. It is up to the application to decide which algorithm to use.
@@ -1193,7 +1193,7 @@ export interface TxResult {
 	height: bigint
 	index: number
 	tx: Uint8Array
-	result: ExecTxResult
+	result: ExecTxResult | undefined
 }
 export interface TxResultProtoMsg {
 	typeUrl: "/tendermint.abci.TxResult"
@@ -1208,7 +1208,7 @@ export interface TxResultAmino {
 	height?: string
 	index?: number
 	tx?: string
-	result?: ExecTxResultAmino
+	result?: ExecTxResultAmino | undefined
 }
 export interface TxResultAminoMsg {
 	type: "/tendermint.abci.TxResult"
@@ -1235,7 +1235,7 @@ export interface ValidatorAminoMsg {
 	value: ValidatorAmino
 }
 export interface ValidatorUpdate {
-	pubKey: PublicKey
+	pubKey: PublicKey | undefined
 	power: bigint
 }
 export interface ValidatorUpdateProtoMsg {
@@ -1243,7 +1243,7 @@ export interface ValidatorUpdateProtoMsg {
 	value: Uint8Array
 }
 export interface ValidatorUpdateAmino {
-	pub_key?: PublicKeyAmino
+	pub_key?: PublicKeyAmino | undefined
 	power?: string
 }
 export interface ValidatorUpdateAminoMsg {
@@ -1251,7 +1251,7 @@ export interface ValidatorUpdateAminoMsg {
 	value: ValidatorUpdateAmino
 }
 export interface VoteInfo {
-	validator: Validator
+	validator: Validator | undefined
 	blockIdFlag: BlockIDFlag
 }
 export interface VoteInfoProtoMsg {
@@ -1259,7 +1259,7 @@ export interface VoteInfoProtoMsg {
 	value: Uint8Array
 }
 export interface VoteInfoAmino {
-	validator?: ValidatorAmino
+	validator?: ValidatorAmino | undefined
 	block_id_flag?: BlockIDFlag
 }
 export interface VoteInfoAminoMsg {
@@ -1268,7 +1268,7 @@ export interface VoteInfoAminoMsg {
 }
 export interface ExtendedVoteInfo {
 	/** The validator that sent the vote. */
-	validator: Validator
+	validator: Validator | undefined
 	/** Non-deterministic extension provided by the sending validator's application. */
 	voteExtension: Uint8Array
 	/** Vote extension signature created by CometBFT */
@@ -1282,7 +1282,7 @@ export interface ExtendedVoteInfoProtoMsg {
 }
 export interface ExtendedVoteInfoAmino {
 	/** The validator that sent the vote. */
-	validator?: ValidatorAmino
+	validator?: ValidatorAmino | undefined
 	/** Non-deterministic extension provided by the sending validator's application. */
 	vote_extension?: string
 	/** Vote extension signature created by CometBFT */
@@ -1297,11 +1297,11 @@ export interface ExtendedVoteInfoAminoMsg {
 export interface Misbehavior {
 	type: MisbehaviorType
 	/** The offending validator */
-	validator: Validator
+	validator: Validator | undefined
 	/** The height when the offense occurred */
 	height: bigint
 	/** The corresponding time where the offense occurred */
-	time: Date
+	time: Date | undefined
 	/**
 	 * Total voting power of the validator set in case the ABCI application does
 	 * not store historical validators.
@@ -1316,11 +1316,11 @@ export interface MisbehaviorProtoMsg {
 export interface MisbehaviorAmino {
 	type?: MisbehaviorType
 	/** The offending validator */
-	validator?: ValidatorAmino
+	validator?: ValidatorAmino | undefined
 	/** The height when the offense occurred */
 	height?: string
 	/** The corresponding time where the offense occurred */
-	time?: string
+	time?: string | undefined
 	/**
 	 * Total voting power of the validator set in case the ABCI application does
 	 * not store historical validators.
@@ -1700,7 +1700,7 @@ function createBaseRequestEcho(): RequestEcho {
 export const RequestEcho = {
 	typeUrl: "/tendermint.abci.RequestEcho",
 	encode(message: RequestEcho, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.message !== undefined) {
+		if (message.message && message.message !== "") {
 			writer.uint32(10).string(message.message)
 		}
 		return writer
@@ -1816,16 +1816,16 @@ function createBaseRequestInfo(): RequestInfo {
 export const RequestInfo = {
 	typeUrl: "/tendermint.abci.RequestInfo",
 	encode(message: RequestInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.version !== undefined) {
+		if (message.version && message.version !== "") {
 			writer.uint32(10).string(message.version)
 		}
-		if (message.blockVersion !== undefined) {
+		if (message.blockVersion && message.blockVersion !== BigInt(0)) {
 			writer.uint32(16).uint64(message.blockVersion)
 		}
-		if (message.p2pVersion !== undefined) {
+		if (message.p2pVersion && message.p2pVersion !== BigInt(0)) {
 			writer.uint32(24).uint64(message.p2pVersion)
 		}
-		if (message.abciVersion !== undefined) {
+		if (message.abciVersion && message.abciVersion !== "") {
 			writer.uint32(34).string(message.abciVersion)
 		}
 		return writer
@@ -1928,7 +1928,7 @@ export const RequestInitChain = {
 		if (message.time !== undefined) {
 			Timestamp.encode(toTimestamp(message.time), writer.uint32(10).fork()).ldelim()
 		}
-		if (message.chainId !== undefined) {
+		if (message.chainId && message.chainId !== "") {
 			writer.uint32(18).string(message.chainId)
 		}
 		if (message.consensusParams !== undefined) {
@@ -1940,7 +1940,7 @@ export const RequestInitChain = {
 		if (message.appStateBytes.length !== 0) {
 			writer.uint32(42).bytes(message.appStateBytes)
 		}
-		if (message.initialHeight !== undefined) {
+		if (message.initialHeight && message.initialHeight !== BigInt(0)) {
 			writer.uint32(48).int64(message.initialHeight)
 		}
 		return writer
@@ -2064,13 +2064,13 @@ export const RequestQuery = {
 		if (message.data.length !== 0) {
 			writer.uint32(10).bytes(message.data)
 		}
-		if (message.path !== undefined) {
+		if (message.path && message.path !== "") {
 			writer.uint32(18).string(message.path)
 		}
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(24).int64(message.height)
 		}
-		if (message.prove !== undefined) {
+		if (message.prove === true) {
 			writer.uint32(32).bool(message.prove)
 		}
 		return writer
@@ -2421,13 +2421,13 @@ export const RequestLoadSnapshotChunk = {
 		message: RequestLoadSnapshotChunk,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(8).uint64(message.height)
 		}
-		if (message.format !== undefined) {
+		if (message.format && message.format !== 0) {
 			writer.uint32(16).uint32(message.format)
 		}
-		if (message.chunk !== undefined) {
+		if (message.chunk && message.chunk !== 0) {
 			writer.uint32(24).uint32(message.chunk)
 		}
 		return writer
@@ -2514,13 +2514,13 @@ export const RequestApplySnapshotChunk = {
 		message: RequestApplySnapshotChunk,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.index !== undefined) {
+		if (message.index && message.index !== 0) {
 			writer.uint32(8).uint32(message.index)
 		}
 		if (message.chunk.length !== 0) {
 			writer.uint32(18).bytes(message.chunk)
 		}
-		if (message.sender !== undefined) {
+		if (message.sender && message.sender !== "") {
 			writer.uint32(26).string(message.sender)
 		}
 		return writer
@@ -2609,7 +2609,7 @@ export const RequestPrepareProposal = {
 		message: RequestPrepareProposal,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.maxTxBytes !== undefined) {
+		if (message.maxTxBytes && message.maxTxBytes !== BigInt(0)) {
 			writer.uint32(8).int64(message.maxTxBytes)
 		}
 		for (const v of message.txs) {
@@ -2621,7 +2621,7 @@ export const RequestPrepareProposal = {
 		for (const v of message.misbehavior) {
 			Misbehavior.encode(v!, writer.uint32(34).fork()).ldelim()
 		}
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(40).int64(message.height)
 		}
 		if (message.time !== undefined) {
@@ -2791,7 +2791,7 @@ export const RequestProcessProposal = {
 		if (message.hash.length !== 0) {
 			writer.uint32(34).bytes(message.hash)
 		}
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(40).int64(message.height)
 		}
 		if (message.time !== undefined) {
@@ -2945,7 +2945,7 @@ export const RequestExtendVote = {
 		if (message.hash.length !== 0) {
 			writer.uint32(10).bytes(message.hash)
 		}
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(16).int64(message.height)
 		}
 		if (message.time !== undefined) {
@@ -3110,7 +3110,7 @@ export const RequestVerifyVoteExtension = {
 		if (message.validatorAddress.length !== 0) {
 			writer.uint32(18).bytes(message.validatorAddress)
 		}
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(24).int64(message.height)
 		}
 		if (message.voteExtension.length !== 0) {
@@ -3229,7 +3229,7 @@ export const RequestFinalizeBlock = {
 		if (message.hash.length !== 0) {
 			writer.uint32(34).bytes(message.hash)
 		}
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(40).int64(message.height)
 		}
 		if (message.time !== undefined) {
@@ -3716,7 +3716,7 @@ function createBaseResponseException(): ResponseException {
 export const ResponseException = {
 	typeUrl: "/tendermint.abci.ResponseException",
 	encode(message: ResponseException, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.error !== undefined) {
+		if (message.error && message.error !== "") {
 			writer.uint32(10).string(message.error)
 		}
 		return writer
@@ -3779,7 +3779,7 @@ function createBaseResponseEcho(): ResponseEcho {
 export const ResponseEcho = {
 	typeUrl: "/tendermint.abci.ResponseEcho",
 	encode(message: ResponseEcho, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.message !== undefined) {
+		if (message.message && message.message !== "") {
 			writer.uint32(10).string(message.message)
 		}
 		return writer
@@ -3896,16 +3896,16 @@ function createBaseResponseInfo(): ResponseInfo {
 export const ResponseInfo = {
 	typeUrl: "/tendermint.abci.ResponseInfo",
 	encode(message: ResponseInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.data !== undefined) {
+		if (message.data && message.data !== "") {
 			writer.uint32(10).string(message.data)
 		}
-		if (message.version !== undefined) {
+		if (message.version && message.version !== "") {
 			writer.uint32(18).string(message.version)
 		}
-		if (message.appVersion !== undefined) {
+		if (message.appVersion && message.appVersion !== BigInt(0)) {
 			writer.uint32(24).uint64(message.appVersion)
 		}
-		if (message.lastBlockHeight !== undefined) {
+		if (message.lastBlockHeight && message.lastBlockHeight !== BigInt(0)) {
 			writer.uint32(32).int64(message.lastBlockHeight)
 		}
 		if (message.lastBlockAppHash.length !== 0) {
@@ -4117,16 +4117,16 @@ function createBaseResponseQuery(): ResponseQuery {
 export const ResponseQuery = {
 	typeUrl: "/tendermint.abci.ResponseQuery",
 	encode(message: ResponseQuery, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.code !== undefined) {
+		if (message.code && message.code !== 0) {
 			writer.uint32(8).uint32(message.code)
 		}
-		if (message.log !== undefined) {
+		if (message.log && message.log !== "") {
 			writer.uint32(26).string(message.log)
 		}
-		if (message.info !== undefined) {
+		if (message.info && message.info !== "") {
 			writer.uint32(34).string(message.info)
 		}
-		if (message.index !== undefined) {
+		if (message.index && message.index !== BigInt(0)) {
 			writer.uint32(40).int64(message.index)
 		}
 		if (message.key.length !== 0) {
@@ -4138,10 +4138,10 @@ export const ResponseQuery = {
 		if (message.proofOps !== undefined) {
 			ProofOps.encode(message.proofOps, writer.uint32(66).fork()).ldelim()
 		}
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(72).int64(message.height)
 		}
-		if (message.codespace !== undefined) {
+		if (message.codespace && message.codespace !== "") {
 			writer.uint32(82).string(message.codespace)
 		}
 		return writer
@@ -4284,28 +4284,28 @@ function createBaseResponseCheckTx(): ResponseCheckTx {
 export const ResponseCheckTx = {
 	typeUrl: "/tendermint.abci.ResponseCheckTx",
 	encode(message: ResponseCheckTx, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.code !== undefined) {
+		if (message.code && message.code !== 0) {
 			writer.uint32(8).uint32(message.code)
 		}
 		if (message.data.length !== 0) {
 			writer.uint32(18).bytes(message.data)
 		}
-		if (message.log !== undefined) {
+		if (message.log && message.log !== "") {
 			writer.uint32(26).string(message.log)
 		}
-		if (message.info !== undefined) {
+		if (message.info && message.info !== "") {
 			writer.uint32(34).string(message.info)
 		}
-		if (message.gasWanted !== undefined) {
+		if (message.gasWanted && message.gasWanted !== BigInt(0)) {
 			writer.uint32(40).int64(message.gasWanted)
 		}
-		if (message.gasUsed !== undefined) {
+		if (message.gasUsed && message.gasUsed !== BigInt(0)) {
 			writer.uint32(48).int64(message.gasUsed)
 		}
 		for (const v of message.events) {
 			Event.encode(v!, writer.uint32(58).fork()).ldelim()
 		}
-		if (message.codespace !== undefined) {
+		if (message.codespace && message.codespace !== "") {
 			writer.uint32(66).string(message.codespace)
 		}
 		return writer
@@ -4432,7 +4432,7 @@ function createBaseResponseCommit(): ResponseCommit {
 export const ResponseCommit = {
 	typeUrl: "/tendermint.abci.ResponseCommit",
 	encode(message: ResponseCommit, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.retainHeight !== undefined) {
+		if (message.retainHeight && message.retainHeight !== BigInt(0)) {
 			writer.uint32(24).int64(message.retainHeight)
 		}
 		return writer
@@ -5197,7 +5197,7 @@ function createBaseCommitInfo(): CommitInfo {
 export const CommitInfo = {
 	typeUrl: "/tendermint.abci.CommitInfo",
 	encode(message: CommitInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.round !== undefined) {
+		if (message.round && message.round !== 0) {
 			writer.uint32(8).int32(message.round)
 		}
 		for (const v of message.votes) {
@@ -5274,7 +5274,7 @@ function createBaseExtendedCommitInfo(): ExtendedCommitInfo {
 export const ExtendedCommitInfo = {
 	typeUrl: "/tendermint.abci.ExtendedCommitInfo",
 	encode(message: ExtendedCommitInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.round !== undefined) {
+		if (message.round && message.round !== 0) {
 			writer.uint32(8).int32(message.round)
 		}
 		for (const v of message.votes) {
@@ -5351,7 +5351,7 @@ function createBaseEvent(): Event {
 export const Event = {
 	typeUrl: "/tendermint.abci.Event",
 	encode(message: Event, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.type !== undefined) {
+		if (message.type && message.type !== "") {
 			writer.uint32(10).string(message.type)
 		}
 		for (const v of message.attributes) {
@@ -5429,13 +5429,13 @@ function createBaseEventAttribute(): EventAttribute {
 export const EventAttribute = {
 	typeUrl: "/tendermint.abci.EventAttribute",
 	encode(message: EventAttribute, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.key !== undefined) {
+		if (message.key && message.key !== "") {
 			writer.uint32(10).string(message.key)
 		}
-		if (message.value !== undefined) {
+		if (message.value && message.value !== "") {
 			writer.uint32(18).string(message.value)
 		}
-		if (message.index !== undefined) {
+		if (message.index === true) {
 			writer.uint32(24).bool(message.index)
 		}
 		return writer
@@ -5521,28 +5521,28 @@ function createBaseExecTxResult(): ExecTxResult {
 export const ExecTxResult = {
 	typeUrl: "/tendermint.abci.ExecTxResult",
 	encode(message: ExecTxResult, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.code !== undefined) {
+		if (message.code && message.code !== 0) {
 			writer.uint32(8).uint32(message.code)
 		}
 		if (message.data.length !== 0) {
 			writer.uint32(18).bytes(message.data)
 		}
-		if (message.log !== undefined) {
+		if (message.log && message.log !== "") {
 			writer.uint32(26).string(message.log)
 		}
-		if (message.info !== undefined) {
+		if (message.info && message.info !== "") {
 			writer.uint32(34).string(message.info)
 		}
-		if (message.gasWanted !== undefined) {
+		if (message.gasWanted && message.gasWanted !== BigInt(0)) {
 			writer.uint32(40).int64(message.gasWanted)
 		}
-		if (message.gasUsed !== undefined) {
+		if (message.gasUsed && message.gasUsed !== BigInt(0)) {
 			writer.uint32(48).int64(message.gasUsed)
 		}
 		for (const v of message.events) {
 			Event.encode(v!, writer.uint32(58).fork()).ldelim()
 		}
-		if (message.codespace !== undefined) {
+		if (message.codespace && message.codespace !== "") {
 			writer.uint32(66).string(message.codespace)
 		}
 		return writer
@@ -5672,10 +5672,10 @@ function createBaseTxResult(): TxResult {
 export const TxResult = {
 	typeUrl: "/tendermint.abci.TxResult",
 	encode(message: TxResult, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(8).int64(message.height)
 		}
-		if (message.index !== undefined) {
+		if (message.index && message.index !== 0) {
 			writer.uint32(16).uint32(message.index)
 		}
 		if (message.tx.length !== 0) {
@@ -5778,7 +5778,7 @@ export const Validator = {
 		if (message.address.length !== 0) {
 			writer.uint32(10).bytes(message.address)
 		}
-		if (message.power !== undefined) {
+		if (message.power && message.power !== BigInt(0)) {
 			writer.uint32(24).int64(message.power)
 		}
 		return writer
@@ -5856,7 +5856,7 @@ export const ValidatorUpdate = {
 		if (message.pubKey !== undefined) {
 			PublicKey.encode(message.pubKey, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.power !== undefined) {
+		if (message.power && message.power !== BigInt(0)) {
 			writer.uint32(16).int64(message.power)
 		}
 		return writer
@@ -6127,13 +6127,13 @@ export const Misbehavior = {
 		if (message.validator !== undefined) {
 			Validator.encode(message.validator, writer.uint32(18).fork()).ldelim()
 		}
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(24).int64(message.height)
 		}
 		if (message.time !== undefined) {
 			Timestamp.encode(toTimestamp(message.time), writer.uint32(34).fork()).ldelim()
 		}
-		if (message.totalVotingPower !== undefined) {
+		if (message.totalVotingPower && message.totalVotingPower !== BigInt(0)) {
 			writer.uint32(40).int64(message.totalVotingPower)
 		}
 		return writer
@@ -6242,13 +6242,13 @@ function createBaseSnapshot(): Snapshot {
 export const Snapshot = {
 	typeUrl: "/tendermint.abci.Snapshot",
 	encode(message: Snapshot, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(8).uint64(message.height)
 		}
-		if (message.format !== undefined) {
+		if (message.format && message.format !== 0) {
 			writer.uint32(16).uint32(message.format)
 		}
-		if (message.chunks !== undefined) {
+		if (message.chunks && message.chunks !== 0) {
 			writer.uint32(24).uint32(message.chunks)
 		}
 		if (message.hash.length !== 0) {

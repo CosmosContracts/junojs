@@ -3,7 +3,7 @@ import { BaseAccount, type BaseAccountAmino } from "../../../../cosmos/auth/v1be
 /** An InterchainAccount is defined as a BaseAccount & the address of the account owner on the controller chain */
 export interface InterchainAccount {
 	$typeUrl?: "/ibc.applications.interchain_accounts.v1.InterchainAccount"
-	baseAccount?: BaseAccount
+	baseAccount?: BaseAccount | undefined
 	accountOwner: string
 }
 export interface InterchainAccountProtoMsg {
@@ -12,7 +12,7 @@ export interface InterchainAccountProtoMsg {
 }
 /** An InterchainAccount is defined as a BaseAccount & the address of the account owner on the controller chain */
 export interface InterchainAccountAmino {
-	base_account?: BaseAccountAmino
+	base_account?: BaseAccountAmino | undefined
 	account_owner?: string
 }
 export interface InterchainAccountAminoMsg {
@@ -32,7 +32,7 @@ export const InterchainAccount = {
 		if (message.baseAccount !== undefined) {
 			BaseAccount.encode(message.baseAccount, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.accountOwner !== undefined) {
+		if (message.accountOwner && message.accountOwner !== "") {
 			writer.uint32(18).string(message.accountOwner)
 		}
 		return writer

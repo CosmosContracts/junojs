@@ -7,7 +7,7 @@ export interface MsgRegisterFeePayContract {
 	/** The wallet address of the sender. */
 	senderAddress: string
 	/** The fee pay contract to register. */
-	feePayContract?: FeePayContract
+	feePayContract?: FeePayContract | undefined
 }
 export interface MsgRegisterFeePayContractProtoMsg {
 	typeUrl: "/juno.feepay.v1.MsgRegisterFeePayContract"
@@ -18,7 +18,7 @@ export interface MsgRegisterFeePayContractAmino {
 	/** The wallet address of the sender. */
 	sender_address?: string
 	/** The fee pay contract to register. */
-	fee_pay_contract?: FeePayContractAmino
+	fee_pay_contract?: FeePayContractAmino | undefined
 }
 export interface MsgRegisterFeePayContractAminoMsg {
 	type: "juno/x/feepay/MsgRegisterFeePayContract"
@@ -155,7 +155,7 @@ export interface MsgUpdateParams {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params: Params
+	params: Params | undefined
 }
 export interface MsgUpdateParamsProtoMsg {
 	typeUrl: "/juno.feepay.v1.MsgUpdateParams"
@@ -170,7 +170,7 @@ export interface MsgUpdateParamsAmino {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params: ParamsAmino
+	params: ParamsAmino | undefined
 }
 export interface MsgUpdateParamsAminoMsg {
 	type: "juno/x/feepay/MsgUpdateParams"
@@ -206,7 +206,7 @@ export const MsgRegisterFeePayContract = {
 		message: MsgRegisterFeePayContract,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.senderAddress !== undefined) {
+		if (message.senderAddress && message.senderAddress !== "") {
 			writer.uint32(10).string(message.senderAddress)
 		}
 		if (message.feePayContract !== undefined) {
@@ -354,10 +354,10 @@ export const MsgUnregisterFeePayContract = {
 		message: MsgUnregisterFeePayContract,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.senderAddress !== undefined) {
+		if (message.senderAddress && message.senderAddress !== "") {
 			writer.uint32(10).string(message.senderAddress)
 		}
-		if (message.contractAddress !== undefined) {
+		if (message.contractAddress && message.contractAddress !== "") {
 			writer.uint32(18).string(message.contractAddress)
 		}
 		return writer
@@ -500,10 +500,10 @@ export const MsgFundFeePayContract = {
 		message: MsgFundFeePayContract,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.senderAddress !== undefined) {
+		if (message.senderAddress && message.senderAddress !== "") {
 			writer.uint32(10).string(message.senderAddress)
 		}
-		if (message.contractAddress !== undefined) {
+		if (message.contractAddress && message.contractAddress !== "") {
 			writer.uint32(18).string(message.contractAddress)
 		}
 		for (const v of message.amount) {
@@ -651,13 +651,13 @@ export const MsgUpdateFeePayContractWalletLimit = {
 		message: MsgUpdateFeePayContractWalletLimit,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.senderAddress !== undefined) {
+		if (message.senderAddress && message.senderAddress !== "") {
 			writer.uint32(10).string(message.senderAddress)
 		}
-		if (message.contractAddress !== undefined) {
+		if (message.contractAddress && message.contractAddress !== "") {
 			writer.uint32(18).string(message.contractAddress)
 		}
-		if (message.walletLimit !== undefined) {
+		if (message.walletLimit && message.walletLimit !== BigInt(0)) {
 			writer.uint32(24).uint64(message.walletLimit)
 		}
 		return writer
@@ -825,7 +825,7 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
 export const MsgUpdateParams = {
 	typeUrl: "/juno.feepay.v1.MsgUpdateParams",
 	encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.authority !== undefined) {
+		if (message.authority && message.authority !== "") {
 			writer.uint32(10).string(message.authority)
 		}
 		if (message.params !== undefined) {

@@ -24,11 +24,11 @@ export interface GenesisState {
 	/** proposals defines all the proposals present at genesis. */
 	proposals: Proposal[]
 	/** deposit_params defines all the parameters related to deposit. */
-	depositParams: DepositParams
+	depositParams: DepositParams | undefined
 	/** voting_params defines all the parameters related to voting. */
-	votingParams: VotingParams
+	votingParams: VotingParams | undefined
 	/** tally_params defines all the parameters related to tally. */
-	tallyParams: TallyParams
+	tallyParams: TallyParams | undefined
 }
 export interface GenesisStateProtoMsg {
 	typeUrl: "/cosmos.gov.v1beta1.GenesisState"
@@ -45,11 +45,11 @@ export interface GenesisStateAmino {
 	/** proposals defines all the proposals present at genesis. */
 	proposals: ProposalAmino[]
 	/** deposit_params defines all the parameters related to deposit. */
-	deposit_params: DepositParamsAmino
+	deposit_params: DepositParamsAmino | undefined
 	/** voting_params defines all the parameters related to voting. */
-	voting_params: VotingParamsAmino
+	voting_params: VotingParamsAmino | undefined
 	/** tally_params defines all the parameters related to tally. */
-	tally_params: TallyParamsAmino
+	tally_params: TallyParamsAmino | undefined
 }
 export interface GenesisStateAminoMsg {
 	type: "cosmos-sdk/GenesisState"
@@ -69,7 +69,7 @@ function createBaseGenesisState(): GenesisState {
 export const GenesisState = {
 	typeUrl: "/cosmos.gov.v1beta1.GenesisState",
 	encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.startingProposalId !== undefined) {
+		if (message.startingProposalId && message.startingProposalId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.startingProposalId)
 		}
 		for (const v of message.deposits) {

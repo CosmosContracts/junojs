@@ -10,7 +10,7 @@ export interface MsgUpdateParams {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params: Params
+	params: Params | undefined
 }
 export interface MsgUpdateParamsProtoMsg {
 	typeUrl: "/ibc.applications.interchain_accounts.host.v1.MsgUpdateParams"
@@ -25,7 +25,7 @@ export interface MsgUpdateParamsAmino {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params?: ParamsAmino
+	params?: ParamsAmino | undefined
 }
 export interface MsgUpdateParamsAminoMsg {
 	type: "cosmos-sdk/MsgUpdateParams"
@@ -96,7 +96,7 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
 export const MsgUpdateParams = {
 	typeUrl: "/ibc.applications.interchain_accounts.host.v1.MsgUpdateParams",
 	encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(10).string(message.signer)
 		}
 		if (message.params !== undefined) {
@@ -236,7 +236,7 @@ function createBaseMsgModuleQuerySafe(): MsgModuleQuerySafe {
 export const MsgModuleQuerySafe = {
 	typeUrl: "/ibc.applications.interchain_accounts.host.v1.MsgModuleQuerySafe",
 	encode(message: MsgModuleQuerySafe, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(10).string(message.signer)
 		}
 		for (const v of message.requests) {
@@ -322,7 +322,7 @@ export const MsgModuleQuerySafeResponse = {
 		message: MsgModuleQuerySafeResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(8).uint64(message.height)
 		}
 		for (const v of message.responses) {

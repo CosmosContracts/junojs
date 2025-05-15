@@ -52,11 +52,11 @@ export interface QueryConnectionRequestAminoMsg {
  */
 export interface QueryConnectionResponse {
 	/** connection associated with the request identifier */
-	connection?: ConnectionEnd
+	connection?: ConnectionEnd | undefined
 	/** merkle proof of existence */
 	proof: Uint8Array
 	/** height at which the proof was retrieved */
-	proofHeight: Height
+	proofHeight: Height | undefined
 }
 export interface QueryConnectionResponseProtoMsg {
 	typeUrl: "/ibc.core.connection.v1.QueryConnectionResponse"
@@ -69,11 +69,11 @@ export interface QueryConnectionResponseProtoMsg {
  */
 export interface QueryConnectionResponseAmino {
 	/** connection associated with the request identifier */
-	connection?: ConnectionEndAmino
+	connection?: ConnectionEndAmino | undefined
 	/** merkle proof of existence */
 	proof?: string
 	/** height at which the proof was retrieved */
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 }
 export interface QueryConnectionResponseAminoMsg {
 	type: "cosmos-sdk/QueryConnectionResponse"
@@ -84,7 +84,7 @@ export interface QueryConnectionResponseAminoMsg {
  * method
  */
 export interface QueryConnectionsRequest {
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 }
 export interface QueryConnectionsRequestProtoMsg {
 	typeUrl: "/ibc.core.connection.v1.QueryConnectionsRequest"
@@ -95,7 +95,7 @@ export interface QueryConnectionsRequestProtoMsg {
  * method
  */
 export interface QueryConnectionsRequestAmino {
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 }
 export interface QueryConnectionsRequestAminoMsg {
 	type: "cosmos-sdk/QueryConnectionsRequest"
@@ -109,9 +109,9 @@ export interface QueryConnectionsResponse {
 	/** list of stored connections of the chain. */
 	connections: IdentifiedConnection[]
 	/** pagination response */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 	/** query block height */
-	height: Height
+	height: Height | undefined
 }
 export interface QueryConnectionsResponseProtoMsg {
 	typeUrl: "/ibc.core.connection.v1.QueryConnectionsResponse"
@@ -125,9 +125,9 @@ export interface QueryConnectionsResponseAmino {
 	/** list of stored connections of the chain. */
 	connections?: IdentifiedConnectionAmino[]
 	/** pagination response */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 	/** query block height */
-	height?: HeightAmino
+	height?: HeightAmino | undefined
 }
 export interface QueryConnectionsResponseAminoMsg {
 	type: "cosmos-sdk/QueryConnectionsResponse"
@@ -167,7 +167,7 @@ export interface QueryClientConnectionsResponse {
 	/** merkle proof of existence */
 	proof: Uint8Array
 	/** height at which the proof was generated */
-	proofHeight: Height
+	proofHeight: Height | undefined
 }
 export interface QueryClientConnectionsResponseProtoMsg {
 	typeUrl: "/ibc.core.connection.v1.QueryClientConnectionsResponse"
@@ -183,7 +183,7 @@ export interface QueryClientConnectionsResponseAmino {
 	/** merkle proof of existence */
 	proof?: string
 	/** height at which the proof was generated */
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 }
 export interface QueryClientConnectionsResponseAminoMsg {
 	type: "cosmos-sdk/QueryClientConnectionsResponse"
@@ -219,11 +219,11 @@ export interface QueryConnectionClientStateRequestAminoMsg {
  */
 export interface QueryConnectionClientStateResponse {
 	/** client state associated with the channel */
-	identifiedClientState?: IdentifiedClientState
+	identifiedClientState?: IdentifiedClientState | undefined
 	/** merkle proof of existence */
 	proof: Uint8Array
 	/** height at which the proof was retrieved */
-	proofHeight: Height
+	proofHeight: Height | undefined
 }
 export interface QueryConnectionClientStateResponseProtoMsg {
 	typeUrl: "/ibc.core.connection.v1.QueryConnectionClientStateResponse"
@@ -235,11 +235,11 @@ export interface QueryConnectionClientStateResponseProtoMsg {
  */
 export interface QueryConnectionClientStateResponseAmino {
 	/** client state associated with the channel */
-	identified_client_state?: IdentifiedClientStateAmino
+	identified_client_state?: IdentifiedClientStateAmino | undefined
 	/** merkle proof of existence */
 	proof?: string
 	/** height at which the proof was retrieved */
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 }
 export interface QueryConnectionClientStateResponseAminoMsg {
 	type: "cosmos-sdk/QueryConnectionClientStateResponse"
@@ -279,13 +279,13 @@ export interface QueryConnectionConsensusStateRequestAminoMsg {
  */
 export interface QueryConnectionConsensusStateResponse {
 	/** consensus state associated with the channel */
-	consensusState?: Any
+	consensusState?: Any | undefined
 	/** client ID associated with the consensus state */
 	clientId: string
 	/** merkle proof of existence */
 	proof: Uint8Array
 	/** height at which the proof was retrieved */
-	proofHeight: Height
+	proofHeight: Height | undefined
 }
 export interface QueryConnectionConsensusStateResponseProtoMsg {
 	typeUrl: "/ibc.core.connection.v1.QueryConnectionConsensusStateResponse"
@@ -297,13 +297,13 @@ export interface QueryConnectionConsensusStateResponseProtoMsg {
  */
 export interface QueryConnectionConsensusStateResponseAmino {
 	/** consensus state associated with the channel */
-	consensus_state?: AnyAmino
+	consensus_state?: AnyAmino | undefined
 	/** client ID associated with the consensus state */
 	client_id?: string
 	/** merkle proof of existence */
 	proof?: string
 	/** height at which the proof was retrieved */
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 }
 export interface QueryConnectionConsensusStateResponseAminoMsg {
 	type: "cosmos-sdk/QueryConnectionConsensusStateResponse"
@@ -324,7 +324,7 @@ export interface QueryConnectionParamsRequestAminoMsg {
 /** QueryConnectionParamsResponse is the response type for the Query/ConnectionParams RPC method. */
 export interface QueryConnectionParamsResponse {
 	/** params defines the parameters of the module. */
-	params?: Params
+	params?: Params | undefined
 }
 export interface QueryConnectionParamsResponseProtoMsg {
 	typeUrl: "/ibc.core.connection.v1.QueryConnectionParamsResponse"
@@ -333,7 +333,7 @@ export interface QueryConnectionParamsResponseProtoMsg {
 /** QueryConnectionParamsResponse is the response type for the Query/ConnectionParams RPC method. */
 export interface QueryConnectionParamsResponseAmino {
 	/** params defines the parameters of the module. */
-	params?: ParamsAmino
+	params?: ParamsAmino | undefined
 }
 export interface QueryConnectionParamsResponseAminoMsg {
 	type: "cosmos-sdk/QueryConnectionParamsResponse"
@@ -350,7 +350,7 @@ export const QueryConnectionRequest = {
 		message: QueryConnectionRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.connectionId !== undefined) {
+		if (message.connectionId && message.connectionId !== "") {
 			writer.uint32(10).string(message.connectionId)
 		}
 		return writer
@@ -706,7 +706,7 @@ export const QueryClientConnectionsRequest = {
 		message: QueryClientConnectionsRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.clientId !== undefined) {
+		if (message.clientId && message.clientId !== "") {
 			writer.uint32(10).string(message.clientId)
 		}
 		return writer
@@ -879,7 +879,7 @@ export const QueryConnectionClientStateRequest = {
 		message: QueryConnectionClientStateRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.connectionId !== undefined) {
+		if (message.connectionId && message.connectionId !== "") {
 			writer.uint32(10).string(message.connectionId)
 		}
 		return writer
@@ -1082,13 +1082,13 @@ export const QueryConnectionConsensusStateRequest = {
 		message: QueryConnectionConsensusStateRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.connectionId !== undefined) {
+		if (message.connectionId && message.connectionId !== "") {
 			writer.uint32(10).string(message.connectionId)
 		}
-		if (message.revisionNumber !== undefined) {
+		if (message.revisionNumber && message.revisionNumber !== BigInt(0)) {
 			writer.uint32(16).uint64(message.revisionNumber)
 		}
-		if (message.revisionHeight !== undefined) {
+		if (message.revisionHeight && message.revisionHeight !== BigInt(0)) {
 			writer.uint32(24).uint64(message.revisionHeight)
 		}
 		return writer
@@ -1204,7 +1204,7 @@ export const QueryConnectionConsensusStateResponse = {
 		if (message.consensusState !== undefined) {
 			Any.encode(message.consensusState, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.clientId !== undefined) {
+		if (message.clientId && message.clientId !== "") {
 			writer.uint32(18).string(message.clientId)
 		}
 		if (message.proof.length !== 0) {

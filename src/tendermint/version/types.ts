@@ -60,10 +60,10 @@ function createBaseApp(): App {
 export const App = {
 	typeUrl: "/tendermint.version.App",
 	encode(message: App, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.protocol !== undefined) {
+		if (message.protocol && message.protocol !== BigInt(0)) {
 			writer.uint32(8).uint64(message.protocol)
 		}
-		if (message.software !== undefined) {
+		if (message.software && message.software !== "") {
 			writer.uint32(18).string(message.software)
 		}
 		return writer
@@ -138,10 +138,10 @@ function createBaseConsensus(): Consensus {
 export const Consensus = {
 	typeUrl: "/tendermint.version.Consensus",
 	encode(message: Consensus, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.block !== undefined) {
+		if (message.block && message.block !== BigInt(0)) {
 			writer.uint32(8).uint64(message.block)
 		}
-		if (message.app !== undefined) {
+		if (message.app && message.app !== BigInt(0)) {
 			writer.uint32(16).uint64(message.app)
 		}
 		return writer

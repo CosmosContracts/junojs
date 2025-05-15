@@ -86,10 +86,10 @@ function createBaseDenomTrace(): DenomTrace {
 export const DenomTrace = {
 	typeUrl: "/ibc.applications.transfer.v1.DenomTrace",
 	encode(message: DenomTrace, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.path !== undefined) {
+		if (message.path && message.path !== "") {
 			writer.uint32(10).string(message.path)
 		}
-		if (message.baseDenom !== undefined) {
+		if (message.baseDenom && message.baseDenom !== "") {
 			writer.uint32(18).string(message.baseDenom)
 		}
 		return writer
@@ -167,10 +167,10 @@ function createBaseParams(): Params {
 export const Params = {
 	typeUrl: "/ibc.applications.transfer.v1.Params",
 	encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.sendEnabled !== undefined) {
+		if (message.sendEnabled === true) {
 			writer.uint32(8).bool(message.sendEnabled)
 		}
-		if (message.receiveEnabled !== undefined) {
+		if (message.receiveEnabled === true) {
 			writer.uint32(16).bool(message.receiveEnabled)
 		}
 		return writer

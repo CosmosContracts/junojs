@@ -5,8 +5,8 @@ import { Params as Params2 } from "../../host/v1/host"
 import type { ParamsAmino as Params2Amino } from "../../host/v1/host"
 /** GenesisState defines the interchain accounts genesis state */
 export interface GenesisState {
-	controllerGenesisState: ControllerGenesisState
-	hostGenesisState: HostGenesisState
+	controllerGenesisState: ControllerGenesisState | undefined
+	hostGenesisState: HostGenesisState | undefined
 }
 export interface GenesisStateProtoMsg {
 	typeUrl: "/ibc.applications.interchain_accounts.genesis.v1.GenesisState"
@@ -14,8 +14,8 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState defines the interchain accounts genesis state */
 export interface GenesisStateAmino {
-	controller_genesis_state?: ControllerGenesisStateAmino
-	host_genesis_state?: HostGenesisStateAmino
+	controller_genesis_state?: ControllerGenesisStateAmino | undefined
+	host_genesis_state?: HostGenesisStateAmino | undefined
 }
 export interface GenesisStateAminoMsg {
 	type: "cosmos-sdk/GenesisState"
@@ -26,7 +26,7 @@ export interface ControllerGenesisState {
 	activeChannels: ActiveChannel[]
 	interchainAccounts: RegisteredInterchainAccount[]
 	ports: string[]
-	params: Params1
+	params: Params1 | undefined
 }
 export interface ControllerGenesisStateProtoMsg {
 	typeUrl: "/ibc.applications.interchain_accounts.genesis.v1.ControllerGenesisState"
@@ -37,7 +37,7 @@ export interface ControllerGenesisStateAmino {
 	active_channels?: ActiveChannelAmino[]
 	interchain_accounts?: RegisteredInterchainAccountAmino[]
 	ports?: string[]
-	params?: Params1Amino
+	params?: Params1Amino | undefined
 }
 export interface ControllerGenesisStateAminoMsg {
 	type: "cosmos-sdk/ControllerGenesisState"
@@ -48,7 +48,7 @@ export interface HostGenesisState {
 	activeChannels: ActiveChannel[]
 	interchainAccounts: RegisteredInterchainAccount[]
 	port: string
-	params: Params2
+	params: Params2 | undefined
 }
 export interface HostGenesisStateProtoMsg {
 	typeUrl: "/ibc.applications.interchain_accounts.genesis.v1.HostGenesisState"
@@ -59,7 +59,7 @@ export interface HostGenesisStateAmino {
 	active_channels?: ActiveChannelAmino[]
 	interchain_accounts?: RegisteredInterchainAccountAmino[]
 	port?: string
-	params?: Params2Amino
+	params?: Params2Amino | undefined
 }
 export interface HostGenesisStateAminoMsg {
 	type: "cosmos-sdk/HostGenesisState"
@@ -357,7 +357,7 @@ export const HostGenesisState = {
 		for (const v of message.interchainAccounts) {
 			RegisteredInterchainAccount.encode(v!, writer.uint32(18).fork()).ldelim()
 		}
-		if (message.port !== undefined) {
+		if (message.port && message.port !== "") {
 			writer.uint32(26).string(message.port)
 		}
 		if (message.params !== undefined) {
@@ -471,16 +471,16 @@ function createBaseActiveChannel(): ActiveChannel {
 export const ActiveChannel = {
 	typeUrl: "/ibc.applications.interchain_accounts.genesis.v1.ActiveChannel",
 	encode(message: ActiveChannel, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.connectionId !== undefined) {
+		if (message.connectionId && message.connectionId !== "") {
 			writer.uint32(10).string(message.connectionId)
 		}
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(18).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(26).string(message.channelId)
 		}
-		if (message.isMiddlewareEnabled !== undefined) {
+		if (message.isMiddlewareEnabled === true) {
 			writer.uint32(32).bool(message.isMiddlewareEnabled)
 		}
 		return writer
@@ -579,13 +579,13 @@ export const RegisteredInterchainAccount = {
 		message: RegisteredInterchainAccount,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.connectionId !== undefined) {
+		if (message.connectionId && message.connectionId !== "") {
 			writer.uint32(10).string(message.connectionId)
 		}
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(18).string(message.portId)
 		}
-		if (message.accountAddress !== undefined) {
+		if (message.accountAddress && message.accountAddress !== "") {
 			writer.uint32(26).string(message.accountAddress)
 		}
 		return writer

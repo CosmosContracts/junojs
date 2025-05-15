@@ -9,8 +9,8 @@ import { Counterparty, type CounterpartyAmino, Version, type VersionAmino } from
  */
 export interface MsgConnectionOpenInit {
 	clientId: string
-	counterparty: Counterparty
-	version?: Version
+	counterparty: Counterparty | undefined
+	version?: Version | undefined
 	delayPeriod: bigint
 	signer: string
 }
@@ -24,8 +24,8 @@ export interface MsgConnectionOpenInitProtoMsg {
  */
 export interface MsgConnectionOpenInitAmino {
 	client_id?: string
-	counterparty?: CounterpartyAmino
-	version?: VersionAmino
+	counterparty?: CounterpartyAmino | undefined
+	version?: VersionAmino | undefined
 	delay_period?: string
 	signer?: string
 }
@@ -61,11 +61,11 @@ export interface MsgConnectionOpenTry {
 	/** @deprecated */
 	previousConnectionId: string
 	/** @deprecated */
-	clientState?: Any
-	counterparty: Counterparty
+	clientState?: Any | undefined
+	counterparty: Counterparty | undefined
 	delayPeriod: bigint
 	counterpartyVersions: Version[]
-	proofHeight: Height
+	proofHeight: Height | undefined
 	/**
 	 * proof of the initialization the connection on Chain A: `UNITIALIZED ->
 	 * INIT`
@@ -78,7 +78,7 @@ export interface MsgConnectionOpenTry {
 	/** @deprecated */
 	proofConsensus: Uint8Array
 	/** @deprecated */
-	consensusHeight: Height
+	consensusHeight: Height | undefined
 	signer: string
 	/** optional proof data for host state machines that are unable to introspect their own consensus state */
 	/** @deprecated */
@@ -98,11 +98,11 @@ export interface MsgConnectionOpenTryAmino {
 	/** @deprecated */
 	previous_connection_id?: string
 	/** @deprecated */
-	client_state?: AnyAmino
-	counterparty?: CounterpartyAmino
+	client_state?: AnyAmino | undefined
+	counterparty?: CounterpartyAmino | undefined
 	delay_period?: string
 	counterparty_versions?: VersionAmino[]
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 	/**
 	 * proof of the initialization the connection on Chain A: `UNITIALIZED ->
 	 * INIT`
@@ -115,7 +115,7 @@ export interface MsgConnectionOpenTryAmino {
 	/** @deprecated */
 	proof_consensus?: string
 	/** @deprecated */
-	consensus_height?: HeightAmino
+	consensus_height?: HeightAmino | undefined
 	signer?: string
 	/** optional proof data for host state machines that are unable to introspect their own consensus state */
 	/** @deprecated */
@@ -144,10 +144,10 @@ export interface MsgConnectionOpenTryResponseAminoMsg {
 export interface MsgConnectionOpenAck {
 	connectionId: string
 	counterpartyConnectionId: string
-	version?: Version
+	version?: Version | undefined
 	/** @deprecated */
-	clientState?: Any
-	proofHeight: Height
+	clientState?: Any | undefined
+	proofHeight: Height | undefined
 	/**
 	 * proof of the initialization the connection on Chain B: `UNITIALIZED ->
 	 * TRYOPEN`
@@ -160,7 +160,7 @@ export interface MsgConnectionOpenAck {
 	/** @deprecated */
 	proofConsensus: Uint8Array
 	/** @deprecated */
-	consensusHeight: Height
+	consensusHeight: Height | undefined
 	signer: string
 	/** optional proof data for host state machines that are unable to introspect their own consensus state */
 	/** @deprecated */
@@ -177,10 +177,10 @@ export interface MsgConnectionOpenAckProtoMsg {
 export interface MsgConnectionOpenAckAmino {
 	connection_id?: string
 	counterparty_connection_id?: string
-	version?: VersionAmino
+	version?: VersionAmino | undefined
 	/** @deprecated */
-	client_state?: AnyAmino
-	proof_height?: HeightAmino
+	client_state?: AnyAmino | undefined
+	proof_height?: HeightAmino | undefined
 	/**
 	 * proof of the initialization the connection on Chain B: `UNITIALIZED ->
 	 * TRYOPEN`
@@ -193,7 +193,7 @@ export interface MsgConnectionOpenAckAmino {
 	/** @deprecated */
 	proof_consensus?: string
 	/** @deprecated */
-	consensus_height?: HeightAmino
+	consensus_height?: HeightAmino | undefined
 	signer?: string
 	/** optional proof data for host state machines that are unable to introspect their own consensus state */
 	/** @deprecated */
@@ -223,7 +223,7 @@ export interface MsgConnectionOpenConfirm {
 	connectionId: string
 	/** proof for the change of the connection state on Chain A: `INIT -> OPEN` */
 	proofAck: Uint8Array
-	proofHeight: Height
+	proofHeight: Height | undefined
 	signer: string
 }
 export interface MsgConnectionOpenConfirmProtoMsg {
@@ -238,7 +238,7 @@ export interface MsgConnectionOpenConfirmAmino {
 	connection_id?: string
 	/** proof for the change of the connection state on Chain A: `INIT -> OPEN` */
 	proof_ack?: string
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 	signer?: string
 }
 export interface MsgConnectionOpenConfirmAminoMsg {
@@ -272,7 +272,7 @@ export interface MsgUpdateParams {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params: Params
+	params: Params | undefined
 }
 export interface MsgUpdateParamsProtoMsg {
 	typeUrl: "/ibc.core.connection.v1.MsgUpdateParams"
@@ -287,7 +287,7 @@ export interface MsgUpdateParamsAmino {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params?: ParamsAmino
+	params?: ParamsAmino | undefined
 }
 export interface MsgUpdateParamsAminoMsg {
 	type: "cosmos-sdk/MsgUpdateParams"
@@ -320,7 +320,7 @@ export const MsgConnectionOpenInit = {
 		message: MsgConnectionOpenInit,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.clientId !== undefined) {
+		if (message.clientId && message.clientId !== "") {
 			writer.uint32(10).string(message.clientId)
 		}
 		if (message.counterparty !== undefined) {
@@ -329,10 +329,10 @@ export const MsgConnectionOpenInit = {
 		if (message.version !== undefined) {
 			Version.encode(message.version, writer.uint32(26).fork()).ldelim()
 		}
-		if (message.delayPeriod !== undefined) {
+		if (message.delayPeriod && message.delayPeriod !== BigInt(0)) {
 			writer.uint32(32).uint64(message.delayPeriod)
 		}
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(42).string(message.signer)
 		}
 		return writer
@@ -519,10 +519,10 @@ export const MsgConnectionOpenTry = {
 		message: MsgConnectionOpenTry,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.clientId !== undefined) {
+		if (message.clientId && message.clientId !== "") {
 			writer.uint32(10).string(message.clientId)
 		}
-		if (message.previousConnectionId !== undefined) {
+		if (message.previousConnectionId && message.previousConnectionId !== "") {
 			writer.uint32(18).string(message.previousConnectionId)
 		}
 		if (message.clientState !== undefined) {
@@ -531,7 +531,7 @@ export const MsgConnectionOpenTry = {
 		if (message.counterparty !== undefined) {
 			Counterparty.encode(message.counterparty, writer.uint32(34).fork()).ldelim()
 		}
-		if (message.delayPeriod !== undefined) {
+		if (message.delayPeriod && message.delayPeriod !== BigInt(0)) {
 			writer.uint32(40).uint64(message.delayPeriod)
 		}
 		for (const v of message.counterpartyVersions) {
@@ -552,7 +552,7 @@ export const MsgConnectionOpenTry = {
 		if (message.consensusHeight !== undefined) {
 			Height.encode(message.consensusHeight, writer.uint32(90).fork()).ldelim()
 		}
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(98).string(message.signer)
 		}
 		if (message.hostConsensusStateProof.length !== 0) {
@@ -824,10 +824,10 @@ export const MsgConnectionOpenAck = {
 		message: MsgConnectionOpenAck,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.connectionId !== undefined) {
+		if (message.connectionId && message.connectionId !== "") {
 			writer.uint32(10).string(message.connectionId)
 		}
-		if (message.counterpartyConnectionId !== undefined) {
+		if (message.counterpartyConnectionId && message.counterpartyConnectionId !== "") {
 			writer.uint32(18).string(message.counterpartyConnectionId)
 		}
 		if (message.version !== undefined) {
@@ -851,7 +851,7 @@ export const MsgConnectionOpenAck = {
 		if (message.consensusHeight !== undefined) {
 			Height.encode(message.consensusHeight, writer.uint32(74).fork()).ldelim()
 		}
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(82).string(message.signer)
 		}
 		if (message.hostConsensusStateProof.length !== 0) {
@@ -1091,7 +1091,7 @@ export const MsgConnectionOpenConfirm = {
 		message: MsgConnectionOpenConfirm,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.connectionId !== undefined) {
+		if (message.connectionId && message.connectionId !== "") {
 			writer.uint32(10).string(message.connectionId)
 		}
 		if (message.proofAck.length !== 0) {
@@ -1100,7 +1100,7 @@ export const MsgConnectionOpenConfirm = {
 		if (message.proofHeight !== undefined) {
 			Height.encode(message.proofHeight, writer.uint32(26).fork()).ldelim()
 		}
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(34).string(message.signer)
 		}
 		return writer
@@ -1260,7 +1260,7 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
 export const MsgUpdateParams = {
 	typeUrl: "/ibc.core.connection.v1.MsgUpdateParams",
 	encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(10).string(message.signer)
 		}
 		if (message.params !== undefined) {

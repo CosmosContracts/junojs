@@ -128,7 +128,7 @@ export interface Channel {
 	/** whether the channel is ordered or unordered */
 	ordering: Order
 	/** counterparty channel end */
-	counterparty: Counterparty
+	counterparty: Counterparty | undefined
 	/**
 	 * list of connection identifiers, in order, along which packets sent on
 	 * this channel will travel
@@ -157,7 +157,7 @@ export interface ChannelAmino {
 	/** whether the channel is ordered or unordered */
 	ordering?: Order
 	/** counterparty channel end */
-	counterparty?: CounterpartyAmino
+	counterparty?: CounterpartyAmino | undefined
 	/**
 	 * list of connection identifiers, in order, along which packets sent on
 	 * this channel will travel
@@ -185,7 +185,7 @@ export interface IdentifiedChannel {
 	/** whether the channel is ordered or unordered */
 	ordering: Order
 	/** counterparty channel end */
-	counterparty: Counterparty
+	counterparty: Counterparty | undefined
 	/**
 	 * list of connection identifiers, in order, along which packets sent on
 	 * this channel will travel
@@ -217,7 +217,7 @@ export interface IdentifiedChannelAmino {
 	/** whether the channel is ordered or unordered */
 	ordering?: Order
 	/** counterparty channel end */
-	counterparty?: CounterpartyAmino
+	counterparty?: CounterpartyAmino | undefined
 	/**
 	 * list of connection identifiers, in order, along which packets sent on
 	 * this channel will travel
@@ -280,7 +280,7 @@ export interface Packet {
 	/** actual opaque bytes transferred directly to the application module */
 	data: Uint8Array
 	/** block height after which the packet times out */
-	timeoutHeight: Height
+	timeoutHeight: Height | undefined
 	/** block timestamp (in nanoseconds) after which the packet times out */
 	timeoutTimestamp: bigint
 }
@@ -307,7 +307,7 @@ export interface PacketAmino {
 	/** actual opaque bytes transferred directly to the application module */
 	data?: string
 	/** block height after which the packet times out */
-	timeout_height?: HeightAmino
+	timeout_height?: HeightAmino | undefined
 	/** block timestamp (in nanoseconds) after which the packet times out */
 	timeout_timestamp?: string
 }
@@ -430,7 +430,7 @@ export interface AcknowledgementAminoMsg {
  */
 export interface Timeout {
 	/** block height after which the packet or upgrade times out */
-	height: Height
+	height: Height | undefined
 	/** block timestamp (in nanoseconds) after which the packet or upgrade times out */
 	timestamp: bigint
 }
@@ -445,7 +445,7 @@ export interface TimeoutProtoMsg {
  */
 export interface TimeoutAmino {
 	/** block height after which the packet or upgrade times out */
-	height?: HeightAmino
+	height?: HeightAmino | undefined
 	/** block timestamp (in nanoseconds) after which the packet or upgrade times out */
 	timestamp?: string
 }
@@ -456,7 +456,7 @@ export interface TimeoutAminoMsg {
 /** Params defines the set of IBC channel parameters. */
 export interface Params {
 	/** the relative timeout after which channel upgrades will time out. */
-	upgradeTimeout: Timeout
+	upgradeTimeout: Timeout | undefined
 }
 export interface ParamsProtoMsg {
 	typeUrl: "/ibc.core.channel.v1.Params"
@@ -465,7 +465,7 @@ export interface ParamsProtoMsg {
 /** Params defines the set of IBC channel parameters. */
 export interface ParamsAmino {
 	/** the relative timeout after which channel upgrades will time out. */
-	upgrade_timeout?: TimeoutAmino
+	upgrade_timeout?: TimeoutAmino | undefined
 }
 export interface ParamsAminoMsg {
 	type: "cosmos-sdk/Params"
@@ -496,10 +496,10 @@ export const Channel = {
 		for (const v of message.connectionHops) {
 			writer.uint32(34).string(v!)
 		}
-		if (message.version !== undefined) {
+		if (message.version && message.version !== "") {
 			writer.uint32(42).string(message.version)
 		}
-		if (message.upgradeSequence !== undefined) {
+		if (message.upgradeSequence && message.upgradeSequence !== BigInt(0)) {
 			writer.uint32(48).uint64(message.upgradeSequence)
 		}
 		return writer
@@ -638,16 +638,16 @@ export const IdentifiedChannel = {
 		for (const v of message.connectionHops) {
 			writer.uint32(34).string(v!)
 		}
-		if (message.version !== undefined) {
+		if (message.version && message.version !== "") {
 			writer.uint32(42).string(message.version)
 		}
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(50).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(58).string(message.channelId)
 		}
-		if (message.upgradeSequence !== undefined) {
+		if (message.upgradeSequence && message.upgradeSequence !== BigInt(0)) {
 			writer.uint32(64).uint64(message.upgradeSequence)
 		}
 		return writer
@@ -784,10 +784,10 @@ function createBaseCounterparty(): Counterparty {
 export const Counterparty = {
 	typeUrl: "/ibc.core.channel.v1.Counterparty",
 	encode(message: Counterparty, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
 		return writer
@@ -871,19 +871,19 @@ function createBasePacket(): Packet {
 export const Packet = {
 	typeUrl: "/ibc.core.channel.v1.Packet",
 	encode(message: Packet, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.sequence !== undefined) {
+		if (message.sequence && message.sequence !== BigInt(0)) {
 			writer.uint32(8).uint64(message.sequence)
 		}
-		if (message.sourcePort !== undefined) {
+		if (message.sourcePort && message.sourcePort !== "") {
 			writer.uint32(18).string(message.sourcePort)
 		}
-		if (message.sourceChannel !== undefined) {
+		if (message.sourceChannel && message.sourceChannel !== "") {
 			writer.uint32(26).string(message.sourceChannel)
 		}
-		if (message.destinationPort !== undefined) {
+		if (message.destinationPort && message.destinationPort !== "") {
 			writer.uint32(34).string(message.destinationPort)
 		}
-		if (message.destinationChannel !== undefined) {
+		if (message.destinationChannel && message.destinationChannel !== "") {
 			writer.uint32(42).string(message.destinationChannel)
 		}
 		if (message.data.length !== 0) {
@@ -892,7 +892,7 @@ export const Packet = {
 		if (message.timeoutHeight !== undefined) {
 			Height.encode(message.timeoutHeight, writer.uint32(58).fork()).ldelim()
 		}
-		if (message.timeoutTimestamp !== undefined) {
+		if (message.timeoutTimestamp && message.timeoutTimestamp !== BigInt(0)) {
 			writer.uint32(64).uint64(message.timeoutTimestamp)
 		}
 		return writer
@@ -1031,13 +1031,13 @@ function createBasePacketState(): PacketState {
 export const PacketState = {
 	typeUrl: "/ibc.core.channel.v1.PacketState",
 	encode(message: PacketState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
-		if (message.sequence !== undefined) {
+		if (message.sequence && message.sequence !== BigInt(0)) {
 			writer.uint32(24).uint64(message.sequence)
 		}
 		if (message.data.length !== 0) {
@@ -1138,13 +1138,13 @@ function createBasePacketId(): PacketId {
 export const PacketId = {
 	typeUrl: "/ibc.core.channel.v1.PacketId",
 	encode(message: PacketId, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
-		if (message.sequence !== undefined) {
+		if (message.sequence && message.sequence !== BigInt(0)) {
 			writer.uint32(24).uint64(message.sequence)
 		}
 		return writer
@@ -1317,7 +1317,7 @@ export const Timeout = {
 		if (message.height !== undefined) {
 			Height.encode(message.height, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.timestamp !== undefined) {
+		if (message.timestamp && message.timestamp !== BigInt(0)) {
 			writer.uint32(16).uint64(message.timestamp)
 		}
 		return writer

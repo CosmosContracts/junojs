@@ -24,7 +24,7 @@ export interface ValueOp {
 	/** Encoded in ProofOp.Key. */
 	key: Uint8Array
 	/** To encode in ProofOp.Data */
-	proof?: Proof
+	proof?: Proof | undefined
 }
 export interface ValueOpProtoMsg {
 	typeUrl: "/tendermint.crypto.ValueOp"
@@ -34,7 +34,7 @@ export interface ValueOpAmino {
 	/** Encoded in ProofOp.Key. */
 	key?: string
 	/** To encode in ProofOp.Data */
-	proof?: ProofAmino
+	proof?: ProofAmino | undefined
 }
 export interface ValueOpAminoMsg {
 	type: "/tendermint.crypto.ValueOp"
@@ -113,10 +113,10 @@ function createBaseProof(): Proof {
 export const Proof = {
 	typeUrl: "/tendermint.crypto.Proof",
 	encode(message: Proof, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.total !== undefined) {
+		if (message.total && message.total !== BigInt(0)) {
 			writer.uint32(8).int64(message.total)
 		}
-		if (message.index !== undefined) {
+		if (message.index && message.index !== BigInt(0)) {
 			writer.uint32(16).int64(message.index)
 		}
 		if (message.leafHash.length !== 0) {
@@ -297,13 +297,13 @@ function createBaseDominoOp(): DominoOp {
 export const DominoOp = {
 	typeUrl: "/tendermint.crypto.DominoOp",
 	encode(message: DominoOp, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.key !== undefined) {
+		if (message.key && message.key !== "") {
 			writer.uint32(10).string(message.key)
 		}
-		if (message.input !== undefined) {
+		if (message.input && message.input !== "") {
 			writer.uint32(18).string(message.input)
 		}
-		if (message.output !== undefined) {
+		if (message.output && message.output !== "") {
 			writer.uint32(26).string(message.output)
 		}
 		return writer
@@ -384,7 +384,7 @@ function createBaseProofOp(): ProofOp {
 export const ProofOp = {
 	typeUrl: "/tendermint.crypto.ProofOp",
 	encode(message: ProofOp, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.type !== undefined) {
+		if (message.type && message.type !== "") {
 			writer.uint32(10).string(message.type)
 		}
 		if (message.key.length !== 0) {

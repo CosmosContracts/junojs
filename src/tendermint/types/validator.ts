@@ -47,7 +47,7 @@ export function blockIDFlagToJSON(object: BlockIDFlag): string {
 }
 export interface ValidatorSet {
 	validators: Validator[]
-	proposer?: Validator
+	proposer?: Validator | undefined
 	totalVotingPower: bigint
 }
 export interface ValidatorSetProtoMsg {
@@ -56,7 +56,7 @@ export interface ValidatorSetProtoMsg {
 }
 export interface ValidatorSetAmino {
 	validators?: ValidatorAmino[]
-	proposer?: ValidatorAmino
+	proposer?: ValidatorAmino | undefined
 	total_voting_power?: string
 }
 export interface ValidatorSetAminoMsg {
@@ -65,7 +65,7 @@ export interface ValidatorSetAminoMsg {
 }
 export interface Validator {
 	address: Uint8Array
-	pubKey: PublicKey
+	pubKey: PublicKey | undefined
 	votingPower: bigint
 	proposerPriority: bigint
 }
@@ -75,7 +75,7 @@ export interface ValidatorProtoMsg {
 }
 export interface ValidatorAmino {
 	address?: string
-	pub_key?: PublicKeyAmino
+	pub_key?: PublicKeyAmino | undefined
 	voting_power?: string
 	proposer_priority?: string
 }
@@ -84,7 +84,7 @@ export interface ValidatorAminoMsg {
 	value: ValidatorAmino
 }
 export interface SimpleValidator {
-	pubKey?: PublicKey
+	pubKey?: PublicKey | undefined
 	votingPower: bigint
 }
 export interface SimpleValidatorProtoMsg {
@@ -92,7 +92,7 @@ export interface SimpleValidatorProtoMsg {
 	value: Uint8Array
 }
 export interface SimpleValidatorAmino {
-	pub_key?: PublicKeyAmino
+	pub_key?: PublicKeyAmino | undefined
 	voting_power?: string
 }
 export interface SimpleValidatorAminoMsg {
@@ -115,7 +115,7 @@ export const ValidatorSet = {
 		if (message.proposer !== undefined) {
 			Validator.encode(message.proposer, writer.uint32(18).fork()).ldelim()
 		}
-		if (message.totalVotingPower !== undefined) {
+		if (message.totalVotingPower && message.totalVotingPower !== BigInt(0)) {
 			writer.uint32(24).int64(message.totalVotingPower)
 		}
 		return writer
@@ -212,10 +212,10 @@ export const Validator = {
 		if (message.pubKey !== undefined) {
 			PublicKey.encode(message.pubKey, writer.uint32(18).fork()).ldelim()
 		}
-		if (message.votingPower !== undefined) {
+		if (message.votingPower && message.votingPower !== BigInt(0)) {
 			writer.uint32(24).int64(message.votingPower)
 		}
-		if (message.proposerPriority !== undefined) {
+		if (message.proposerPriority && message.proposerPriority !== BigInt(0)) {
 			writer.uint32(32).int64(message.proposerPriority)
 		}
 		return writer
@@ -317,7 +317,7 @@ export const SimpleValidator = {
 		if (message.pubKey !== undefined) {
 			PublicKey.encode(message.pubKey, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.votingPower !== undefined) {
+		if (message.votingPower && message.votingPower !== BigInt(0)) {
 			writer.uint32(16).int64(message.votingPower)
 		}
 		return writer

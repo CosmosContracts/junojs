@@ -14,7 +14,7 @@ import {
 } from "./types"
 /** GenesisState - genesis state of x/wasm */
 export interface GenesisState {
-	params: Params
+	params: Params | undefined
 	codes: Code[]
 	contracts: Contract[]
 	sequences: Sequence[]
@@ -25,7 +25,7 @@ export interface GenesisStateProtoMsg {
 }
 /** GenesisState - genesis state of x/wasm */
 export interface GenesisStateAmino {
-	params: ParamsAmino
+	params: ParamsAmino | undefined
 	codes?: CodeAmino[]
 	contracts?: ContractAmino[]
 	sequences?: SequenceAmino[]
@@ -37,7 +37,7 @@ export interface GenesisStateAminoMsg {
 /** Code struct encompasses CodeInfo and CodeBytes */
 export interface Code {
 	codeId: bigint
-	codeInfo: CodeInfo
+	codeInfo: CodeInfo | undefined
 	codeBytes: Uint8Array
 	/** Pinned to wasmvm cache */
 	pinned: boolean
@@ -49,7 +49,7 @@ export interface CodeProtoMsg {
 /** Code struct encompasses CodeInfo and CodeBytes */
 export interface CodeAmino {
 	code_id?: string
-	code_info: CodeInfoAmino
+	code_info: CodeInfoAmino | undefined
 	code_bytes?: string
 	/** Pinned to wasmvm cache */
 	pinned?: boolean
@@ -61,7 +61,7 @@ export interface CodeAminoMsg {
 /** Contract struct encompasses ContractAddress, ContractInfo, and ContractState */
 export interface Contract {
 	contractAddress: string
-	contractInfo: ContractInfo
+	contractInfo: ContractInfo | undefined
 	contractState: Model[]
 	contractCodeHistory: ContractCodeHistoryEntry[]
 }
@@ -72,7 +72,7 @@ export interface ContractProtoMsg {
 /** Contract struct encompasses ContractAddress, ContractInfo, and ContractState */
 export interface ContractAmino {
 	contract_address?: string
-	contract_info: ContractInfoAmino
+	contract_info: ContractInfoAmino | undefined
 	contract_state: ModelAmino[]
 	contract_code_history: ContractCodeHistoryEntryAmino[]
 }
@@ -225,7 +225,7 @@ function createBaseCode(): Code {
 export const Code = {
 	typeUrl: "/cosmwasm.wasm.v1.Code",
 	encode(message: Code, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.codeId !== undefined) {
+		if (message.codeId && message.codeId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.codeId)
 		}
 		if (message.codeInfo !== undefined) {
@@ -234,7 +234,7 @@ export const Code = {
 		if (message.codeBytes.length !== 0) {
 			writer.uint32(26).bytes(message.codeBytes)
 		}
-		if (message.pinned !== undefined) {
+		if (message.pinned === true) {
 			writer.uint32(32).bool(message.pinned)
 		}
 		return writer
@@ -338,7 +338,7 @@ function createBaseContract(): Contract {
 export const Contract = {
 	typeUrl: "/cosmwasm.wasm.v1.Contract",
 	encode(message: Contract, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.contractAddress !== undefined) {
+		if (message.contractAddress && message.contractAddress !== "") {
 			writer.uint32(10).string(message.contractAddress)
 		}
 		if (message.contractInfo !== undefined) {
@@ -459,7 +459,7 @@ export const Sequence = {
 		if (message.idKey.length !== 0) {
 			writer.uint32(10).bytes(message.idKey)
 		}
-		if (message.value !== undefined) {
+		if (message.value && message.value !== BigInt(0)) {
 			writer.uint32(16).uint64(message.value)
 		}
 		return writer

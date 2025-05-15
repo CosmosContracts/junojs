@@ -50,7 +50,7 @@ export interface QueryContractInfoRequestAminoMsg {
 export interface QueryContractInfoResponse {
 	/** address is the address of the contract */
 	address: string
-	contractInfo: ContractInfo
+	contractInfo: ContractInfo | undefined
 }
 export interface QueryContractInfoResponseProtoMsg {
 	typeUrl: "/cosmwasm.wasm.v1.QueryContractInfoResponse"
@@ -63,7 +63,7 @@ export interface QueryContractInfoResponseProtoMsg {
 export interface QueryContractInfoResponseAmino {
 	/** address is the address of the contract */
 	address?: string
-	contract_info: ContractInfoAmino
+	contract_info: ContractInfoAmino | undefined
 }
 export interface QueryContractInfoResponseAminoMsg {
 	type: "wasm/QueryContractInfoResponse"
@@ -77,7 +77,7 @@ export interface QueryContractHistoryRequest {
 	/** address is the address of the contract to query */
 	address: string
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 }
 export interface QueryContractHistoryRequestProtoMsg {
 	typeUrl: "/cosmwasm.wasm.v1.QueryContractHistoryRequest"
@@ -91,7 +91,7 @@ export interface QueryContractHistoryRequestAmino {
 	/** address is the address of the contract to query */
 	address?: string
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 }
 export interface QueryContractHistoryRequestAminoMsg {
 	type: "wasm/QueryContractHistoryRequest"
@@ -104,7 +104,7 @@ export interface QueryContractHistoryRequestAminoMsg {
 export interface QueryContractHistoryResponse {
 	entries: ContractCodeHistoryEntry[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 }
 export interface QueryContractHistoryResponseProtoMsg {
 	typeUrl: "/cosmwasm.wasm.v1.QueryContractHistoryResponse"
@@ -117,7 +117,7 @@ export interface QueryContractHistoryResponseProtoMsg {
 export interface QueryContractHistoryResponseAmino {
 	entries: ContractCodeHistoryEntryAmino[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 }
 export interface QueryContractHistoryResponseAminoMsg {
 	type: "wasm/QueryContractHistoryResponse"
@@ -131,7 +131,7 @@ export interface QueryContractsByCodeRequest {
 	/** grpc-gateway_out does not support Go style CodeID */
 	codeId: bigint
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 }
 export interface QueryContractsByCodeRequestProtoMsg {
 	typeUrl: "/cosmwasm.wasm.v1.QueryContractsByCodeRequest"
@@ -145,7 +145,7 @@ export interface QueryContractsByCodeRequestAmino {
 	/** grpc-gateway_out does not support Go style CodeID */
 	code_id?: string
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 }
 export interface QueryContractsByCodeRequestAminoMsg {
 	type: "wasm/QueryContractsByCodeRequest"
@@ -159,7 +159,7 @@ export interface QueryContractsByCodeResponse {
 	/** contracts are a set of contract addresses */
 	contracts: string[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 }
 export interface QueryContractsByCodeResponseProtoMsg {
 	typeUrl: "/cosmwasm.wasm.v1.QueryContractsByCodeResponse"
@@ -173,7 +173,7 @@ export interface QueryContractsByCodeResponseAmino {
 	/** contracts are a set of contract addresses */
 	contracts?: string[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 }
 export interface QueryContractsByCodeResponseAminoMsg {
 	type: "wasm/QueryContractsByCodeResponse"
@@ -187,7 +187,7 @@ export interface QueryAllContractStateRequest {
 	/** address is the address of the contract */
 	address: string
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 }
 export interface QueryAllContractStateRequestProtoMsg {
 	typeUrl: "/cosmwasm.wasm.v1.QueryAllContractStateRequest"
@@ -201,7 +201,7 @@ export interface QueryAllContractStateRequestAmino {
 	/** address is the address of the contract */
 	address?: string
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 }
 export interface QueryAllContractStateRequestAminoMsg {
 	type: "wasm/QueryAllContractStateRequest"
@@ -214,7 +214,7 @@ export interface QueryAllContractStateRequestAminoMsg {
 export interface QueryAllContractStateResponse {
 	models: Model[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 }
 export interface QueryAllContractStateResponseProtoMsg {
 	typeUrl: "/cosmwasm.wasm.v1.QueryAllContractStateResponse"
@@ -227,7 +227,7 @@ export interface QueryAllContractStateResponseProtoMsg {
 export interface QueryAllContractStateResponseAmino {
 	models: ModelAmino[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 }
 export interface QueryAllContractStateResponseAminoMsg {
 	type: "wasm/QueryAllContractStateResponse"
@@ -376,7 +376,7 @@ export interface QueryCodeInfoResponse {
 	codeId: bigint
 	creator: string
 	checksum: Uint8Array
-	instantiatePermission: AccessConfig
+	instantiatePermission: AccessConfig | undefined
 }
 export interface QueryCodeInfoResponseProtoMsg {
 	typeUrl: "/cosmwasm.wasm.v1.QueryCodeInfoResponse"
@@ -387,7 +387,7 @@ export interface QueryCodeInfoResponseAmino {
 	code_id?: string
 	creator?: string
 	checksum?: string
-	instantiate_permission: AccessConfigAmino
+	instantiate_permission: AccessConfigAmino | undefined
 }
 export interface QueryCodeInfoResponseAminoMsg {
 	type: "wasm/QueryCodeInfoResponse"
@@ -398,7 +398,7 @@ export interface CodeInfoResponse {
 	codeId: bigint
 	creator: string
 	dataHash: Uint8Array
-	instantiatePermission: AccessConfig
+	instantiatePermission: AccessConfig | undefined
 }
 export interface CodeInfoResponseProtoMsg {
 	typeUrl: "/cosmwasm.wasm.v1.CodeInfoResponse"
@@ -409,7 +409,7 @@ export interface CodeInfoResponseAmino {
 	code_id: string
 	creator?: string
 	data_hash?: string
-	instantiate_permission: AccessConfigAmino
+	instantiate_permission: AccessConfigAmino | undefined
 }
 export interface CodeInfoResponseAminoMsg {
 	type: "wasm/CodeInfoResponse"
@@ -417,7 +417,7 @@ export interface CodeInfoResponseAminoMsg {
 }
 /** QueryCodeResponse is the response type for the Query/Code RPC method */
 export interface QueryCodeResponse {
-	codeInfo?: CodeInfoResponse
+	codeInfo?: CodeInfoResponse | undefined
 	data: Uint8Array
 }
 export interface QueryCodeResponseProtoMsg {
@@ -426,7 +426,7 @@ export interface QueryCodeResponseProtoMsg {
 }
 /** QueryCodeResponse is the response type for the Query/Code RPC method */
 export interface QueryCodeResponseAmino {
-	code_info?: CodeInfoResponseAmino
+	code_info?: CodeInfoResponseAmino | undefined
 	data: string
 }
 export interface QueryCodeResponseAminoMsg {
@@ -436,7 +436,7 @@ export interface QueryCodeResponseAminoMsg {
 /** QueryCodesRequest is the request type for the Query/Codes RPC method */
 export interface QueryCodesRequest {
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 }
 export interface QueryCodesRequestProtoMsg {
 	typeUrl: "/cosmwasm.wasm.v1.QueryCodesRequest"
@@ -445,7 +445,7 @@ export interface QueryCodesRequestProtoMsg {
 /** QueryCodesRequest is the request type for the Query/Codes RPC method */
 export interface QueryCodesRequestAmino {
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 }
 export interface QueryCodesRequestAminoMsg {
 	type: "wasm/QueryCodesRequest"
@@ -455,7 +455,7 @@ export interface QueryCodesRequestAminoMsg {
 export interface QueryCodesResponse {
 	codeInfos: CodeInfoResponse[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 }
 export interface QueryCodesResponseProtoMsg {
 	typeUrl: "/cosmwasm.wasm.v1.QueryCodesResponse"
@@ -465,7 +465,7 @@ export interface QueryCodesResponseProtoMsg {
 export interface QueryCodesResponseAmino {
 	code_infos: CodeInfoResponseAmino[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 }
 export interface QueryCodesResponseAminoMsg {
 	type: "wasm/QueryCodesResponse"
@@ -477,7 +477,7 @@ export interface QueryCodesResponseAminoMsg {
  */
 export interface QueryPinnedCodesRequest {
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 }
 export interface QueryPinnedCodesRequestProtoMsg {
 	typeUrl: "/cosmwasm.wasm.v1.QueryPinnedCodesRequest"
@@ -489,7 +489,7 @@ export interface QueryPinnedCodesRequestProtoMsg {
  */
 export interface QueryPinnedCodesRequestAmino {
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 }
 export interface QueryPinnedCodesRequestAminoMsg {
 	type: "wasm/QueryPinnedCodesRequest"
@@ -502,7 +502,7 @@ export interface QueryPinnedCodesRequestAminoMsg {
 export interface QueryPinnedCodesResponse {
 	codeIds: bigint[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 }
 export interface QueryPinnedCodesResponseProtoMsg {
 	typeUrl: "/cosmwasm.wasm.v1.QueryPinnedCodesResponse"
@@ -515,7 +515,7 @@ export interface QueryPinnedCodesResponseProtoMsg {
 export interface QueryPinnedCodesResponseAmino {
 	code_ids?: string[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 }
 export interface QueryPinnedCodesResponseAminoMsg {
 	type: "wasm/QueryPinnedCodesResponse"
@@ -536,7 +536,7 @@ export interface QueryParamsRequestAminoMsg {
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponse {
 	/** params defines the parameters of the module. */
-	params: Params
+	params: Params | undefined
 }
 export interface QueryParamsResponseProtoMsg {
 	typeUrl: "/cosmwasm.wasm.v1.QueryParamsResponse"
@@ -545,7 +545,7 @@ export interface QueryParamsResponseProtoMsg {
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponseAmino {
 	/** params defines the parameters of the module. */
-	params: ParamsAmino
+	params: ParamsAmino | undefined
 }
 export interface QueryParamsResponseAminoMsg {
 	type: "wasm/QueryParamsResponse"
@@ -559,7 +559,7 @@ export interface QueryContractsByCreatorRequest {
 	/** CreatorAddress is the address of contract creator */
 	creatorAddress: string
 	/** Pagination defines an optional pagination for the request. */
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 }
 export interface QueryContractsByCreatorRequestProtoMsg {
 	typeUrl: "/cosmwasm.wasm.v1.QueryContractsByCreatorRequest"
@@ -573,7 +573,7 @@ export interface QueryContractsByCreatorRequestAmino {
 	/** CreatorAddress is the address of contract creator */
 	creator_address?: string
 	/** Pagination defines an optional pagination for the request. */
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 }
 export interface QueryContractsByCreatorRequestAminoMsg {
 	type: "wasm/QueryContractsByCreatorRequest"
@@ -587,7 +587,7 @@ export interface QueryContractsByCreatorResponse {
 	/** ContractAddresses result set */
 	contractAddresses: string[]
 	/** Pagination defines the pagination in the response. */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 }
 export interface QueryContractsByCreatorResponseProtoMsg {
 	typeUrl: "/cosmwasm.wasm.v1.QueryContractsByCreatorResponse"
@@ -601,7 +601,7 @@ export interface QueryContractsByCreatorResponseAmino {
 	/** ContractAddresses result set */
 	contract_addresses?: string[]
 	/** Pagination defines the pagination in the response. */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 }
 export interface QueryContractsByCreatorResponseAminoMsg {
 	type: "wasm/QueryContractsByCreatorResponse"
@@ -726,7 +726,7 @@ export const QueryContractInfoRequest = {
 		message: QueryContractInfoRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.address !== undefined) {
+		if (message.address && message.address !== "") {
 			writer.uint32(10).string(message.address)
 		}
 		return writer
@@ -799,7 +799,7 @@ export const QueryContractInfoResponse = {
 		message: QueryContractInfoResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.address !== undefined) {
+		if (message.address && message.address !== "") {
 			writer.uint32(10).string(message.address)
 		}
 		if (message.contractInfo !== undefined) {
@@ -888,7 +888,7 @@ export const QueryContractHistoryRequest = {
 		message: QueryContractHistoryRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.address !== undefined) {
+		if (message.address && message.address !== "") {
 			writer.uint32(10).string(message.address)
 		}
 		if (message.pagination !== undefined) {
@@ -1066,7 +1066,7 @@ export const QueryContractsByCodeRequest = {
 		message: QueryContractsByCodeRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.codeId !== undefined) {
+		if (message.codeId && message.codeId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.codeId)
 		}
 		if (message.pagination !== undefined) {
@@ -1245,7 +1245,7 @@ export const QueryAllContractStateRequest = {
 		message: QueryAllContractStateRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.address !== undefined) {
+		if (message.address && message.address !== "") {
 			writer.uint32(10).string(message.address)
 		}
 		if (message.pagination !== undefined) {
@@ -1421,7 +1421,7 @@ export const QueryRawContractStateRequest = {
 		message: QueryRawContractStateRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.address !== undefined) {
+		if (message.address && message.address !== "") {
 			writer.uint32(10).string(message.address)
 		}
 		if (message.queryData.length !== 0) {
@@ -1577,7 +1577,7 @@ export const QuerySmartContractStateRequest = {
 		message: QuerySmartContractStateRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.address !== undefined) {
+		if (message.address && message.address !== "") {
 			writer.uint32(10).string(message.address)
 		}
 		if (message.queryData.length !== 0) {
@@ -1729,7 +1729,7 @@ function createBaseQueryCodeRequest(): QueryCodeRequest {
 export const QueryCodeRequest = {
 	typeUrl: "/cosmwasm.wasm.v1.QueryCodeRequest",
 	encode(message: QueryCodeRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.codeId !== undefined) {
+		if (message.codeId && message.codeId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.codeId)
 		}
 		return writer
@@ -1804,7 +1804,7 @@ export const QueryCodeInfoRequest = {
 		message: QueryCodeInfoRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.codeId !== undefined) {
+		if (message.codeId && message.codeId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.codeId)
 		}
 		return writer
@@ -1882,10 +1882,10 @@ export const QueryCodeInfoResponse = {
 		message: QueryCodeInfoResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.codeId !== undefined) {
+		if (message.codeId && message.codeId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.codeId)
 		}
-		if (message.creator !== undefined) {
+		if (message.creator && message.creator !== "") {
 			writer.uint32(18).string(message.creator)
 		}
 		if (message.checksum.length !== 0) {
@@ -1995,10 +1995,10 @@ function createBaseCodeInfoResponse(): CodeInfoResponse {
 export const CodeInfoResponse = {
 	typeUrl: "/cosmwasm.wasm.v1.CodeInfoResponse",
 	encode(message: CodeInfoResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.codeId !== undefined) {
+		if (message.codeId && message.codeId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.codeId)
 		}
-		if (message.creator !== undefined) {
+		if (message.creator && message.creator !== "") {
 			writer.uint32(18).string(message.creator)
 		}
 		if (message.dataHash.length !== 0) {
@@ -2659,7 +2659,7 @@ export const QueryContractsByCreatorRequest = {
 		message: QueryContractsByCreatorRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.creatorAddress !== undefined) {
+		if (message.creatorAddress && message.creatorAddress !== "") {
 			writer.uint32(10).string(message.creatorAddress)
 		}
 		if (message.pagination !== undefined) {
@@ -2893,7 +2893,7 @@ export const QueryWasmLimitsConfigResponse = {
 		message: QueryWasmLimitsConfigResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.config !== undefined) {
+		if (message.config && message.config !== "") {
 			writer.uint32(10).string(message.config)
 		}
 		return writer
@@ -2968,13 +2968,13 @@ export const QueryBuildAddressRequest = {
 		message: QueryBuildAddressRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.codeHash !== undefined) {
+		if (message.codeHash && message.codeHash !== "") {
 			writer.uint32(10).string(message.codeHash)
 		}
-		if (message.creatorAddress !== undefined) {
+		if (message.creatorAddress && message.creatorAddress !== "") {
 			writer.uint32(18).string(message.creatorAddress)
 		}
-		if (message.salt !== undefined) {
+		if (message.salt && message.salt !== "") {
 			writer.uint32(26).string(message.salt)
 		}
 		if (message.initArgs.length !== 0) {
@@ -3073,7 +3073,7 @@ export const QueryBuildAddressResponse = {
 		message: QueryBuildAddressResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.address !== undefined) {
+		if (message.address && message.address !== "") {
 			writer.uint32(10).string(message.address)
 		}
 		return writer

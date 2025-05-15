@@ -197,17 +197,17 @@ export interface Proposal {
 	 * querying a proposal via gRPC, this field is not populated until the
 	 * proposal's voting period has ended.
 	 */
-	finalTallyResult?: TallyResult
+	finalTallyResult?: TallyResult | undefined
 	/** submit_time is the time of proposal submission. */
-	submitTime?: Date
+	submitTime?: Date | undefined
 	/** deposit_end_time is the end time for deposition. */
-	depositEndTime?: Date
+	depositEndTime?: Date | undefined
 	/** total_deposit is the total deposit on the proposal. */
 	totalDeposit: Coin[]
 	/** voting_start_time is the starting time to vote on a proposal. */
-	votingStartTime?: Date
+	votingStartTime?: Date | undefined
 	/** voting_end_time is the end time of voting on a proposal. */
-	votingEndTime?: Date
+	votingEndTime?: Date | undefined
 	/**
 	 * metadata is any arbitrary metadata attached to the proposal.
 	 * the recommended format of the metadata is to be found here:
@@ -262,17 +262,17 @@ export interface ProposalAmino {
 	 * querying a proposal via gRPC, this field is not populated until the
 	 * proposal's voting period has ended.
 	 */
-	final_tally_result?: TallyResultAmino
+	final_tally_result?: TallyResultAmino | undefined
 	/** submit_time is the time of proposal submission. */
-	submit_time?: string
+	submit_time?: string | undefined
 	/** deposit_end_time is the end time for deposition. */
-	deposit_end_time?: string
+	deposit_end_time?: string | undefined
 	/** total_deposit is the total deposit on the proposal. */
 	total_deposit: CoinAmino[]
 	/** voting_start_time is the starting time to vote on a proposal. */
-	voting_start_time?: string
+	voting_start_time?: string | undefined
 	/** voting_end_time is the end time of voting on a proposal. */
-	voting_end_time?: string
+	voting_end_time?: string | undefined
 	/**
 	 * metadata is any arbitrary metadata attached to the proposal.
 	 * the recommended format of the metadata is to be found here:
@@ -395,7 +395,7 @@ export interface DepositParams {
 	 * Maximum period for Atom holders to deposit on a proposal. Initial value: 2
 	 * months.
 	 */
-	maxDepositPeriod?: Duration
+	maxDepositPeriod?: Duration | undefined
 }
 export interface DepositParamsProtoMsg {
 	typeUrl: "/cosmos.gov.v1.DepositParams"
@@ -410,7 +410,7 @@ export interface DepositParamsAmino {
 	 * Maximum period for Atom holders to deposit on a proposal. Initial value: 2
 	 * months.
 	 */
-	max_deposit_period?: DurationAmino
+	max_deposit_period?: DurationAmino | undefined
 }
 export interface DepositParamsAminoMsg {
 	type: "cosmos-sdk/v1/DepositParams"
@@ -420,7 +420,7 @@ export interface DepositParamsAminoMsg {
 /** @deprecated */
 export interface VotingParams {
 	/** Duration of the voting period. */
-	votingPeriod?: Duration
+	votingPeriod?: Duration | undefined
 }
 export interface VotingParamsProtoMsg {
 	typeUrl: "/cosmos.gov.v1.VotingParams"
@@ -430,7 +430,7 @@ export interface VotingParamsProtoMsg {
 /** @deprecated */
 export interface VotingParamsAmino {
 	/** Duration of the voting period. */
-	voting_period?: DurationAmino
+	voting_period?: DurationAmino | undefined
 }
 export interface VotingParamsAminoMsg {
 	type: "cosmos-sdk/v1/VotingParams"
@@ -488,9 +488,9 @@ export interface Params {
 	 * Maximum period for Atom holders to deposit on a proposal. Initial value: 2
 	 * months.
 	 */
-	maxDepositPeriod?: Duration
+	maxDepositPeriod?: Duration | undefined
 	/** Duration of the voting period. */
-	votingPeriod?: Duration
+	votingPeriod?: Duration | undefined
 	/**
 	 * Minimum percentage of total stake needed to vote for a result to be
 	 *  considered valid.
@@ -523,7 +523,7 @@ export interface Params {
 	 *
 	 * Since: cosmos-sdk 0.50
 	 */
-	expeditedVotingPeriod?: Duration
+	expeditedVotingPeriod?: Duration | undefined
 	/**
 	 * Minimum proportion of Yes votes for proposal to pass. Default value: 0.67.
 	 *
@@ -563,9 +563,9 @@ export interface ParamsAmino {
 	 * Maximum period for Atom holders to deposit on a proposal. Initial value: 2
 	 * months.
 	 */
-	max_deposit_period?: DurationAmino
+	max_deposit_period?: DurationAmino | undefined
 	/** Duration of the voting period. */
-	voting_period?: DurationAmino
+	voting_period?: DurationAmino | undefined
 	/**
 	 * Minimum percentage of total stake needed to vote for a result to be
 	 *  considered valid.
@@ -598,7 +598,7 @@ export interface ParamsAmino {
 	 *
 	 * Since: cosmos-sdk 0.50
 	 */
-	expedited_voting_period?: DurationAmino
+	expedited_voting_period?: DurationAmino | undefined
 	/**
 	 * Minimum proportion of Yes votes for proposal to pass. Default value: 0.67.
 	 *
@@ -638,7 +638,7 @@ export const WeightedVoteOption = {
 		if (message.option !== 0) {
 			writer.uint32(8).int32(message.option)
 		}
-		if (message.weight !== undefined) {
+		if (message.weight && message.weight !== "") {
 			writer.uint32(18).string(message.weight)
 		}
 		return writer
@@ -717,10 +717,10 @@ function createBaseDeposit(): Deposit {
 export const Deposit = {
 	typeUrl: "/cosmos.gov.v1.Deposit",
 	encode(message: Deposit, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.proposalId !== undefined) {
+		if (message.proposalId && message.proposalId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.proposalId)
 		}
-		if (message.depositor !== undefined) {
+		if (message.depositor && message.depositor !== "") {
 			writer.uint32(18).string(message.depositor)
 		}
 		for (const v of message.amount) {
@@ -828,7 +828,7 @@ function createBaseProposal(): Proposal {
 export const Proposal = {
 	typeUrl: "/cosmos.gov.v1.Proposal",
 	encode(message: Proposal, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.id !== undefined) {
+		if (message.id && message.id !== BigInt(0)) {
 			writer.uint32(8).uint64(message.id)
 		}
 		for (const v of message.messages) {
@@ -855,22 +855,22 @@ export const Proposal = {
 		if (message.votingEndTime !== undefined) {
 			Timestamp.encode(toTimestamp(message.votingEndTime), writer.uint32(74).fork()).ldelim()
 		}
-		if (message.metadata !== undefined) {
+		if (message.metadata && message.metadata !== "") {
 			writer.uint32(82).string(message.metadata)
 		}
-		if (message.title !== undefined) {
+		if (message.title && message.title !== "") {
 			writer.uint32(90).string(message.title)
 		}
-		if (message.summary !== undefined) {
+		if (message.summary && message.summary !== "") {
 			writer.uint32(98).string(message.summary)
 		}
-		if (message.proposer !== undefined) {
+		if (message.proposer && message.proposer !== "") {
 			writer.uint32(106).string(message.proposer)
 		}
-		if (message.expedited !== undefined) {
+		if (message.expedited === true) {
 			writer.uint32(112).bool(message.expedited)
 		}
-		if (message.failedReason !== undefined) {
+		if (message.failedReason && message.failedReason !== "") {
 			writer.uint32(122).string(message.failedReason)
 		}
 		return writer
@@ -1072,16 +1072,16 @@ function createBaseTallyResult(): TallyResult {
 export const TallyResult = {
 	typeUrl: "/cosmos.gov.v1.TallyResult",
 	encode(message: TallyResult, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.yesCount !== undefined) {
+		if (message.yesCount && message.yesCount !== "") {
 			writer.uint32(10).string(message.yesCount)
 		}
-		if (message.abstainCount !== undefined) {
+		if (message.abstainCount && message.abstainCount !== "") {
 			writer.uint32(18).string(message.abstainCount)
 		}
-		if (message.noCount !== undefined) {
+		if (message.noCount && message.noCount !== "") {
 			writer.uint32(26).string(message.noCount)
 		}
-		if (message.noWithVetoCount !== undefined) {
+		if (message.noWithVetoCount && message.noWithVetoCount !== "") {
 			writer.uint32(34).string(message.noWithVetoCount)
 		}
 		return writer
@@ -1177,16 +1177,16 @@ function createBaseVote(): Vote {
 export const Vote = {
 	typeUrl: "/cosmos.gov.v1.Vote",
 	encode(message: Vote, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.proposalId !== undefined) {
+		if (message.proposalId && message.proposalId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.proposalId)
 		}
-		if (message.voter !== undefined) {
+		if (message.voter && message.voter !== "") {
 			writer.uint32(18).string(message.voter)
 		}
 		for (const v of message.options) {
 			WeightedVoteOption.encode(v!, writer.uint32(34).fork()).ldelim()
 		}
-		if (message.metadata !== undefined) {
+		if (message.metadata && message.metadata !== "") {
 			writer.uint32(42).string(message.metadata)
 		}
 		return writer
@@ -1447,13 +1447,13 @@ function createBaseTallyParams(): TallyParams {
 export const TallyParams = {
 	typeUrl: "/cosmos.gov.v1.TallyParams",
 	encode(message: TallyParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.quorum !== undefined) {
+		if (message.quorum && message.quorum !== "") {
 			writer.uint32(10).string(message.quorum)
 		}
-		if (message.threshold !== undefined) {
+		if (message.threshold && message.threshold !== "") {
 			writer.uint32(18).string(message.threshold)
 		}
-		if (message.vetoThreshold !== undefined) {
+		if (message.vetoThreshold && message.vetoThreshold !== "") {
 			writer.uint32(26).string(message.vetoThreshold)
 		}
 		return writer
@@ -1562,43 +1562,43 @@ export const Params = {
 		if (message.votingPeriod !== undefined) {
 			Duration.encode(message.votingPeriod, writer.uint32(26).fork()).ldelim()
 		}
-		if (message.quorum !== undefined) {
+		if (message.quorum && message.quorum !== "") {
 			writer.uint32(34).string(message.quorum)
 		}
-		if (message.threshold !== undefined) {
+		if (message.threshold && message.threshold !== "") {
 			writer.uint32(42).string(message.threshold)
 		}
-		if (message.vetoThreshold !== undefined) {
+		if (message.vetoThreshold && message.vetoThreshold !== "") {
 			writer.uint32(50).string(message.vetoThreshold)
 		}
-		if (message.minInitialDepositRatio !== undefined) {
+		if (message.minInitialDepositRatio && message.minInitialDepositRatio !== "") {
 			writer.uint32(58).string(message.minInitialDepositRatio)
 		}
-		if (message.proposalCancelRatio !== undefined) {
+		if (message.proposalCancelRatio && message.proposalCancelRatio !== "") {
 			writer.uint32(66).string(message.proposalCancelRatio)
 		}
-		if (message.proposalCancelDest !== undefined) {
+		if (message.proposalCancelDest && message.proposalCancelDest !== "") {
 			writer.uint32(74).string(message.proposalCancelDest)
 		}
 		if (message.expeditedVotingPeriod !== undefined) {
 			Duration.encode(message.expeditedVotingPeriod, writer.uint32(82).fork()).ldelim()
 		}
-		if (message.expeditedThreshold !== undefined) {
+		if (message.expeditedThreshold && message.expeditedThreshold !== "") {
 			writer.uint32(90).string(message.expeditedThreshold)
 		}
 		for (const v of message.expeditedMinDeposit) {
 			Coin.encode(v!, writer.uint32(98).fork()).ldelim()
 		}
-		if (message.burnVoteQuorum !== undefined) {
+		if (message.burnVoteQuorum === true) {
 			writer.uint32(104).bool(message.burnVoteQuorum)
 		}
-		if (message.burnProposalDepositPrevote !== undefined) {
+		if (message.burnProposalDepositPrevote === true) {
 			writer.uint32(112).bool(message.burnProposalDepositPrevote)
 		}
-		if (message.burnVoteVeto !== undefined) {
+		if (message.burnVoteVeto === true) {
 			writer.uint32(120).bool(message.burnVoteVeto)
 		}
-		if (message.minDepositRatio !== undefined) {
+		if (message.minDepositRatio && message.minDepositRatio !== "") {
 			writer.uint32(130).string(message.minDepositRatio)
 		}
 		return writer

@@ -42,10 +42,10 @@ export const IncentivizedAcknowledgement = {
 		if (message.appAcknowledgement.length !== 0) {
 			writer.uint32(10).bytes(message.appAcknowledgement)
 		}
-		if (message.forwardRelayerAddress !== undefined) {
+		if (message.forwardRelayerAddress && message.forwardRelayerAddress !== "") {
 			writer.uint32(18).string(message.forwardRelayerAddress)
 		}
-		if (message.underlyingAppSuccess !== undefined) {
+		if (message.underlyingAppSuccess === true) {
 			writer.uint32(24).bool(message.underlyingAppSuccess)
 		}
 		return writer

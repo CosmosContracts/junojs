@@ -110,8 +110,8 @@ const telescopeConfig: TelescopeInput = {
 					"gaia.globalfee.module.v1"
 				]
 			},
-			allowUndefinedTypes: false,
-			allowEncodeDefaultScalars: true,
+			allowUndefinedTypes: true,
+			allowEncodeDefaultScalars: false,
 			enforceNullCheck: true,
 			optionalPageRequests: true,
 			optionalQueryParams: true,

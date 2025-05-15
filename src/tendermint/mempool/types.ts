@@ -15,14 +15,14 @@ export interface TxsAminoMsg {
 	value: TxsAmino
 }
 export interface Message {
-	txs?: Txs
+	txs?: Txs | undefined
 }
 export interface MessageProtoMsg {
 	typeUrl: "/tendermint.mempool.Message"
 	value: Uint8Array
 }
 export interface MessageAmino {
-	txs?: TxsAmino
+	txs?: TxsAmino | undefined
 }
 export interface MessageAminoMsg {
 	type: "/tendermint.mempool.Message"

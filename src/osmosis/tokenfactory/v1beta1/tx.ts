@@ -74,7 +74,7 @@ export interface MsgCreateDenomResponseAminoMsg {
  */
 export interface MsgMint {
 	sender: string
-	amount: Coin
+	amount: Coin | undefined
 	mintToAddress: string
 }
 export interface MsgMintProtoMsg {
@@ -87,7 +87,7 @@ export interface MsgMintProtoMsg {
  */
 export interface MsgMintAmino {
 	sender?: string
-	amount: CoinAmino
+	amount: CoinAmino | undefined
 	mint_to_address?: string
 }
 export interface MsgMintAminoMsg {
@@ -118,7 +118,7 @@ export interface MsgMintResponseAminoMsg {
  */
 export interface MsgBurn {
 	sender: string
-	amount: Coin
+	amount: Coin | undefined
 	burnFromAddress: string
 }
 export interface MsgBurnProtoMsg {
@@ -131,7 +131,7 @@ export interface MsgBurnProtoMsg {
  */
 export interface MsgBurnAmino {
 	sender?: string
-	amount: CoinAmino
+	amount: CoinAmino | undefined
 	burn_from_address?: string
 }
 export interface MsgBurnAminoMsg {
@@ -206,7 +206,7 @@ export interface MsgChangeAdminResponseAminoMsg {
  */
 export interface MsgSetDenomMetadata {
 	sender: string
-	metadata: Metadata
+	metadata: Metadata | undefined
 }
 export interface MsgSetDenomMetadataProtoMsg {
 	typeUrl: "/osmosis.tokenfactory.v1beta1.MsgSetDenomMetadata"
@@ -218,7 +218,7 @@ export interface MsgSetDenomMetadataProtoMsg {
  */
 export interface MsgSetDenomMetadataAmino {
 	sender?: string
-	metadata: MetadataAmino
+	metadata: MetadataAmino | undefined
 }
 export interface MsgSetDenomMetadataAminoMsg {
 	type: "juno/x/tokenfactory/MsgSetDenomMetadata"
@@ -248,7 +248,7 @@ export interface MsgSetDenomMetadataResponseAminoMsg {
  */
 export interface MsgForceTransfer {
 	sender: string
-	amount: Coin
+	amount: Coin | undefined
 	transferFromAddress: string
 	transferToAddress: string
 }
@@ -262,7 +262,7 @@ export interface MsgForceTransferProtoMsg {
  */
 export interface MsgForceTransferAmino {
 	sender?: string
-	amount: CoinAmino
+	amount: CoinAmino | undefined
 	transfer_from_address?: string
 	transfer_to_address?: string
 }
@@ -297,7 +297,7 @@ export interface MsgUpdateParams {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params: Params
+	params: Params | undefined
 }
 export interface MsgUpdateParamsProtoMsg {
 	typeUrl: "/osmosis.tokenfactory.v1beta1.MsgUpdateParams"
@@ -312,7 +312,7 @@ export interface MsgUpdateParamsAmino {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params?: ParamsAmino
+	params?: ParamsAmino | undefined
 }
 export interface MsgUpdateParamsAminoMsg {
 	type: "juno/x/tokenfactory/MsgUpdateParams"
@@ -345,10 +345,10 @@ function createBaseMsgCreateDenom(): MsgCreateDenom {
 export const MsgCreateDenom = {
 	typeUrl: "/osmosis.tokenfactory.v1beta1.MsgCreateDenom",
 	encode(message: MsgCreateDenom, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.sender !== undefined) {
+		if (message.sender && message.sender !== "") {
 			writer.uint32(10).string(message.sender)
 		}
-		if (message.subdenom !== undefined) {
+		if (message.subdenom && message.subdenom !== "") {
 			writer.uint32(18).string(message.subdenom)
 		}
 		return writer
@@ -428,7 +428,7 @@ export const MsgCreateDenomResponse = {
 		message: MsgCreateDenomResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.newTokenDenom !== undefined) {
+		if (message.newTokenDenom && message.newTokenDenom !== "") {
 			writer.uint32(10).string(message.newTokenDenom)
 		}
 		return writer
@@ -499,13 +499,13 @@ function createBaseMsgMint(): MsgMint {
 export const MsgMint = {
 	typeUrl: "/osmosis.tokenfactory.v1beta1.MsgMint",
 	encode(message: MsgMint, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.sender !== undefined) {
+		if (message.sender && message.sender !== "") {
 			writer.uint32(10).string(message.sender)
 		}
 		if (message.amount !== undefined) {
 			Coin.encode(message.amount, writer.uint32(18).fork()).ldelim()
 		}
-		if (message.mintToAddress !== undefined) {
+		if (message.mintToAddress && message.mintToAddress !== "") {
 			writer.uint32(26).string(message.mintToAddress)
 		}
 		return writer
@@ -653,13 +653,13 @@ function createBaseMsgBurn(): MsgBurn {
 export const MsgBurn = {
 	typeUrl: "/osmosis.tokenfactory.v1beta1.MsgBurn",
 	encode(message: MsgBurn, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.sender !== undefined) {
+		if (message.sender && message.sender !== "") {
 			writer.uint32(10).string(message.sender)
 		}
 		if (message.amount !== undefined) {
 			Coin.encode(message.amount, writer.uint32(18).fork()).ldelim()
 		}
-		if (message.burnFromAddress !== undefined) {
+		if (message.burnFromAddress && message.burnFromAddress !== "") {
 			writer.uint32(26).string(message.burnFromAddress)
 		}
 		return writer
@@ -807,13 +807,13 @@ function createBaseMsgChangeAdmin(): MsgChangeAdmin {
 export const MsgChangeAdmin = {
 	typeUrl: "/osmosis.tokenfactory.v1beta1.MsgChangeAdmin",
 	encode(message: MsgChangeAdmin, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.sender !== undefined) {
+		if (message.sender && message.sender !== "") {
 			writer.uint32(10).string(message.sender)
 		}
-		if (message.denom !== undefined) {
+		if (message.denom && message.denom !== "") {
 			writer.uint32(18).string(message.denom)
 		}
-		if (message.newAdmin !== undefined) {
+		if (message.newAdmin && message.newAdmin !== "") {
 			writer.uint32(26).string(message.newAdmin)
 		}
 		return writer
@@ -958,7 +958,7 @@ export const MsgSetDenomMetadata = {
 		message: MsgSetDenomMetadata,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.sender !== undefined) {
+		if (message.sender && message.sender !== "") {
 			writer.uint32(10).string(message.sender)
 		}
 		if (message.metadata !== undefined) {
@@ -1105,16 +1105,16 @@ function createBaseMsgForceTransfer(): MsgForceTransfer {
 export const MsgForceTransfer = {
 	typeUrl: "/osmosis.tokenfactory.v1beta1.MsgForceTransfer",
 	encode(message: MsgForceTransfer, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.sender !== undefined) {
+		if (message.sender && message.sender !== "") {
 			writer.uint32(10).string(message.sender)
 		}
 		if (message.amount !== undefined) {
 			Coin.encode(message.amount, writer.uint32(18).fork()).ldelim()
 		}
-		if (message.transferFromAddress !== undefined) {
+		if (message.transferFromAddress && message.transferFromAddress !== "") {
 			writer.uint32(26).string(message.transferFromAddress)
 		}
-		if (message.transferToAddress !== undefined) {
+		if (message.transferToAddress && message.transferToAddress !== "") {
 			writer.uint32(34).string(message.transferToAddress)
 		}
 		return writer
@@ -1271,7 +1271,7 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
 export const MsgUpdateParams = {
 	typeUrl: "/osmosis.tokenfactory.v1beta1.MsgUpdateParams",
 	encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.authority !== undefined) {
+		if (message.authority && message.authority !== "") {
 			writer.uint32(10).string(message.authority)
 		}
 		if (message.params !== undefined) {

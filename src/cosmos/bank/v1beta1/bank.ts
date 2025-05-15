@@ -269,7 +269,7 @@ export const Params = {
 		for (const v of message.sendEnabled) {
 			SendEnabled.encode(v!, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.defaultSendEnabled !== undefined) {
+		if (message.defaultSendEnabled === true) {
 			writer.uint32(16).bool(message.defaultSendEnabled)
 		}
 		return writer
@@ -350,10 +350,10 @@ function createBaseSendEnabled(): SendEnabled {
 export const SendEnabled = {
 	typeUrl: "/cosmos.bank.v1beta1.SendEnabled",
 	encode(message: SendEnabled, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.denom !== undefined) {
+		if (message.denom && message.denom !== "") {
 			writer.uint32(10).string(message.denom)
 		}
-		if (message.enabled !== undefined) {
+		if (message.enabled === true) {
 			writer.uint32(16).bool(message.enabled)
 		}
 		return writer
@@ -431,7 +431,7 @@ function createBaseInput(): Input {
 export const Input = {
 	typeUrl: "/cosmos.bank.v1beta1.Input",
 	encode(message: Input, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.address !== undefined) {
+		if (message.address && message.address !== "") {
 			writer.uint32(10).string(message.address)
 		}
 		for (const v of message.coins) {
@@ -514,7 +514,7 @@ function createBaseOutput(): Output {
 export const Output = {
 	typeUrl: "/cosmos.bank.v1beta1.Output",
 	encode(message: Output, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.address !== undefined) {
+		if (message.address && message.address !== "") {
 			writer.uint32(10).string(message.address)
 		}
 		for (const v of message.coins) {
@@ -670,10 +670,10 @@ function createBaseDenomUnit(): DenomUnit {
 export const DenomUnit = {
 	typeUrl: "/cosmos.bank.v1beta1.DenomUnit",
 	encode(message: DenomUnit, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.denom !== undefined) {
+		if (message.denom && message.denom !== "") {
 			writer.uint32(10).string(message.denom)
 		}
-		if (message.exponent !== undefined) {
+		if (message.exponent && message.exponent !== 0) {
 			writer.uint32(16).uint32(message.exponent)
 		}
 		for (const v of message.aliases) {
@@ -770,28 +770,28 @@ function createBaseMetadata(): Metadata {
 export const Metadata = {
 	typeUrl: "/cosmos.bank.v1beta1.Metadata",
 	encode(message: Metadata, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.description !== undefined) {
+		if (message.description && message.description !== "") {
 			writer.uint32(10).string(message.description)
 		}
 		for (const v of message.denomUnits) {
 			DenomUnit.encode(v!, writer.uint32(18).fork()).ldelim()
 		}
-		if (message.base !== undefined) {
+		if (message.base && message.base !== "") {
 			writer.uint32(26).string(message.base)
 		}
-		if (message.display !== undefined) {
+		if (message.display && message.display !== "") {
 			writer.uint32(34).string(message.display)
 		}
-		if (message.name !== undefined) {
+		if (message.name && message.name !== "") {
 			writer.uint32(42).string(message.name)
 		}
-		if (message.symbol !== undefined) {
+		if (message.symbol && message.symbol !== "") {
 			writer.uint32(50).string(message.symbol)
 		}
-		if (message.uri !== undefined) {
+		if (message.uri && message.uri !== "") {
 			writer.uint32(58).string(message.uri)
 		}
-		if (message.uriHash !== undefined) {
+		if (message.uriHash && message.uriHash !== "") {
 			writer.uint32(66).string(message.uriHash)
 		}
 		return writer

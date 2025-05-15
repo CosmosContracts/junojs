@@ -155,7 +155,7 @@ export interface MsgUpdateParams {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params: Params
+	params: Params | undefined
 }
 export interface MsgUpdateParamsProtoMsg {
 	typeUrl: "/juno.feeshare.v1.MsgUpdateParams"
@@ -170,7 +170,7 @@ export interface MsgUpdateParamsAmino {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params: ParamsAmino
+	params: ParamsAmino | undefined
 }
 export interface MsgUpdateParamsAminoMsg {
 	type: "juno/x/feeshare/MsgUpdateParams"
@@ -207,13 +207,13 @@ export const MsgRegisterFeeShare = {
 		message: MsgRegisterFeeShare,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.contractAddress !== undefined) {
+		if (message.contractAddress && message.contractAddress !== "") {
 			writer.uint32(10).string(message.contractAddress)
 		}
-		if (message.deployerAddress !== undefined) {
+		if (message.deployerAddress && message.deployerAddress !== "") {
 			writer.uint32(18).string(message.deployerAddress)
 		}
-		if (message.withdrawerAddress !== undefined) {
+		if (message.withdrawerAddress && message.withdrawerAddress !== "") {
 			writer.uint32(26).string(message.withdrawerAddress)
 		}
 		return writer
@@ -354,13 +354,13 @@ function createBaseMsgUpdateFeeShare(): MsgUpdateFeeShare {
 export const MsgUpdateFeeShare = {
 	typeUrl: "/juno.feeshare.v1.MsgUpdateFeeShare",
 	encode(message: MsgUpdateFeeShare, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.contractAddress !== undefined) {
+		if (message.contractAddress && message.contractAddress !== "") {
 			writer.uint32(10).string(message.contractAddress)
 		}
-		if (message.deployerAddress !== undefined) {
+		if (message.deployerAddress && message.deployerAddress !== "") {
 			writer.uint32(18).string(message.deployerAddress)
 		}
-		if (message.withdrawerAddress !== undefined) {
+		if (message.withdrawerAddress && message.withdrawerAddress !== "") {
 			writer.uint32(26).string(message.withdrawerAddress)
 		}
 		return writer
@@ -500,10 +500,10 @@ function createBaseMsgCancelFeeShare(): MsgCancelFeeShare {
 export const MsgCancelFeeShare = {
 	typeUrl: "/juno.feeshare.v1.MsgCancelFeeShare",
 	encode(message: MsgCancelFeeShare, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.contractAddress !== undefined) {
+		if (message.contractAddress && message.contractAddress !== "") {
 			writer.uint32(10).string(message.contractAddress)
 		}
-		if (message.deployerAddress !== undefined) {
+		if (message.deployerAddress && message.deployerAddress !== "") {
 			writer.uint32(18).string(message.deployerAddress)
 		}
 		return writer
@@ -634,7 +634,7 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
 export const MsgUpdateParams = {
 	typeUrl: "/juno.feeshare.v1.MsgUpdateParams",
 	encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.authority !== undefined) {
+		if (message.authority && message.authority !== "") {
 			writer.uint32(10).string(message.authority)
 		}
 		if (message.params !== undefined) {

@@ -16,8 +16,8 @@ import {
 } from "./staking"
 /** MsgCreateValidator defines a SDK message for creating a new validator. */
 export interface MsgCreateValidator {
-	description: Description
-	commission: CommissionRates
+	description: Description | undefined
+	commission: CommissionRates | undefined
 	minSelfDelegation: string
 	/**
 	 * Deprecated: Use of Delegator Address in MsgCreateValidator is deprecated.
@@ -28,7 +28,7 @@ export interface MsgCreateValidator {
 	delegatorAddress: string
 	validatorAddress: string
 	pubkey?: Any | undefined
-	value: Coin
+	value: Coin | undefined
 }
 export interface MsgCreateValidatorProtoMsg {
 	typeUrl: "/cosmos.staking.v1beta1.MsgCreateValidator"
@@ -39,8 +39,8 @@ export type MsgCreateValidatorEncoded = Omit<MsgCreateValidator, "pubkey"> & {
 }
 /** MsgCreateValidator defines a SDK message for creating a new validator. */
 export interface MsgCreateValidatorAmino {
-	description: DescriptionAmino
-	commission: CommissionRatesAmino
+	description: DescriptionAmino | undefined
+	commission: CommissionRatesAmino | undefined
 	min_self_delegation: string
 	/**
 	 * Deprecated: Use of Delegator Address in MsgCreateValidator is deprecated.
@@ -50,8 +50,8 @@ export interface MsgCreateValidatorAmino {
 	/** @deprecated */
 	delegator_address?: string
 	validator_address?: string
-	pubkey?: AnyAmino
-	value: CoinAmino
+	pubkey?: AnyAmino | undefined
+	value: CoinAmino | undefined
 }
 export interface MsgCreateValidatorAminoMsg {
 	type: "cosmos-sdk/MsgCreateValidator"
@@ -71,7 +71,7 @@ export interface MsgCreateValidatorResponseAminoMsg {
 }
 /** MsgEditValidator defines a SDK message for editing an existing validator. */
 export interface MsgEditValidator {
-	description: Description
+	description: Description | undefined
 	validatorAddress: string
 	/**
 	 * We pass a reference to the new commission rate and min self delegation as
@@ -88,7 +88,7 @@ export interface MsgEditValidatorProtoMsg {
 }
 /** MsgEditValidator defines a SDK message for editing an existing validator. */
 export interface MsgEditValidatorAmino {
-	description: DescriptionAmino
+	description: DescriptionAmino | undefined
 	validator_address?: string
 	/**
 	 * We pass a reference to the new commission rate and min self delegation as
@@ -122,7 +122,7 @@ export interface MsgEditValidatorResponseAminoMsg {
 export interface MsgDelegate {
 	delegatorAddress: string
 	validatorAddress: string
-	amount: Coin
+	amount: Coin | undefined
 }
 export interface MsgDelegateProtoMsg {
 	typeUrl: "/cosmos.staking.v1beta1.MsgDelegate"
@@ -135,7 +135,7 @@ export interface MsgDelegateProtoMsg {
 export interface MsgDelegateAmino {
 	delegator_address?: string
 	validator_address?: string
-	amount: CoinAmino
+	amount: CoinAmino | undefined
 }
 export interface MsgDelegateAminoMsg {
 	type: "cosmos-sdk/MsgDelegate"
@@ -161,7 +161,7 @@ export interface MsgBeginRedelegate {
 	delegatorAddress: string
 	validatorSrcAddress: string
 	validatorDstAddress: string
-	amount: Coin
+	amount: Coin | undefined
 }
 export interface MsgBeginRedelegateProtoMsg {
 	typeUrl: "/cosmos.staking.v1beta1.MsgBeginRedelegate"
@@ -175,7 +175,7 @@ export interface MsgBeginRedelegateAmino {
 	delegator_address?: string
 	validator_src_address?: string
 	validator_dst_address?: string
-	amount: CoinAmino
+	amount: CoinAmino | undefined
 }
 export interface MsgBeginRedelegateAminoMsg {
 	type: "cosmos-sdk/MsgBeginRedelegate"
@@ -183,7 +183,7 @@ export interface MsgBeginRedelegateAminoMsg {
 }
 /** MsgBeginRedelegateResponse defines the Msg/BeginRedelegate response type. */
 export interface MsgBeginRedelegateResponse {
-	completionTime: Date
+	completionTime: Date | undefined
 }
 export interface MsgBeginRedelegateResponseProtoMsg {
 	typeUrl: "/cosmos.staking.v1beta1.MsgBeginRedelegateResponse"
@@ -191,7 +191,7 @@ export interface MsgBeginRedelegateResponseProtoMsg {
 }
 /** MsgBeginRedelegateResponse defines the Msg/BeginRedelegate response type. */
 export interface MsgBeginRedelegateResponseAmino {
-	completion_time: string
+	completion_time: string | undefined
 }
 export interface MsgBeginRedelegateResponseAminoMsg {
 	type: "cosmos-sdk/MsgBeginRedelegateResponse"
@@ -204,7 +204,7 @@ export interface MsgBeginRedelegateResponseAminoMsg {
 export interface MsgUndelegate {
 	delegatorAddress: string
 	validatorAddress: string
-	amount: Coin
+	amount: Coin | undefined
 }
 export interface MsgUndelegateProtoMsg {
 	typeUrl: "/cosmos.staking.v1beta1.MsgUndelegate"
@@ -217,7 +217,7 @@ export interface MsgUndelegateProtoMsg {
 export interface MsgUndelegateAmino {
 	delegator_address?: string
 	validator_address?: string
-	amount: CoinAmino
+	amount: CoinAmino | undefined
 }
 export interface MsgUndelegateAminoMsg {
 	type: "cosmos-sdk/MsgUndelegate"
@@ -225,13 +225,13 @@ export interface MsgUndelegateAminoMsg {
 }
 /** MsgUndelegateResponse defines the Msg/Undelegate response type. */
 export interface MsgUndelegateResponse {
-	completionTime: Date
+	completionTime: Date | undefined
 	/**
 	 * amount returns the amount of undelegated coins
 	 *
 	 * Since: cosmos-sdk 0.50
 	 */
-	amount: Coin
+	amount: Coin | undefined
 }
 export interface MsgUndelegateResponseProtoMsg {
 	typeUrl: "/cosmos.staking.v1beta1.MsgUndelegateResponse"
@@ -239,13 +239,13 @@ export interface MsgUndelegateResponseProtoMsg {
 }
 /** MsgUndelegateResponse defines the Msg/Undelegate response type. */
 export interface MsgUndelegateResponseAmino {
-	completion_time: string
+	completion_time: string | undefined
 	/**
 	 * amount returns the amount of undelegated coins
 	 *
 	 * Since: cosmos-sdk 0.50
 	 */
-	amount: CoinAmino
+	amount: CoinAmino | undefined
 }
 export interface MsgUndelegateResponseAminoMsg {
 	type: "cosmos-sdk/MsgUndelegateResponse"
@@ -260,7 +260,7 @@ export interface MsgCancelUnbondingDelegation {
 	delegatorAddress: string
 	validatorAddress: string
 	/** amount is always less than or equal to unbonding delegation entry balance */
-	amount: Coin
+	amount: Coin | undefined
 	/** creation_height is the height which the unbonding took place. */
 	creationHeight: bigint
 }
@@ -277,7 +277,7 @@ export interface MsgCancelUnbondingDelegationAmino {
 	delegator_address?: string
 	validator_address?: string
 	/** amount is always less than or equal to unbonding delegation entry balance */
-	amount: CoinAmino
+	amount: CoinAmino | undefined
 	/** creation_height is the height which the unbonding took place. */
 	creation_height?: string
 }
@@ -318,7 +318,7 @@ export interface MsgUpdateParams {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params: Params
+	params: Params | undefined
 }
 export interface MsgUpdateParamsProtoMsg {
 	typeUrl: "/cosmos.staking.v1beta1.MsgUpdateParams"
@@ -337,7 +337,7 @@ export interface MsgUpdateParamsAmino {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params: ParamsAmino
+	params: ParamsAmino | undefined
 }
 export interface MsgUpdateParamsAminoMsg {
 	type: "cosmos-sdk/x/staking/MsgUpdateParams"
@@ -385,13 +385,13 @@ export const MsgCreateValidator = {
 		if (message.commission !== undefined) {
 			CommissionRates.encode(message.commission, writer.uint32(18).fork()).ldelim()
 		}
-		if (message.minSelfDelegation !== undefined) {
+		if (message.minSelfDelegation && message.minSelfDelegation !== "") {
 			writer.uint32(26).string(message.minSelfDelegation)
 		}
-		if (message.delegatorAddress !== undefined) {
+		if (message.delegatorAddress && message.delegatorAddress !== "") {
 			writer.uint32(34).string(message.delegatorAddress)
 		}
-		if (message.validatorAddress !== undefined) {
+		if (message.validatorAddress && message.validatorAddress !== "") {
 			writer.uint32(42).string(message.validatorAddress)
 		}
 		if (message.pubkey !== undefined) {
@@ -595,13 +595,13 @@ export const MsgEditValidator = {
 		if (message.description !== undefined) {
 			Description.encode(message.description, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.validatorAddress !== undefined) {
+		if (message.validatorAddress && message.validatorAddress !== "") {
 			writer.uint32(18).string(message.validatorAddress)
 		}
-		if (message.commissionRate !== undefined) {
+		if (message.commissionRate && message.commissionRate !== "") {
 			writer.uint32(26).string(Decimal.fromUserInput(message.commissionRate, 18).atomics)
 		}
-		if (message.minSelfDelegation !== undefined) {
+		if (message.minSelfDelegation && message.minSelfDelegation !== "") {
 			writer.uint32(34).string(message.minSelfDelegation)
 		}
 		return writer
@@ -758,10 +758,10 @@ function createBaseMsgDelegate(): MsgDelegate {
 export const MsgDelegate = {
 	typeUrl: "/cosmos.staking.v1beta1.MsgDelegate",
 	encode(message: MsgDelegate, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.delegatorAddress !== undefined) {
+		if (message.delegatorAddress && message.delegatorAddress !== "") {
 			writer.uint32(10).string(message.delegatorAddress)
 		}
-		if (message.validatorAddress !== undefined) {
+		if (message.validatorAddress && message.validatorAddress !== "") {
 			writer.uint32(18).string(message.validatorAddress)
 		}
 		if (message.amount !== undefined) {
@@ -913,13 +913,13 @@ function createBaseMsgBeginRedelegate(): MsgBeginRedelegate {
 export const MsgBeginRedelegate = {
 	typeUrl: "/cosmos.staking.v1beta1.MsgBeginRedelegate",
 	encode(message: MsgBeginRedelegate, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.delegatorAddress !== undefined) {
+		if (message.delegatorAddress && message.delegatorAddress !== "") {
 			writer.uint32(10).string(message.delegatorAddress)
 		}
-		if (message.validatorSrcAddress !== undefined) {
+		if (message.validatorSrcAddress && message.validatorSrcAddress !== "") {
 			writer.uint32(18).string(message.validatorSrcAddress)
 		}
-		if (message.validatorDstAddress !== undefined) {
+		if (message.validatorDstAddress && message.validatorDstAddress !== "") {
 			writer.uint32(26).string(message.validatorDstAddress)
 		}
 		if (message.amount !== undefined) {
@@ -1098,10 +1098,10 @@ function createBaseMsgUndelegate(): MsgUndelegate {
 export const MsgUndelegate = {
 	typeUrl: "/cosmos.staking.v1beta1.MsgUndelegate",
 	encode(message: MsgUndelegate, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.delegatorAddress !== undefined) {
+		if (message.delegatorAddress && message.delegatorAddress !== "") {
 			writer.uint32(10).string(message.delegatorAddress)
 		}
-		if (message.validatorAddress !== undefined) {
+		if (message.validatorAddress && message.validatorAddress !== "") {
 			writer.uint32(18).string(message.validatorAddress)
 		}
 		if (message.amount !== undefined) {
@@ -1291,16 +1291,16 @@ export const MsgCancelUnbondingDelegation = {
 		message: MsgCancelUnbondingDelegation,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.delegatorAddress !== undefined) {
+		if (message.delegatorAddress && message.delegatorAddress !== "") {
 			writer.uint32(10).string(message.delegatorAddress)
 		}
-		if (message.validatorAddress !== undefined) {
+		if (message.validatorAddress && message.validatorAddress !== "") {
 			writer.uint32(18).string(message.validatorAddress)
 		}
 		if (message.amount !== undefined) {
 			Coin.encode(message.amount, writer.uint32(26).fork()).ldelim()
 		}
-		if (message.creationHeight !== undefined) {
+		if (message.creationHeight && message.creationHeight !== BigInt(0)) {
 			writer.uint32(32).int64(message.creationHeight)
 		}
 		return writer
@@ -1472,7 +1472,7 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
 export const MsgUpdateParams = {
 	typeUrl: "/cosmos.staking.v1beta1.MsgUpdateParams",
 	encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.authority !== undefined) {
+		if (message.authority && message.authority !== "") {
 			writer.uint32(10).string(message.authority)
 		}
 		if (message.params !== undefined) {

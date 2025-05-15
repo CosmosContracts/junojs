@@ -76,7 +76,7 @@ export interface ValidatorAccumulatedCommissionRecord {
 	/** validator_address is the address of the validator. */
 	validatorAddress: string
 	/** accumulated is the accumulated commission of a validator. */
-	accumulated: ValidatorAccumulatedCommission
+	accumulated: ValidatorAccumulatedCommission | undefined
 }
 export interface ValidatorAccumulatedCommissionRecordProtoMsg {
 	typeUrl: "/cosmos.distribution.v1beta1.ValidatorAccumulatedCommissionRecord"
@@ -90,7 +90,7 @@ export interface ValidatorAccumulatedCommissionRecordAmino {
 	/** validator_address is the address of the validator. */
 	validator_address?: string
 	/** accumulated is the accumulated commission of a validator. */
-	accumulated: ValidatorAccumulatedCommissionAmino
+	accumulated: ValidatorAccumulatedCommissionAmino | undefined
 }
 export interface ValidatorAccumulatedCommissionRecordAminoMsg {
 	type: "cosmos-sdk/ValidatorAccumulatedCommissionRecord"
@@ -106,7 +106,7 @@ export interface ValidatorHistoricalRewardsRecord {
 	/** period defines the period the historical rewards apply to. */
 	period: bigint
 	/** rewards defines the historical rewards of a validator. */
-	rewards: ValidatorHistoricalRewards
+	rewards: ValidatorHistoricalRewards | undefined
 }
 export interface ValidatorHistoricalRewardsRecordProtoMsg {
 	typeUrl: "/cosmos.distribution.v1beta1.ValidatorHistoricalRewardsRecord"
@@ -122,7 +122,7 @@ export interface ValidatorHistoricalRewardsRecordAmino {
 	/** period defines the period the historical rewards apply to. */
 	period?: string
 	/** rewards defines the historical rewards of a validator. */
-	rewards: ValidatorHistoricalRewardsAmino
+	rewards: ValidatorHistoricalRewardsAmino | undefined
 }
 export interface ValidatorHistoricalRewardsRecordAminoMsg {
 	type: "cosmos-sdk/ValidatorHistoricalRewardsRecord"
@@ -133,7 +133,7 @@ export interface ValidatorCurrentRewardsRecord {
 	/** validator_address is the address of the validator. */
 	validatorAddress: string
 	/** rewards defines the current rewards of a validator. */
-	rewards: ValidatorCurrentRewards
+	rewards: ValidatorCurrentRewards | undefined
 }
 export interface ValidatorCurrentRewardsRecordProtoMsg {
 	typeUrl: "/cosmos.distribution.v1beta1.ValidatorCurrentRewardsRecord"
@@ -144,7 +144,7 @@ export interface ValidatorCurrentRewardsRecordAmino {
 	/** validator_address is the address of the validator. */
 	validator_address?: string
 	/** rewards defines the current rewards of a validator. */
-	rewards: ValidatorCurrentRewardsAmino
+	rewards: ValidatorCurrentRewardsAmino | undefined
 }
 export interface ValidatorCurrentRewardsRecordAminoMsg {
 	type: "cosmos-sdk/ValidatorCurrentRewardsRecord"
@@ -157,7 +157,7 @@ export interface DelegatorStartingInfoRecord {
 	/** validator_address is the address of the validator. */
 	validatorAddress: string
 	/** starting_info defines the starting info of a delegator. */
-	startingInfo: DelegatorStartingInfo
+	startingInfo: DelegatorStartingInfo | undefined
 }
 export interface DelegatorStartingInfoRecordProtoMsg {
 	typeUrl: "/cosmos.distribution.v1beta1.DelegatorStartingInfoRecord"
@@ -170,7 +170,7 @@ export interface DelegatorStartingInfoRecordAmino {
 	/** validator_address is the address of the validator. */
 	validator_address?: string
 	/** starting_info defines the starting info of a delegator. */
-	starting_info: DelegatorStartingInfoAmino
+	starting_info: DelegatorStartingInfoAmino | undefined
 }
 export interface DelegatorStartingInfoRecordAminoMsg {
 	type: "cosmos-sdk/DelegatorStartingInfoRecord"
@@ -185,7 +185,7 @@ export interface ValidatorSlashEventRecord {
 	/** period is the period of the slash event. */
 	period: bigint
 	/** validator_slash_event describes the slash event. */
-	validatorSlashEvent: ValidatorSlashEvent
+	validatorSlashEvent: ValidatorSlashEvent | undefined
 }
 export interface ValidatorSlashEventRecordProtoMsg {
 	typeUrl: "/cosmos.distribution.v1beta1.ValidatorSlashEventRecord"
@@ -200,7 +200,7 @@ export interface ValidatorSlashEventRecordAmino {
 	/** period is the period of the slash event. */
 	period?: string
 	/** validator_slash_event describes the slash event. */
-	validator_slash_event: ValidatorSlashEventAmino
+	validator_slash_event: ValidatorSlashEventAmino | undefined
 }
 export interface ValidatorSlashEventRecordAminoMsg {
 	type: "cosmos-sdk/ValidatorSlashEventRecord"
@@ -209,9 +209,9 @@ export interface ValidatorSlashEventRecordAminoMsg {
 /** GenesisState defines the distribution module's genesis state. */
 export interface GenesisState {
 	/** params defines all the parameters of the module. */
-	params: Params
+	params: Params | undefined
 	/** fee_pool defines the fee pool at genesis. */
-	feePool: FeePool
+	feePool: FeePool | undefined
 	/** fee_pool defines the delegator withdraw infos at genesis. */
 	delegatorWithdrawInfos: DelegatorWithdrawInfo[]
 	/** fee_pool defines the previous proposer at genesis. */
@@ -236,9 +236,9 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the distribution module's genesis state. */
 export interface GenesisStateAmino {
 	/** params defines all the parameters of the module. */
-	params: ParamsAmino
+	params: ParamsAmino | undefined
 	/** fee_pool defines the fee pool at genesis. */
-	fee_pool: FeePoolAmino
+	fee_pool: FeePoolAmino | undefined
 	/** fee_pool defines the delegator withdraw infos at genesis. */
 	delegator_withdraw_infos: DelegatorWithdrawInfoAmino[]
 	/** fee_pool defines the previous proposer at genesis. */
@@ -272,10 +272,10 @@ export const DelegatorWithdrawInfo = {
 		message: DelegatorWithdrawInfo,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.delegatorAddress !== undefined) {
+		if (message.delegatorAddress && message.delegatorAddress !== "") {
 			writer.uint32(10).string(message.delegatorAddress)
 		}
-		if (message.withdrawAddress !== undefined) {
+		if (message.withdrawAddress && message.withdrawAddress !== "") {
 			writer.uint32(18).string(message.withdrawAddress)
 		}
 		return writer
@@ -356,7 +356,7 @@ export const ValidatorOutstandingRewardsRecord = {
 		message: ValidatorOutstandingRewardsRecord,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.validatorAddress !== undefined) {
+		if (message.validatorAddress && message.validatorAddress !== "") {
 			writer.uint32(10).string(message.validatorAddress)
 		}
 		for (const v of message.outstandingRewards) {
@@ -456,7 +456,7 @@ export const ValidatorAccumulatedCommissionRecord = {
 		message: ValidatorAccumulatedCommissionRecord,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.validatorAddress !== undefined) {
+		if (message.validatorAddress && message.validatorAddress !== "") {
 			writer.uint32(10).string(message.validatorAddress)
 		}
 		if (message.accumulated !== undefined) {
@@ -563,10 +563,10 @@ export const ValidatorHistoricalRewardsRecord = {
 		message: ValidatorHistoricalRewardsRecord,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.validatorAddress !== undefined) {
+		if (message.validatorAddress && message.validatorAddress !== "") {
 			writer.uint32(10).string(message.validatorAddress)
 		}
-		if (message.period !== undefined) {
+		if (message.period && message.period !== BigInt(0)) {
 			writer.uint32(16).uint64(message.period)
 		}
 		if (message.rewards !== undefined) {
@@ -672,7 +672,7 @@ export const ValidatorCurrentRewardsRecord = {
 		message: ValidatorCurrentRewardsRecord,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.validatorAddress !== undefined) {
+		if (message.validatorAddress && message.validatorAddress !== "") {
 			writer.uint32(10).string(message.validatorAddress)
 		}
 		if (message.rewards !== undefined) {
@@ -762,10 +762,10 @@ export const DelegatorStartingInfoRecord = {
 		message: DelegatorStartingInfoRecord,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.delegatorAddress !== undefined) {
+		if (message.delegatorAddress && message.delegatorAddress !== "") {
 			writer.uint32(10).string(message.delegatorAddress)
 		}
-		if (message.validatorAddress !== undefined) {
+		if (message.validatorAddress && message.validatorAddress !== "") {
 			writer.uint32(18).string(message.validatorAddress)
 		}
 		if (message.startingInfo !== undefined) {
@@ -864,13 +864,13 @@ export const ValidatorSlashEventRecord = {
 		message: ValidatorSlashEventRecord,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.validatorAddress !== undefined) {
+		if (message.validatorAddress && message.validatorAddress !== "") {
 			writer.uint32(10).string(message.validatorAddress)
 		}
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(16).uint64(message.height)
 		}
-		if (message.period !== undefined) {
+		if (message.period && message.period !== BigInt(0)) {
 			writer.uint32(24).uint64(message.period)
 		}
 		if (message.validatorSlashEvent !== undefined) {
@@ -995,7 +995,7 @@ export const GenesisState = {
 		for (const v of message.delegatorWithdrawInfos) {
 			DelegatorWithdrawInfo.encode(v!, writer.uint32(26).fork()).ldelim()
 		}
-		if (message.previousProposer !== undefined) {
+		if (message.previousProposer && message.previousProposer !== "") {
 			writer.uint32(34).string(message.previousProposer)
 		}
 		for (const v of message.outstandingRewards) {

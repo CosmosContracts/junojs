@@ -2,7 +2,7 @@ import { BinaryReader, BinaryWriter } from "../../../binary"
 /** GenesisState - initial state of module */
 export interface GenesisState {
 	/** Params of this module */
-	params: Params
+	params: Params | undefined
 	/** staking_contract_addresses */
 	stakingContractAddresses: string[]
 	/** gov_contract_addresses */
@@ -15,7 +15,7 @@ export interface GenesisStateProtoMsg {
 /** GenesisState - initial state of module */
 export interface GenesisStateAmino {
 	/** Params of this module */
-	params: ParamsAmino
+	params: ParamsAmino | undefined
 	/** staking_contract_addresses */
 	staking_contract_addresses?: string[]
 	/** gov_contract_addresses */
@@ -147,7 +147,7 @@ function createBaseParams(): Params {
 export const Params = {
 	typeUrl: "/juno.cwhooks.v1.Params",
 	encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.contractGasLimit !== undefined) {
+		if (message.contractGasLimit && message.contractGasLimit !== BigInt(0)) {
 			writer.uint32(8).uint64(message.contractGasLimit)
 		}
 		return writer

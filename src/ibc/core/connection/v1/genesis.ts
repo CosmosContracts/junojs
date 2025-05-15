@@ -13,7 +13,7 @@ export interface GenesisState {
 	clientConnectionPaths: ConnectionPaths[]
 	/** the sequence for the next generated connection identifier */
 	nextConnectionSequence: bigint
-	params: Params
+	params: Params | undefined
 }
 export interface GenesisStateProtoMsg {
 	typeUrl: "/ibc.core.connection.v1.GenesisState"
@@ -25,7 +25,7 @@ export interface GenesisStateAmino {
 	client_connection_paths?: ConnectionPathsAmino[]
 	/** the sequence for the next generated connection identifier */
 	next_connection_sequence?: string
-	params?: ParamsAmino
+	params?: ParamsAmino | undefined
 }
 export interface GenesisStateAminoMsg {
 	type: "cosmos-sdk/GenesisState"
@@ -48,7 +48,7 @@ export const GenesisState = {
 		for (const v of message.clientConnectionPaths) {
 			ConnectionPaths.encode(v!, writer.uint32(18).fork()).ldelim()
 		}
-		if (message.nextConnectionSequence !== undefined) {
+		if (message.nextConnectionSequence && message.nextConnectionSequence !== BigInt(0)) {
 			writer.uint32(24).uint64(message.nextConnectionSequence)
 		}
 		if (message.params !== undefined) {

@@ -16,7 +16,7 @@ export interface QueryParamsRequestAminoMsg {
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponse {
 	/** params defines the parameters of the module. */
-	params: Params
+	params: Params | undefined
 }
 export interface QueryParamsResponseProtoMsg {
 	typeUrl: "/osmosis.tokenfactory.v1beta1.QueryParamsResponse"
@@ -25,7 +25,7 @@ export interface QueryParamsResponseProtoMsg {
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponseAmino {
 	/** params defines the parameters of the module. */
-	params: ParamsAmino
+	params: ParamsAmino | undefined
 }
 export interface QueryParamsResponseAminoMsg {
 	type: "osmosis/tokenfactory/query-params-response"
@@ -58,7 +58,7 @@ export interface QueryDenomAuthorityMetadataRequestAminoMsg {
  * DenomAuthorityMetadata gRPC query.
  */
 export interface QueryDenomAuthorityMetadataResponse {
-	authorityMetadata: DenomAuthorityMetadata
+	authorityMetadata: DenomAuthorityMetadata | undefined
 }
 export interface QueryDenomAuthorityMetadataResponseProtoMsg {
 	typeUrl: "/osmosis.tokenfactory.v1beta1.QueryDenomAuthorityMetadataResponse"
@@ -69,7 +69,7 @@ export interface QueryDenomAuthorityMetadataResponseProtoMsg {
  * DenomAuthorityMetadata gRPC query.
  */
 export interface QueryDenomAuthorityMetadataResponseAmino {
-	authority_metadata: DenomAuthorityMetadataAmino
+	authority_metadata: DenomAuthorityMetadataAmino | undefined
 }
 export interface QueryDenomAuthorityMetadataResponseAminoMsg {
 	type: "osmosis/tokenfactory/query-denom-authority-metadata-response"
@@ -263,7 +263,7 @@ export const QueryDenomAuthorityMetadataRequest = {
 		message: QueryDenomAuthorityMetadataRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.denom !== undefined) {
+		if (message.denom && message.denom !== "") {
 			writer.uint32(10).string(message.denom)
 		}
 		return writer
@@ -434,7 +434,7 @@ export const QueryDenomsFromCreatorRequest = {
 		message: QueryDenomsFromCreatorRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.creator !== undefined) {
+		if (message.creator && message.creator !== "") {
 			writer.uint32(10).string(message.creator)
 		}
 		return writer

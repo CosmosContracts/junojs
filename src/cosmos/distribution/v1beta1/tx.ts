@@ -186,7 +186,7 @@ export interface MsgUpdateParams {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params: Params
+	params: Params | undefined
 }
 export interface MsgUpdateParamsProtoMsg {
 	typeUrl: "/cosmos.distribution.v1beta1.MsgUpdateParams"
@@ -205,7 +205,7 @@ export interface MsgUpdateParamsAmino {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params: ParamsAmino
+	params: ParamsAmino | undefined
 }
 export interface MsgUpdateParamsAminoMsg {
 	type: "cosmos-sdk/distribution/MsgUpdateParams"
@@ -353,10 +353,10 @@ export const MsgSetWithdrawAddress = {
 		message: MsgSetWithdrawAddress,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.delegatorAddress !== undefined) {
+		if (message.delegatorAddress && message.delegatorAddress !== "") {
 			writer.uint32(10).string(message.delegatorAddress)
 		}
-		if (message.withdrawAddress !== undefined) {
+		if (message.withdrawAddress && message.withdrawAddress !== "") {
 			writer.uint32(18).string(message.withdrawAddress)
 		}
 		return writer
@@ -496,10 +496,10 @@ export const MsgWithdrawDelegatorReward = {
 		message: MsgWithdrawDelegatorReward,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.delegatorAddress !== undefined) {
+		if (message.delegatorAddress && message.delegatorAddress !== "") {
 			writer.uint32(10).string(message.delegatorAddress)
 		}
-		if (message.validatorAddress !== undefined) {
+		if (message.validatorAddress && message.validatorAddress !== "") {
 			writer.uint32(18).string(message.validatorAddress)
 		}
 		return writer
@@ -663,7 +663,7 @@ export const MsgWithdrawValidatorCommission = {
 		message: MsgWithdrawValidatorCommission,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.validatorAddress !== undefined) {
+		if (message.validatorAddress && message.validatorAddress !== "") {
 			writer.uint32(10).string(message.validatorAddress)
 		}
 		return writer
@@ -830,7 +830,7 @@ export const MsgFundCommunityPool = {
 		for (const v of message.amount) {
 			Coin.encode(v!, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.depositor !== undefined) {
+		if (message.depositor && message.depositor !== "") {
 			writer.uint32(18).string(message.depositor)
 		}
 		return writer
@@ -969,7 +969,7 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
 export const MsgUpdateParams = {
 	typeUrl: "/cosmos.distribution.v1beta1.MsgUpdateParams",
 	encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.authority !== undefined) {
+		if (message.authority && message.authority !== "") {
 			writer.uint32(10).string(message.authority)
 		}
 		if (message.params !== undefined) {
@@ -1115,10 +1115,10 @@ export const MsgCommunityPoolSpend = {
 		message: MsgCommunityPoolSpend,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.authority !== undefined) {
+		if (message.authority && message.authority !== "") {
 			writer.uint32(10).string(message.authority)
 		}
-		if (message.recipient !== undefined) {
+		if (message.recipient && message.recipient !== "") {
 			writer.uint32(18).string(message.recipient)
 		}
 		for (const v of message.amount) {
@@ -1272,10 +1272,10 @@ export const MsgDepositValidatorRewardsPool = {
 		message: MsgDepositValidatorRewardsPool,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.depositor !== undefined) {
+		if (message.depositor && message.depositor !== "") {
 			writer.uint32(10).string(message.depositor)
 		}
-		if (message.validatorAddress !== undefined) {
+		if (message.validatorAddress && message.validatorAddress !== "") {
 			writer.uint32(18).string(message.validatorAddress)
 		}
 		for (const v of message.amount) {

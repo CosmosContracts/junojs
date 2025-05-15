@@ -36,10 +36,10 @@ function createBaseClockContract(): ClockContract {
 export const ClockContract = {
 	typeUrl: "/juno.clock.v1.ClockContract",
 	encode(message: ClockContract, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.contractAddress !== undefined) {
+		if (message.contractAddress && message.contractAddress !== "") {
 			writer.uint32(10).string(message.contractAddress)
 		}
-		if (message.isJailed !== undefined) {
+		if (message.isJailed === true) {
 			writer.uint32(16).bool(message.isJailed)
 		}
 		return writer

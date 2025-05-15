@@ -129,7 +129,7 @@ export interface MsgUpdateParams {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params: Params
+	params: Params | undefined
 }
 export interface MsgUpdateParamsProtoMsg {
 	typeUrl: "/juno.clock.v1.MsgUpdateParams"
@@ -144,7 +144,7 @@ export interface MsgUpdateParamsAmino {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params: ParamsAmino
+	params: ParamsAmino | undefined
 }
 export interface MsgUpdateParamsAminoMsg {
 	type: "juno/x/clock/MsgUpdateParams"
@@ -180,10 +180,10 @@ export const MsgRegisterClockContract = {
 		message: MsgRegisterClockContract,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.senderAddress !== undefined) {
+		if (message.senderAddress && message.senderAddress !== "") {
 			writer.uint32(10).string(message.senderAddress)
 		}
-		if (message.contractAddress !== undefined) {
+		if (message.contractAddress && message.contractAddress !== "") {
 			writer.uint32(18).string(message.contractAddress)
 		}
 		return writer
@@ -321,10 +321,10 @@ export const MsgUnregisterClockContract = {
 		message: MsgUnregisterClockContract,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.senderAddress !== undefined) {
+		if (message.senderAddress && message.senderAddress !== "") {
 			writer.uint32(10).string(message.senderAddress)
 		}
-		if (message.contractAddress !== undefined) {
+		if (message.contractAddress && message.contractAddress !== "") {
 			writer.uint32(18).string(message.contractAddress)
 		}
 		return writer
@@ -464,10 +464,10 @@ export const MsgUnjailClockContract = {
 		message: MsgUnjailClockContract,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.senderAddress !== undefined) {
+		if (message.senderAddress && message.senderAddress !== "") {
 			writer.uint32(10).string(message.senderAddress)
 		}
-		if (message.contractAddress !== undefined) {
+		if (message.contractAddress && message.contractAddress !== "") {
 			writer.uint32(18).string(message.contractAddress)
 		}
 		return writer
@@ -598,7 +598,7 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
 export const MsgUpdateParams = {
 	typeUrl: "/juno.clock.v1.MsgUpdateParams",
 	encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.authority !== undefined) {
+		if (message.authority && message.authority !== "") {
 			writer.uint32(10).string(message.authority)
 		}
 		if (message.params !== undefined) {

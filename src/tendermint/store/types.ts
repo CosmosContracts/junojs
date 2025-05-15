@@ -24,10 +24,10 @@ function createBaseBlockStoreState(): BlockStoreState {
 export const BlockStoreState = {
 	typeUrl: "/tendermint.store.BlockStoreState",
 	encode(message: BlockStoreState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.base !== undefined) {
+		if (message.base && message.base !== BigInt(0)) {
 			writer.uint32(8).int64(message.base)
 		}
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(16).int64(message.height)
 		}
 		return writer

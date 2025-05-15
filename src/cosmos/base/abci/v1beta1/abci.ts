@@ -32,7 +32,7 @@ export interface TxResponse {
 	/** Amount of gas consumed by transaction. */
 	gasUsed: bigint
 	/** The request transaction bytes. */
-	tx?: Any
+	tx?: Any | undefined
 	/**
 	 * Time of the previous block. For heights > 1, it's the weighted median of
 	 * the timestamps of the valid votes in the block.LastCommit. For height == 1,
@@ -82,7 +82,7 @@ export interface TxResponseAmino {
 	/** Amount of gas consumed by transaction. */
 	gas_used?: string
 	/** The request transaction bytes. */
-	tx?: AnyAmino
+	tx?: AnyAmino | undefined
 	/**
 	 * Time of the previous block. For heights > 1, it's the weighted median of
 	 * the timestamps of the valid votes in the block.LastCommit. For height == 1,
@@ -262,8 +262,8 @@ export interface ResultAminoMsg {
  * successfully simulated.
  */
 export interface SimulationResponse {
-	gasInfo: GasInfo
-	result?: Result
+	gasInfo: GasInfo | undefined
+	result?: Result | undefined
 }
 export interface SimulationResponseProtoMsg {
 	typeUrl: "/cosmos.base.abci.v1beta1.SimulationResponse"
@@ -274,8 +274,8 @@ export interface SimulationResponseProtoMsg {
  * successfully simulated.
  */
 export interface SimulationResponseAmino {
-	gas_info?: GasInfoAmino
-	result?: ResultAmino
+	gas_info?: GasInfoAmino | undefined
+	result?: ResultAmino | undefined
 }
 export interface SimulationResponseAminoMsg {
 	type: "cosmos-sdk/SimulationResponse"
@@ -441,40 +441,40 @@ function createBaseTxResponse(): TxResponse {
 export const TxResponse = {
 	typeUrl: "/cosmos.base.abci.v1beta1.TxResponse",
 	encode(message: TxResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(8).int64(message.height)
 		}
-		if (message.txhash !== undefined) {
+		if (message.txhash && message.txhash !== "") {
 			writer.uint32(18).string(message.txhash)
 		}
-		if (message.codespace !== undefined) {
+		if (message.codespace && message.codespace !== "") {
 			writer.uint32(26).string(message.codespace)
 		}
-		if (message.code !== undefined) {
+		if (message.code && message.code !== 0) {
 			writer.uint32(32).uint32(message.code)
 		}
-		if (message.data !== undefined) {
+		if (message.data && message.data !== "") {
 			writer.uint32(42).string(message.data)
 		}
-		if (message.rawLog !== undefined) {
+		if (message.rawLog && message.rawLog !== "") {
 			writer.uint32(50).string(message.rawLog)
 		}
 		for (const v of message.logs) {
 			ABCIMessageLog.encode(v!, writer.uint32(58).fork()).ldelim()
 		}
-		if (message.info !== undefined) {
+		if (message.info && message.info !== "") {
 			writer.uint32(66).string(message.info)
 		}
-		if (message.gasWanted !== undefined) {
+		if (message.gasWanted && message.gasWanted !== BigInt(0)) {
 			writer.uint32(72).int64(message.gasWanted)
 		}
-		if (message.gasUsed !== undefined) {
+		if (message.gasUsed && message.gasUsed !== BigInt(0)) {
 			writer.uint32(80).int64(message.gasUsed)
 		}
 		if (message.tx !== undefined) {
 			Any.encode(message.tx, writer.uint32(90).fork()).ldelim()
 		}
-		if (message.timestamp !== undefined) {
+		if (message.timestamp && message.timestamp !== "") {
 			writer.uint32(98).string(message.timestamp)
 		}
 		for (const v of message.events) {
@@ -658,10 +658,10 @@ function createBaseABCIMessageLog(): ABCIMessageLog {
 export const ABCIMessageLog = {
 	typeUrl: "/cosmos.base.abci.v1beta1.ABCIMessageLog",
 	encode(message: ABCIMessageLog, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.msgIndex !== undefined) {
+		if (message.msgIndex && message.msgIndex !== 0) {
 			writer.uint32(8).uint32(message.msgIndex)
 		}
-		if (message.log !== undefined) {
+		if (message.log && message.log !== "") {
 			writer.uint32(18).string(message.log)
 		}
 		for (const v of message.events) {
@@ -752,7 +752,7 @@ function createBaseStringEvent(): StringEvent {
 export const StringEvent = {
 	typeUrl: "/cosmos.base.abci.v1beta1.StringEvent",
 	encode(message: StringEvent, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.type !== undefined) {
+		if (message.type && message.type !== "") {
 			writer.uint32(10).string(message.type)
 		}
 		for (const v of message.attributes) {
@@ -835,10 +835,10 @@ function createBaseAttribute(): Attribute {
 export const Attribute = {
 	typeUrl: "/cosmos.base.abci.v1beta1.Attribute",
 	encode(message: Attribute, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.key !== undefined) {
+		if (message.key && message.key !== "") {
 			writer.uint32(10).string(message.key)
 		}
-		if (message.value !== undefined) {
+		if (message.value && message.value !== "") {
 			writer.uint32(18).string(message.value)
 		}
 		return writer
@@ -916,10 +916,10 @@ function createBaseGasInfo(): GasInfo {
 export const GasInfo = {
 	typeUrl: "/cosmos.base.abci.v1beta1.GasInfo",
 	encode(message: GasInfo, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.gasWanted !== undefined) {
+		if (message.gasWanted && message.gasWanted !== BigInt(0)) {
 			writer.uint32(8).uint64(message.gasWanted)
 		}
-		if (message.gasUsed !== undefined) {
+		if (message.gasUsed && message.gasUsed !== BigInt(0)) {
 			writer.uint32(16).uint64(message.gasUsed)
 		}
 		return writer
@@ -1008,7 +1008,7 @@ export const Result = {
 		if (message.data.length !== 0) {
 			writer.uint32(10).bytes(message.data)
 		}
-		if (message.log !== undefined) {
+		if (message.log && message.log !== "") {
 			writer.uint32(18).string(message.log)
 		}
 		for (const v of message.events) {
@@ -1199,7 +1199,7 @@ function createBaseMsgData(): MsgData {
 export const MsgData = {
 	typeUrl: "/cosmos.base.abci.v1beta1.MsgData",
 	encode(message: MsgData, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.msgType !== undefined) {
+		if (message.msgType && message.msgType !== "") {
 			writer.uint32(10).string(message.msgType)
 		}
 		if (message.data.length !== 0) {
@@ -1369,19 +1369,19 @@ function createBaseSearchTxsResult(): SearchTxsResult {
 export const SearchTxsResult = {
 	typeUrl: "/cosmos.base.abci.v1beta1.SearchTxsResult",
 	encode(message: SearchTxsResult, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.totalCount !== undefined) {
+		if (message.totalCount && message.totalCount !== BigInt(0)) {
 			writer.uint32(8).uint64(message.totalCount)
 		}
-		if (message.count !== undefined) {
+		if (message.count && message.count !== BigInt(0)) {
 			writer.uint32(16).uint64(message.count)
 		}
-		if (message.pageNumber !== undefined) {
+		if (message.pageNumber && message.pageNumber !== BigInt(0)) {
 			writer.uint32(24).uint64(message.pageNumber)
 		}
-		if (message.pageTotal !== undefined) {
+		if (message.pageTotal && message.pageTotal !== BigInt(0)) {
 			writer.uint32(32).uint64(message.pageTotal)
 		}
-		if (message.limit !== undefined) {
+		if (message.limit && message.limit !== BigInt(0)) {
 			writer.uint32(40).uint64(message.limit)
 		}
 		for (const v of message.txs) {
@@ -1517,19 +1517,19 @@ function createBaseSearchBlocksResult(): SearchBlocksResult {
 export const SearchBlocksResult = {
 	typeUrl: "/cosmos.base.abci.v1beta1.SearchBlocksResult",
 	encode(message: SearchBlocksResult, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.totalCount !== undefined) {
+		if (message.totalCount && message.totalCount !== BigInt(0)) {
 			writer.uint32(8).int64(message.totalCount)
 		}
-		if (message.count !== undefined) {
+		if (message.count && message.count !== BigInt(0)) {
 			writer.uint32(16).int64(message.count)
 		}
-		if (message.pageNumber !== undefined) {
+		if (message.pageNumber && message.pageNumber !== BigInt(0)) {
 			writer.uint32(24).int64(message.pageNumber)
 		}
-		if (message.pageTotal !== undefined) {
+		if (message.pageTotal && message.pageTotal !== BigInt(0)) {
 			writer.uint32(32).int64(message.pageTotal)
 		}
-		if (message.limit !== undefined) {
+		if (message.limit && message.limit !== BigInt(0)) {
 			writer.uint32(40).int64(message.limit)
 		}
 		for (const v of message.blocks) {

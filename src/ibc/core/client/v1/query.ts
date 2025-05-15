@@ -49,11 +49,11 @@ export interface QueryClientStateRequestAminoMsg {
  */
 export interface QueryClientStateResponse {
 	/** client state associated with the request identifier */
-	clientState?: Any
+	clientState?: Any | undefined
 	/** merkle proof of existence */
 	proof: Uint8Array
 	/** height at which the proof was retrieved */
-	proofHeight: Height
+	proofHeight: Height | undefined
 }
 export interface QueryClientStateResponseProtoMsg {
 	typeUrl: "/ibc.core.client.v1.QueryClientStateResponse"
@@ -66,11 +66,11 @@ export interface QueryClientStateResponseProtoMsg {
  */
 export interface QueryClientStateResponseAmino {
 	/** client state associated with the request identifier */
-	client_state?: AnyAmino
+	client_state?: AnyAmino | undefined
 	/** merkle proof of existence */
 	proof?: string
 	/** height at which the proof was retrieved */
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 }
 export interface QueryClientStateResponseAminoMsg {
 	type: "cosmos-sdk/QueryClientStateResponse"
@@ -82,7 +82,7 @@ export interface QueryClientStateResponseAminoMsg {
  */
 export interface QueryClientStatesRequest {
 	/** pagination request */
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 }
 export interface QueryClientStatesRequestProtoMsg {
 	typeUrl: "/ibc.core.client.v1.QueryClientStatesRequest"
@@ -94,7 +94,7 @@ export interface QueryClientStatesRequestProtoMsg {
  */
 export interface QueryClientStatesRequestAmino {
 	/** pagination request */
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 }
 export interface QueryClientStatesRequestAminoMsg {
 	type: "cosmos-sdk/QueryClientStatesRequest"
@@ -108,7 +108,7 @@ export interface QueryClientStatesResponse {
 	/** list of stored ClientStates of the chain. */
 	clientStates: IdentifiedClientState[]
 	/** pagination response */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 }
 export interface QueryClientStatesResponseProtoMsg {
 	typeUrl: "/ibc.core.client.v1.QueryClientStatesResponse"
@@ -122,7 +122,7 @@ export interface QueryClientStatesResponseAmino {
 	/** list of stored ClientStates of the chain. */
 	client_states?: IdentifiedClientStateAmino[]
 	/** pagination response */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 }
 export interface QueryClientStatesResponseAminoMsg {
 	type: "cosmos-sdk/QueryClientStatesResponse"
@@ -178,11 +178,11 @@ export interface QueryConsensusStateRequestAminoMsg {
  */
 export interface QueryConsensusStateResponse {
 	/** consensus state associated with the client identifier at the given height */
-	consensusState?: Any
+	consensusState?: Any | undefined
 	/** merkle proof of existence */
 	proof: Uint8Array
 	/** height at which the proof was retrieved */
-	proofHeight: Height
+	proofHeight: Height | undefined
 }
 export interface QueryConsensusStateResponseProtoMsg {
 	typeUrl: "/ibc.core.client.v1.QueryConsensusStateResponse"
@@ -194,11 +194,11 @@ export interface QueryConsensusStateResponseProtoMsg {
  */
 export interface QueryConsensusStateResponseAmino {
 	/** consensus state associated with the client identifier at the given height */
-	consensus_state?: AnyAmino
+	consensus_state?: AnyAmino | undefined
 	/** merkle proof of existence */
 	proof?: string
 	/** height at which the proof was retrieved */
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 }
 export interface QueryConsensusStateResponseAminoMsg {
 	type: "cosmos-sdk/QueryConsensusStateResponse"
@@ -212,7 +212,7 @@ export interface QueryConsensusStatesRequest {
 	/** client identifier */
 	clientId: string
 	/** pagination request */
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 }
 export interface QueryConsensusStatesRequestProtoMsg {
 	typeUrl: "/ibc.core.client.v1.QueryConsensusStatesRequest"
@@ -226,7 +226,7 @@ export interface QueryConsensusStatesRequestAmino {
 	/** client identifier */
 	client_id?: string
 	/** pagination request */
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 }
 export interface QueryConsensusStatesRequestAminoMsg {
 	type: "cosmos-sdk/QueryConsensusStatesRequest"
@@ -240,7 +240,7 @@ export interface QueryConsensusStatesResponse {
 	/** consensus states associated with the identifier */
 	consensusStates: ConsensusStateWithHeight[]
 	/** pagination response */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 }
 export interface QueryConsensusStatesResponseProtoMsg {
 	typeUrl: "/ibc.core.client.v1.QueryConsensusStatesResponse"
@@ -254,7 +254,7 @@ export interface QueryConsensusStatesResponseAmino {
 	/** consensus states associated with the identifier */
 	consensus_states?: ConsensusStateWithHeightAmino[]
 	/** pagination response */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 }
 export interface QueryConsensusStatesResponseAminoMsg {
 	type: "cosmos-sdk/QueryConsensusStatesResponse"
@@ -268,7 +268,7 @@ export interface QueryConsensusStateHeightsRequest {
 	/** client identifier */
 	clientId: string
 	/** pagination request */
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 }
 export interface QueryConsensusStateHeightsRequestProtoMsg {
 	typeUrl: "/ibc.core.client.v1.QueryConsensusStateHeightsRequest"
@@ -282,7 +282,7 @@ export interface QueryConsensusStateHeightsRequestAmino {
 	/** client identifier */
 	client_id?: string
 	/** pagination request */
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 }
 export interface QueryConsensusStateHeightsRequestAminoMsg {
 	type: "cosmos-sdk/QueryConsensusStateHeightsRequest"
@@ -296,7 +296,7 @@ export interface QueryConsensusStateHeightsResponse {
 	/** consensus state heights */
 	consensusStateHeights: Height[]
 	/** pagination response */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 }
 export interface QueryConsensusStateHeightsResponseProtoMsg {
 	typeUrl: "/ibc.core.client.v1.QueryConsensusStateHeightsResponse"
@@ -310,7 +310,7 @@ export interface QueryConsensusStateHeightsResponseAmino {
 	/** consensus state heights */
 	consensus_state_heights?: HeightAmino[]
 	/** pagination response */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 }
 export interface QueryConsensusStateHeightsResponseAminoMsg {
 	type: "cosmos-sdk/QueryConsensusStateHeightsResponse"
@@ -386,7 +386,7 @@ export interface QueryClientParamsRequestAminoMsg {
  */
 export interface QueryClientParamsResponse {
 	/** params defines the parameters of the module. */
-	params?: Params
+	params?: Params | undefined
 }
 export interface QueryClientParamsResponseProtoMsg {
 	typeUrl: "/ibc.core.client.v1.QueryClientParamsResponse"
@@ -398,7 +398,7 @@ export interface QueryClientParamsResponseProtoMsg {
  */
 export interface QueryClientParamsResponseAmino {
 	/** params defines the parameters of the module. */
-	params?: ParamsAmino
+	params?: ParamsAmino | undefined
 }
 export interface QueryClientParamsResponseAminoMsg {
 	type: "cosmos-sdk/QueryClientParamsResponse"
@@ -428,7 +428,7 @@ export interface QueryUpgradedClientStateRequestAminoMsg {
  */
 export interface QueryUpgradedClientStateResponse {
 	/** client state associated with the request identifier */
-	upgradedClientState?: Any
+	upgradedClientState?: Any | undefined
 }
 export interface QueryUpgradedClientStateResponseProtoMsg {
 	typeUrl: "/ibc.core.client.v1.QueryUpgradedClientStateResponse"
@@ -440,7 +440,7 @@ export interface QueryUpgradedClientStateResponseProtoMsg {
  */
 export interface QueryUpgradedClientStateResponseAmino {
 	/** client state associated with the request identifier */
-	upgraded_client_state?: AnyAmino
+	upgraded_client_state?: AnyAmino | undefined
 }
 export interface QueryUpgradedClientStateResponseAminoMsg {
 	type: "cosmos-sdk/QueryUpgradedClientStateResponse"
@@ -470,7 +470,7 @@ export interface QueryUpgradedConsensusStateRequestAminoMsg {
  */
 export interface QueryUpgradedConsensusStateResponse {
 	/** Consensus state associated with the request identifier */
-	upgradedConsensusState?: Any
+	upgradedConsensusState?: Any | undefined
 }
 export interface QueryUpgradedConsensusStateResponseProtoMsg {
 	typeUrl: "/ibc.core.client.v1.QueryUpgradedConsensusStateResponse"
@@ -482,7 +482,7 @@ export interface QueryUpgradedConsensusStateResponseProtoMsg {
  */
 export interface QueryUpgradedConsensusStateResponseAmino {
 	/** Consensus state associated with the request identifier */
-	upgraded_consensus_state?: AnyAmino
+	upgraded_consensus_state?: AnyAmino | undefined
 }
 export interface QueryUpgradedConsensusStateResponseAminoMsg {
 	type: "cosmos-sdk/QueryUpgradedConsensusStateResponse"
@@ -495,9 +495,9 @@ export interface QueryVerifyMembershipRequest {
 	/** the proof to be verified by the client. */
 	proof: Uint8Array
 	/** the height of the commitment root at which the proof is verified. */
-	proofHeight: Height
+	proofHeight: Height | undefined
 	/** the commitment key path. */
-	merklePath: MerklePath
+	merklePath: MerklePath | undefined
 	/** the value which is proven. */
 	value: Uint8Array
 	/** optional time delay */
@@ -516,9 +516,9 @@ export interface QueryVerifyMembershipRequestAmino {
 	/** the proof to be verified by the client. */
 	proof?: string
 	/** the height of the commitment root at which the proof is verified. */
-	proof_height?: HeightAmino
+	proof_height?: HeightAmino | undefined
 	/** the commitment key path. */
-	merkle_path?: MerklePathAmino
+	merkle_path?: MerklePathAmino | undefined
 	/** the value which is proven. */
 	value?: string
 	/** optional time delay */
@@ -559,7 +559,7 @@ export const QueryClientStateRequest = {
 		message: QueryClientStateRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.clientId !== undefined) {
+		if (message.clientId && message.clientId !== "") {
 			writer.uint32(10).string(message.clientId)
 		}
 		return writer
@@ -904,16 +904,16 @@ export const QueryConsensusStateRequest = {
 		message: QueryConsensusStateRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.clientId !== undefined) {
+		if (message.clientId && message.clientId !== "") {
 			writer.uint32(10).string(message.clientId)
 		}
-		if (message.revisionNumber !== undefined) {
+		if (message.revisionNumber && message.revisionNumber !== BigInt(0)) {
 			writer.uint32(16).uint64(message.revisionNumber)
 		}
-		if (message.revisionHeight !== undefined) {
+		if (message.revisionHeight && message.revisionHeight !== BigInt(0)) {
 			writer.uint32(24).uint64(message.revisionHeight)
 		}
-		if (message.latestHeight !== undefined) {
+		if (message.latestHeight === true) {
 			writer.uint32(32).bool(message.latestHeight)
 		}
 		return writer
@@ -1120,7 +1120,7 @@ export const QueryConsensusStatesRequest = {
 		message: QueryConsensusStatesRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.clientId !== undefined) {
+		if (message.clientId && message.clientId !== "") {
 			writer.uint32(10).string(message.clientId)
 		}
 		if (message.pagination !== undefined) {
@@ -1302,7 +1302,7 @@ export const QueryConsensusStateHeightsRequest = {
 		message: QueryConsensusStateHeightsRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.clientId !== undefined) {
+		if (message.clientId && message.clientId !== "") {
 			writer.uint32(10).string(message.clientId)
 		}
 		if (message.pagination !== undefined) {
@@ -1501,7 +1501,7 @@ export const QueryClientStatusRequest = {
 		message: QueryClientStatusRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.clientId !== undefined) {
+		if (message.clientId && message.clientId !== "") {
 			writer.uint32(10).string(message.clientId)
 		}
 		return writer
@@ -1573,7 +1573,7 @@ export const QueryClientStatusResponse = {
 		message: QueryClientStatusResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.status !== undefined) {
+		if (message.status && message.status !== "") {
 			writer.uint32(10).string(message.status)
 		}
 		return writer
@@ -2083,7 +2083,7 @@ export const QueryVerifyMembershipRequest = {
 		message: QueryVerifyMembershipRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.clientId !== undefined) {
+		if (message.clientId && message.clientId !== "") {
 			writer.uint32(10).string(message.clientId)
 		}
 		if (message.proof.length !== 0) {
@@ -2098,10 +2098,10 @@ export const QueryVerifyMembershipRequest = {
 		if (message.value.length !== 0) {
 			writer.uint32(42).bytes(message.value)
 		}
-		if (message.timeDelay !== undefined) {
+		if (message.timeDelay && message.timeDelay !== BigInt(0)) {
 			writer.uint32(48).uint64(message.timeDelay)
 		}
-		if (message.blockDelay !== undefined) {
+		if (message.blockDelay && message.blockDelay !== BigInt(0)) {
 			writer.uint32(56).uint64(message.blockDelay)
 		}
 		return writer
@@ -2234,7 +2234,7 @@ export const QueryVerifyMembershipResponse = {
 		message: QueryVerifyMembershipResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.success !== undefined) {
+		if (message.success === true) {
 			writer.uint32(8).bool(message.success)
 		}
 		return writer

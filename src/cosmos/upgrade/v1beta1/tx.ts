@@ -9,7 +9,7 @@ export interface MsgSoftwareUpgrade {
 	/** authority is the address that controls the module (defaults to x/gov unless overwritten). */
 	authority: string
 	/** plan is the upgrade plan. */
-	plan: Plan
+	plan: Plan | undefined
 }
 export interface MsgSoftwareUpgradeProtoMsg {
 	typeUrl: "/cosmos.upgrade.v1beta1.MsgSoftwareUpgrade"
@@ -24,7 +24,7 @@ export interface MsgSoftwareUpgradeAmino {
 	/** authority is the address that controls the module (defaults to x/gov unless overwritten). */
 	authority?: string
 	/** plan is the upgrade plan. */
-	plan: PlanAmino
+	plan: PlanAmino | undefined
 }
 export interface MsgSoftwareUpgradeAminoMsg {
 	type: "cosmos-sdk/MsgSoftwareUpgrade"
@@ -105,7 +105,7 @@ function createBaseMsgSoftwareUpgrade(): MsgSoftwareUpgrade {
 export const MsgSoftwareUpgrade = {
 	typeUrl: "/cosmos.upgrade.v1beta1.MsgSoftwareUpgrade",
 	encode(message: MsgSoftwareUpgrade, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.authority !== undefined) {
+		if (message.authority && message.authority !== "") {
 			writer.uint32(10).string(message.authority)
 		}
 		if (message.plan !== undefined) {
@@ -247,7 +247,7 @@ function createBaseMsgCancelUpgrade(): MsgCancelUpgrade {
 export const MsgCancelUpgrade = {
 	typeUrl: "/cosmos.upgrade.v1beta1.MsgCancelUpgrade",
 	encode(message: MsgCancelUpgrade, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.authority !== undefined) {
+		if (message.authority && message.authority !== "") {
 			writer.uint32(10).string(message.authority)
 		}
 		return writer

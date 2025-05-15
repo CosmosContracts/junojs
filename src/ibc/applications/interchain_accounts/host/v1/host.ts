@@ -77,7 +77,7 @@ function createBaseParams(): Params {
 export const Params = {
 	typeUrl: "/ibc.applications.interchain_accounts.host.v1.Params",
 	encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.hostEnabled !== undefined) {
+		if (message.hostEnabled === true) {
 			writer.uint32(8).bool(message.hostEnabled)
 		}
 		for (const v of message.allowMessages) {
@@ -160,7 +160,7 @@ function createBaseQueryRequest(): QueryRequest {
 export const QueryRequest = {
 	typeUrl: "/ibc.applications.interchain_accounts.host.v1.QueryRequest",
 	encode(message: QueryRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.path !== undefined) {
+		if (message.path && message.path !== "") {
 			writer.uint32(10).string(message.path)
 		}
 		if (message.data.length !== 0) {

@@ -201,10 +201,10 @@ function createBaseTimestamp(): Timestamp {
 export const Timestamp = {
 	typeUrl: "/google.protobuf.Timestamp",
 	encode(message: Timestamp, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.seconds !== undefined) {
+		if (message.seconds && message.seconds !== BigInt(0)) {
 			writer.uint32(8).int64(message.seconds)
 		}
-		if (message.nanos !== undefined) {
+		if (message.nanos && message.nanos !== 0) {
 			writer.uint32(16).int32(message.nanos)
 		}
 		return writer

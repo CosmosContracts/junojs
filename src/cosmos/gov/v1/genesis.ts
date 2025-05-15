@@ -30,25 +30,25 @@ export interface GenesisState {
 	 * deposit_params defines all the paramaters of related to deposit.
 	 */
 	/** @deprecated */
-	depositParams?: DepositParams
+	depositParams?: DepositParams | undefined
 	/**
 	 * Deprecated: Prefer to use `params` instead.
 	 * voting_params defines all the paramaters of related to voting.
 	 */
 	/** @deprecated */
-	votingParams?: VotingParams
+	votingParams?: VotingParams | undefined
 	/**
 	 * Deprecated: Prefer to use `params` instead.
 	 * tally_params defines all the paramaters of related to tally.
 	 */
 	/** @deprecated */
-	tallyParams?: TallyParams
+	tallyParams?: TallyParams | undefined
 	/**
 	 * params defines all the paramaters of x/gov module.
 	 *
 	 * Since: cosmos-sdk 0.47
 	 */
-	params?: Params
+	params?: Params | undefined
 	/**
 	 * The constitution allows builders to lay a foundation and define purpose.
 	 * This is an immutable string set in genesis.
@@ -78,25 +78,25 @@ export interface GenesisStateAmino {
 	 * deposit_params defines all the paramaters of related to deposit.
 	 */
 	/** @deprecated */
-	deposit_params?: DepositParamsAmino
+	deposit_params?: DepositParamsAmino | undefined
 	/**
 	 * Deprecated: Prefer to use `params` instead.
 	 * voting_params defines all the paramaters of related to voting.
 	 */
 	/** @deprecated */
-	voting_params?: VotingParamsAmino
+	voting_params?: VotingParamsAmino | undefined
 	/**
 	 * Deprecated: Prefer to use `params` instead.
 	 * tally_params defines all the paramaters of related to tally.
 	 */
 	/** @deprecated */
-	tally_params?: TallyParamsAmino
+	tally_params?: TallyParamsAmino | undefined
 	/**
 	 * params defines all the paramaters of x/gov module.
 	 *
 	 * Since: cosmos-sdk 0.47
 	 */
-	params?: ParamsAmino
+	params?: ParamsAmino | undefined
 	/**
 	 * The constitution allows builders to lay a foundation and define purpose.
 	 * This is an immutable string set in genesis.
@@ -127,7 +127,7 @@ function createBaseGenesisState(): GenesisState {
 export const GenesisState = {
 	typeUrl: "/cosmos.gov.v1.GenesisState",
 	encode(message: GenesisState, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.startingProposalId !== undefined) {
+		if (message.startingProposalId && message.startingProposalId !== BigInt(0)) {
 			writer.uint32(8).uint64(message.startingProposalId)
 		}
 		for (const v of message.deposits) {
@@ -151,7 +151,7 @@ export const GenesisState = {
 		if (message.params !== undefined) {
 			Params.encode(message.params, writer.uint32(66).fork()).ldelim()
 		}
-		if (message.constitution !== undefined) {
+		if (message.constitution && message.constitution !== "") {
 			writer.uint32(74).string(message.constitution)
 		}
 		return writer

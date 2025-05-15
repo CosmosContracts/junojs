@@ -23,8 +23,8 @@ import { Consensus, type ConsensusAmino } from "../version/types"
  */
 export interface LegacyABCIResponses {
 	deliverTxs: ExecTxResult[]
-	endBlock?: ResponseEndBlock
-	beginBlock?: ResponseBeginBlock
+	endBlock?: ResponseEndBlock | undefined
+	beginBlock?: ResponseBeginBlock | undefined
 }
 export interface LegacyABCIResponsesProtoMsg {
 	typeUrl: "/tendermint.state.LegacyABCIResponses"
@@ -38,8 +38,8 @@ export interface LegacyABCIResponsesProtoMsg {
  */
 export interface LegacyABCIResponsesAmino {
 	deliver_txs?: ExecTxResultAmino[]
-	end_block?: ResponseEndBlockAmino
-	begin_block?: ResponseBeginBlockAmino
+	end_block?: ResponseEndBlockAmino | undefined
+	begin_block?: ResponseBeginBlockAmino | undefined
 }
 export interface LegacyABCIResponsesAminoMsg {
 	type: "/tendermint.state.LegacyABCIResponses"
@@ -64,7 +64,7 @@ export interface ResponseBeginBlockAminoMsg {
 /** ResponseEndBlock is kept for backwards compatibility for versions prior to v0.38 */
 export interface ResponseEndBlock {
 	validatorUpdates: ValidatorUpdate[]
-	consensusParamUpdates?: ConsensusParams
+	consensusParamUpdates?: ConsensusParams | undefined
 	events: Event[]
 }
 export interface ResponseEndBlockProtoMsg {
@@ -74,7 +74,7 @@ export interface ResponseEndBlockProtoMsg {
 /** ResponseEndBlock is kept for backwards compatibility for versions prior to v0.38 */
 export interface ResponseEndBlockAmino {
 	validator_updates?: ValidatorUpdateAmino[]
-	consensus_param_updates?: ConsensusParamsAmino
+	consensus_param_updates?: ConsensusParamsAmino | undefined
 	events?: EventAmino[]
 }
 export interface ResponseEndBlockAminoMsg {
@@ -83,7 +83,7 @@ export interface ResponseEndBlockAminoMsg {
 }
 /** ValidatorsInfo represents the latest validator set, or the last height it changed */
 export interface ValidatorsInfo {
-	validatorSet?: ValidatorSet
+	validatorSet?: ValidatorSet | undefined
 	lastHeightChanged: bigint
 }
 export interface ValidatorsInfoProtoMsg {
@@ -92,7 +92,7 @@ export interface ValidatorsInfoProtoMsg {
 }
 /** ValidatorsInfo represents the latest validator set, or the last height it changed */
 export interface ValidatorsInfoAmino {
-	validator_set?: ValidatorSetAmino
+	validator_set?: ValidatorSetAmino | undefined
 	last_height_changed?: string
 }
 export interface ValidatorsInfoAminoMsg {
@@ -101,7 +101,7 @@ export interface ValidatorsInfoAminoMsg {
 }
 /** ConsensusParamsInfo represents the latest consensus params, or the last height it changed */
 export interface ConsensusParamsInfo {
-	consensusParams: ConsensusParams
+	consensusParams: ConsensusParams | undefined
 	lastHeightChanged: bigint
 }
 export interface ConsensusParamsInfoProtoMsg {
@@ -110,7 +110,7 @@ export interface ConsensusParamsInfoProtoMsg {
 }
 /** ConsensusParamsInfo represents the latest consensus params, or the last height it changed */
 export interface ConsensusParamsInfoAmino {
-	consensus_params?: ConsensusParamsAmino
+	consensus_params?: ConsensusParamsAmino | undefined
 	last_height_changed?: string
 }
 export interface ConsensusParamsInfoAminoMsg {
@@ -118,25 +118,25 @@ export interface ConsensusParamsInfoAminoMsg {
 	value: ConsensusParamsInfoAmino
 }
 export interface ABCIResponsesInfo {
-	legacyAbciResponses?: LegacyABCIResponses
+	legacyAbciResponses?: LegacyABCIResponses | undefined
 	height: bigint
-	responseFinalizeBlock?: ResponseFinalizeBlock
+	responseFinalizeBlock?: ResponseFinalizeBlock | undefined
 }
 export interface ABCIResponsesInfoProtoMsg {
 	typeUrl: "/tendermint.state.ABCIResponsesInfo"
 	value: Uint8Array
 }
 export interface ABCIResponsesInfoAmino {
-	legacy_abci_responses?: LegacyABCIResponsesAmino
+	legacy_abci_responses?: LegacyABCIResponsesAmino | undefined
 	height?: string
-	response_finalize_block?: ResponseFinalizeBlockAmino
+	response_finalize_block?: ResponseFinalizeBlockAmino | undefined
 }
 export interface ABCIResponsesInfoAminoMsg {
 	type: "/tendermint.state.ABCIResponsesInfo"
 	value: ABCIResponsesInfoAmino
 }
 export interface Version {
-	consensus: Consensus
+	consensus: Consensus | undefined
 	software: string
 }
 export interface VersionProtoMsg {
@@ -144,7 +144,7 @@ export interface VersionProtoMsg {
 	value: Uint8Array
 }
 export interface VersionAmino {
-	consensus?: ConsensusAmino
+	consensus?: ConsensusAmino | undefined
 	software?: string
 }
 export interface VersionAminoMsg {
@@ -152,14 +152,14 @@ export interface VersionAminoMsg {
 	value: VersionAmino
 }
 export interface State {
-	version: Version
+	version: Version | undefined
 	/** immutable */
 	chainId: string
 	initialHeight: bigint
 	/** LastBlockHeight=0 at genesis (ie. block(H=0) does not exist) */
 	lastBlockHeight: bigint
-	lastBlockId: BlockID
-	lastBlockTime: Date
+	lastBlockId: BlockID | undefined
+	lastBlockTime: Date | undefined
 	/**
 	 * LastValidators is used to validate block.LastCommit.
 	 * Validators are persisted to the database separately every time they change,
@@ -168,15 +168,15 @@ export interface State {
 	 * we set s.LastHeightValidatorsChanged = s.LastBlockHeight + 1 + 1
 	 * Extra +1 due to nextValSet delay.
 	 */
-	nextValidators?: ValidatorSet
-	validators?: ValidatorSet
-	lastValidators?: ValidatorSet
+	nextValidators?: ValidatorSet | undefined
+	validators?: ValidatorSet | undefined
+	lastValidators?: ValidatorSet | undefined
 	lastHeightValidatorsChanged: bigint
 	/**
 	 * Consensus parameters used for validating blocks.
 	 * Changes returned by EndBlock and updated after Commit.
 	 */
-	consensusParams: ConsensusParams
+	consensusParams: ConsensusParams | undefined
 	lastHeightConsensusParamsChanged: bigint
 	/** Merkle root of the results from executing prev block */
 	lastResultsHash: Uint8Array
@@ -188,14 +188,14 @@ export interface StateProtoMsg {
 	value: Uint8Array
 }
 export interface StateAmino {
-	version?: VersionAmino
+	version?: VersionAmino | undefined
 	/** immutable */
 	chain_id?: string
 	initial_height?: string
 	/** LastBlockHeight=0 at genesis (ie. block(H=0) does not exist) */
 	last_block_height?: string
-	last_block_id?: BlockIDAmino
-	last_block_time?: string
+	last_block_id?: BlockIDAmino | undefined
+	last_block_time?: string | undefined
 	/**
 	 * LastValidators is used to validate block.LastCommit.
 	 * Validators are persisted to the database separately every time they change,
@@ -204,15 +204,15 @@ export interface StateAmino {
 	 * we set s.LastHeightValidatorsChanged = s.LastBlockHeight + 1 + 1
 	 * Extra +1 due to nextValSet delay.
 	 */
-	next_validators?: ValidatorSetAmino
-	validators?: ValidatorSetAmino
-	last_validators?: ValidatorSetAmino
+	next_validators?: ValidatorSetAmino | undefined
+	validators?: ValidatorSetAmino | undefined
+	last_validators?: ValidatorSetAmino | undefined
 	last_height_validators_changed?: string
 	/**
 	 * Consensus parameters used for validating blocks.
 	 * Changes returned by EndBlock and updated after Commit.
 	 */
-	consensus_params?: ConsensusParamsAmino
+	consensus_params?: ConsensusParamsAmino | undefined
 	last_height_consensus_params_changed?: string
 	/** Merkle root of the results from executing prev block */
 	last_results_hash?: string
@@ -500,7 +500,7 @@ export const ValidatorsInfo = {
 		if (message.validatorSet !== undefined) {
 			ValidatorSet.encode(message.validatorSet, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.lastHeightChanged !== undefined) {
+		if (message.lastHeightChanged && message.lastHeightChanged !== BigInt(0)) {
 			writer.uint32(16).int64(message.lastHeightChanged)
 		}
 		return writer
@@ -587,7 +587,7 @@ export const ConsensusParamsInfo = {
 		if (message.consensusParams !== undefined) {
 			ConsensusParams.encode(message.consensusParams, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.lastHeightChanged !== undefined) {
+		if (message.lastHeightChanged && message.lastHeightChanged !== BigInt(0)) {
 			writer.uint32(16).int64(message.lastHeightChanged)
 		}
 		return writer
@@ -672,7 +672,7 @@ export const ABCIResponsesInfo = {
 		if (message.legacyAbciResponses !== undefined) {
 			LegacyABCIResponses.encode(message.legacyAbciResponses, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(16).int64(message.height)
 		}
 		if (message.responseFinalizeBlock !== undefined) {
@@ -776,7 +776,7 @@ export const Version = {
 		if (message.consensus !== undefined) {
 			Consensus.encode(message.consensus, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.software !== undefined) {
+		if (message.software && message.software !== "") {
 			writer.uint32(18).string(message.software)
 		}
 		return writer
@@ -866,13 +866,13 @@ export const State = {
 		if (message.version !== undefined) {
 			Version.encode(message.version, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.chainId !== undefined) {
+		if (message.chainId && message.chainId !== "") {
 			writer.uint32(18).string(message.chainId)
 		}
-		if (message.initialHeight !== undefined) {
+		if (message.initialHeight && message.initialHeight !== BigInt(0)) {
 			writer.uint32(112).int64(message.initialHeight)
 		}
-		if (message.lastBlockHeight !== undefined) {
+		if (message.lastBlockHeight && message.lastBlockHeight !== BigInt(0)) {
 			writer.uint32(24).int64(message.lastBlockHeight)
 		}
 		if (message.lastBlockId !== undefined) {
@@ -890,13 +890,19 @@ export const State = {
 		if (message.lastValidators !== undefined) {
 			ValidatorSet.encode(message.lastValidators, writer.uint32(66).fork()).ldelim()
 		}
-		if (message.lastHeightValidatorsChanged !== undefined) {
+		if (
+			message.lastHeightValidatorsChanged &&
+			message.lastHeightValidatorsChanged !== BigInt(0)
+		) {
 			writer.uint32(72).int64(message.lastHeightValidatorsChanged)
 		}
 		if (message.consensusParams !== undefined) {
 			ConsensusParams.encode(message.consensusParams, writer.uint32(82).fork()).ldelim()
 		}
-		if (message.lastHeightConsensusParamsChanged !== undefined) {
+		if (
+			message.lastHeightConsensusParamsChanged &&
+			message.lastHeightConsensusParamsChanged !== BigInt(0)
+		) {
 			writer.uint32(88).int64(message.lastHeightConsensusParamsChanged)
 		}
 		if (message.lastResultsHash.length !== 0) {

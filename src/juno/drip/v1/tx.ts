@@ -44,7 +44,7 @@ export interface MsgUpdateParams {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params: Params
+	params: Params | undefined
 }
 export interface MsgUpdateParamsProtoMsg {
 	typeUrl: "/juno.drip.v1.MsgUpdateParams"
@@ -59,7 +59,7 @@ export interface MsgUpdateParamsAmino {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params: ParamsAmino
+	params: ParamsAmino | undefined
 }
 export interface MsgUpdateParamsAminoMsg {
 	type: "juno/x/drip/MsgUpdateParams"
@@ -95,7 +95,7 @@ export const MsgDistributeTokens = {
 		message: MsgDistributeTokens,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.senderAddress !== undefined) {
+		if (message.senderAddress && message.senderAddress !== "") {
 			writer.uint32(10).string(message.senderAddress)
 		}
 		for (const v of message.amount) {
@@ -231,7 +231,7 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
 export const MsgUpdateParams = {
 	typeUrl: "/juno.drip.v1.MsgUpdateParams",
 	encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.authority !== undefined) {
+		if (message.authority && message.authority !== "") {
 			writer.uint32(10).string(message.authority)
 		}
 		if (message.params !== undefined) {

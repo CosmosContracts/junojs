@@ -99,7 +99,7 @@ export function infractionToJSON(object: Infraction): string {
  * (`n` is set by the staking module's `historical_entries` parameter).
  */
 export interface HistoricalInfo {
-	header: Header
+	header: Header | undefined
 	valset: Validator[]
 }
 export interface HistoricalInfoProtoMsg {
@@ -113,7 +113,7 @@ export interface HistoricalInfoProtoMsg {
  * (`n` is set by the staking module's `historical_entries` parameter).
  */
 export interface HistoricalInfoAmino {
-	header: HeaderAmino
+	header: HeaderAmino | undefined
 	valset: ValidatorAmino[]
 }
 export interface HistoricalInfoAminoMsg {
@@ -155,9 +155,9 @@ export interface CommissionRatesAminoMsg {
 /** Commission defines commission parameters for a given validator. */
 export interface Commission {
 	/** commission_rates defines the initial commission rates to be used for creating a validator. */
-	commissionRates: CommissionRates
+	commissionRates: CommissionRates | undefined
 	/** update_time is the last time the commission rate was changed. */
-	updateTime: Date
+	updateTime: Date | undefined
 }
 export interface CommissionProtoMsg {
 	typeUrl: "/cosmos.staking.v1beta1.Commission"
@@ -166,9 +166,9 @@ export interface CommissionProtoMsg {
 /** Commission defines commission parameters for a given validator. */
 export interface CommissionAmino {
 	/** commission_rates defines the initial commission rates to be used for creating a validator. */
-	commission_rates: CommissionRatesAmino
+	commission_rates: CommissionRatesAmino | undefined
 	/** update_time is the last time the commission rate was changed. */
-	update_time: string
+	update_time: string | undefined
 }
 export interface CommissionAminoMsg {
 	type: "cosmos-sdk/Commission"
@@ -232,13 +232,13 @@ export interface Validator {
 	/** delegator_shares defines total shares issued to a validator's delegators. */
 	delegatorShares: string
 	/** description defines the description terms for the validator. */
-	description: Description
+	description: Description | undefined
 	/** unbonding_height defines, if unbonding, the height at which this validator has begun unbonding. */
 	unbondingHeight: bigint
 	/** unbonding_time defines, if unbonding, the min time for the validator to complete unbonding. */
-	unbondingTime: Date
+	unbondingTime: Date | undefined
 	/** commission defines the commission parameters. */
-	commission: Commission
+	commission: Commission | undefined
 	/**
 	 * min_self_delegation is the validator's self declared minimum self delegation.
 	 *
@@ -273,7 +273,7 @@ export interface ValidatorAmino {
 	/** operator_address defines the address of the validator's operator; bech encoded in JSON. */
 	operator_address?: string
 	/** consensus_pubkey is the consensus public key of the validator, as a Protobuf Any. */
-	consensus_pubkey?: AnyAmino
+	consensus_pubkey?: AnyAmino | undefined
 	/** jailed defined whether the validator has been jailed from bonded status or not. */
 	jailed?: boolean
 	/** status is the validator status (bonded/unbonding/unbonded). */
@@ -283,13 +283,13 @@ export interface ValidatorAmino {
 	/** delegator_shares defines total shares issued to a validator's delegators. */
 	delegator_shares?: string
 	/** description defines the description terms for the validator. */
-	description: DescriptionAmino
+	description: DescriptionAmino | undefined
 	/** unbonding_height defines, if unbonding, the height at which this validator has begun unbonding. */
 	unbonding_height?: string
 	/** unbonding_time defines, if unbonding, the min time for the validator to complete unbonding. */
-	unbonding_time: string
+	unbonding_time: string | undefined
 	/** commission defines the commission parameters. */
-	commission: CommissionAmino
+	commission: CommissionAmino | undefined
 	/**
 	 * min_self_delegation is the validator's self declared minimum self delegation.
 	 *
@@ -480,7 +480,7 @@ export interface UnbondingDelegationEntry {
 	/** creation_height is the height which the unbonding took place. */
 	creationHeight: bigint
 	/** completion_time is the unix time for unbonding completion. */
-	completionTime: Date
+	completionTime: Date | undefined
 	/** initial_balance defines the tokens initially scheduled to receive at completion. */
 	initialBalance: string
 	/** balance defines the tokens to receive at completion. */
@@ -499,7 +499,7 @@ export interface UnbondingDelegationEntryAmino {
 	/** creation_height is the height which the unbonding took place. */
 	creation_height?: string
 	/** completion_time is the unix time for unbonding completion. */
-	completion_time: string
+	completion_time: string | undefined
 	/** initial_balance defines the tokens initially scheduled to receive at completion. */
 	initial_balance?: string
 	/** balance defines the tokens to receive at completion. */
@@ -518,7 +518,7 @@ export interface RedelegationEntry {
 	/** creation_height  defines the height which the redelegation took place. */
 	creationHeight: bigint
 	/** completion_time defines the unix time for redelegation completion. */
-	completionTime: Date
+	completionTime: Date | undefined
 	/** initial_balance defines the initial balance when redelegation started. */
 	initialBalance: string
 	/** shares_dst is the amount of destination-validator shares created by redelegation. */
@@ -537,7 +537,7 @@ export interface RedelegationEntryAmino {
 	/** creation_height  defines the height which the redelegation took place. */
 	creation_height?: string
 	/** completion_time defines the unix time for redelegation completion. */
-	completion_time: string
+	completion_time: string | undefined
 	/** initial_balance defines the initial balance when redelegation started. */
 	initial_balance?: string
 	/** shares_dst is the amount of destination-validator shares created by redelegation. */
@@ -590,7 +590,7 @@ export interface RedelegationAminoMsg {
 /** Params defines the parameters for the x/staking module. */
 export interface Params {
 	/** unbonding_time is the time duration of unbonding. */
-	unbondingTime: Duration
+	unbondingTime: Duration | undefined
 	/** max_validators is the maximum number of validators. */
 	maxValidators: number
 	/** max_entries is the max entries for either unbonding delegation or redelegation (per pair/trio). */
@@ -609,7 +609,7 @@ export interface ParamsProtoMsg {
 /** Params defines the parameters for the x/staking module. */
 export interface ParamsAmino {
 	/** unbonding_time is the time duration of unbonding. */
-	unbonding_time: DurationAmino
+	unbonding_time: DurationAmino | undefined
 	/** max_validators is the maximum number of validators. */
 	max_validators?: number
 	/** max_entries is the max entries for either unbonding delegation or redelegation (per pair/trio). */
@@ -630,8 +630,8 @@ export interface ParamsAminoMsg {
  * balance in addition to shares which is more suitable for client responses.
  */
 export interface DelegationResponse {
-	delegation: Delegation
-	balance: Coin
+	delegation: Delegation | undefined
+	balance: Coin | undefined
 }
 export interface DelegationResponseProtoMsg {
 	typeUrl: "/cosmos.staking.v1beta1.DelegationResponse"
@@ -642,8 +642,8 @@ export interface DelegationResponseProtoMsg {
  * balance in addition to shares which is more suitable for client responses.
  */
 export interface DelegationResponseAmino {
-	delegation: DelegationAmino
-	balance: CoinAmino
+	delegation: DelegationAmino | undefined
+	balance: CoinAmino | undefined
 }
 export interface DelegationResponseAminoMsg {
 	type: "cosmos-sdk/DelegationResponse"
@@ -655,7 +655,7 @@ export interface DelegationResponseAminoMsg {
  * responses.
  */
 export interface RedelegationEntryResponse {
-	redelegationEntry: RedelegationEntry
+	redelegationEntry: RedelegationEntry | undefined
 	balance: string
 }
 export interface RedelegationEntryResponseProtoMsg {
@@ -668,7 +668,7 @@ export interface RedelegationEntryResponseProtoMsg {
  * responses.
  */
 export interface RedelegationEntryResponseAmino {
-	redelegation_entry: RedelegationEntryAmino
+	redelegation_entry: RedelegationEntryAmino | undefined
 	balance?: string
 }
 export interface RedelegationEntryResponseAminoMsg {
@@ -681,7 +681,7 @@ export interface RedelegationEntryResponseAminoMsg {
  * responses.
  */
 export interface RedelegationResponse {
-	redelegation: Redelegation
+	redelegation: Redelegation | undefined
 	entries: RedelegationEntryResponse[]
 }
 export interface RedelegationResponseProtoMsg {
@@ -694,7 +694,7 @@ export interface RedelegationResponseProtoMsg {
  * responses.
  */
 export interface RedelegationResponseAmino {
-	redelegation: RedelegationAmino
+	redelegation: RedelegationAmino | undefined
 	entries: RedelegationEntryResponseAmino[]
 }
 export interface RedelegationResponseAminoMsg {
@@ -845,13 +845,13 @@ function createBaseCommissionRates(): CommissionRates {
 export const CommissionRates = {
 	typeUrl: "/cosmos.staking.v1beta1.CommissionRates",
 	encode(message: CommissionRates, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.rate !== undefined) {
+		if (message.rate && message.rate !== "") {
 			writer.uint32(10).string(Decimal.fromUserInput(message.rate, 18).atomics)
 		}
-		if (message.maxRate !== undefined) {
+		if (message.maxRate && message.maxRate !== "") {
 			writer.uint32(18).string(Decimal.fromUserInput(message.maxRate, 18).atomics)
 		}
-		if (message.maxChangeRate !== undefined) {
+		if (message.maxChangeRate && message.maxChangeRate !== "") {
 			writer.uint32(26).string(Decimal.fromUserInput(message.maxChangeRate, 18).atomics)
 		}
 		return writer
@@ -1028,19 +1028,19 @@ function createBaseDescription(): Description {
 export const Description = {
 	typeUrl: "/cosmos.staking.v1beta1.Description",
 	encode(message: Description, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.moniker !== undefined) {
+		if (message.moniker && message.moniker !== "") {
 			writer.uint32(10).string(message.moniker)
 		}
-		if (message.identity !== undefined) {
+		if (message.identity && message.identity !== "") {
 			writer.uint32(18).string(message.identity)
 		}
-		if (message.website !== undefined) {
+		if (message.website && message.website !== "") {
 			writer.uint32(26).string(message.website)
 		}
-		if (message.securityContact !== undefined) {
+		if (message.securityContact && message.securityContact !== "") {
 			writer.uint32(34).string(message.securityContact)
 		}
-		if (message.details !== undefined) {
+		if (message.details && message.details !== "") {
 			writer.uint32(42).string(message.details)
 		}
 		return writer
@@ -1153,28 +1153,28 @@ function createBaseValidator(): Validator {
 export const Validator = {
 	typeUrl: "/cosmos.staking.v1beta1.Validator",
 	encode(message: Validator, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.operatorAddress !== undefined) {
+		if (message.operatorAddress && message.operatorAddress !== "") {
 			writer.uint32(10).string(message.operatorAddress)
 		}
 		if (message.consensusPubkey !== undefined) {
 			Any.encode(message.consensusPubkey as Any, writer.uint32(18).fork()).ldelim()
 		}
-		if (message.jailed !== undefined) {
+		if (message.jailed === true) {
 			writer.uint32(24).bool(message.jailed)
 		}
 		if (message.status !== 0) {
 			writer.uint32(32).int32(message.status)
 		}
-		if (message.tokens !== undefined) {
+		if (message.tokens && message.tokens !== "") {
 			writer.uint32(42).string(message.tokens)
 		}
-		if (message.delegatorShares !== undefined) {
+		if (message.delegatorShares && message.delegatorShares !== "") {
 			writer.uint32(50).string(Decimal.fromUserInput(message.delegatorShares, 18).atomics)
 		}
 		if (message.description !== undefined) {
 			Description.encode(message.description, writer.uint32(58).fork()).ldelim()
 		}
-		if (message.unbondingHeight !== undefined) {
+		if (message.unbondingHeight && message.unbondingHeight !== BigInt(0)) {
 			writer.uint32(64).int64(message.unbondingHeight)
 		}
 		if (message.unbondingTime !== undefined) {
@@ -1183,10 +1183,10 @@ export const Validator = {
 		if (message.commission !== undefined) {
 			Commission.encode(message.commission, writer.uint32(82).fork()).ldelim()
 		}
-		if (message.minSelfDelegation !== undefined) {
+		if (message.minSelfDelegation && message.minSelfDelegation !== "") {
 			writer.uint32(90).string(message.minSelfDelegation)
 		}
-		if (message.unbondingOnHoldRefCount !== undefined) {
+		if (message.unbondingOnHoldRefCount && message.unbondingOnHoldRefCount !== BigInt(0)) {
 			writer.uint32(96).int64(message.unbondingOnHoldRefCount)
 		}
 		writer.uint32(106).fork()
@@ -1468,10 +1468,10 @@ function createBaseDVPair(): DVPair {
 export const DVPair = {
 	typeUrl: "/cosmos.staking.v1beta1.DVPair",
 	encode(message: DVPair, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.delegatorAddress !== undefined) {
+		if (message.delegatorAddress && message.delegatorAddress !== "") {
 			writer.uint32(10).string(message.delegatorAddress)
 		}
-		if (message.validatorAddress !== undefined) {
+		if (message.validatorAddress && message.validatorAddress !== "") {
 			writer.uint32(18).string(message.validatorAddress)
 		}
 		return writer
@@ -1621,13 +1621,13 @@ function createBaseDVVTriplet(): DVVTriplet {
 export const DVVTriplet = {
 	typeUrl: "/cosmos.staking.v1beta1.DVVTriplet",
 	encode(message: DVVTriplet, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.delegatorAddress !== undefined) {
+		if (message.delegatorAddress && message.delegatorAddress !== "") {
 			writer.uint32(10).string(message.delegatorAddress)
 		}
-		if (message.validatorSrcAddress !== undefined) {
+		if (message.validatorSrcAddress && message.validatorSrcAddress !== "") {
 			writer.uint32(18).string(message.validatorSrcAddress)
 		}
-		if (message.validatorDstAddress !== undefined) {
+		if (message.validatorDstAddress && message.validatorDstAddress !== "") {
 			writer.uint32(26).string(message.validatorDstAddress)
 		}
 		return writer
@@ -1787,13 +1787,13 @@ function createBaseDelegation(): Delegation {
 export const Delegation = {
 	typeUrl: "/cosmos.staking.v1beta1.Delegation",
 	encode(message: Delegation, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.delegatorAddress !== undefined) {
+		if (message.delegatorAddress && message.delegatorAddress !== "") {
 			writer.uint32(10).string(message.delegatorAddress)
 		}
-		if (message.validatorAddress !== undefined) {
+		if (message.validatorAddress && message.validatorAddress !== "") {
 			writer.uint32(18).string(message.validatorAddress)
 		}
-		if (message.shares !== undefined) {
+		if (message.shares && message.shares !== "") {
 			writer.uint32(26).string(Decimal.fromUserInput(message.shares, 18).atomics)
 		}
 		return writer
@@ -1883,10 +1883,10 @@ export const UnbondingDelegation = {
 		message: UnbondingDelegation,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.delegatorAddress !== undefined) {
+		if (message.delegatorAddress && message.delegatorAddress !== "") {
 			writer.uint32(10).string(message.delegatorAddress)
 		}
-		if (message.validatorAddress !== undefined) {
+		if (message.validatorAddress && message.validatorAddress !== "") {
 			writer.uint32(18).string(message.validatorAddress)
 		}
 		for (const v of message.entries) {
@@ -1986,22 +1986,22 @@ export const UnbondingDelegationEntry = {
 		message: UnbondingDelegationEntry,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.creationHeight !== undefined) {
+		if (message.creationHeight && message.creationHeight !== BigInt(0)) {
 			writer.uint32(8).int64(message.creationHeight)
 		}
 		if (message.completionTime !== undefined) {
 			Timestamp.encode(toTimestamp(message.completionTime), writer.uint32(18).fork()).ldelim()
 		}
-		if (message.initialBalance !== undefined) {
+		if (message.initialBalance && message.initialBalance !== "") {
 			writer.uint32(26).string(message.initialBalance)
 		}
-		if (message.balance !== undefined) {
+		if (message.balance && message.balance !== "") {
 			writer.uint32(34).string(message.balance)
 		}
-		if (message.unbondingId !== undefined) {
+		if (message.unbondingId && message.unbondingId !== BigInt(0)) {
 			writer.uint32(40).uint64(message.unbondingId)
 		}
-		if (message.unbondingOnHoldRefCount !== undefined) {
+		if (message.unbondingOnHoldRefCount && message.unbondingOnHoldRefCount !== BigInt(0)) {
 			writer.uint32(48).int64(message.unbondingOnHoldRefCount)
 		}
 		return writer
@@ -2134,22 +2134,22 @@ function createBaseRedelegationEntry(): RedelegationEntry {
 export const RedelegationEntry = {
 	typeUrl: "/cosmos.staking.v1beta1.RedelegationEntry",
 	encode(message: RedelegationEntry, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.creationHeight !== undefined) {
+		if (message.creationHeight && message.creationHeight !== BigInt(0)) {
 			writer.uint32(8).int64(message.creationHeight)
 		}
 		if (message.completionTime !== undefined) {
 			Timestamp.encode(toTimestamp(message.completionTime), writer.uint32(18).fork()).ldelim()
 		}
-		if (message.initialBalance !== undefined) {
+		if (message.initialBalance && message.initialBalance !== "") {
 			writer.uint32(26).string(message.initialBalance)
 		}
-		if (message.sharesDst !== undefined) {
+		if (message.sharesDst && message.sharesDst !== "") {
 			writer.uint32(34).string(Decimal.fromUserInput(message.sharesDst, 18).atomics)
 		}
-		if (message.unbondingId !== undefined) {
+		if (message.unbondingId && message.unbondingId !== BigInt(0)) {
 			writer.uint32(40).uint64(message.unbondingId)
 		}
-		if (message.unbondingOnHoldRefCount !== undefined) {
+		if (message.unbondingOnHoldRefCount && message.unbondingOnHoldRefCount !== BigInt(0)) {
 			writer.uint32(48).int64(message.unbondingOnHoldRefCount)
 		}
 		return writer
@@ -2280,13 +2280,13 @@ function createBaseRedelegation(): Redelegation {
 export const Redelegation = {
 	typeUrl: "/cosmos.staking.v1beta1.Redelegation",
 	encode(message: Redelegation, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.delegatorAddress !== undefined) {
+		if (message.delegatorAddress && message.delegatorAddress !== "") {
 			writer.uint32(10).string(message.delegatorAddress)
 		}
-		if (message.validatorSrcAddress !== undefined) {
+		if (message.validatorSrcAddress && message.validatorSrcAddress !== "") {
 			writer.uint32(18).string(message.validatorSrcAddress)
 		}
-		if (message.validatorDstAddress !== undefined) {
+		if (message.validatorDstAddress && message.validatorDstAddress !== "") {
 			writer.uint32(26).string(message.validatorDstAddress)
 		}
 		for (const v of message.entries) {
@@ -2394,19 +2394,19 @@ export const Params = {
 		if (message.unbondingTime !== undefined) {
 			Duration.encode(message.unbondingTime, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.maxValidators !== undefined) {
+		if (message.maxValidators && message.maxValidators !== 0) {
 			writer.uint32(16).uint32(message.maxValidators)
 		}
-		if (message.maxEntries !== undefined) {
+		if (message.maxEntries && message.maxEntries !== 0) {
 			writer.uint32(24).uint32(message.maxEntries)
 		}
-		if (message.historicalEntries !== undefined) {
+		if (message.historicalEntries && message.historicalEntries !== 0) {
 			writer.uint32(32).uint32(message.historicalEntries)
 		}
-		if (message.bondDenom !== undefined) {
+		if (message.bondDenom && message.bondDenom !== "") {
 			writer.uint32(42).string(message.bondDenom)
 		}
-		if (message.minCommissionRate !== undefined) {
+		if (message.minCommissionRate && message.minCommissionRate !== "") {
 			writer.uint32(50).string(Decimal.fromUserInput(message.minCommissionRate, 18).atomics)
 		}
 		return writer
@@ -2619,7 +2619,7 @@ export const RedelegationEntryResponse = {
 		if (message.redelegationEntry !== undefined) {
 			RedelegationEntry.encode(message.redelegationEntry, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.balance !== undefined) {
+		if (message.balance && message.balance !== "") {
 			writer.uint32(34).string(message.balance)
 		}
 		return writer
@@ -2795,10 +2795,10 @@ function createBasePool(): Pool {
 export const Pool = {
 	typeUrl: "/cosmos.staking.v1beta1.Pool",
 	encode(message: Pool, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.notBondedTokens !== undefined) {
+		if (message.notBondedTokens && message.notBondedTokens !== "") {
 			writer.uint32(10).string(message.notBondedTokens)
 		}
-		if (message.bondedTokens !== undefined) {
+		if (message.bondedTokens && message.bondedTokens !== "") {
 			writer.uint32(18).string(message.bondedTokens)
 		}
 		return writer

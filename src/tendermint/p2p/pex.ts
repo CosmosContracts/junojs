@@ -25,16 +25,16 @@ export interface PexAddrsAminoMsg {
 	value: PexAddrsAmino
 }
 export interface Message {
-	pexRequest?: PexRequest
-	pexAddrs?: PexAddrs
+	pexRequest?: PexRequest | undefined
+	pexAddrs?: PexAddrs | undefined
 }
 export interface MessageProtoMsg {
 	typeUrl: "/tendermint.p2p.Message"
 	value: Uint8Array
 }
 export interface MessageAmino {
-	pex_request?: PexRequestAmino
-	pex_addrs?: PexAddrsAmino
+	pex_request?: PexRequestAmino | undefined
+	pex_addrs?: PexAddrsAmino | undefined
 }
 export interface MessageAminoMsg {
 	type: "/tendermint.p2p.Message"

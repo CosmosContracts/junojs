@@ -20,11 +20,11 @@ export interface MsgUpdateParams {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	block?: BlockParams
-	evidence?: EvidenceParams
-	validator?: ValidatorParams
+	block?: BlockParams | undefined
+	evidence?: EvidenceParams | undefined
+	validator?: ValidatorParams | undefined
 	/** Since: cosmos-sdk 0.50 */
-	abci?: ABCIParams
+	abci?: ABCIParams | undefined
 }
 export interface MsgUpdateParamsProtoMsg {
 	typeUrl: "/cosmos.consensus.v1.MsgUpdateParams"
@@ -41,11 +41,11 @@ export interface MsgUpdateParamsAmino {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	block?: BlockParamsAmino
-	evidence?: EvidenceParamsAmino
-	validator?: ValidatorParamsAmino
+	block?: BlockParamsAmino | undefined
+	evidence?: EvidenceParamsAmino | undefined
+	validator?: ValidatorParamsAmino | undefined
 	/** Since: cosmos-sdk 0.50 */
-	abci?: ABCIParamsAmino
+	abci?: ABCIParamsAmino | undefined
 }
 export interface MsgUpdateParamsAminoMsg {
 	type: "cosmos-sdk/x/consensus/MsgUpdateParams"
@@ -81,7 +81,7 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
 export const MsgUpdateParams = {
 	typeUrl: "/cosmos.consensus.v1.MsgUpdateParams",
 	encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.authority !== undefined) {
+		if (message.authority && message.authority !== "") {
 			writer.uint32(10).string(message.authority)
 		}
 		if (message.block !== undefined) {

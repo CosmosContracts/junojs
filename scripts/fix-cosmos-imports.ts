@@ -22,7 +22,6 @@ const cleanRPCFiles = async (): Promise<void> => {
 				try {
 					stats = await stat(filePath)
 				} catch {
-					// file doesn’t exist → skip
 					return
 				}
 				if (!stats.isFile()) return

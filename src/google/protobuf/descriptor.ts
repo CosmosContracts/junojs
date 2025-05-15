@@ -378,14 +378,14 @@ export interface FileDescriptorProto {
 	enumType: EnumDescriptorProto[]
 	service: ServiceDescriptorProto[]
 	extension: FieldDescriptorProto[]
-	options?: FileOptions
+	options?: FileOptions | undefined
 	/**
 	 * This field contains optional information about the original source code.
 	 * You may safely remove this entire field without harming runtime
 	 * functionality of the descriptors -- the information is needed only by
 	 * development tools.
 	 */
-	sourceCodeInfo?: SourceCodeInfo
+	sourceCodeInfo?: SourceCodeInfo | undefined
 	/**
 	 * The syntax of the proto file.
 	 * The supported values are "proto2" and "proto3".
@@ -416,14 +416,14 @@ export interface FileDescriptorProtoAmino {
 	enum_type?: EnumDescriptorProtoAmino[]
 	service?: ServiceDescriptorProtoAmino[]
 	extension?: FieldDescriptorProtoAmino[]
-	options?: FileOptionsAmino
+	options?: FileOptionsAmino | undefined
 	/**
 	 * This field contains optional information about the original source code.
 	 * You may safely remove this entire field without harming runtime
 	 * functionality of the descriptors -- the information is needed only by
 	 * development tools.
 	 */
-	source_code_info?: SourceCodeInfoAmino
+	source_code_info?: SourceCodeInfoAmino | undefined
 	/**
 	 * The syntax of the proto file.
 	 * The supported values are "proto2" and "proto3".
@@ -443,7 +443,7 @@ export interface DescriptorProto {
 	enumType: EnumDescriptorProto[]
 	extensionRange: DescriptorProto_ExtensionRange[]
 	oneofDecl: OneofDescriptorProto[]
-	options?: MessageOptions
+	options?: MessageOptions | undefined
 	reservedRange: DescriptorProto_ReservedRange[]
 	/**
 	 * Reserved field names, which may not be used by fields in the same message.
@@ -464,7 +464,7 @@ export interface DescriptorProtoAmino {
 	enum_type?: EnumDescriptorProtoAmino[]
 	extension_range?: DescriptorProto_ExtensionRangeAmino[]
 	oneof_decl?: OneofDescriptorProtoAmino[]
-	options?: MessageOptionsAmino
+	options?: MessageOptionsAmino | undefined
 	reserved_range?: DescriptorProto_ReservedRangeAmino[]
 	/**
 	 * Reserved field names, which may not be used by fields in the same message.
@@ -481,7 +481,7 @@ export interface DescriptorProto_ExtensionRange {
 	start: number
 	/** Exclusive. */
 	end: number
-	options?: ExtensionRangeOptions
+	options?: ExtensionRangeOptions | undefined
 }
 export interface DescriptorProto_ExtensionRangeProtoMsg {
 	typeUrl: "/google.protobuf.ExtensionRange"
@@ -492,7 +492,7 @@ export interface DescriptorProto_ExtensionRangeAmino {
 	start?: number
 	/** Exclusive. */
 	end?: number
-	options?: ExtensionRangeOptionsAmino
+	options?: ExtensionRangeOptionsAmino | undefined
 }
 export interface DescriptorProto_ExtensionRangeAminoMsg {
 	type: "/google.protobuf.ExtensionRange"
@@ -587,7 +587,7 @@ export interface FieldDescriptorProto {
 	 * it to camelCase.
 	 */
 	jsonName: string
-	options?: FieldOptions
+	options?: FieldOptions | undefined
 }
 export interface FieldDescriptorProtoProtoMsg {
 	typeUrl: "/google.protobuf.FieldDescriptorProto"
@@ -636,7 +636,7 @@ export interface FieldDescriptorProtoAmino {
 	 * it to camelCase.
 	 */
 	json_name?: string
-	options?: FieldOptionsAmino
+	options?: FieldOptionsAmino | undefined
 }
 export interface FieldDescriptorProtoAminoMsg {
 	type: "/google.protobuf.FieldDescriptorProto"
@@ -645,7 +645,7 @@ export interface FieldDescriptorProtoAminoMsg {
 /** Describes a oneof. */
 export interface OneofDescriptorProto {
 	name: string
-	options?: OneofOptions
+	options?: OneofOptions | undefined
 }
 export interface OneofDescriptorProtoProtoMsg {
 	typeUrl: "/google.protobuf.OneofDescriptorProto"
@@ -654,7 +654,7 @@ export interface OneofDescriptorProtoProtoMsg {
 /** Describes a oneof. */
 export interface OneofDescriptorProtoAmino {
 	name?: string
-	options?: OneofOptionsAmino
+	options?: OneofOptionsAmino | undefined
 }
 export interface OneofDescriptorProtoAminoMsg {
 	type: "/google.protobuf.OneofDescriptorProto"
@@ -664,7 +664,7 @@ export interface OneofDescriptorProtoAminoMsg {
 export interface EnumDescriptorProto {
 	name: string
 	value: EnumValueDescriptorProto[]
-	options?: EnumOptions
+	options?: EnumOptions | undefined
 	/**
 	 * Range of reserved numeric values. Reserved numeric values may not be used
 	 * by enum values in the same enum declaration. Reserved ranges may not
@@ -685,7 +685,7 @@ export interface EnumDescriptorProtoProtoMsg {
 export interface EnumDescriptorProtoAmino {
 	name?: string
 	value?: EnumValueDescriptorProtoAmino[]
-	options?: EnumOptionsAmino
+	options?: EnumOptionsAmino | undefined
 	/**
 	 * Range of reserved numeric values. Reserved numeric values may not be used
 	 * by enum values in the same enum declaration. Reserved ranges may not
@@ -742,7 +742,7 @@ export interface EnumDescriptorProto_EnumReservedRangeAminoMsg {
 export interface EnumValueDescriptorProto {
 	name: string
 	number: number
-	options?: EnumValueOptions
+	options?: EnumValueOptions | undefined
 }
 export interface EnumValueDescriptorProtoProtoMsg {
 	typeUrl: "/google.protobuf.EnumValueDescriptorProto"
@@ -752,7 +752,7 @@ export interface EnumValueDescriptorProtoProtoMsg {
 export interface EnumValueDescriptorProtoAmino {
 	name?: string
 	number?: number
-	options?: EnumValueOptionsAmino
+	options?: EnumValueOptionsAmino | undefined
 }
 export interface EnumValueDescriptorProtoAminoMsg {
 	type: "/google.protobuf.EnumValueDescriptorProto"
@@ -762,7 +762,7 @@ export interface EnumValueDescriptorProtoAminoMsg {
 export interface ServiceDescriptorProto {
 	name: string
 	method: MethodDescriptorProto[]
-	options?: ServiceOptions
+	options?: ServiceOptions | undefined
 }
 export interface ServiceDescriptorProtoProtoMsg {
 	typeUrl: "/google.protobuf.ServiceDescriptorProto"
@@ -772,7 +772,7 @@ export interface ServiceDescriptorProtoProtoMsg {
 export interface ServiceDescriptorProtoAmino {
 	name?: string
 	method?: MethodDescriptorProtoAmino[]
-	options?: ServiceOptionsAmino
+	options?: ServiceOptionsAmino | undefined
 }
 export interface ServiceDescriptorProtoAminoMsg {
 	type: "/google.protobuf.ServiceDescriptorProto"
@@ -787,7 +787,7 @@ export interface MethodDescriptorProto {
 	 */
 	inputType: string
 	outputType: string
-	options?: MethodOptions
+	options?: MethodOptions | undefined
 	/** Identifies if client streams multiple client messages */
 	clientStreaming: boolean
 	/** Identifies if server streams multiple server messages */
@@ -806,7 +806,7 @@ export interface MethodDescriptorProtoAmino {
 	 */
 	input_type?: string
 	output_type?: string
-	options?: MethodOptionsAmino
+	options?: MethodOptionsAmino | undefined
 	/** Identifies if client streams multiple client messages */
 	client_streaming?: boolean
 	/** Identifies if server streams multiple server messages */
@@ -2035,10 +2035,10 @@ export const FileDescriptorProto = {
 		message: FileDescriptorProto,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.name !== undefined) {
+		if (message.name && message.name !== "") {
 			writer.uint32(10).string(message.name)
 		}
-		if (message.package !== undefined) {
+		if (message.package && message.package !== "") {
 			writer.uint32(18).string(message.package)
 		}
 		for (const v of message.dependency) {
@@ -2072,7 +2072,7 @@ export const FileDescriptorProto = {
 		if (message.sourceCodeInfo !== undefined) {
 			SourceCodeInfo.encode(message.sourceCodeInfo, writer.uint32(74).fork()).ldelim()
 		}
-		if (message.syntax !== undefined) {
+		if (message.syntax && message.syntax !== "") {
 			writer.uint32(98).string(message.syntax)
 		}
 		return writer
@@ -2276,7 +2276,7 @@ function createBaseDescriptorProto(): DescriptorProto {
 export const DescriptorProto = {
 	typeUrl: "/google.protobuf.DescriptorProto",
 	encode(message: DescriptorProto, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.name !== undefined) {
+		if (message.name && message.name !== "") {
 			writer.uint32(10).string(message.name)
 		}
 		for (const v of message.field) {
@@ -2482,10 +2482,10 @@ export const DescriptorProto_ExtensionRange = {
 		message: DescriptorProto_ExtensionRange,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.start !== undefined) {
+		if (message.start && message.start !== 0) {
 			writer.uint32(8).int32(message.start)
 		}
-		if (message.end !== undefined) {
+		if (message.end && message.end !== 0) {
 			writer.uint32(16).int32(message.end)
 		}
 		if (message.options !== undefined) {
@@ -2574,10 +2574,10 @@ export const DescriptorProto_ReservedRange = {
 		message: DescriptorProto_ReservedRange,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.start !== undefined) {
+		if (message.start && message.start !== 0) {
 			writer.uint32(8).int32(message.start)
 		}
-		if (message.end !== undefined) {
+		if (message.end && message.end !== 0) {
 			writer.uint32(16).int32(message.end)
 		}
 		return writer
@@ -2732,10 +2732,10 @@ export const FieldDescriptorProto = {
 		message: FieldDescriptorProto,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.name !== undefined) {
+		if (message.name && message.name !== "") {
 			writer.uint32(10).string(message.name)
 		}
-		if (message.number !== undefined) {
+		if (message.number && message.number !== 0) {
 			writer.uint32(24).int32(message.number)
 		}
 		if (message.label !== 1) {
@@ -2744,19 +2744,19 @@ export const FieldDescriptorProto = {
 		if (message.type !== 1) {
 			writer.uint32(40).int32(message.type)
 		}
-		if (message.typeName !== undefined) {
+		if (message.typeName && message.typeName !== "") {
 			writer.uint32(50).string(message.typeName)
 		}
-		if (message.extendee !== undefined) {
+		if (message.extendee && message.extendee !== "") {
 			writer.uint32(18).string(message.extendee)
 		}
-		if (message.defaultValue !== undefined) {
+		if (message.defaultValue && message.defaultValue !== "") {
 			writer.uint32(58).string(message.defaultValue)
 		}
-		if (message.oneofIndex !== undefined) {
+		if (message.oneofIndex && message.oneofIndex !== 0) {
 			writer.uint32(72).int32(message.oneofIndex)
 		}
-		if (message.jsonName !== undefined) {
+		if (message.jsonName && message.jsonName !== "") {
 			writer.uint32(82).string(message.jsonName)
 		}
 		if (message.options !== undefined) {
@@ -2901,7 +2901,7 @@ export const OneofDescriptorProto = {
 		message: OneofDescriptorProto,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.name !== undefined) {
+		if (message.name && message.name !== "") {
 			writer.uint32(10).string(message.name)
 		}
 		if (message.options !== undefined) {
@@ -2985,7 +2985,7 @@ export const EnumDescriptorProto = {
 		message: EnumDescriptorProto,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.name !== undefined) {
+		if (message.name && message.name !== "") {
 			writer.uint32(10).string(message.name)
 		}
 		for (const v of message.value) {
@@ -3112,10 +3112,10 @@ export const EnumDescriptorProto_EnumReservedRange = {
 		message: EnumDescriptorProto_EnumReservedRange,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.start !== undefined) {
+		if (message.start && message.start !== 0) {
 			writer.uint32(8).int32(message.start)
 		}
-		if (message.end !== undefined) {
+		if (message.end && message.end !== 0) {
 			writer.uint32(16).int32(message.end)
 		}
 		return writer
@@ -3206,10 +3206,10 @@ export const EnumValueDescriptorProto = {
 		message: EnumValueDescriptorProto,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.name !== undefined) {
+		if (message.name && message.name !== "") {
 			writer.uint32(10).string(message.name)
 		}
-		if (message.number !== undefined) {
+		if (message.number && message.number !== 0) {
 			writer.uint32(16).int32(message.number)
 		}
 		if (message.options !== undefined) {
@@ -3299,7 +3299,7 @@ export const ServiceDescriptorProto = {
 		message: ServiceDescriptorProto,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.name !== undefined) {
+		if (message.name && message.name !== "") {
 			writer.uint32(10).string(message.name)
 		}
 		for (const v of message.method) {
@@ -3397,22 +3397,22 @@ export const MethodDescriptorProto = {
 		message: MethodDescriptorProto,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.name !== undefined) {
+		if (message.name && message.name !== "") {
 			writer.uint32(10).string(message.name)
 		}
-		if (message.inputType !== undefined) {
+		if (message.inputType && message.inputType !== "") {
 			writer.uint32(18).string(message.inputType)
 		}
-		if (message.outputType !== undefined) {
+		if (message.outputType && message.outputType !== "") {
 			writer.uint32(26).string(message.outputType)
 		}
 		if (message.options !== undefined) {
 			MethodOptions.encode(message.options, writer.uint32(34).fork()).ldelim()
 		}
-		if (message.clientStreaming !== undefined) {
+		if (message.clientStreaming === true) {
 			writer.uint32(40).bool(message.clientStreaming)
 		}
-		if (message.serverStreaming !== undefined) {
+		if (message.serverStreaming === true) {
 			writer.uint32(48).bool(message.serverStreaming)
 		}
 		return writer
@@ -3538,64 +3538,64 @@ function createBaseFileOptions(): FileOptions {
 export const FileOptions = {
 	typeUrl: "/google.protobuf.FileOptions",
 	encode(message: FileOptions, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.javaPackage !== undefined) {
+		if (message.javaPackage && message.javaPackage !== "") {
 			writer.uint32(10).string(message.javaPackage)
 		}
-		if (message.javaOuterClassname !== undefined) {
+		if (message.javaOuterClassname && message.javaOuterClassname !== "") {
 			writer.uint32(66).string(message.javaOuterClassname)
 		}
-		if (message.javaMultipleFiles !== undefined) {
+		if (message.javaMultipleFiles === true) {
 			writer.uint32(80).bool(message.javaMultipleFiles)
 		}
-		if (message.javaGenerateEqualsAndHash !== undefined) {
+		if (message.javaGenerateEqualsAndHash === true) {
 			writer.uint32(160).bool(message.javaGenerateEqualsAndHash)
 		}
-		if (message.javaStringCheckUtf8 !== undefined) {
+		if (message.javaStringCheckUtf8 === true) {
 			writer.uint32(216).bool(message.javaStringCheckUtf8)
 		}
 		if (message.optimizeFor !== 1) {
 			writer.uint32(72).int32(message.optimizeFor)
 		}
-		if (message.goPackage !== undefined) {
+		if (message.goPackage && message.goPackage !== "") {
 			writer.uint32(90).string(message.goPackage)
 		}
-		if (message.ccGenericServices !== undefined) {
+		if (message.ccGenericServices === true) {
 			writer.uint32(128).bool(message.ccGenericServices)
 		}
-		if (message.javaGenericServices !== undefined) {
+		if (message.javaGenericServices === true) {
 			writer.uint32(136).bool(message.javaGenericServices)
 		}
-		if (message.pyGenericServices !== undefined) {
+		if (message.pyGenericServices === true) {
 			writer.uint32(144).bool(message.pyGenericServices)
 		}
-		if (message.phpGenericServices !== undefined) {
+		if (message.phpGenericServices === true) {
 			writer.uint32(336).bool(message.phpGenericServices)
 		}
-		if (message.deprecated !== undefined) {
+		if (message.deprecated === true) {
 			writer.uint32(184).bool(message.deprecated)
 		}
-		if (message.ccEnableArenas !== undefined) {
+		if (message.ccEnableArenas === true) {
 			writer.uint32(248).bool(message.ccEnableArenas)
 		}
-		if (message.objcClassPrefix !== undefined) {
+		if (message.objcClassPrefix && message.objcClassPrefix !== "") {
 			writer.uint32(290).string(message.objcClassPrefix)
 		}
-		if (message.csharpNamespace !== undefined) {
+		if (message.csharpNamespace && message.csharpNamespace !== "") {
 			writer.uint32(298).string(message.csharpNamespace)
 		}
-		if (message.swiftPrefix !== undefined) {
+		if (message.swiftPrefix && message.swiftPrefix !== "") {
 			writer.uint32(314).string(message.swiftPrefix)
 		}
-		if (message.phpClassPrefix !== undefined) {
+		if (message.phpClassPrefix && message.phpClassPrefix !== "") {
 			writer.uint32(322).string(message.phpClassPrefix)
 		}
-		if (message.phpNamespace !== undefined) {
+		if (message.phpNamespace && message.phpNamespace !== "") {
 			writer.uint32(330).string(message.phpNamespace)
 		}
-		if (message.phpMetadataNamespace !== undefined) {
+		if (message.phpMetadataNamespace && message.phpMetadataNamespace !== "") {
 			writer.uint32(354).string(message.phpMetadataNamespace)
 		}
-		if (message.rubyPackage !== undefined) {
+		if (message.rubyPackage && message.rubyPackage !== "") {
 			writer.uint32(362).string(message.rubyPackage)
 		}
 		for (const v of message.uninterpretedOption) {
@@ -3843,16 +3843,16 @@ function createBaseMessageOptions(): MessageOptions {
 export const MessageOptions = {
 	typeUrl: "/google.protobuf.MessageOptions",
 	encode(message: MessageOptions, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.messageSetWireFormat !== undefined) {
+		if (message.messageSetWireFormat === true) {
 			writer.uint32(8).bool(message.messageSetWireFormat)
 		}
-		if (message.noStandardDescriptorAccessor !== undefined) {
+		if (message.noStandardDescriptorAccessor === true) {
 			writer.uint32(16).bool(message.noStandardDescriptorAccessor)
 		}
-		if (message.deprecated !== undefined) {
+		if (message.deprecated === true) {
 			writer.uint32(24).bool(message.deprecated)
 		}
-		if (message.mapEntry !== undefined) {
+		if (message.mapEntry === true) {
 			writer.uint32(56).bool(message.mapEntry)
 		}
 		for (const v of message.uninterpretedOption) {
@@ -3972,19 +3972,19 @@ export const FieldOptions = {
 		if (message.ctype !== 1) {
 			writer.uint32(8).int32(message.ctype)
 		}
-		if (message.packed !== undefined) {
+		if (message.packed === true) {
 			writer.uint32(16).bool(message.packed)
 		}
 		if (message.jstype !== 1) {
 			writer.uint32(48).int32(message.jstype)
 		}
-		if (message.lazy !== undefined) {
+		if (message.lazy === true) {
 			writer.uint32(40).bool(message.lazy)
 		}
-		if (message.deprecated !== undefined) {
+		if (message.deprecated === true) {
 			writer.uint32(24).bool(message.deprecated)
 		}
-		if (message.weak !== undefined) {
+		if (message.weak === true) {
 			writer.uint32(80).bool(message.weak)
 		}
 		for (const v of message.uninterpretedOption) {
@@ -4175,10 +4175,10 @@ function createBaseEnumOptions(): EnumOptions {
 export const EnumOptions = {
 	typeUrl: "/google.protobuf.EnumOptions",
 	encode(message: EnumOptions, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.allowAlias !== undefined) {
+		if (message.allowAlias === true) {
 			writer.uint32(16).bool(message.allowAlias)
 		}
-		if (message.deprecated !== undefined) {
+		if (message.deprecated === true) {
 			writer.uint32(24).bool(message.deprecated)
 		}
 		for (const v of message.uninterpretedOption) {
@@ -4267,7 +4267,7 @@ function createBaseEnumValueOptions(): EnumValueOptions {
 export const EnumValueOptions = {
 	typeUrl: "/google.protobuf.EnumValueOptions",
 	encode(message: EnumValueOptions, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.deprecated !== undefined) {
+		if (message.deprecated === true) {
 			writer.uint32(8).bool(message.deprecated)
 		}
 		for (const v of message.uninterpretedOption) {
@@ -4348,7 +4348,7 @@ function createBaseServiceOptions(): ServiceOptions {
 export const ServiceOptions = {
 	typeUrl: "/google.protobuf.ServiceOptions",
 	encode(message: ServiceOptions, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.deprecated !== undefined) {
+		if (message.deprecated === true) {
 			writer.uint32(264).bool(message.deprecated)
 		}
 		for (const v of message.uninterpretedOption) {
@@ -4430,7 +4430,7 @@ function createBaseMethodOptions(): MethodOptions {
 export const MethodOptions = {
 	typeUrl: "/google.protobuf.MethodOptions",
 	encode(message: MethodOptions, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.deprecated !== undefined) {
+		if (message.deprecated === true) {
 			writer.uint32(264).bool(message.deprecated)
 		}
 		if (message.idempotencyLevel !== 1) {
@@ -4533,22 +4533,22 @@ export const UninterpretedOption = {
 		for (const v of message.name) {
 			UninterpretedOption_NamePart.encode(v!, writer.uint32(18).fork()).ldelim()
 		}
-		if (message.identifierValue !== undefined) {
+		if (message.identifierValue && message.identifierValue !== "") {
 			writer.uint32(26).string(message.identifierValue)
 		}
-		if (message.positiveIntValue !== undefined) {
+		if (message.positiveIntValue && message.positiveIntValue !== BigInt(0)) {
 			writer.uint32(32).uint64(message.positiveIntValue)
 		}
-		if (message.negativeIntValue !== undefined) {
+		if (message.negativeIntValue && message.negativeIntValue !== BigInt(0)) {
 			writer.uint32(40).int64(message.negativeIntValue)
 		}
-		if (message.doubleValue !== undefined) {
+		if (message.doubleValue && message.doubleValue !== 0) {
 			writer.uint32(49).double(message.doubleValue)
 		}
 		if (message.stringValue.length !== 0) {
 			writer.uint32(58).bytes(message.stringValue)
 		}
-		if (message.aggregateValue !== undefined) {
+		if (message.aggregateValue && message.aggregateValue !== "") {
 			writer.uint32(66).string(message.aggregateValue)
 		}
 		return writer
@@ -4675,10 +4675,10 @@ export const UninterpretedOption_NamePart = {
 		message: UninterpretedOption_NamePart,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.namePart !== undefined) {
+		if (message.namePart && message.namePart !== "") {
 			writer.uint32(10).string(message.namePart)
 		}
-		if (message.isExtension !== undefined) {
+		if (message.isExtension === true) {
 			writer.uint32(16).bool(message.isExtension)
 		}
 		return writer
@@ -4833,10 +4833,10 @@ export const SourceCodeInfo_Location = {
 			writer.int32(v)
 		}
 		writer.ldelim()
-		if (message.leadingComments !== undefined) {
+		if (message.leadingComments && message.leadingComments !== "") {
 			writer.uint32(26).string(message.leadingComments)
 		}
-		if (message.trailingComments !== undefined) {
+		if (message.trailingComments && message.trailingComments !== "") {
 			writer.uint32(34).string(message.trailingComments)
 		}
 		for (const v of message.leadingDetachedComments) {
@@ -5034,13 +5034,13 @@ export const GeneratedCodeInfo_Annotation = {
 			writer.int32(v)
 		}
 		writer.ldelim()
-		if (message.sourceFile !== undefined) {
+		if (message.sourceFile && message.sourceFile !== "") {
 			writer.uint32(18).string(message.sourceFile)
 		}
-		if (message.begin !== undefined) {
+		if (message.begin && message.begin !== 0) {
 			writer.uint32(24).int32(message.begin)
 		}
-		if (message.end !== undefined) {
+		if (message.end && message.end !== 0) {
 			writer.uint32(32).int32(message.end)
 		}
 		return writer

@@ -4,7 +4,7 @@ import { Params, type ParamsAmino } from "./params"
 /** GenesisState defines the tokenfactory module's genesis state. */
 export interface GenesisState {
 	/** params defines the parameters of the module. */
-	params: Params
+	params: Params | undefined
 	factoryDenoms: GenesisDenom[]
 }
 export interface GenesisStateProtoMsg {
@@ -14,7 +14,7 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the tokenfactory module's genesis state. */
 export interface GenesisStateAmino {
 	/** params defines the parameters of the module. */
-	params: ParamsAmino
+	params: ParamsAmino | undefined
 	factory_denoms: GenesisDenomAmino[]
 }
 export interface GenesisStateAminoMsg {
@@ -28,7 +28,7 @@ export interface GenesisStateAminoMsg {
  */
 export interface GenesisDenom {
 	denom: string
-	authorityMetadata: DenomAuthorityMetadata
+	authorityMetadata: DenomAuthorityMetadata | undefined
 }
 export interface GenesisDenomProtoMsg {
 	typeUrl: "/osmosis.tokenfactory.v1beta1.GenesisDenom"
@@ -41,7 +41,7 @@ export interface GenesisDenomProtoMsg {
  */
 export interface GenesisDenomAmino {
 	denom?: string
-	authority_metadata: DenomAuthorityMetadataAmino
+	authority_metadata: DenomAuthorityMetadataAmino | undefined
 }
 export interface GenesisDenomAminoMsg {
 	type: "osmosis/tokenfactory/genesis-denom"
@@ -146,7 +146,7 @@ function createBaseGenesisDenom(): GenesisDenom {
 export const GenesisDenom = {
 	typeUrl: "/osmosis.tokenfactory.v1beta1.GenesisDenom",
 	encode(message: GenesisDenom, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.denom !== undefined) {
+		if (message.denom && message.denom !== "") {
 			writer.uint32(10).string(message.denom)
 		}
 		if (message.authorityMetadata !== undefined) {

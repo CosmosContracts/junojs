@@ -61,7 +61,7 @@ export interface Grant {
 	 * doesn't have a time expiration (other conditions  in `authorization`
 	 * may apply to invalidate the grant)
 	 */
-	expiration?: Date
+	expiration?: Date | undefined
 }
 export interface GrantProtoMsg {
 	typeUrl: "/cosmos.authz.v1beta1.Grant"
@@ -84,13 +84,13 @@ export type GrantEncoded = Omit<Grant, "authorization"> & {
  * the provide method with expiration time.
  */
 export interface GrantAmino {
-	authorization?: AnyAmino
+	authorization?: AnyAmino | undefined
 	/**
 	 * time when the grant will expire and will be pruned. If null, then the grant
 	 * doesn't have a time expiration (other conditions  in `authorization`
 	 * may apply to invalidate the grant)
 	 */
-	expiration?: string
+	expiration?: string | undefined
 }
 export interface GrantAminoMsg {
 	type: "cosmos-sdk/Grant"
@@ -113,7 +113,7 @@ export interface GrantAuthorization {
 		| TransferAuthorization
 		| Any
 		| undefined
-	expiration?: Date
+	expiration?: Date | undefined
 }
 export interface GrantAuthorizationProtoMsg {
 	typeUrl: "/cosmos.authz.v1beta1.GrantAuthorization"
@@ -138,8 +138,8 @@ export type GrantAuthorizationEncoded = Omit<GrantAuthorization, "authorization"
 export interface GrantAuthorizationAmino {
 	granter?: string
 	grantee?: string
-	authorization?: AnyAmino
-	expiration?: string
+	authorization?: AnyAmino | undefined
+	expiration?: string | undefined
 }
 export interface GrantAuthorizationAminoMsg {
 	type: "cosmos-sdk/GrantAuthorization"
@@ -175,7 +175,7 @@ export const GenericAuthorization = {
 		message: GenericAuthorization,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.msg !== undefined) {
+		if (message.msg && message.msg !== "") {
 			writer.uint32(10).string(message.msg)
 		}
 		return writer
@@ -337,10 +337,10 @@ function createBaseGrantAuthorization(): GrantAuthorization {
 export const GrantAuthorization = {
 	typeUrl: "/cosmos.authz.v1beta1.GrantAuthorization",
 	encode(message: GrantAuthorization, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.granter !== undefined) {
+		if (message.granter && message.granter !== "") {
 			writer.uint32(10).string(message.granter)
 		}
-		if (message.grantee !== undefined) {
+		if (message.grantee && message.grantee !== "") {
 			writer.uint32(18).string(message.grantee)
 		}
 		if (message.authorization !== undefined) {

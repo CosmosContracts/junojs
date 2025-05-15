@@ -28,7 +28,7 @@ export interface QueryFeePayContractRequestAminoMsg {
 /** QueryFeePayContractResponse defines the response for retrieving a single fee pay contract */
 export interface QueryFeePayContractResponse {
 	/** contract defines the fee pay contract */
-	feePayContract: FeePayContract
+	feePayContract: FeePayContract | undefined
 }
 export interface QueryFeePayContractResponseProtoMsg {
 	typeUrl: "/juno.feepay.v1.QueryFeePayContractResponse"
@@ -37,7 +37,7 @@ export interface QueryFeePayContractResponseProtoMsg {
 /** QueryFeePayContractResponse defines the response for retrieving a single fee pay contract */
 export interface QueryFeePayContractResponseAmino {
 	/** contract defines the fee pay contract */
-	fee_pay_contract: FeePayContractAmino
+	fee_pay_contract: FeePayContractAmino | undefined
 }
 export interface QueryFeePayContractResponseAminoMsg {
 	type: "/juno.feepay.v1.QueryFeePayContractResponse"
@@ -46,7 +46,7 @@ export interface QueryFeePayContractResponseAminoMsg {
 /** Message for querying a list of fee pay contracts */
 export interface QueryFeePayContractsRequest {
 	/** Pagination defines an optional pagination for the request. */
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 }
 export interface QueryFeePayContractsRequestProtoMsg {
 	typeUrl: "/juno.feepay.v1.QueryFeePayContractsRequest"
@@ -55,7 +55,7 @@ export interface QueryFeePayContractsRequestProtoMsg {
 /** Message for querying a list of fee pay contracts */
 export interface QueryFeePayContractsRequestAmino {
 	/** Pagination defines an optional pagination for the request. */
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 }
 export interface QueryFeePayContractsRequestAminoMsg {
 	type: "/juno.feepay.v1.QueryFeePayContractsRequest"
@@ -66,7 +66,7 @@ export interface QueryFeePayContractsResponse {
 	/** A slice of all the stored fee pay contracts */
 	feePayContracts: FeePayContract[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 }
 export interface QueryFeePayContractsResponseProtoMsg {
 	typeUrl: "/juno.feepay.v1.QueryFeePayContractsResponse"
@@ -77,7 +77,7 @@ export interface QueryFeePayContractsResponseAmino {
 	/** A slice of all the stored fee pay contracts */
 	fee_pay_contracts: FeePayContractAmino[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 }
 export interface QueryFeePayContractsResponseAminoMsg {
 	type: "/juno.feepay.v1.QueryFeePayContractsResponse"
@@ -178,7 +178,7 @@ export interface QueryParamsRequestAminoMsg {
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponse {
 	/** params is the returned Feepay parameter */
-	params: Params
+	params: Params | undefined
 }
 export interface QueryParamsResponseProtoMsg {
 	typeUrl: "/juno.feepay.v1.QueryParamsResponse"
@@ -187,7 +187,7 @@ export interface QueryParamsResponseProtoMsg {
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponseAmino {
 	/** params is the returned Feepay parameter */
-	params: ParamsAmino
+	params: ParamsAmino | undefined
 }
 export interface QueryParamsResponseAminoMsg {
 	type: "/juno.feepay.v1.QueryParamsResponse"
@@ -204,7 +204,7 @@ export const QueryFeePayContractRequest = {
 		message: QueryFeePayContractRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.contractAddress !== undefined) {
+		if (message.contractAddress && message.contractAddress !== "") {
 			writer.uint32(10).string(message.contractAddress)
 		}
 		return writer
@@ -498,10 +498,10 @@ export const QueryFeePayContractUsesRequest = {
 		message: QueryFeePayContractUsesRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.contractAddress !== undefined) {
+		if (message.contractAddress && message.contractAddress !== "") {
 			writer.uint32(10).string(message.contractAddress)
 		}
-		if (message.walletAddress !== undefined) {
+		if (message.walletAddress && message.walletAddress !== "") {
 			writer.uint32(18).string(message.walletAddress)
 		}
 		return writer
@@ -575,7 +575,7 @@ export const QueryFeePayContractUsesResponse = {
 		message: QueryFeePayContractUsesResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.uses !== undefined) {
+		if (message.uses && message.uses !== BigInt(0)) {
 			writer.uint32(8).uint64(message.uses)
 		}
 		return writer
@@ -645,10 +645,10 @@ export const QueryFeePayWalletIsEligibleRequest = {
 		message: QueryFeePayWalletIsEligibleRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.contractAddress !== undefined) {
+		if (message.contractAddress && message.contractAddress !== "") {
 			writer.uint32(10).string(message.contractAddress)
 		}
-		if (message.walletAddress !== undefined) {
+		if (message.walletAddress && message.walletAddress !== "") {
 			writer.uint32(18).string(message.walletAddress)
 		}
 		return writer
@@ -730,7 +730,7 @@ export const QueryFeePayWalletIsEligibleResponse = {
 		message: QueryFeePayWalletIsEligibleResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.eligible !== undefined) {
+		if (message.eligible === true) {
 			writer.uint32(8).bool(message.eligible)
 		}
 		return writer

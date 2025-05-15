@@ -91,7 +91,7 @@ export interface CodeGrant {
 	 * on contract creation.
 	 * Optional
 	 */
-	instantiatePermission?: AccessConfig
+	instantiatePermission?: AccessConfig | undefined
 }
 export interface CodeGrantProtoMsg {
 	typeUrl: "/cosmwasm.wasm.v1.CodeGrant"
@@ -109,7 +109,7 @@ export interface CodeGrantAmino {
 	 * on contract creation.
 	 * Optional
 	 */
-	instantiate_permission?: AccessConfigAmino
+	instantiate_permission?: AccessConfigAmino | undefined
 }
 export interface CodeGrantAminoMsg {
 	type: "wasm/CodeGrant"
@@ -177,13 +177,13 @@ export interface ContractGrantAmino {
 	 * Limit defines execution limits that are enforced and updated when the grant
 	 * is applied. When the limit lapsed the grant is removed.
 	 */
-	limit?: AnyAmino
+	limit?: AnyAmino | undefined
 	/**
 	 * Filter define more fine-grained control on the message payload passed
 	 * to the contract in the operation. When no filter applies on execution, the
 	 * operation is prohibited.
 	 */
-	filter?: AnyAmino
+	filter?: AnyAmino | undefined
 }
 export interface ContractGrantAminoMsg {
 	type: "wasm/ContractGrant"
@@ -667,7 +667,7 @@ function createBaseContractGrant(): ContractGrant {
 export const ContractGrant = {
 	typeUrl: "/cosmwasm.wasm.v1.ContractGrant",
 	encode(message: ContractGrant, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.contract !== undefined) {
+		if (message.contract && message.contract !== "") {
 			writer.uint32(10).string(message.contract)
 		}
 		if (message.limit !== undefined) {
@@ -769,7 +769,7 @@ function createBaseMaxCallsLimit(): MaxCallsLimit {
 export const MaxCallsLimit = {
 	typeUrl: "/cosmwasm.wasm.v1.MaxCallsLimit",
 	encode(message: MaxCallsLimit, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.remaining !== undefined) {
+		if (message.remaining && message.remaining !== BigInt(0)) {
 			writer.uint32(8).uint64(message.remaining)
 		}
 		return writer
@@ -915,7 +915,7 @@ function createBaseCombinedLimit(): CombinedLimit {
 export const CombinedLimit = {
 	typeUrl: "/cosmwasm.wasm.v1.CombinedLimit",
 	encode(message: CombinedLimit, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.callsRemaining !== undefined) {
+		if (message.callsRemaining && message.callsRemaining !== BigInt(0)) {
 			writer.uint32(8).uint64(message.callsRemaining)
 		}
 		for (const v of message.amounts) {

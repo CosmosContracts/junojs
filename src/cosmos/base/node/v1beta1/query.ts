@@ -54,7 +54,7 @@ export interface StatusResponse {
 	/** current block height */
 	height: bigint
 	/** block height timestamp */
-	timestamp?: Date
+	timestamp?: Date | undefined
 	/** app hash of the current block */
 	appHash: Uint8Array
 	/** validator hash provided by the consensus header */
@@ -71,7 +71,7 @@ export interface StatusResponseAmino {
 	/** current block height */
 	height?: string
 	/** block height timestamp */
-	timestamp?: string
+	timestamp?: string | undefined
 	/** app hash of the current block */
 	app_hash?: string
 	/** validator hash provided by the consensus header */
@@ -148,16 +148,16 @@ function createBaseConfigResponse(): ConfigResponse {
 export const ConfigResponse = {
 	typeUrl: "/cosmos.base.node.v1beta1.ConfigResponse",
 	encode(message: ConfigResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.minimumGasPrice !== undefined) {
+		if (message.minimumGasPrice && message.minimumGasPrice !== "") {
 			writer.uint32(10).string(message.minimumGasPrice)
 		}
-		if (message.pruningKeepRecent !== undefined) {
+		if (message.pruningKeepRecent && message.pruningKeepRecent !== "") {
 			writer.uint32(18).string(message.pruningKeepRecent)
 		}
-		if (message.pruningInterval !== undefined) {
+		if (message.pruningInterval && message.pruningInterval !== "") {
 			writer.uint32(26).string(message.pruningInterval)
 		}
-		if (message.haltHeight !== undefined) {
+		if (message.haltHeight && message.haltHeight !== BigInt(0)) {
 			writer.uint32(32).uint64(message.haltHeight)
 		}
 		return writer
@@ -315,10 +315,10 @@ function createBaseStatusResponse(): StatusResponse {
 export const StatusResponse = {
 	typeUrl: "/cosmos.base.node.v1beta1.StatusResponse",
 	encode(message: StatusResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.earliestStoreHeight !== undefined) {
+		if (message.earliestStoreHeight && message.earliestStoreHeight !== BigInt(0)) {
 			writer.uint32(8).uint64(message.earliestStoreHeight)
 		}
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(16).uint64(message.height)
 		}
 		if (message.timestamp !== undefined) {

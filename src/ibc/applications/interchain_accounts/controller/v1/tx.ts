@@ -46,7 +46,7 @@ export interface MsgRegisterInterchainAccountResponseAminoMsg {
 export interface MsgSendTx {
 	owner: string
 	connectionId: string
-	packetData: InterchainAccountPacketData
+	packetData: InterchainAccountPacketData | undefined
 	/**
 	 * Relative timeout timestamp provided will be added to the current block time during transaction execution.
 	 * The timeout timestamp must be non-zero.
@@ -61,7 +61,7 @@ export interface MsgSendTxProtoMsg {
 export interface MsgSendTxAmino {
 	owner?: string
 	connection_id?: string
-	packet_data?: InterchainAccountPacketDataAmino
+	packet_data?: InterchainAccountPacketDataAmino | undefined
 	/**
 	 * Relative timeout timestamp provided will be added to the current block time during transaction execution.
 	 * The timeout timestamp must be non-zero.
@@ -97,7 +97,7 @@ export interface MsgUpdateParams {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params: Params
+	params: Params | undefined
 }
 export interface MsgUpdateParamsProtoMsg {
 	typeUrl: "/ibc.applications.interchain_accounts.controller.v1.MsgUpdateParams"
@@ -112,7 +112,7 @@ export interface MsgUpdateParamsAmino {
 	 *
 	 * NOTE: All parameters must be supplied.
 	 */
-	params?: ParamsAmino
+	params?: ParamsAmino | undefined
 }
 export interface MsgUpdateParamsAminoMsg {
 	type: "cosmos-sdk/MsgUpdateParams"
@@ -144,13 +144,13 @@ export const MsgRegisterInterchainAccount = {
 		message: MsgRegisterInterchainAccount,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.owner !== undefined) {
+		if (message.owner && message.owner !== "") {
 			writer.uint32(10).string(message.owner)
 		}
-		if (message.connectionId !== undefined) {
+		if (message.connectionId && message.connectionId !== "") {
 			writer.uint32(18).string(message.connectionId)
 		}
-		if (message.version !== undefined) {
+		if (message.version && message.version !== "") {
 			writer.uint32(26).string(message.version)
 		}
 		if (message.ordering !== 0) {
@@ -252,10 +252,10 @@ export const MsgRegisterInterchainAccountResponse = {
 		message: MsgRegisterInterchainAccountResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(10).string(message.channelId)
 		}
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(18).string(message.portId)
 		}
 		return writer
@@ -350,16 +350,16 @@ function createBaseMsgSendTx(): MsgSendTx {
 export const MsgSendTx = {
 	typeUrl: "/ibc.applications.interchain_accounts.controller.v1.MsgSendTx",
 	encode(message: MsgSendTx, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.owner !== undefined) {
+		if (message.owner && message.owner !== "") {
 			writer.uint32(10).string(message.owner)
 		}
-		if (message.connectionId !== undefined) {
+		if (message.connectionId && message.connectionId !== "") {
 			writer.uint32(18).string(message.connectionId)
 		}
 		if (message.packetData !== undefined) {
 			InterchainAccountPacketData.encode(message.packetData, writer.uint32(26).fork()).ldelim()
 		}
-		if (message.relativeTimeout !== undefined) {
+		if (message.relativeTimeout && message.relativeTimeout !== BigInt(0)) {
 			writer.uint32(32).uint64(message.relativeTimeout)
 		}
 		return writer
@@ -461,7 +461,7 @@ function createBaseMsgSendTxResponse(): MsgSendTxResponse {
 export const MsgSendTxResponse = {
 	typeUrl: "/ibc.applications.interchain_accounts.controller.v1.MsgSendTxResponse",
 	encode(message: MsgSendTxResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.sequence !== undefined) {
+		if (message.sequence && message.sequence !== BigInt(0)) {
 			writer.uint32(8).uint64(message.sequence)
 		}
 		return writer
@@ -534,7 +534,7 @@ function createBaseMsgUpdateParams(): MsgUpdateParams {
 export const MsgUpdateParams = {
 	typeUrl: "/ibc.applications.interchain_accounts.controller.v1.MsgUpdateParams",
 	encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.signer !== undefined) {
+		if (message.signer && message.signer !== "") {
 			writer.uint32(10).string(message.signer)
 		}
 		if (message.params !== undefined) {

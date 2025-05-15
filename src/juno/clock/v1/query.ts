@@ -10,7 +10,7 @@ import { Params, type ParamsAmino } from "./genesis"
 /** QueryClockContracts is the request type to get all contracts. */
 export interface QueryClockContractsRequest {
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 }
 export interface QueryClockContractsRequestProtoMsg {
 	typeUrl: "/juno.clock.v1.QueryClockContractsRequest"
@@ -19,7 +19,7 @@ export interface QueryClockContractsRequestProtoMsg {
 /** QueryClockContracts is the request type to get all contracts. */
 export interface QueryClockContractsRequestAmino {
 	/** pagination defines an optional pagination for the request. */
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 }
 export interface QueryClockContractsRequestAminoMsg {
 	type: "/juno.clock.v1.QueryClockContractsRequest"
@@ -30,7 +30,7 @@ export interface QueryClockContractsResponse {
 	/** clock_contracts are the clock contracts. */
 	clockContracts: ClockContract[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 }
 export interface QueryClockContractsResponseProtoMsg {
 	typeUrl: "/juno.clock.v1.QueryClockContractsResponse"
@@ -41,7 +41,7 @@ export interface QueryClockContractsResponseAmino {
 	/** clock_contracts are the clock contracts. */
 	clock_contracts: ClockContractAmino[]
 	/** pagination defines the pagination in the response. */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 }
 export interface QueryClockContractsResponseAminoMsg {
 	type: "/juno.clock.v1.QueryClockContractsResponse"
@@ -68,7 +68,7 @@ export interface QueryClockContractRequestAminoMsg {
 /** QueryClockContractResponse is the response type for the Query/ClockContract RPC method. */
 export interface QueryClockContractResponse {
 	/** contract is the clock contract. */
-	clockContract: ClockContract
+	clockContract: ClockContract | undefined
 }
 export interface QueryClockContractResponseProtoMsg {
 	typeUrl: "/juno.clock.v1.QueryClockContractResponse"
@@ -77,7 +77,7 @@ export interface QueryClockContractResponseProtoMsg {
 /** QueryClockContractResponse is the response type for the Query/ClockContract RPC method. */
 export interface QueryClockContractResponseAmino {
 	/** contract is the clock contract. */
-	clock_contract: ClockContractAmino
+	clock_contract: ClockContractAmino | undefined
 }
 export interface QueryClockContractResponseAminoMsg {
 	type: "/juno.clock.v1.QueryClockContractResponse"
@@ -97,7 +97,7 @@ export interface QueryParamsRequestAminoMsg {
 }
 /** QueryClockContractsResponse is the response type for the Query/ClockContracts RPC method. */
 export interface QueryParamsResponse {
-	params: Params
+	params: Params | undefined
 }
 export interface QueryParamsResponseProtoMsg {
 	typeUrl: "/juno.clock.v1.QueryParamsResponse"
@@ -105,7 +105,7 @@ export interface QueryParamsResponseProtoMsg {
 }
 /** QueryClockContractsResponse is the response type for the Query/ClockContracts RPC method. */
 export interface QueryParamsResponseAmino {
-	params: ParamsAmino
+	params: ParamsAmino | undefined
 }
 export interface QueryParamsResponseAminoMsg {
 	type: "/juno.clock.v1.QueryParamsResponse"
@@ -276,7 +276,7 @@ export const QueryClockContractRequest = {
 		message: QueryClockContractRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.contractAddress !== undefined) {
+		if (message.contractAddress && message.contractAddress !== "") {
 			writer.uint32(10).string(message.contractAddress)
 		}
 		return writer

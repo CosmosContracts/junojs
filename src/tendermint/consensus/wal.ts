@@ -6,7 +6,7 @@ import { EventDataRoundState, type EventDataRoundStateAmino } from "../types/eve
 import { Message, type MessageAmino } from "./types"
 /** MsgInfo are msgs from the reactor which may update the state */
 export interface MsgInfo {
-	msg: Message
+	msg: Message | undefined
 	peerId: string
 }
 export interface MsgInfoProtoMsg {
@@ -15,7 +15,7 @@ export interface MsgInfoProtoMsg {
 }
 /** MsgInfo are msgs from the reactor which may update the state */
 export interface MsgInfoAmino {
-	msg?: MessageAmino
+	msg?: MessageAmino | undefined
 	peer_id?: string
 }
 export interface MsgInfoAminoMsg {
@@ -24,7 +24,7 @@ export interface MsgInfoAminoMsg {
 }
 /** TimeoutInfo internally generated messages which may update the state */
 export interface TimeoutInfo {
-	duration: Duration
+	duration: Duration | undefined
 	height: bigint
 	round: number
 	step: number
@@ -35,7 +35,7 @@ export interface TimeoutInfoProtoMsg {
 }
 /** TimeoutInfo internally generated messages which may update the state */
 export interface TimeoutInfoAmino {
-	duration?: DurationAmino
+	duration?: DurationAmino | undefined
 	height?: string
 	round?: number
 	step?: number
@@ -67,20 +67,20 @@ export interface EndHeightAminoMsg {
 	value: EndHeightAmino
 }
 export interface WALMessage {
-	eventDataRoundState?: EventDataRoundState
-	msgInfo?: MsgInfo
-	timeoutInfo?: TimeoutInfo
-	endHeight?: EndHeight
+	eventDataRoundState?: EventDataRoundState | undefined
+	msgInfo?: MsgInfo | undefined
+	timeoutInfo?: TimeoutInfo | undefined
+	endHeight?: EndHeight | undefined
 }
 export interface WALMessageProtoMsg {
 	typeUrl: "/tendermint.consensus.WALMessage"
 	value: Uint8Array
 }
 export interface WALMessageAmino {
-	event_data_round_state?: EventDataRoundStateAmino
-	msg_info?: MsgInfoAmino
-	timeout_info?: TimeoutInfoAmino
-	end_height?: EndHeightAmino
+	event_data_round_state?: EventDataRoundStateAmino | undefined
+	msg_info?: MsgInfoAmino | undefined
+	timeout_info?: TimeoutInfoAmino | undefined
+	end_height?: EndHeightAmino | undefined
 }
 export interface WALMessageAminoMsg {
 	type: "/tendermint.consensus.WALMessage"
@@ -88,8 +88,8 @@ export interface WALMessageAminoMsg {
 }
 /** TimedWALMessage wraps WALMessage and adds Time for debugging purposes. */
 export interface TimedWALMessage {
-	time: Date
-	msg?: WALMessage
+	time: Date | undefined
+	msg?: WALMessage | undefined
 }
 export interface TimedWALMessageProtoMsg {
 	typeUrl: "/tendermint.consensus.TimedWALMessage"
@@ -97,8 +97,8 @@ export interface TimedWALMessageProtoMsg {
 }
 /** TimedWALMessage wraps WALMessage and adds Time for debugging purposes. */
 export interface TimedWALMessageAmino {
-	time?: string
-	msg?: WALMessageAmino
+	time?: string | undefined
+	msg?: WALMessageAmino | undefined
 }
 export interface TimedWALMessageAminoMsg {
 	type: "/tendermint.consensus.TimedWALMessage"
@@ -116,7 +116,7 @@ export const MsgInfo = {
 		if (message.msg !== undefined) {
 			Message.encode(message.msg, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.peerId !== undefined) {
+		if (message.peerId && message.peerId !== "") {
 			writer.uint32(18).string(message.peerId)
 		}
 		return writer
@@ -196,13 +196,13 @@ export const TimeoutInfo = {
 		if (message.duration !== undefined) {
 			Duration.encode(message.duration, writer.uint32(10).fork()).ldelim()
 		}
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(16).int64(message.height)
 		}
-		if (message.round !== undefined) {
+		if (message.round && message.round !== 0) {
 			writer.uint32(24).int32(message.round)
 		}
-		if (message.step !== undefined) {
+		if (message.step && message.step !== 0) {
 			writer.uint32(32).uint32(message.step)
 		}
 		return writer
@@ -295,7 +295,7 @@ function createBaseEndHeight(): EndHeight {
 export const EndHeight = {
 	typeUrl: "/tendermint.consensus.EndHeight",
 	encode(message: EndHeight, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(8).int64(message.height)
 		}
 		return writer

@@ -20,7 +20,7 @@ export interface Plan {
 	 * If this field is not empty, an error will be thrown.
 	 */
 	/** @deprecated */
-	time: Date
+	time: Date | undefined
 	/** The height at which the upgrade must be performed. */
 	height: bigint
 	/**
@@ -34,7 +34,7 @@ export interface Plan {
 	 * If this field is not empty, an error will be thrown.
 	 */
 	/** @deprecated */
-	upgradedClientState?: Any
+	upgradedClientState?: Any | undefined
 }
 export interface PlanProtoMsg {
 	typeUrl: "/cosmos.upgrade.v1beta1.Plan"
@@ -58,7 +58,7 @@ export interface PlanAmino {
 	 * If this field is not empty, an error will be thrown.
 	 */
 	/** @deprecated */
-	time: string
+	time: string | undefined
 	/** The height at which the upgrade must be performed. */
 	height?: string
 	/**
@@ -72,7 +72,7 @@ export interface PlanAmino {
 	 * If this field is not empty, an error will be thrown.
 	 */
 	/** @deprecated */
-	upgraded_client_state?: AnyAmino
+	upgraded_client_state?: AnyAmino | undefined
 }
 export interface PlanAminoMsg {
 	type: "cosmos-sdk/Plan"
@@ -92,7 +92,7 @@ export interface SoftwareUpgradeProposal {
 	/** description of the proposal */
 	description: string
 	/** plan of the proposal */
-	plan: Plan
+	plan: Plan | undefined
 }
 export interface SoftwareUpgradeProposalProtoMsg {
 	typeUrl: "/cosmos.upgrade.v1beta1.SoftwareUpgradeProposal"
@@ -111,7 +111,7 @@ export interface SoftwareUpgradeProposalAmino {
 	/** description of the proposal */
 	description?: string
 	/** plan of the proposal */
-	plan: PlanAmino
+	plan: PlanAmino | undefined
 }
 export interface SoftwareUpgradeProposalAminoMsg {
 	type: "cosmos-sdk/SoftwareUpgradeProposal"
@@ -194,16 +194,16 @@ function createBasePlan(): Plan {
 export const Plan = {
 	typeUrl: "/cosmos.upgrade.v1beta1.Plan",
 	encode(message: Plan, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.name !== undefined) {
+		if (message.name && message.name !== "") {
 			writer.uint32(10).string(message.name)
 		}
 		if (message.time !== undefined) {
 			Timestamp.encode(toTimestamp(message.time), writer.uint32(18).fork()).ldelim()
 		}
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(24).int64(message.height)
 		}
-		if (message.info !== undefined) {
+		if (message.info && message.info !== "") {
 			writer.uint32(34).string(message.info)
 		}
 		if (message.upgradedClientState !== undefined) {
@@ -321,10 +321,10 @@ export const SoftwareUpgradeProposal = {
 		message: SoftwareUpgradeProposal,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.title !== undefined) {
+		if (message.title && message.title !== "") {
 			writer.uint32(10).string(message.title)
 		}
-		if (message.description !== undefined) {
+		if (message.description && message.description !== "") {
 			writer.uint32(18).string(message.description)
 		}
 		if (message.plan !== undefined) {
@@ -420,10 +420,10 @@ export const CancelSoftwareUpgradeProposal = {
 		message: CancelSoftwareUpgradeProposal,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.title !== undefined) {
+		if (message.title && message.title !== "") {
 			writer.uint32(10).string(message.title)
 		}
-		if (message.description !== undefined) {
+		if (message.description && message.description !== "") {
 			writer.uint32(18).string(message.description)
 		}
 		return writer
@@ -501,10 +501,10 @@ function createBaseModuleVersion(): ModuleVersion {
 export const ModuleVersion = {
 	typeUrl: "/cosmos.upgrade.v1beta1.ModuleVersion",
 	encode(message: ModuleVersion, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.name !== undefined) {
+		if (message.name && message.name !== "") {
 			writer.uint32(10).string(message.name)
 		}
-		if (message.version !== undefined) {
+		if (message.version && message.version !== BigInt(0)) {
 			writer.uint32(16).uint64(message.version)
 		}
 		return writer

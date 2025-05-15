@@ -18,7 +18,7 @@ export interface GenesisState {
 	ackSequences: PacketSequence[]
 	/** the sequence for the next generated channel identifier */
 	nextChannelSequence: bigint
-	params: Params
+	params: Params | undefined
 }
 export interface GenesisStateProtoMsg {
 	typeUrl: "/ibc.core.channel.v1.GenesisState"
@@ -35,7 +35,7 @@ export interface GenesisStateAmino {
 	ack_sequences?: PacketSequenceAmino[]
 	/** the sequence for the next generated channel identifier */
 	next_channel_sequence?: string
-	params?: ParamsAmino
+	params?: ParamsAmino | undefined
 }
 export interface GenesisStateAminoMsg {
 	type: "cosmos-sdk/GenesisState"
@@ -104,7 +104,7 @@ export const GenesisState = {
 		for (const v of message.ackSequences) {
 			PacketSequence.encode(v!, writer.uint32(58).fork()).ldelim()
 		}
-		if (message.nextChannelSequence !== undefined) {
+		if (message.nextChannelSequence && message.nextChannelSequence !== BigInt(0)) {
 			writer.uint32(64).uint64(message.nextChannelSequence)
 		}
 		if (message.params !== undefined) {
@@ -274,13 +274,13 @@ function createBasePacketSequence(): PacketSequence {
 export const PacketSequence = {
 	typeUrl: "/ibc.core.channel.v1.PacketSequence",
 	encode(message: PacketSequence, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.portId !== undefined) {
+		if (message.portId && message.portId !== "") {
 			writer.uint32(10).string(message.portId)
 		}
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== "") {
 			writer.uint32(18).string(message.channelId)
 		}
-		if (message.sequence !== undefined) {
+		if (message.sequence && message.sequence !== BigInt(0)) {
 			writer.uint32(24).uint64(message.sequence)
 		}
 		return writer

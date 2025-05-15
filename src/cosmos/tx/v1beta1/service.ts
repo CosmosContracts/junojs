@@ -132,7 +132,7 @@ export interface GetTxsEventRequest {
 	 * Deprecated post v0.46.x: use page and limit instead.
 	 */
 	/** @deprecated */
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 	orderBy?: OrderBy
 	/**
 	 * page is the page number to query, starts at 1. If not provided, will
@@ -173,7 +173,7 @@ export interface GetTxsEventRequestAmino {
 	 * Deprecated post v0.46.x: use page and limit instead.
 	 */
 	/** @deprecated */
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 	order_by?: OrderBy
 	/**
 	 * page is the page number to query, starts at 1. If not provided, will
@@ -211,7 +211,7 @@ export interface GetTxsEventResponse {
 	 * Deprecated post v0.46.x: use total instead.
 	 */
 	/** @deprecated */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 	/** total is total number of results available */
 	total: bigint
 }
@@ -233,7 +233,7 @@ export interface GetTxsEventResponseAmino {
 	 * Deprecated post v0.46.x: use total instead.
 	 */
 	/** @deprecated */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 	/** total is total number of results available */
 	total?: string
 }
@@ -273,7 +273,7 @@ export interface BroadcastTxRequestAminoMsg {
  */
 export interface BroadcastTxResponse {
 	/** tx_response is the queried TxResponses. */
-	txResponse?: TxResponse
+	txResponse?: TxResponse | undefined
 }
 export interface BroadcastTxResponseProtoMsg {
 	typeUrl: "/cosmos.tx.v1beta1.BroadcastTxResponse"
@@ -285,7 +285,7 @@ export interface BroadcastTxResponseProtoMsg {
  */
 export interface BroadcastTxResponseAmino {
 	/** tx_response is the queried TxResponses. */
-	tx_response?: TxResponseAmino
+	tx_response?: TxResponseAmino | undefined
 }
 export interface BroadcastTxResponseAminoMsg {
 	type: "cosmos-sdk/BroadcastTxResponse"
@@ -301,7 +301,7 @@ export interface SimulateRequest {
 	 * Deprecated. Send raw tx bytes instead.
 	 */
 	/** @deprecated */
-	tx?: Tx
+	tx?: Tx | undefined
 	/**
 	 * tx_bytes is the raw transaction.
 	 *
@@ -323,7 +323,7 @@ export interface SimulateRequestAmino {
 	 * Deprecated. Send raw tx bytes instead.
 	 */
 	/** @deprecated */
-	tx?: TxAmino
+	tx?: TxAmino | undefined
 	/**
 	 * tx_bytes is the raw transaction.
 	 *
@@ -341,9 +341,9 @@ export interface SimulateRequestAminoMsg {
  */
 export interface SimulateResponse {
 	/** gas_info is the information about gas used in the simulation. */
-	gasInfo?: GasInfo
+	gasInfo?: GasInfo | undefined
 	/** result is the result of the simulation. */
-	result?: Result
+	result?: Result | undefined
 }
 export interface SimulateResponseProtoMsg {
 	typeUrl: "/cosmos.tx.v1beta1.SimulateResponse"
@@ -355,9 +355,9 @@ export interface SimulateResponseProtoMsg {
  */
 export interface SimulateResponseAmino {
 	/** gas_info is the information about gas used in the simulation. */
-	gas_info?: GasInfoAmino
+	gas_info?: GasInfoAmino | undefined
 	/** result is the result of the simulation. */
-	result?: ResultAmino
+	result?: ResultAmino | undefined
 }
 export interface SimulateResponseAminoMsg {
 	type: "cosmos-sdk/SimulateResponse"
@@ -390,9 +390,9 @@ export interface GetTxRequestAminoMsg {
 /** GetTxResponse is the response type for the Service.GetTx method. */
 export interface GetTxResponse {
 	/** tx is the queried transaction. */
-	tx?: Tx
+	tx?: Tx | undefined
 	/** tx_response is the queried TxResponses. */
-	txResponse?: TxResponse
+	txResponse?: TxResponse | undefined
 }
 export interface GetTxResponseProtoMsg {
 	typeUrl: "/cosmos.tx.v1beta1.GetTxResponse"
@@ -401,9 +401,9 @@ export interface GetTxResponseProtoMsg {
 /** GetTxResponse is the response type for the Service.GetTx method. */
 export interface GetTxResponseAmino {
 	/** tx is the queried transaction. */
-	tx?: TxAmino
+	tx?: TxAmino | undefined
 	/** tx_response is the queried TxResponses. */
-	tx_response?: TxResponseAmino
+	tx_response?: TxResponseAmino | undefined
 }
 export interface GetTxResponseAminoMsg {
 	type: "cosmos-sdk/GetTxResponse"
@@ -419,7 +419,7 @@ export interface GetBlockWithTxsRequest {
 	/** height is the height of the block to query. */
 	height: bigint
 	/** pagination defines a pagination for the request. */
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 }
 export interface GetBlockWithTxsRequestProtoMsg {
 	typeUrl: "/cosmos.tx.v1beta1.GetBlockWithTxsRequest"
@@ -435,7 +435,7 @@ export interface GetBlockWithTxsRequestAmino {
 	/** height is the height of the block to query. */
 	height?: string
 	/** pagination defines a pagination for the request. */
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 }
 export interface GetBlockWithTxsRequestAminoMsg {
 	type: "cosmos-sdk/GetBlockWithTxsRequest"
@@ -450,10 +450,10 @@ export interface GetBlockWithTxsRequestAminoMsg {
 export interface GetBlockWithTxsResponse {
 	/** txs are the transactions in the block. */
 	txs: Tx[]
-	blockId?: BlockID
-	block?: Block
+	blockId?: BlockID | undefined
+	block?: Block | undefined
 	/** pagination defines a pagination for the response. */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 }
 export interface GetBlockWithTxsResponseProtoMsg {
 	typeUrl: "/cosmos.tx.v1beta1.GetBlockWithTxsResponse"
@@ -468,10 +468,10 @@ export interface GetBlockWithTxsResponseProtoMsg {
 export interface GetBlockWithTxsResponseAmino {
 	/** txs are the transactions in the block. */
 	txs?: TxAmino[]
-	block_id?: BlockIDAmino
-	block?: BlockAmino
+	block_id?: BlockIDAmino | undefined
+	block?: BlockAmino | undefined
 	/** pagination defines a pagination for the response. */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 }
 export interface GetBlockWithTxsResponseAminoMsg {
 	type: "cosmos-sdk/GetBlockWithTxsResponse"
@@ -513,7 +513,7 @@ export interface TxDecodeRequestAminoMsg {
  */
 export interface TxDecodeResponse {
 	/** tx is the decoded transaction. */
-	tx?: Tx
+	tx?: Tx | undefined
 }
 export interface TxDecodeResponseProtoMsg {
 	typeUrl: "/cosmos.tx.v1beta1.TxDecodeResponse"
@@ -527,7 +527,7 @@ export interface TxDecodeResponseProtoMsg {
  */
 export interface TxDecodeResponseAmino {
 	/** tx is the decoded transaction. */
-	tx?: TxAmino
+	tx?: TxAmino | undefined
 }
 export interface TxDecodeResponseAminoMsg {
 	type: "cosmos-sdk/TxDecodeResponse"
@@ -541,7 +541,7 @@ export interface TxDecodeResponseAminoMsg {
  */
 export interface TxEncodeRequest {
 	/** tx is the transaction to encode. */
-	tx?: Tx
+	tx?: Tx | undefined
 }
 export interface TxEncodeRequestProtoMsg {
 	typeUrl: "/cosmos.tx.v1beta1.TxEncodeRequest"
@@ -555,7 +555,7 @@ export interface TxEncodeRequestProtoMsg {
  */
 export interface TxEncodeRequestAmino {
 	/** tx is the transaction to encode. */
-	tx?: TxAmino
+	tx?: TxAmino | undefined
 }
 export interface TxEncodeRequestAminoMsg {
 	type: "cosmos-sdk/TxEncodeRequest"
@@ -715,13 +715,13 @@ export const GetTxsEventRequest = {
 		if (message.orderBy !== 0) {
 			writer.uint32(24).int32(message.orderBy)
 		}
-		if (message.page !== undefined) {
+		if (message.page && message.page !== BigInt(0)) {
 			writer.uint32(32).uint64(message.page)
 		}
-		if (message.limit !== undefined) {
+		if (message.limit && message.limit !== BigInt(0)) {
 			writer.uint32(40).uint64(message.limit)
 		}
-		if (message.query !== undefined) {
+		if (message.query && message.query !== "") {
 			writer.uint32(50).string(message.query)
 		}
 		return writer
@@ -856,7 +856,7 @@ export const GetTxsEventResponse = {
 		if (message.pagination !== undefined) {
 			PageResponse.encode(message.pagination, writer.uint32(26).fork()).ldelim()
 		}
-		if (message.total !== undefined) {
+		if (message.total && message.total !== BigInt(0)) {
 			writer.uint32(32).uint64(message.total)
 		}
 		return writer
@@ -1284,7 +1284,7 @@ function createBaseGetTxRequest(): GetTxRequest {
 export const GetTxRequest = {
 	typeUrl: "/cosmos.tx.v1beta1.GetTxRequest",
 	encode(message: GetTxRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.hash !== undefined) {
+		if (message.hash && message.hash !== "") {
 			writer.uint32(10).string(message.hash)
 		}
 		return writer
@@ -1442,7 +1442,7 @@ export const GetBlockWithTxsRequest = {
 		message: GetBlockWithTxsRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(8).int64(message.height)
 		}
 		if (message.pagination !== undefined) {
@@ -1928,7 +1928,7 @@ export const TxEncodeAminoRequest = {
 		message: TxEncodeAminoRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.aminoJson !== undefined) {
+		if (message.aminoJson && message.aminoJson !== "") {
 			writer.uint32(10).string(message.aminoJson)
 		}
 		return writer
@@ -2144,7 +2144,7 @@ export const TxDecodeAminoResponse = {
 		message: TxDecodeAminoResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.aminoJson !== undefined) {
+		if (message.aminoJson && message.aminoJson !== "") {
 			writer.uint32(10).string(message.aminoJson)
 		}
 		return writer

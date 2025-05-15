@@ -4,7 +4,7 @@ import { Params, type ParamsAmino } from "./auth"
 /** GenesisState defines the auth module's genesis state. */
 export interface GenesisState {
 	/** params defines all the parameters of the module. */
-	params: Params
+	params: Params | undefined
 	/** accounts are the accounts present at genesis. */
 	accounts: Any[]
 }
@@ -15,7 +15,7 @@ export interface GenesisStateProtoMsg {
 /** GenesisState defines the auth module's genesis state. */
 export interface GenesisStateAmino {
 	/** params defines all the parameters of the module. */
-	params: ParamsAmino
+	params: ParamsAmino | undefined
 	/** accounts are the accounts present at genesis. */
 	accounts?: AnyAmino[]
 }

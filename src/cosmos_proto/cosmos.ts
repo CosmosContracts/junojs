@@ -159,10 +159,10 @@ export const InterfaceDescriptor = {
 		message: InterfaceDescriptor,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.name !== undefined) {
+		if (message.name && message.name !== "") {
 			writer.uint32(10).string(message.name)
 		}
-		if (message.description !== undefined) {
+		if (message.description && message.description !== "") {
 			writer.uint32(18).string(message.description)
 		}
 		return writer
@@ -235,10 +235,10 @@ function createBaseScalarDescriptor(): ScalarDescriptor {
 export const ScalarDescriptor = {
 	typeUrl: "/cosmos_proto.ScalarDescriptor",
 	encode(message: ScalarDescriptor, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.name !== undefined) {
+		if (message.name && message.name !== "") {
 			writer.uint32(10).string(message.name)
 		}
-		if (message.description !== undefined) {
+		if (message.description && message.description !== "") {
 			writer.uint32(18).string(message.description)
 		}
 		writer.uint32(26).fork()

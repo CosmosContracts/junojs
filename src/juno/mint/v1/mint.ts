@@ -62,19 +62,19 @@ function createBaseMinter(): Minter {
 export const Minter = {
 	typeUrl: "/juno.mint.v1.Minter",
 	encode(message: Minter, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.inflation !== undefined) {
+		if (message.inflation && message.inflation !== "") {
 			writer.uint32(10).string(Decimal.fromUserInput(message.inflation, 18).atomics)
 		}
-		if (message.phase !== undefined) {
+		if (message.phase && message.phase !== BigInt(0)) {
 			writer.uint32(16).uint64(message.phase)
 		}
-		if (message.startPhaseBlock !== undefined) {
+		if (message.startPhaseBlock && message.startPhaseBlock !== BigInt(0)) {
 			writer.uint32(24).uint64(message.startPhaseBlock)
 		}
-		if (message.annualProvisions !== undefined) {
+		if (message.annualProvisions && message.annualProvisions !== "") {
 			writer.uint32(34).string(Decimal.fromUserInput(message.annualProvisions, 18).atomics)
 		}
-		if (message.targetSupply !== undefined) {
+		if (message.targetSupply && message.targetSupply !== "") {
 			writer.uint32(42).string(message.targetSupply)
 		}
 		return writer
@@ -177,10 +177,10 @@ function createBaseParams(): Params {
 export const Params = {
 	typeUrl: "/juno.mint.v1.Params",
 	encode(message: Params, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.mintDenom !== undefined) {
+		if (message.mintDenom && message.mintDenom !== "") {
 			writer.uint32(10).string(message.mintDenom)
 		}
-		if (message.blocksPerYear !== undefined) {
+		if (message.blocksPerYear && message.blocksPerYear !== BigInt(0)) {
 			writer.uint32(16).uint64(message.blocksPerYear)
 		}
 		return writer

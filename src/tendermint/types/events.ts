@@ -30,13 +30,13 @@ export const EventDataRoundState = {
 		message: EventDataRoundState,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.height !== undefined) {
+		if (message.height && message.height !== BigInt(0)) {
 			writer.uint32(8).int64(message.height)
 		}
-		if (message.round !== undefined) {
+		if (message.round && message.round !== 0) {
 			writer.uint32(16).int32(message.round)
 		}
-		if (message.step !== undefined) {
+		if (message.step && message.step !== "") {
 			writer.uint32(26).string(message.step)
 		}
 		return writer

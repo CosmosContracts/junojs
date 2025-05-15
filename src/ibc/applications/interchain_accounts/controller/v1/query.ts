@@ -49,7 +49,7 @@ export interface QueryParamsRequestAminoMsg {
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponse {
 	/** params defines the parameters of the module. */
-	params?: Params
+	params?: Params | undefined
 }
 export interface QueryParamsResponseProtoMsg {
 	typeUrl: "/ibc.applications.interchain_accounts.controller.v1.QueryParamsResponse"
@@ -58,7 +58,7 @@ export interface QueryParamsResponseProtoMsg {
 /** QueryParamsResponse is the response type for the Query/Params RPC method. */
 export interface QueryParamsResponseAmino {
 	/** params defines the parameters of the module. */
-	params?: ParamsAmino
+	params?: ParamsAmino | undefined
 }
 export interface QueryParamsResponseAminoMsg {
 	type: "cosmos-sdk/QueryParamsResponse"
@@ -76,10 +76,10 @@ export const QueryInterchainAccountRequest = {
 		message: QueryInterchainAccountRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.owner !== undefined) {
+		if (message.owner && message.owner !== "") {
 			writer.uint32(10).string(message.owner)
 		}
-		if (message.connectionId !== undefined) {
+		if (message.connectionId && message.connectionId !== "") {
 			writer.uint32(18).string(message.connectionId)
 		}
 		return writer
@@ -160,7 +160,7 @@ export const QueryInterchainAccountResponse = {
 		message: QueryInterchainAccountResponse,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.address !== undefined) {
+		if (message.address && message.address !== "") {
 			writer.uint32(10).string(message.address)
 		}
 		return writer

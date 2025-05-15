@@ -77,10 +77,10 @@ function createBaseAllocation(): Allocation {
 export const Allocation = {
 	typeUrl: "/ibc.applications.transfer.v1.Allocation",
 	encode(message: Allocation, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.sourcePort !== undefined) {
+		if (message.sourcePort && message.sourcePort !== "") {
 			writer.uint32(10).string(message.sourcePort)
 		}
-		if (message.sourceChannel !== undefined) {
+		if (message.sourceChannel && message.sourceChannel !== "") {
 			writer.uint32(18).string(message.sourceChannel)
 		}
 		for (const v of message.spendLimit) {

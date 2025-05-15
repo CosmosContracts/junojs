@@ -13,7 +13,7 @@ export interface QueryGrantsRequest {
 	/** Optional, msg_type_url, when set, will query only grants matching given msg type. */
 	msgTypeUrl?: string
 	/** pagination defines an pagination for the request. */
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 }
 export interface QueryGrantsRequestProtoMsg {
 	typeUrl: "/cosmos.authz.v1beta1.QueryGrantsRequest"
@@ -26,7 +26,7 @@ export interface QueryGrantsRequestAmino {
 	/** Optional, msg_type_url, when set, will query only grants matching given msg type. */
 	msg_type_url?: string
 	/** pagination defines an pagination for the request. */
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 }
 export interface QueryGrantsRequestAminoMsg {
 	type: "cosmos-sdk/QueryGrantsRequest"
@@ -37,7 +37,7 @@ export interface QueryGrantsResponse {
 	/** authorizations is a list of grants granted for grantee by granter. */
 	grants: Grant[]
 	/** pagination defines an pagination for the response. */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 }
 export interface QueryGrantsResponseProtoMsg {
 	typeUrl: "/cosmos.authz.v1beta1.QueryGrantsResponse"
@@ -48,7 +48,7 @@ export interface QueryGrantsResponseAmino {
 	/** authorizations is a list of grants granted for grantee by granter. */
 	grants?: GrantAmino[]
 	/** pagination defines an pagination for the response. */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 }
 export interface QueryGrantsResponseAminoMsg {
 	type: "cosmos-sdk/QueryGrantsResponse"
@@ -58,7 +58,7 @@ export interface QueryGrantsResponseAminoMsg {
 export interface QueryGranterGrantsRequest {
 	granter: string
 	/** pagination defines an pagination for the request. */
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 }
 export interface QueryGranterGrantsRequestProtoMsg {
 	typeUrl: "/cosmos.authz.v1beta1.QueryGranterGrantsRequest"
@@ -68,7 +68,7 @@ export interface QueryGranterGrantsRequestProtoMsg {
 export interface QueryGranterGrantsRequestAmino {
 	granter?: string
 	/** pagination defines an pagination for the request. */
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 }
 export interface QueryGranterGrantsRequestAminoMsg {
 	type: "cosmos-sdk/QueryGranterGrantsRequest"
@@ -79,7 +79,7 @@ export interface QueryGranterGrantsResponse {
 	/** grants is a list of grants granted by the granter. */
 	grants: GrantAuthorization[]
 	/** pagination defines an pagination for the response. */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 }
 export interface QueryGranterGrantsResponseProtoMsg {
 	typeUrl: "/cosmos.authz.v1beta1.QueryGranterGrantsResponse"
@@ -90,7 +90,7 @@ export interface QueryGranterGrantsResponseAmino {
 	/** grants is a list of grants granted by the granter. */
 	grants?: GrantAuthorizationAmino[]
 	/** pagination defines an pagination for the response. */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 }
 export interface QueryGranterGrantsResponseAminoMsg {
 	type: "cosmos-sdk/QueryGranterGrantsResponse"
@@ -100,7 +100,7 @@ export interface QueryGranterGrantsResponseAminoMsg {
 export interface QueryGranteeGrantsRequest {
 	grantee: string
 	/** pagination defines an pagination for the request. */
-	pagination?: PageRequest
+	pagination?: PageRequest | undefined
 }
 export interface QueryGranteeGrantsRequestProtoMsg {
 	typeUrl: "/cosmos.authz.v1beta1.QueryGranteeGrantsRequest"
@@ -110,7 +110,7 @@ export interface QueryGranteeGrantsRequestProtoMsg {
 export interface QueryGranteeGrantsRequestAmino {
 	grantee?: string
 	/** pagination defines an pagination for the request. */
-	pagination?: PageRequestAmino
+	pagination?: PageRequestAmino | undefined
 }
 export interface QueryGranteeGrantsRequestAminoMsg {
 	type: "cosmos-sdk/QueryGranteeGrantsRequest"
@@ -121,7 +121,7 @@ export interface QueryGranteeGrantsResponse {
 	/** grants is a list of grants granted to the grantee. */
 	grants: GrantAuthorization[]
 	/** pagination defines an pagination for the response. */
-	pagination?: PageResponse
+	pagination?: PageResponse | undefined
 }
 export interface QueryGranteeGrantsResponseProtoMsg {
 	typeUrl: "/cosmos.authz.v1beta1.QueryGranteeGrantsResponse"
@@ -132,7 +132,7 @@ export interface QueryGranteeGrantsResponseAmino {
 	/** grants is a list of grants granted to the grantee. */
 	grants?: GrantAuthorizationAmino[]
 	/** pagination defines an pagination for the response. */
-	pagination?: PageResponseAmino
+	pagination?: PageResponseAmino | undefined
 }
 export interface QueryGranteeGrantsResponseAminoMsg {
 	type: "cosmos-sdk/QueryGranteeGrantsResponse"
@@ -149,13 +149,13 @@ function createBaseQueryGrantsRequest(): QueryGrantsRequest {
 export const QueryGrantsRequest = {
 	typeUrl: "/cosmos.authz.v1beta1.QueryGrantsRequest",
 	encode(message: QueryGrantsRequest, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.granter !== undefined) {
+		if (message.granter && message.granter !== "") {
 			writer.uint32(10).string(message.granter)
 		}
-		if (message.grantee !== undefined) {
+		if (message.grantee && message.grantee !== "") {
 			writer.uint32(18).string(message.grantee)
 		}
-		if (message.msgTypeUrl !== undefined) {
+		if (message.msgTypeUrl && message.msgTypeUrl !== "") {
 			writer.uint32(26).string(message.msgTypeUrl)
 		}
 		if (message.pagination !== undefined) {
@@ -347,7 +347,7 @@ export const QueryGranterGrantsRequest = {
 		message: QueryGranterGrantsRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.granter !== undefined) {
+		if (message.granter && message.granter !== "") {
 			writer.uint32(10).string(message.granter)
 		}
 		if (message.pagination !== undefined) {
@@ -523,7 +523,7 @@ export const QueryGranteeGrantsRequest = {
 		message: QueryGranteeGrantsRequest,
 		writer: BinaryWriter = BinaryWriter.create()
 	): BinaryWriter {
-		if (message.grantee !== undefined) {
+		if (message.grantee && message.grantee !== "") {
 			writer.uint32(10).string(message.grantee)
 		}
 		if (message.pagination !== undefined) {

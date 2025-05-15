@@ -40,25 +40,25 @@ export interface PacketMsgAminoMsg {
 	value: PacketMsgAmino
 }
 export interface Packet {
-	packetPing?: PacketPing
-	packetPong?: PacketPong
-	packetMsg?: PacketMsg
+	packetPing?: PacketPing | undefined
+	packetPong?: PacketPong | undefined
+	packetMsg?: PacketMsg | undefined
 }
 export interface PacketProtoMsg {
 	typeUrl: "/tendermint.p2p.Packet"
 	value: Uint8Array
 }
 export interface PacketAmino {
-	packet_ping?: PacketPingAmino
-	packet_pong?: PacketPongAmino
-	packet_msg?: PacketMsgAmino
+	packet_ping?: PacketPingAmino | undefined
+	packet_pong?: PacketPongAmino | undefined
+	packet_msg?: PacketMsgAmino | undefined
 }
 export interface PacketAminoMsg {
 	type: "/tendermint.p2p.Packet"
 	value: PacketAmino
 }
 export interface AuthSigMessage {
-	pubKey: PublicKey
+	pubKey: PublicKey | undefined
 	sig: Uint8Array
 }
 export interface AuthSigMessageProtoMsg {
@@ -66,7 +66,7 @@ export interface AuthSigMessageProtoMsg {
 	value: Uint8Array
 }
 export interface AuthSigMessageAmino {
-	pub_key?: PublicKeyAmino
+	pub_key?: PublicKeyAmino | undefined
 	sig?: string
 }
 export interface AuthSigMessageAminoMsg {
@@ -183,10 +183,10 @@ function createBasePacketMsg(): PacketMsg {
 export const PacketMsg = {
 	typeUrl: "/tendermint.p2p.PacketMsg",
 	encode(message: PacketMsg, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
-		if (message.channelId !== undefined) {
+		if (message.channelId && message.channelId !== 0) {
 			writer.uint32(8).int32(message.channelId)
 		}
-		if (message.eof !== undefined) {
+		if (message.eof === true) {
 			writer.uint32(16).bool(message.eof)
 		}
 		if (message.data.length !== 0) {
