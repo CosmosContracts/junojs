@@ -2,7 +2,7 @@
 import type { Dirent } from "node:fs"
 import { readdir } from "node:fs/promises"
 import { join } from "node:path"
-import { file as bunFile, write as bunWrite } from "bun"
+import { file as bunFile, write as bunWrite, spawn } from "bun"
 
 const baseDir = new URL("..", import.meta.url).pathname
 const outPath = join(baseDir, "src")
@@ -13,20 +13,40 @@ const filterDirectories = (entries: Dirent[]): string[] =>
 		.filter(
 			(e): e is Dirent => e.isDirectory() && e.name != null && !excludedDirectories.has(e.name)
 		)
-		.map((e) => join("src", e.name, "index.ts"))
+		.map((e) => join("src", e.name))
 
-const filesToFix = filterDirectories(exports)
+const filteredDirectories = filterDirectories(exports)
+const filesToFix = filterDirectories(exports).map((e) => join(e, "index.ts"))
 
 const dotKeyRegex = /^(\s*)([A-Za-z0-9\.]+):/
 const aliasExportRegex = /^\s*export\s*\{\s*(\w+)\s+as\s+([\w\.]+)\s*\};?$/
 
-// Specific imports (with or without semicolon) to remove in src/cosmos/index.ts
 const cosmosImportsToRemove = new Set([
 	'import * as msgv1msgts from "./msg/v1/msg"',
 	'import * as msgv1msgts from "./msg/v1/msg";',
 	'import * as queryv1queryts from "./query/v1/query"',
 	'import * as queryv1queryts from "./query/v1/query";'
 ])
+
+const barrelsbyConfig = {
+	directory: filteredDirectories,
+	structure: "filesystem",
+	noSemicolon: true,
+	location: "top",
+	delete: true
+}
+const barrelsbyPath = join(process.cwd(), "barrelsby.json")
+const barrelsbyJson = JSON.stringify(barrelsbyConfig, null, 2)
+bunWrite(barrelsbyPath, barrelsbyJson)
+const barrelsby = spawn({
+	cmd: ["barrelsby", "--config", "./barrelsby.json"],
+	stdout: "pipe",
+	stderr: "pipe"
+})
+const cloneResultCode = await barrelsby.exited
+if (cloneResultCode !== 0) {
+	throw new Error(`barrelsby failed to create barrels with exit code ${cloneResultCode}`)
+}
 
 for (const path of filesToFix) {
 	try {

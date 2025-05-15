@@ -1,3 +1,4 @@
+#!/usr/bin/env bun
 import type { Stats } from "node:fs"
 import { readdir, stat } from "node:fs/promises"
 import { join } from "node:path"

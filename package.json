@@ -89,7 +89,7 @@
 	},
 	"scripts": {
 		"clean": "rimraf dist",
-		"barrel": "barrelsby --config ./barrelsby.json && bun run scripts/fix-barrels.ts",
+		"barrel": "bun run scripts/generate-barrels.ts",
 		"download": "bun run scripts/download-repositories.ts",
 		"generate": "bun run scripts/generate-source.ts",
 		"fixCosmosImports": "bun run scripts/fix-cosmos-imports.ts",
@@ -109,7 +109,7 @@
 		"protobufjs"
 	],
 	"typings": "types/index.d.ts",
-	"version": "28.0.2-beta.0",
+	"version": "28.0.2-beta.1",
 	"type": "module",
 	"engines": {
 		"bun": ">=1.2.0"
