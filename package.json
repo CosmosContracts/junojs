@@ -1,0 +1,117 @@
+{
+	"author": "Marius Modlich <m.modlich@digitalkitchen.io>",
+	"bugs": {
+		"url": "https://github.com/CosmosContracts/junojs/issues"
+	},
+	"config": {
+		"commitizen": {
+			"path": "./node_modules/cz-conventional-changelog"
+		}
+	},
+	"exports": {
+		"./cosmos": {
+			"import": "./dist/esm/cosmos/index.mjs",
+			"require": "./dist/cjs/cosmos/index.cjs",
+			"types": "./dist/types/cosmos.d.ts"
+		},
+		"./cosmwasm": {
+			"import": "./dist/esm/cosmwasm/index.mjs",
+			"require": "./dist/cjs/cosmwasm/index.cjs",
+			"types": "./dist/types/cosmwasm.d.ts"
+		},
+		"./ibc": {
+			"import": "./dist/esm/ibc/index.mjs",
+			"require": "./dist/cjs/ibc/index.cjs",
+			"types": "./dist/types/ibc.d.ts"
+		},
+		"./juno": {
+			"import": "./dist/esm/juno/index.mjs",
+			"require": "./dist/cjs/juno/index.cjs",
+			"types": "./dist/types/juno.d.ts"
+		},
+		"./gaia": {
+			"import": "./dist/esm/gaia/index.mjs",
+			"require": "./dist/cjs/gaia/index.cjs",
+			"types": "./dist/types/gaia.d.ts"
+		},
+		"./osmosis": {
+			"import": "./dist/esm/osmosis/index.mjs",
+			"require": "./dist/cjs/osmosis/index.cjs",
+			"types": "./dist/types/osmosis.d.ts"
+		}
+	},
+	"dependencies": {
+		"@cosmjs/proto-signing": "0.33.1",
+		"@cosmjs/stargate": "0.33.1",
+		"@cosmjs/tendermint-rpc": "0.33.1",
+		"@cosmology/lcd": "0.14.4",
+		"@interchainjs/cosmos": "1.11.9",
+		"@interchainjs/pubkey": "1.11.9",
+		"@interchainjs/utils": "1.11.9"
+	},
+	"description": "JS-based standard library for Juno's Protobuffers",
+	"devDependencies": {
+		"@biomejs/biome": "1.9.4",
+		"@chain-registry/v2": "1.71.210",
+		"@chain-registry/v2-types": "0.53.130",
+		"@commitlint/cli": "19.8.1",
+		"@commitlint/config-conventional": "19.8.1",
+		"@cosmology/telescope": "1.12.12",
+		"@oxc-project/runtime": "^0.69.0",
+		"@swc/core": "1.11.24",
+		"@types/bun": "1.2.13",
+		"barrelsby": "^2.8.1",
+		"commitizen": "4.3.1",
+		"cz-conventional-changelog": "3.3.0",
+		"husky": "9.1.7",
+		"lint-staged": "16.0.0",
+		"rimraf": "^6.0.1",
+		"rolldown": "1.0.0-beta.8-commit.2a5c6a6",
+		"rolldown-plugin-dts": "0.12.3",
+		"swc-walk": "1.0.0-rc.3",
+		"typescript": "5.8.3"
+	},
+	"directories": {
+		"lib": "src"
+	},
+	"files": ["dist"],
+	"homepage": "https://junonetwork.io",
+	"keywords": [],
+	"license": "SEE LICENSE IN LICENSE",
+	"main": "dist/esm/index.js",
+	"name": "@buildonjuno/junojs",
+	"publishConfig": {
+		"access": "public"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/CosmosContracts/junojs.git"
+	},
+	"scripts": {
+		"clean": "rimraf dist",
+		"barrel": "barrelsby --config ./barrelsby.json && bun run scripts/fix-barrels.ts",
+		"download": "bun run scripts/download-repositories.ts",
+		"generate": "bun run scripts/generate-source.ts",
+		"fixCosmosImports": "bun run scripts/fix-cosmos-imports.ts",
+		"build": "bun generate && bun fixCosmosImports && bun barrel && bun lint:fixunsafe && bun run clean && rolldown -c rolldown.config.ts",
+		"rebuild": "bun run clean && rolldown -c rolldown.config.ts",
+		"lint": "biome check ./src",
+		"lint:fix": "biome check ./src --fix",
+		"lint:fixunsafe": "biome check ./src --fix --unsafe",
+		"prepare": "mise install && husky"
+	},
+	"trustedDependencies": [
+		"@biomejs/biome",
+		"@cosmology/protobufjs",
+		"core-js",
+		"core-js-pure",
+		"es5-ext",
+		"protobufjs"
+	],
+	"typings": "types/index.d.ts",
+	"version": "28.0.2-beta.0",
+	"type": "module",
+	"engines": {
+		"bun": ">=1.2.0"
+	}
+}

@@ -1,0 +1,14 @@
+{
+	"directory": [
+		"src/juno",
+		"src/ibc",
+		"src/osmosis",
+		"src/gaia",
+		"src/cosmwasm",
+		"src/cosmos"
+	],
+	"structure": "filesystem",
+	"noSemicolon": true,
+	"location": "top",
+	"delete": true
+}

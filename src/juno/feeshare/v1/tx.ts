@@ -1,0 +1,763 @@
+import { BinaryReader, BinaryWriter } from "../../../binary"
+import { Params, type ParamsAmino } from "./genesis"
+/** MsgRegisterFeeShare defines a message that registers a FeeShare */
+export interface MsgRegisterFeeShare {
+	/** contract_address in bech32 format */
+	contractAddress: string
+	/**
+	 * deployer_address is the bech32 address of message sender. It must be the
+	 * same the contract's admin address
+	 */
+	deployerAddress: string
+	/**
+	 * withdrawer_address is the bech32 address of account receiving the
+	 * transaction fees
+	 */
+	withdrawerAddress: string
+}
+export interface MsgRegisterFeeShareProtoMsg {
+	typeUrl: "/juno.feeshare.v1.MsgRegisterFeeShare"
+	value: Uint8Array
+}
+/** MsgRegisterFeeShare defines a message that registers a FeeShare */
+export interface MsgRegisterFeeShareAmino {
+	/** contract_address in bech32 format */
+	contract_address?: string
+	/**
+	 * deployer_address is the bech32 address of message sender. It must be the
+	 * same the contract's admin address
+	 */
+	deployer_address?: string
+	/**
+	 * withdrawer_address is the bech32 address of account receiving the
+	 * transaction fees
+	 */
+	withdrawer_address?: string
+}
+export interface MsgRegisterFeeShareAminoMsg {
+	type: "juno/x/feeshare/MsgRegisterFeeShare"
+	value: MsgRegisterFeeShareAmino
+}
+/** MsgRegisterFeeShareResponse defines the MsgRegisterFeeShare response type */
+export type MsgRegisterFeeShareResponse = {}
+export interface MsgRegisterFeeShareResponseProtoMsg {
+	typeUrl: "/juno.feeshare.v1.MsgRegisterFeeShareResponse"
+	value: Uint8Array
+}
+/** MsgRegisterFeeShareResponse defines the MsgRegisterFeeShare response type */
+export type MsgRegisterFeeShareResponseAmino = {}
+export interface MsgRegisterFeeShareResponseAminoMsg {
+	type: "/juno.feeshare.v1.MsgRegisterFeeShareResponse"
+	value: MsgRegisterFeeShareResponseAmino
+}
+/**
+ * MsgUpdateFeeShare defines a message that updates the withdrawer address for a
+ * registered FeeShare
+ */
+export interface MsgUpdateFeeShare {
+	/** contract_address in bech32 format */
+	contractAddress: string
+	/**
+	 * deployer_address is the bech32 address of message sender. It must be the
+	 * same the contract's admin address
+	 */
+	deployerAddress: string
+	/**
+	 * withdrawer_address is the bech32 address of account receiving the
+	 * transaction fees
+	 */
+	withdrawerAddress: string
+}
+export interface MsgUpdateFeeShareProtoMsg {
+	typeUrl: "/juno.feeshare.v1.MsgUpdateFeeShare"
+	value: Uint8Array
+}
+/**
+ * MsgUpdateFeeShare defines a message that updates the withdrawer address for a
+ * registered FeeShare
+ */
+export interface MsgUpdateFeeShareAmino {
+	/** contract_address in bech32 format */
+	contract_address?: string
+	/**
+	 * deployer_address is the bech32 address of message sender. It must be the
+	 * same the contract's admin address
+	 */
+	deployer_address?: string
+	/**
+	 * withdrawer_address is the bech32 address of account receiving the
+	 * transaction fees
+	 */
+	withdrawer_address?: string
+}
+export interface MsgUpdateFeeShareAminoMsg {
+	type: "juno/x/feeshare/MsgUpdateFeeShare"
+	value: MsgUpdateFeeShareAmino
+}
+/** MsgUpdateFeeShareResponse defines the MsgUpdateFeeShare response type */
+export type MsgUpdateFeeShareResponse = {}
+export interface MsgUpdateFeeShareResponseProtoMsg {
+	typeUrl: "/juno.feeshare.v1.MsgUpdateFeeShareResponse"
+	value: Uint8Array
+}
+/** MsgUpdateFeeShareResponse defines the MsgUpdateFeeShare response type */
+export type MsgUpdateFeeShareResponseAmino = {}
+export interface MsgUpdateFeeShareResponseAminoMsg {
+	type: "/juno.feeshare.v1.MsgUpdateFeeShareResponse"
+	value: MsgUpdateFeeShareResponseAmino
+}
+/** MsgCancelFeeShare defines a message that cancels a registered FeeShare */
+export interface MsgCancelFeeShare {
+	/** contract_address in bech32 format */
+	contractAddress: string
+	/**
+	 * deployer_address is the bech32 address of message sender. It must be the
+	 * same the contract's admin address
+	 */
+	deployerAddress: string
+}
+export interface MsgCancelFeeShareProtoMsg {
+	typeUrl: "/juno.feeshare.v1.MsgCancelFeeShare"
+	value: Uint8Array
+}
+/** MsgCancelFeeShare defines a message that cancels a registered FeeShare */
+export interface MsgCancelFeeShareAmino {
+	/** contract_address in bech32 format */
+	contract_address?: string
+	/**
+	 * deployer_address is the bech32 address of message sender. It must be the
+	 * same the contract's admin address
+	 */
+	deployer_address?: string
+}
+export interface MsgCancelFeeShareAminoMsg {
+	type: "juno/x/feeshare/MsgCancelFeeShare"
+	value: MsgCancelFeeShareAmino
+}
+/** MsgCancelFeeShareResponse defines the MsgCancelFeeShare response type */
+export type MsgCancelFeeShareResponse = {}
+export interface MsgCancelFeeShareResponseProtoMsg {
+	typeUrl: "/juno.feeshare.v1.MsgCancelFeeShareResponse"
+	value: Uint8Array
+}
+/** MsgCancelFeeShareResponse defines the MsgCancelFeeShare response type */
+export type MsgCancelFeeShareResponseAmino = {}
+export interface MsgCancelFeeShareResponseAminoMsg {
+	type: "/juno.feeshare.v1.MsgCancelFeeShareResponse"
+	value: MsgCancelFeeShareResponseAmino
+}
+/** MsgUpdateParams is the Msg/UpdateParams request type. */
+export interface MsgUpdateParams {
+	/** authority is the address that controls the module (defaults to x/gov unless overwritten). */
+	authority: string
+	/**
+	 * params defines the x/feeshare parameters to update.
+	 *
+	 * NOTE: All parameters must be supplied.
+	 */
+	params: Params
+}
+export interface MsgUpdateParamsProtoMsg {
+	typeUrl: "/juno.feeshare.v1.MsgUpdateParams"
+	value: Uint8Array
+}
+/** MsgUpdateParams is the Msg/UpdateParams request type. */
+export interface MsgUpdateParamsAmino {
+	/** authority is the address that controls the module (defaults to x/gov unless overwritten). */
+	authority?: string
+	/**
+	 * params defines the x/feeshare parameters to update.
+	 *
+	 * NOTE: All parameters must be supplied.
+	 */
+	params: ParamsAmino
+}
+export interface MsgUpdateParamsAminoMsg {
+	type: "juno/x/feeshare/MsgUpdateParams"
+	value: MsgUpdateParamsAmino
+}
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ */
+export type MsgUpdateParamsResponse = {}
+export interface MsgUpdateParamsResponseProtoMsg {
+	typeUrl: "/juno.feeshare.v1.MsgUpdateParamsResponse"
+	value: Uint8Array
+}
+/**
+ * MsgUpdateParamsResponse defines the response structure for executing a
+ * MsgUpdateParams message.
+ */
+export type MsgUpdateParamsResponseAmino = {}
+export interface MsgUpdateParamsResponseAminoMsg {
+	type: "/juno.feeshare.v1.MsgUpdateParamsResponse"
+	value: MsgUpdateParamsResponseAmino
+}
+function createBaseMsgRegisterFeeShare(): MsgRegisterFeeShare {
+	return {
+		contractAddress: "",
+		deployerAddress: "",
+		withdrawerAddress: ""
+	}
+}
+export const MsgRegisterFeeShare = {
+	typeUrl: "/juno.feeshare.v1.MsgRegisterFeeShare",
+	encode(
+		message: MsgRegisterFeeShare,
+		writer: BinaryWriter = BinaryWriter.create()
+	): BinaryWriter {
+		if (message.contractAddress !== undefined) {
+			writer.uint32(10).string(message.contractAddress)
+		}
+		if (message.deployerAddress !== undefined) {
+			writer.uint32(18).string(message.deployerAddress)
+		}
+		if (message.withdrawerAddress !== undefined) {
+			writer.uint32(26).string(message.withdrawerAddress)
+		}
+		return writer
+	},
+	decode(input: BinaryReader | Uint8Array, length?: number): MsgRegisterFeeShare {
+		const reader = input instanceof BinaryReader ? input : new BinaryReader(input)
+		const end = length === undefined ? reader.len : reader.pos + length
+		const message = createBaseMsgRegisterFeeShare()
+		while (reader.pos < end) {
+			const tag = reader.uint32()
+			switch (tag >>> 3) {
+				case 1:
+					message.contractAddress = reader.string()
+					break
+				case 2:
+					message.deployerAddress = reader.string()
+					break
+				case 3:
+					message.withdrawerAddress = reader.string()
+					break
+				default:
+					reader.skipType(tag & 7)
+					break
+			}
+		}
+		return message
+	},
+	fromPartial(object: Partial<MsgRegisterFeeShare>): MsgRegisterFeeShare {
+		const message = createBaseMsgRegisterFeeShare()
+		message.contractAddress = object.contractAddress ?? ""
+		message.deployerAddress = object.deployerAddress ?? ""
+		message.withdrawerAddress = object.withdrawerAddress ?? ""
+		return message
+	},
+	fromAmino(object: MsgRegisterFeeShareAmino): MsgRegisterFeeShare {
+		const message = createBaseMsgRegisterFeeShare()
+		if (object.contract_address !== undefined && object.contract_address !== null) {
+			message.contractAddress = object.contract_address
+		}
+		if (object.deployer_address !== undefined && object.deployer_address !== null) {
+			message.deployerAddress = object.deployer_address
+		}
+		if (object.withdrawer_address !== undefined && object.withdrawer_address !== null) {
+			message.withdrawerAddress = object.withdrawer_address
+		}
+		return message
+	},
+	toAmino(message: MsgRegisterFeeShare): MsgRegisterFeeShareAmino {
+		const obj: any = {}
+		obj.contract_address = message.contractAddress === "" ? undefined : message.contractAddress
+		obj.deployer_address = message.deployerAddress === "" ? undefined : message.deployerAddress
+		obj.withdrawer_address =
+			message.withdrawerAddress === "" ? undefined : message.withdrawerAddress
+		return obj
+	},
+	fromAminoMsg(object: MsgRegisterFeeShareAminoMsg): MsgRegisterFeeShare {
+		return MsgRegisterFeeShare.fromAmino(object.value)
+	},
+	toAminoMsg(message: MsgRegisterFeeShare): MsgRegisterFeeShareAminoMsg {
+		return {
+			type: "juno/x/feeshare/MsgRegisterFeeShare",
+			value: MsgRegisterFeeShare.toAmino(message)
+		}
+	},
+	fromProtoMsg(message: MsgRegisterFeeShareProtoMsg): MsgRegisterFeeShare {
+		return MsgRegisterFeeShare.decode(message.value)
+	},
+	toProto(message: MsgRegisterFeeShare): Uint8Array {
+		return MsgRegisterFeeShare.encode(message).finish()
+	},
+	toProtoMsg(message: MsgRegisterFeeShare): MsgRegisterFeeShareProtoMsg {
+		return {
+			typeUrl: "/juno.feeshare.v1.MsgRegisterFeeShare",
+			value: MsgRegisterFeeShare.encode(message).finish()
+		}
+	}
+}
+function createBaseMsgRegisterFeeShareResponse(): MsgRegisterFeeShareResponse {
+	return {}
+}
+export const MsgRegisterFeeShareResponse = {
+	typeUrl: "/juno.feeshare.v1.MsgRegisterFeeShareResponse",
+	encode(
+		_: MsgRegisterFeeShareResponse,
+		writer: BinaryWriter = BinaryWriter.create()
+	): BinaryWriter {
+		return writer
+	},
+	decode(input: BinaryReader | Uint8Array, length?: number): MsgRegisterFeeShareResponse {
+		const reader = input instanceof BinaryReader ? input : new BinaryReader(input)
+		const end = length === undefined ? reader.len : reader.pos + length
+		const message = createBaseMsgRegisterFeeShareResponse()
+		while (reader.pos < end) {
+			const tag = reader.uint32()
+			switch (tag >>> 3) {
+				default:
+					reader.skipType(tag & 7)
+					break
+			}
+		}
+		return message
+	},
+	fromPartial(_: Partial<MsgRegisterFeeShareResponse>): MsgRegisterFeeShareResponse {
+		const message = createBaseMsgRegisterFeeShareResponse()
+		return message
+	},
+	fromAmino(_: MsgRegisterFeeShareResponseAmino): MsgRegisterFeeShareResponse {
+		const message = createBaseMsgRegisterFeeShareResponse()
+		return message
+	},
+	toAmino(_: MsgRegisterFeeShareResponse): MsgRegisterFeeShareResponseAmino {
+		const obj: any = {}
+		return obj
+	},
+	fromAminoMsg(object: MsgRegisterFeeShareResponseAminoMsg): MsgRegisterFeeShareResponse {
+		return MsgRegisterFeeShareResponse.fromAmino(object.value)
+	},
+	fromProtoMsg(message: MsgRegisterFeeShareResponseProtoMsg): MsgRegisterFeeShareResponse {
+		return MsgRegisterFeeShareResponse.decode(message.value)
+	},
+	toProto(message: MsgRegisterFeeShareResponse): Uint8Array {
+		return MsgRegisterFeeShareResponse.encode(message).finish()
+	},
+	toProtoMsg(message: MsgRegisterFeeShareResponse): MsgRegisterFeeShareResponseProtoMsg {
+		return {
+			typeUrl: "/juno.feeshare.v1.MsgRegisterFeeShareResponse",
+			value: MsgRegisterFeeShareResponse.encode(message).finish()
+		}
+	}
+}
+function createBaseMsgUpdateFeeShare(): MsgUpdateFeeShare {
+	return {
+		contractAddress: "",
+		deployerAddress: "",
+		withdrawerAddress: ""
+	}
+}
+export const MsgUpdateFeeShare = {
+	typeUrl: "/juno.feeshare.v1.MsgUpdateFeeShare",
+	encode(message: MsgUpdateFeeShare, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+		if (message.contractAddress !== undefined) {
+			writer.uint32(10).string(message.contractAddress)
+		}
+		if (message.deployerAddress !== undefined) {
+			writer.uint32(18).string(message.deployerAddress)
+		}
+		if (message.withdrawerAddress !== undefined) {
+			writer.uint32(26).string(message.withdrawerAddress)
+		}
+		return writer
+	},
+	decode(input: BinaryReader | Uint8Array, length?: number): MsgUpdateFeeShare {
+		const reader = input instanceof BinaryReader ? input : new BinaryReader(input)
+		const end = length === undefined ? reader.len : reader.pos + length
+		const message = createBaseMsgUpdateFeeShare()
+		while (reader.pos < end) {
+			const tag = reader.uint32()
+			switch (tag >>> 3) {
+				case 1:
+					message.contractAddress = reader.string()
+					break
+				case 2:
+					message.deployerAddress = reader.string()
+					break
+				case 3:
+					message.withdrawerAddress = reader.string()
+					break
+				default:
+					reader.skipType(tag & 7)
+					break
+			}
+		}
+		return message
+	},
+	fromPartial(object: Partial<MsgUpdateFeeShare>): MsgUpdateFeeShare {
+		const message = createBaseMsgUpdateFeeShare()
+		message.contractAddress = object.contractAddress ?? ""
+		message.deployerAddress = object.deployerAddress ?? ""
+		message.withdrawerAddress = object.withdrawerAddress ?? ""
+		return message
+	},
+	fromAmino(object: MsgUpdateFeeShareAmino): MsgUpdateFeeShare {
+		const message = createBaseMsgUpdateFeeShare()
+		if (object.contract_address !== undefined && object.contract_address !== null) {
+			message.contractAddress = object.contract_address
+		}
+		if (object.deployer_address !== undefined && object.deployer_address !== null) {
+			message.deployerAddress = object.deployer_address
+		}
+		if (object.withdrawer_address !== undefined && object.withdrawer_address !== null) {
+			message.withdrawerAddress = object.withdrawer_address
+		}
+		return message
+	},
+	toAmino(message: MsgUpdateFeeShare): MsgUpdateFeeShareAmino {
+		const obj: any = {}
+		obj.contract_address = message.contractAddress === "" ? undefined : message.contractAddress
+		obj.deployer_address = message.deployerAddress === "" ? undefined : message.deployerAddress
+		obj.withdrawer_address =
+			message.withdrawerAddress === "" ? undefined : message.withdrawerAddress
+		return obj
+	},
+	fromAminoMsg(object: MsgUpdateFeeShareAminoMsg): MsgUpdateFeeShare {
+		return MsgUpdateFeeShare.fromAmino(object.value)
+	},
+	toAminoMsg(message: MsgUpdateFeeShare): MsgUpdateFeeShareAminoMsg {
+		return {
+			type: "juno/x/feeshare/MsgUpdateFeeShare",
+			value: MsgUpdateFeeShare.toAmino(message)
+		}
+	},
+	fromProtoMsg(message: MsgUpdateFeeShareProtoMsg): MsgUpdateFeeShare {
+		return MsgUpdateFeeShare.decode(message.value)
+	},
+	toProto(message: MsgUpdateFeeShare): Uint8Array {
+		return MsgUpdateFeeShare.encode(message).finish()
+	},
+	toProtoMsg(message: MsgUpdateFeeShare): MsgUpdateFeeShareProtoMsg {
+		return {
+			typeUrl: "/juno.feeshare.v1.MsgUpdateFeeShare",
+			value: MsgUpdateFeeShare.encode(message).finish()
+		}
+	}
+}
+function createBaseMsgUpdateFeeShareResponse(): MsgUpdateFeeShareResponse {
+	return {}
+}
+export const MsgUpdateFeeShareResponse = {
+	typeUrl: "/juno.feeshare.v1.MsgUpdateFeeShareResponse",
+	encode(
+		_: MsgUpdateFeeShareResponse,
+		writer: BinaryWriter = BinaryWriter.create()
+	): BinaryWriter {
+		return writer
+	},
+	decode(input: BinaryReader | Uint8Array, length?: number): MsgUpdateFeeShareResponse {
+		const reader = input instanceof BinaryReader ? input : new BinaryReader(input)
+		const end = length === undefined ? reader.len : reader.pos + length
+		const message = createBaseMsgUpdateFeeShareResponse()
+		while (reader.pos < end) {
+			const tag = reader.uint32()
+			switch (tag >>> 3) {
+				default:
+					reader.skipType(tag & 7)
+					break
+			}
+		}
+		return message
+	},
+	fromPartial(_: Partial<MsgUpdateFeeShareResponse>): MsgUpdateFeeShareResponse {
+		const message = createBaseMsgUpdateFeeShareResponse()
+		return message
+	},
+	fromAmino(_: MsgUpdateFeeShareResponseAmino): MsgUpdateFeeShareResponse {
+		const message = createBaseMsgUpdateFeeShareResponse()
+		return message
+	},
+	toAmino(_: MsgUpdateFeeShareResponse): MsgUpdateFeeShareResponseAmino {
+		const obj: any = {}
+		return obj
+	},
+	fromAminoMsg(object: MsgUpdateFeeShareResponseAminoMsg): MsgUpdateFeeShareResponse {
+		return MsgUpdateFeeShareResponse.fromAmino(object.value)
+	},
+	fromProtoMsg(message: MsgUpdateFeeShareResponseProtoMsg): MsgUpdateFeeShareResponse {
+		return MsgUpdateFeeShareResponse.decode(message.value)
+	},
+	toProto(message: MsgUpdateFeeShareResponse): Uint8Array {
+		return MsgUpdateFeeShareResponse.encode(message).finish()
+	},
+	toProtoMsg(message: MsgUpdateFeeShareResponse): MsgUpdateFeeShareResponseProtoMsg {
+		return {
+			typeUrl: "/juno.feeshare.v1.MsgUpdateFeeShareResponse",
+			value: MsgUpdateFeeShareResponse.encode(message).finish()
+		}
+	}
+}
+function createBaseMsgCancelFeeShare(): MsgCancelFeeShare {
+	return {
+		contractAddress: "",
+		deployerAddress: ""
+	}
+}
+export const MsgCancelFeeShare = {
+	typeUrl: "/juno.feeshare.v1.MsgCancelFeeShare",
+	encode(message: MsgCancelFeeShare, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+		if (message.contractAddress !== undefined) {
+			writer.uint32(10).string(message.contractAddress)
+		}
+		if (message.deployerAddress !== undefined) {
+			writer.uint32(18).string(message.deployerAddress)
+		}
+		return writer
+	},
+	decode(input: BinaryReader | Uint8Array, length?: number): MsgCancelFeeShare {
+		const reader = input instanceof BinaryReader ? input : new BinaryReader(input)
+		const end = length === undefined ? reader.len : reader.pos + length
+		const message = createBaseMsgCancelFeeShare()
+		while (reader.pos < end) {
+			const tag = reader.uint32()
+			switch (tag >>> 3) {
+				case 1:
+					message.contractAddress = reader.string()
+					break
+				case 2:
+					message.deployerAddress = reader.string()
+					break
+				default:
+					reader.skipType(tag & 7)
+					break
+			}
+		}
+		return message
+	},
+	fromPartial(object: Partial<MsgCancelFeeShare>): MsgCancelFeeShare {
+		const message = createBaseMsgCancelFeeShare()
+		message.contractAddress = object.contractAddress ?? ""
+		message.deployerAddress = object.deployerAddress ?? ""
+		return message
+	},
+	fromAmino(object: MsgCancelFeeShareAmino): MsgCancelFeeShare {
+		const message = createBaseMsgCancelFeeShare()
+		if (object.contract_address !== undefined && object.contract_address !== null) {
+			message.contractAddress = object.contract_address
+		}
+		if (object.deployer_address !== undefined && object.deployer_address !== null) {
+			message.deployerAddress = object.deployer_address
+		}
+		return message
+	},
+	toAmino(message: MsgCancelFeeShare): MsgCancelFeeShareAmino {
+		const obj: any = {}
+		obj.contract_address = message.contractAddress === "" ? undefined : message.contractAddress
+		obj.deployer_address = message.deployerAddress === "" ? undefined : message.deployerAddress
+		return obj
+	},
+	fromAminoMsg(object: MsgCancelFeeShareAminoMsg): MsgCancelFeeShare {
+		return MsgCancelFeeShare.fromAmino(object.value)
+	},
+	toAminoMsg(message: MsgCancelFeeShare): MsgCancelFeeShareAminoMsg {
+		return {
+			type: "juno/x/feeshare/MsgCancelFeeShare",
+			value: MsgCancelFeeShare.toAmino(message)
+		}
+	},
+	fromProtoMsg(message: MsgCancelFeeShareProtoMsg): MsgCancelFeeShare {
+		return MsgCancelFeeShare.decode(message.value)
+	},
+	toProto(message: MsgCancelFeeShare): Uint8Array {
+		return MsgCancelFeeShare.encode(message).finish()
+	},
+	toProtoMsg(message: MsgCancelFeeShare): MsgCancelFeeShareProtoMsg {
+		return {
+			typeUrl: "/juno.feeshare.v1.MsgCancelFeeShare",
+			value: MsgCancelFeeShare.encode(message).finish()
+		}
+	}
+}
+function createBaseMsgCancelFeeShareResponse(): MsgCancelFeeShareResponse {
+	return {}
+}
+export const MsgCancelFeeShareResponse = {
+	typeUrl: "/juno.feeshare.v1.MsgCancelFeeShareResponse",
+	encode(
+		_: MsgCancelFeeShareResponse,
+		writer: BinaryWriter = BinaryWriter.create()
+	): BinaryWriter {
+		return writer
+	},
+	decode(input: BinaryReader | Uint8Array, length?: number): MsgCancelFeeShareResponse {
+		const reader = input instanceof BinaryReader ? input : new BinaryReader(input)
+		const end = length === undefined ? reader.len : reader.pos + length
+		const message = createBaseMsgCancelFeeShareResponse()
+		while (reader.pos < end) {
+			const tag = reader.uint32()
+			switch (tag >>> 3) {
+				default:
+					reader.skipType(tag & 7)
+					break
+			}
+		}
+		return message
+	},
+	fromPartial(_: Partial<MsgCancelFeeShareResponse>): MsgCancelFeeShareResponse {
+		const message = createBaseMsgCancelFeeShareResponse()
+		return message
+	},
+	fromAmino(_: MsgCancelFeeShareResponseAmino): MsgCancelFeeShareResponse {
+		const message = createBaseMsgCancelFeeShareResponse()
+		return message
+	},
+	toAmino(_: MsgCancelFeeShareResponse): MsgCancelFeeShareResponseAmino {
+		const obj: any = {}
+		return obj
+	},
+	fromAminoMsg(object: MsgCancelFeeShareResponseAminoMsg): MsgCancelFeeShareResponse {
+		return MsgCancelFeeShareResponse.fromAmino(object.value)
+	},
+	fromProtoMsg(message: MsgCancelFeeShareResponseProtoMsg): MsgCancelFeeShareResponse {
+		return MsgCancelFeeShareResponse.decode(message.value)
+	},
+	toProto(message: MsgCancelFeeShareResponse): Uint8Array {
+		return MsgCancelFeeShareResponse.encode(message).finish()
+	},
+	toProtoMsg(message: MsgCancelFeeShareResponse): MsgCancelFeeShareResponseProtoMsg {
+		return {
+			typeUrl: "/juno.feeshare.v1.MsgCancelFeeShareResponse",
+			value: MsgCancelFeeShareResponse.encode(message).finish()
+		}
+	}
+}
+function createBaseMsgUpdateParams(): MsgUpdateParams {
+	return {
+		authority: "",
+		params: Params.fromPartial({})
+	}
+}
+export const MsgUpdateParams = {
+	typeUrl: "/juno.feeshare.v1.MsgUpdateParams",
+	encode(message: MsgUpdateParams, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+		if (message.authority !== undefined) {
+			writer.uint32(10).string(message.authority)
+		}
+		if (message.params !== undefined) {
+			Params.encode(message.params, writer.uint32(18).fork()).ldelim()
+		}
+		return writer
+	},
+	decode(input: BinaryReader | Uint8Array, length?: number): MsgUpdateParams {
+		const reader = input instanceof BinaryReader ? input : new BinaryReader(input)
+		const end = length === undefined ? reader.len : reader.pos + length
+		const message = createBaseMsgUpdateParams()
+		while (reader.pos < end) {
+			const tag = reader.uint32()
+			switch (tag >>> 3) {
+				case 1:
+					message.authority = reader.string()
+					break
+				case 2:
+					message.params = Params.decode(reader, reader.uint32())
+					break
+				default:
+					reader.skipType(tag & 7)
+					break
+			}
+		}
+		return message
+	},
+	fromPartial(object: Partial<MsgUpdateParams>): MsgUpdateParams {
+		const message = createBaseMsgUpdateParams()
+		message.authority = object.authority ?? ""
+		message.params =
+			object.params !== undefined && object.params !== null
+				? Params.fromPartial(object.params)
+				: undefined
+		return message
+	},
+	fromAmino(object: MsgUpdateParamsAmino): MsgUpdateParams {
+		const message = createBaseMsgUpdateParams()
+		if (object.authority !== undefined && object.authority !== null) {
+			message.authority = object.authority
+		}
+		if (object.params !== undefined && object.params !== null) {
+			message.params = Params.fromAmino(object.params)
+		}
+		return message
+	},
+	toAmino(message: MsgUpdateParams): MsgUpdateParamsAmino {
+		const obj: any = {}
+		obj.authority = message.authority === "" ? undefined : message.authority
+		obj.params = message.params
+			? Params.toAmino(message.params)
+			: Params.toAmino(Params.fromPartial({}))
+		return obj
+	},
+	fromAminoMsg(object: MsgUpdateParamsAminoMsg): MsgUpdateParams {
+		return MsgUpdateParams.fromAmino(object.value)
+	},
+	toAminoMsg(message: MsgUpdateParams): MsgUpdateParamsAminoMsg {
+		return {
+			type: "juno/x/feeshare/MsgUpdateParams",
+			value: MsgUpdateParams.toAmino(message)
+		}
+	},
+	fromProtoMsg(message: MsgUpdateParamsProtoMsg): MsgUpdateParams {
+		return MsgUpdateParams.decode(message.value)
+	},
+	toProto(message: MsgUpdateParams): Uint8Array {
+		return MsgUpdateParams.encode(message).finish()
+	},
+	toProtoMsg(message: MsgUpdateParams): MsgUpdateParamsProtoMsg {
+		return {
+			typeUrl: "/juno.feeshare.v1.MsgUpdateParams",
+			value: MsgUpdateParams.encode(message).finish()
+		}
+	}
+}
+function createBaseMsgUpdateParamsResponse(): MsgUpdateParamsResponse {
+	return {}
+}
+export const MsgUpdateParamsResponse = {
+	typeUrl: "/juno.feeshare.v1.MsgUpdateParamsResponse",
+	encode(_: MsgUpdateParamsResponse, writer: BinaryWriter = BinaryWriter.create()): BinaryWriter {
+		return writer
+	},
+	decode(input: BinaryReader | Uint8Array, length?: number): MsgUpdateParamsResponse {
+		const reader = input instanceof BinaryReader ? input : new BinaryReader(input)
+		const end = length === undefined ? reader.len : reader.pos + length
+		const message = createBaseMsgUpdateParamsResponse()
+		while (reader.pos < end) {
+			const tag = reader.uint32()
+			switch (tag >>> 3) {
+				default:
+					reader.skipType(tag & 7)
+					break
+			}
+		}
+		return message
+	},
+	fromPartial(_: Partial<MsgUpdateParamsResponse>): MsgUpdateParamsResponse {
+		const message = createBaseMsgUpdateParamsResponse()
+		return message
+	},
+	fromAmino(_: MsgUpdateParamsResponseAmino): MsgUpdateParamsResponse {
+		const message = createBaseMsgUpdateParamsResponse()
+		return message
+	},
+	toAmino(_: MsgUpdateParamsResponse): MsgUpdateParamsResponseAmino {
+		const obj: any = {}
+		return obj
+	},
+	fromAminoMsg(object: MsgUpdateParamsResponseAminoMsg): MsgUpdateParamsResponse {
+		return MsgUpdateParamsResponse.fromAmino(object.value)
+	},
+	fromProtoMsg(message: MsgUpdateParamsResponseProtoMsg): MsgUpdateParamsResponse {
+		return MsgUpdateParamsResponse.decode(message.value)
+	},
+	toProto(message: MsgUpdateParamsResponse): Uint8Array {
+		return MsgUpdateParamsResponse.encode(message).finish()
+	},
+	toProtoMsg(message: MsgUpdateParamsResponse): MsgUpdateParamsResponseProtoMsg {
+		return {
+			typeUrl: "/juno.feeshare.v1.MsgUpdateParamsResponse",
+			value: MsgUpdateParamsResponse.encode(message).finish()
+		}
+	}
+}

@@ -1,0 +1,25 @@
+{
+	"compilerOptions": {
+		"target": "ES2020",
+		"module": "ESNext",
+		"moduleResolution": "bundler",
+		"esModuleInterop": true,
+		"strict": true,
+		"skipLibCheck": true,
+		"types": ["bun-types"],
+		"outDir": "./dist",
+		"rootDir": "./src",
+		"baseUrl": ".",
+		"paths": {
+			"@buildonjuno/junojs": ["dist/esm/index.mjs", "dist/cjs/index.cjs"],
+			"@buildonjuno/junojs/*": [
+				"dist/esm/*/index.mjs",
+				"dist/cjs/*/index.cjs"
+			]
+		},
+		"declaration": true,
+		"isolatedDeclarations": false
+	},
+	"include": ["src/**/*"],
+	"exclude": ["node_modules", "dist"]
+}
