@@ -74,9 +74,7 @@
 	"directories": {
 		"lib": "src"
 	},
-	"files": [
-		"dist"
-	],
+	"files": ["dist"],
 	"homepage": "https://junonetwork.io",
 	"keywords": [],
 	"license": "SEE LICENSE IN LICENSE",
@@ -111,7 +109,7 @@
 		"protobufjs"
 	],
 	"typings": "types/index.d.ts",
-	"version": "29.0.0",
+	"version": "28.0.2-beta.0",
 	"type": "module",
 	"engines": {
 		"bun": ">=1.2.0"

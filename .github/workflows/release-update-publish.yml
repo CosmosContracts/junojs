@@ -1,0 +1,79 @@
+name: Build, Commit, Publish and Release on new Juno Release
+
+on:
+  repository_dispatch:
+    types: [juno-release]
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+
+      - name: Setup Bun
+        uses: oven-sh/setup-bun@v2
+        with:
+          bun-version: latest
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          registry-url: 'https://registry.npmjs.org/'
+
+      - name: Authenticate with npm
+        run: echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: Set REPO_CONFIG from Payload
+        run: |
+          echo 'REPO_CONFIG<<EOF' >> $GITHUB_ENV
+          echo '${{ toJson(github.event.client_payload.repo_config) }}' >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
+          echo $GITHUB_ENV
+
+      - name: Install & Build
+        run: |
+          bun install --frozen-lockfile
+          bun run build
+
+      - name: Bump package.json version
+        run: |
+          # Extract release tag from payload (e.g. "v28.0.2")
+          NEW_VERSION="${{ github.event.client_payload.release_tag }}"
+          # Remove the leading "v"
+          NEW_VERSION=${NEW_VERSION#v}
+          echo "Setting version to $NEW_VERSION"
+          sed -i -E "s/\"version\": \"[0-9]+\.[0-9]+\.[0-9]+\"/\"version\": \"${NEW_VERSION}\"/" package.json
+
+      - name: Commit and Push Changes
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          if ! git diff --quiet; then
+            git add package.json package-lock.json
+            git commit -m "junojs for Juno ${{ github.event.client_payload.release_tag }}"
+            git push
+          else
+            echo "No version changes to commit."
+          fi
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ github.ref_name }}
+          name: "Release ${{ github.event.client_payload.release_tag }}"
+          body: "junojs for Juno ${{ github.event.client_payload.release_tag }}"
+          draft: ${{ github.event.client_payload.is_draft }}
+          prerelease: ${{ github.event.client_payload.is_prerelease }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Publish to npm with Bun
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+        run: bun publish --access public
