@@ -93,7 +93,7 @@
 		"download": "bun run scripts/download-repositories.ts",
 		"generate": "bun run scripts/generate-source.ts",
 		"fixCosmosImports": "bun run scripts/fix-cosmos-imports.ts",
-		"build": "bun generate && bun fixCosmosImports && bun barrel && bun lint:fixunsafe && bun run clean && rolldown -c rolldown.config.ts",
+		"build": "bun download && bun generate && bun fixCosmosImports && bun barrel && bun lint:fixunsafe && bun run clean && rolldown -c rolldown.config.ts",
 		"rebuild": "bun run clean && rolldown -c rolldown.config.ts",
 		"lint": "biome check ./src",
 		"lint:fix": "biome check ./src --fix",
